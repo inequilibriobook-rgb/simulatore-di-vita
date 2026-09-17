@@ -2,8 +2,8 @@
    Registrato da app/interfaccia/installa.js solo quando il simulatore arriva da un indirizzo web.
    Alla prima apertura scarica tutti i file qui sotto; da allora le pagine si aprono anche senza
    rete. Quando l'elenco o un file cambia, cambia la versione, e i dispositivi si aggiornano da soli.
-   Versione: 293d2620b6b4 (65 file). */
-var VERSIONE = 'simulatore-293d2620b6b4';
+   Versione: 81ddb3072964 (67 file). */
+var VERSIONE = 'simulatore-81ddb3072964';
 var FILE = [
   'APRI-QUI.html',
   'CATENA.html',
@@ -28,6 +28,7 @@ var FILE = [
   'app/dati/lessico.js',
   'app/dati/percorso.js',
   'app/dati/questionario.js',
+  'app/dati/sillabazione-it.js',
   'app/dati/spiegazioni.js',
   'app/dati/verifica.js',
   'app/icone/icona-180.png',
@@ -55,6 +56,7 @@ var FILE = [
   'app/interfaccia/racconto-vista.js',
   'app/interfaccia/scena-ui.js',
   'app/interfaccia/settimana.js',
+  'app/interfaccia/sillaba.js',
   'app/interfaccia/traiettoria.js',
   'app/motore/analisi.js',
   'app/motore/casuale-mt.js',

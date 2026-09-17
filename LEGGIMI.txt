@@ -20,6 +20,11 @@ SUL TELEFONO E SUL TABLET
   quando il simulatore arriva da un indirizzo web. Aperto dal disco con il
   doppio clic non cambia niente. index.html serve solo all'indirizzo web:
   manda subito ad APRI-QUI.html. Le icone stanno in app/icone/.
+  Il testo che corre è giustificato e sillabato in italiano: le regole di
+  sillabazione (il dizionario di LibreOffice) stanno in
+  app/dati/sillabazione-it.js, generato da scripts/genera_sillabazione.py,
+  e app/interfaccia/sillaba.js mette i trattini morbidi nelle parole
+  lunghe, così le righe si chiudono uguali su ogni browser e ogni schermo.
 
 LE DODICI PAGINE
   Quattro sono i gradini della scala del tempo: il gesto, la catena, la

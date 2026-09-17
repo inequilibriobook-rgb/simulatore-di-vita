@@ -372,7 +372,9 @@
     Array.prototype.forEach.call(wiki.querySelectorAll('.wiki-pagina'), function (p) {
       var qualcuna = false;
       Array.prototype.forEach.call(p.querySelectorAll('.voce-glossario'), function (v) {
-        var dentro = v.textContent.toLowerCase().indexOf(cerca) >= 0;
+        /* i trattini morbidi della sillabazione (U+00AD) non devono
+           impedire di trovare una parola */
+        var dentro = v.textContent.replace(/\u00AD/g, '').toLowerCase().indexOf(cerca) >= 0;
         v.hidden = !dentro;
         if (dentro) { qualcuna = true; visti++; }
       });
