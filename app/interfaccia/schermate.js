@@ -26,6 +26,21 @@
       (data-uscita="PAGINA.html" data-uscita-testo="…"). Sull'ultimo passo
       compare, se c'e', la scelta finale (un elemento con data-passi-fine
       dentro la scheda).
+
+   3. LE SCHEDE DEI RISULTATI — <section class="riquadro" data-scheda>
+      (17/09/2026, sera) Igor: «le pagine-strumento restano lunghissime,
+      i risultati sono tutti aperti in fila». Le sezioni consecutive con
+      data-scheda diventano un gruppo di schede: se ne vede una alla volta,
+      con una barra fissa in cima («‹ · Sezione 3 di 8: titolo ▾ · ›») che
+      apre un elenco verticale delle sezioni — verticale, perche' Igor non
+      vuole menu che scorrono di lato — e in fondo a ogni scheda il tasto
+      «Dopo». Le schede nascoste NON sono display:none: stanno fuori dallo
+      schermo, larghe come la pagina, cosi' le figure che vi vengono
+      disegnate dentro hanno la larghezza giusta anche prima di essere
+      viste. Le sezioni che partono nascoste (display:none finche' non c'e'
+      un risultato) non compaiono nell'elenco finche' restano nascoste.
+      L'indirizzo (#sezione-6) e i collegamenti data-apri mostrano la
+      scheda giusta. In stampa si vedono tutte.
    ========================================================================== */
 (function (globale) {
   'use strict';
@@ -90,6 +105,7 @@
     if (!h || h.length < 2) { return; }
     var el = document.getElementById(h.slice(1));
     if (!el) { return; }
+    var scheda = mostraSchedaDi(el);
     var sez = el.closest ? el.closest('.apribile') : null;
     if (sez && sez.__apri && !sez.classList.contains('aperta')) { sez.__apri(true); }
     /* se l'ancora sta dentro un passo, si mostra quel passo */
@@ -97,7 +113,7 @@
     if (passo && passo.parentElement.__mostra) {
       passo.parentElement.__mostra(parseInt(passo.getAttribute('data-passo'), 10) - 1, false);
     }
-    if (sez || passo) { setTimeout(function () { el.scrollIntoView({ block: 'start' }); }, 60); }
+    if (sez || passo || scheda) { setTimeout(function () { el.scrollIntoView({ block: 'start' }); }, 60); }
   }
 
   /* ----------------------------- le schede a passi ------------------------ */
@@ -174,8 +190,153 @@
     mostra(0, false);
   }
 
+  /* ---------------------------------------------------------------------
+     3. LE SCHEDE DEI RISULTATI
+     --------------------------------------------------------------------- */
+  function titoloDi(sez) {
+    var h = sez.querySelector('h2');
+    if (!h) { return sez.getAttribute('data-scheda') || ''; }
+    var t = h.querySelector('.sezione-t');
+    var testo = t ? t.textContent : h.textContent.replace(/^\s*\d+\s*·\s*/, '');
+    return testo.replace(/\s+/g, ' ').trim();
+  }
+  function nascostaDaSola(sez) {
+    /* la sezione che il codice della pagina tiene nascosta finche' non c'e'
+       un risultato (style="display:none") */
+    return sez.style && sez.style.display === 'none';
+  }
+  function montaSchede(gruppo) {
+    if (!gruppo.length || gruppo[0].__schede) { return; }
+    var padre = gruppo[0].parentNode;
+    padre.classList.add('con-schede');
+    var nav = document.createElement('div');
+    nav.className = 'schede-nav no-stampa';
+    nav.innerHTML =
+      '<button type="button" class="schede-prima" aria-label="Sezione precedente">‹</button>' +
+      '<button type="button" class="schede-apri" aria-expanded="false" aria-haspopup="true">' +
+        '<small class="schede-dove"></small><b class="schede-titolo"></b><span class="schede-freccia" aria-hidden="true">▾</span></button>' +
+      '<button type="button" class="schede-dopo" aria-label="Sezione successiva">›</button>';
+    var elenco = document.createElement('div');
+    elenco.className = 'schede-elenco no-stampa';
+    elenco.hidden = true;
+    padre.insertBefore(nav, gruppo[0]);
+    padre.insertBefore(elenco, gruppo[0]);
+    var corrente = 0;
+
+    function visibili() { return gruppo.filter(function (g) { return !nascostaDaSola(g); }); }
+    function aggiorna() {
+      var vis = visibili();
+      var k = vis.indexOf(gruppo[corrente]);
+      /* finche' nessuna scheda ha qualcosa da mostrare, la barra non c'e' */
+      nav.hidden = vis.length === 0;
+      if (vis.length === 0) { elenco.hidden = true; }
+      nav.querySelector('.schede-dove').textContent = vis.length ? 'Sezione ' + (k + 1) + ' di ' + vis.length : '';
+      nav.querySelector('.schede-titolo').textContent = titoloDi(gruppo[corrente]);
+      nav.querySelector('.schede-prima').disabled = k <= 0;
+      nav.querySelector('.schede-dopo').disabled = k < 0 || k >= vis.length - 1;
+      elenco.innerHTML = vis.map(function (g) {
+        var i = gruppo.indexOf(g);
+        return '<button type="button" class="schede-voce' + (i === corrente ? ' qui' : '') + '" data-i="' + i + '">' +
+          '<span class="schede-n">' + (vis.indexOf(g) + 1) + '</span><span>' + esc(titoloDi(g)) + '</span></button>';
+      }).join('');
+      /* in fondo a ogni scheda, il tasto per la successiva */
+      gruppo.forEach(function (g, i) {
+        var piede = g.querySelector(':scope > .schede-piede');
+        if (!piede) {
+          piede = document.createElement('div');
+          piede.className = 'schede-piede no-stampa';
+          g.appendChild(piede);
+        }
+        var j = vis.indexOf(g);
+        var dopo = (j >= 0 && j < vis.length - 1) ? vis[j + 1] : null;
+        piede.innerHTML = dopo
+          ? '<button type="button" class="schede-avanti" data-i="' + gruppo.indexOf(dopo) + '">' +
+              '<small>Dopo, sezione ' + (j + 2) + ' di ' + vis.length + '</small><b>' + esc(titoloDi(dopo)) + ' ›</b></button>'
+          : '';
+      });
+    }
+    function mostra(i, scorri) {
+      if (i < 0 || i >= gruppo.length) { return; }
+      corrente = i;
+      gruppo.forEach(function (g, j) { g.classList.toggle('scheda-via', j !== i); g.classList.toggle('scheda-qui', j === i); });
+      chiudiElenco();
+      aggiorna();
+      if (globale.FormuleVista && globale.FormuleVista.adatta) {
+        setTimeout(function () { globale.FormuleVista.adatta(gruppo[i]); }, 30);
+      }
+      try { globale.dispatchEvent(new Event('resize')); } catch (e) { /* browser vecchio */ }
+      if (scorri) {
+        var r = nav.getBoundingClientRect();
+        if (r.top < 0 || r.top > 140) { setTimeout(function () { nav.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 20); }
+      }
+    }
+    function apriElenco() { elenco.hidden = false; nav.classList.add('aperto'); nav.querySelector('.schede-apri').setAttribute('aria-expanded', 'true'); }
+    function chiudiElenco() { elenco.hidden = true; nav.classList.remove('aperto'); nav.querySelector('.schede-apri').setAttribute('aria-expanded', 'false'); }
+    nav.querySelector('.schede-apri').addEventListener('click', function () { if (elenco.hidden) { apriElenco(); } else { chiudiElenco(); } });
+    nav.querySelector('.schede-prima').addEventListener('click', function () {
+      var vis = visibili(), k = vis.indexOf(gruppo[corrente]);
+      if (k > 0) { mostra(gruppo.indexOf(vis[k - 1]), true); }
+    });
+    nav.querySelector('.schede-dopo').addEventListener('click', function () {
+      var vis = visibili(), k = vis.indexOf(gruppo[corrente]);
+      if (k >= 0 && k < vis.length - 1) { mostra(gruppo.indexOf(vis[k + 1]), true); }
+    });
+    elenco.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.schede-voce') : null;
+      if (b) { mostra(parseInt(b.getAttribute('data-i'), 10), true); }
+    });
+    padre.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.schede-avanti') : null;
+      if (b) { mostra(parseInt(b.getAttribute('data-i'), 10), true); }
+    });
+    /* le sezioni che si mostrano o si nascondono da sole aggiornano l'elenco */
+    if (globale.MutationObserver) {
+      var oss = new MutationObserver(function () {
+        if (nascostaDaSola(gruppo[corrente])) {
+          var vis = visibili();
+          if (vis.length) { mostra(gruppo.indexOf(vis[0]), false); return; }
+        }
+        aggiorna();
+      });
+      gruppo.forEach(function (g) { oss.observe(g, { attributes: true, attributeFilter: ['style'] }); });
+    }
+    gruppo.forEach(function (g, i) {
+      g.__schede = true;
+      g.__mostraScheda = function (scorri) { mostra(i, scorri); };
+    });
+    var prima = visibili()[0];
+    mostra(prima ? gruppo.indexOf(prima) : 0, false);
+  }
+  function montaTutteLeSchede() {
+    var sezioni = Array.prototype.slice.call(document.querySelectorAll('section[data-scheda]'));
+    var gruppi = [], attuale = [];
+    sezioni.forEach(function (sez) {
+      if (attuale.length) {
+        /* consecutive: stesso genitore, e fra le due solo testo o elementi non-sezione senza data-scheda */
+        var ultima = attuale[attuale.length - 1];
+        var n = ultima.nextSibling, vicina = false;
+        while (n) {
+          if (n === sez) { vicina = true; break; }
+          if (n.nodeType === 1 && n.tagName === 'SECTION') { break; }
+          n = n.nextSibling;
+        }
+        if (vicina && sez.parentNode === ultima.parentNode) { attuale.push(sez); return; }
+        gruppi.push(attuale); attuale = [];
+      }
+      attuale.push(sez);
+    });
+    if (attuale.length) { gruppi.push(attuale); }
+    gruppi.forEach(function (g) { if (g.length > 1) { montaSchede(g); } });
+  }
+  function mostraSchedaDi(el) {
+    var sez = el.closest ? el.closest('section[data-scheda]') : null;
+    if (sez && sez.__mostraScheda && sez.classList.contains('scheda-via')) { sez.__mostraScheda(false); return true; }
+    return false;
+  }
+
   function avvia() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-passi]'), montaPassi);
+    montaTutteLeSchede();
     Array.prototype.forEach.call(document.querySelectorAll('section[data-apribile]'), montaApribile);
     apriPerAncora();
     globale.addEventListener('hashchange', apriPerAncora);
@@ -186,6 +347,7 @@
       var el = document.querySelector(a.getAttribute('data-apri'));
       if (!el) { return; }
       e.preventDefault();
+      mostraSchedaDi(el);
       var sez = el.closest('.apribile') || el;
       if (sez.__apri) { sez.__apri(true); }
       if (el.__mostra) { el.__mostra(0, false); }
@@ -193,7 +355,7 @@
     });
   }
 
-  var API = { montaApribile: montaApribile, montaPassi: montaPassi, avvia: avvia };
+  var API = { montaApribile: montaApribile, montaPassi: montaPassi, montaSchede: montaTutteLeSchede, avvia: avvia };
   globale.Schermate = API;
   if (typeof module !== 'undefined' && module.exports) { module.exports = API; }
   if (typeof document !== 'undefined') {

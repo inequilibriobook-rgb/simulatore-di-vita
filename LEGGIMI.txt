@@ -26,6 +26,22 @@ SUL TELEFONO E SUL TABLET
   app/dati/sillabazione-it.js, generato da scripts/genera_sillabazione.py,
   e app/interfaccia/sillaba.js mette i trattini morbidi nelle parole
   lunghe, così le righe si chiudono uguali su ogni browser e ogni schermo.
+  Nelle pagine-strumento i risultati stanno in schede (app/interfaccia/
+  schermate.js, sezioni con data-scheda): se ne vede una alla volta, con
+  la barra fissa in cima («‹ · Sezione 3 di 8: titolo ▾ · ›») che apre
+  l'elenco verticale, e in fondo a ogni scheda il tasto «Dopo». Le schede
+  non viste stanno fuori dallo schermo, larghe come la pagina, cosi' le
+  figure vi si disegnano giuste; in stampa si vedono tutte.
+  Le parole con il punto interrogativo aprono la spiegazione subito sotto
+  la parola, larga quanto il testo, una alla volta; un clic sulla parola o
+  un doppio clic sul riquadro la chiude. Sotto i 600 px le tabelle con una
+  colonna di frasi diventano schede impilate. Il tastino tondo con le tre
+  T, accanto al menu fino a 1100 px, cambia la misura del testo (normale,
+  grande, grandissimo): la scelta viaggia nell'indirizzo (?testo=grande),
+  non nella memoria del browser. Due prove dal vivo, da lanciare nella
+  console del browser con il simulatore aperto da un server locale:
+  scripts/verifica-schermi.html e scripts/verifica-glosse.js (clicca ogni
+  «?» su dodici pagine a sette larghezze e misura il riquadro).
   Gli esempi pronti (le dodici schede di ESEMPI.html e la scala di P0 del
   questionario) citano la pagina del libro stampato: le pagine le scrive
   scripts/pagine_libro.py leggendo il PDF dell'edizione KDP, e si rilancia
