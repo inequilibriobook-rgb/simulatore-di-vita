@@ -135,25 +135,39 @@
        in griglia o in riga — e si esce dalla griglia prima di inserire. Il
        riquadro nasce cosi' largo quanto tutta la griglia, che e' l'unico
        posto in cui una spiegazione si legge. */
-    var dove = (el.closest && el.closest('.cursore, li, p, td, th, h1, h2, h3, h4, .tassello, .comando, label')) || el;
-    /* Igor, 17/09/2026: «se clicco sul punto interrogativo, la spiegazione
-       viene compressa dentro una tabellina». Era la tabella dei termini:
-       la parola sta in una cella, e un riquadro messo dopo la cella
-       diventa una cella anonima, stretta come una colonna. Quindi si sale
-       anche fuori dalle tabelle (riga, corpo, tabella, e la cornice che
-       le fa scorrere), non solo fuori da griglie e file. */
+    /* DOVE VA MESSO IL RIQUADRO (riscritto il 17/09/2026).
+       Igor, davanti a una spiegazione compressa in una colonna: «non e'
+       sistemato, controlla tutti i punti interrogativi, su tutte le
+       dimensioni di schermo». Le versioni precedenti elencavano i casi
+       (griglia, fila, tabella…) e ogni volta ne mancava uno. Adesso la
+       regola e' una sola e misura, non indovina: si sale dalla parola
+       finche' non si trova un contenitore in flusso normale (display
+       block) largo almeno quattro quinti del riquadro che contiene la
+       parola, che non sia un pezzo di tabella e che non scorra di lato. Il
+       riquadro va dopo il figlio di quel contenitore che contiene la
+       parola. Cosi' nasce sempre largo quanto il testo che il lettore sta
+       leggendo, qualunque sia la disposizione intorno alla parola. */
+    var limite = (el.closest && el.closest('.riquadro, .apribile-corpo, .passo, .capitolo, .glossario-pannello, article, main, .contenitore')) || document.body;
+    var largoLimite = limite.getBoundingClientRect().width || 0;
+    var dove = el;
     var risalite = 0;
-    while (dove.parentNode && dove.parentNode !== document.body && risalite < 8) {
+    while (dove.parentNode && dove.parentNode !== document.body && risalite < 12) {
       var padre = dove.parentNode;
-      var disposizione = '';
-      try {
-        disposizione = G.getComputedStyle(padre).display;
-      } catch (e) { break; }
-      var tabellare = /^table/.test(disposizione) || /^(TR|TBODY|THEAD|TFOOT|TABLE)$/.test(padre.tagName);
-      var affiancato = disposizione === 'grid' || disposizione === 'inline-grid' ||
-                       disposizione === 'flex' || disposizione === 'inline-flex';
-      var cornice = padre.classList && (padre.classList.contains('avvolgi-tabella') || padre.classList.contains('scorre'));
-      if (!tabellare && !affiancato && !cornice) { break; }
+      if (padre === limite) { break; }
+      var st = null;
+      try { st = G.getComputedStyle(padre); } catch (e) { break; }
+      var disp = st.display;
+      var inFlusso = disp === 'block' || disp === 'flow-root' || disp === 'list-item';
+      if (disp === 'grid' || disp === 'inline-grid') {
+        /* una griglia a colonna sola e' come un blocco */
+        inFlusso = !/\s/.test((st.gridTemplateColumns || '').trim());
+      }
+      /* si esce anche dagli elenchi: dentro un punto di un elenco il riquadro
+         erediterebbe il rientro (misurato: 241 px su uno schermo da 360) */
+      var tabellare = /^table|^inline-table/.test(disp) || /^(TR|TBODY|THEAD|TFOOT|TABLE|UL|OL|DL)$/.test(padre.tagName);
+      var scorre = /(auto|scroll)/.test(st.overflowX || '');
+      var largo = padre.getBoundingClientRect().width >= largoLimite * 0.8;
+      if (inFlusso && !tabellare && !scorre && largo) { break; }
       dove = padre;
       risalite++;
     }
