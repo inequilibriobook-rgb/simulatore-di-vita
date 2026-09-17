@@ -3112,30 +3112,63 @@ body.lettura { background: var(--piano); }
 @media print { .apribile-corpo { display: block !important; } .apribile-freccia { display: none; } }
 
 /* --- le schede a passi --- */
-.passi { position: relative; perspective: 1400px; }
+.passi { position: relative; perspective: 1800px; }
 .passi .passo { display: none; }
 .passi .passo.qui { display: block; }
-/* LO SFOGLIARE (18/09/2026): il passo che se ne va resta visibile per un
-   attimo, sopra, e ruota via come un foglio girato; il nuovo entra
-   ruotando dall'altro lato. Avanti: il foglio si gira verso sinistra.
-   Indietro: verso destra. Lo schermo non si muove. */
+/* LO SFOGLIARE (18/09/2026, seconda versione): il foglio nuovo sta sotto,
+   fermo; quello vecchio, sopra, ruota intorno al bordo (sinistro andando
+   avanti, destro tornando indietro) fino a girarsi, e quando mostra il
+   dorso sparisce. Un'ombra morbida corre sul foglio che si gira. Niente
+   trasparenze, niente scatti. */
 .passi .passo.esce-avanti, .passi .passo.esce-indietro {
-  display: block; position: absolute; left: 0; right: 0; top: 0; pointer-events: none; z-index: 2;
-  backface-visibility: hidden; background: var(--superficie);
+  display: block; position: absolute; left: 0; right: 0; top: 0; z-index: 2; pointer-events: none;
+  background: var(--superficie); backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  border-radius: 6px;
 }
-.passi .passo.esce-avanti { transform-origin: left center; animation: foglio-via-sinistra .4s cubic-bezier(.4,0,.6,1) both; }
-.passi .passo.esce-indietro { transform-origin: right center; animation: foglio-via-destra .4s cubic-bezier(.4,0,.6,1) both; }
-.passi .passo.entra-avanti { transform-origin: right center; animation: foglio-da-destra .42s cubic-bezier(.2,.7,.3,1) both; }
-.passi .passo.entra-indietro { transform-origin: left center; animation: foglio-da-sinistra .42s cubic-bezier(.2,.7,.3,1) both; }
+.passi .passo.esce-avanti  { transform-origin: left center;  animation: foglio-gira-sinistra .72s cubic-bezier(.55,.05,.35,1) both; }
+.passi .passo.esce-indietro { transform-origin: right center; animation: foglio-gira-destra .72s cubic-bezier(.55,.05,.35,1) both; }
+/* la luce che corre sul foglio mentre si gira */
+.passi .passo.esce-avanti::after, .passi .passo.esce-indietro::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.10) 60%, rgba(0,0,0,.22) 100%);
+  animation: foglio-ombra .72s cubic-bezier(.55,.05,.35,1) both;
+}
+.passi .passo.esce-indietro::after { background: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.10) 60%, rgba(0,0,0,.22) 100%); }
+/* IL SEGNALIBRO E L'ONDA (Igor: «il lettore non deve perdersi: da dove si
+   riprende a leggere?»). Sul foglio appena arrivato compare in alto una
+   linguetta, «Continua da qui · foglio 2 di 4», che batte tre volte e poi
+   resta, discreta; e sul titolo della sezione passa una volta un riflesso
+   chiaro, come una luce che scorre sulle lettere, senza cambiarne la
+   misura. Tutt'e due dicono la stessa cosa: sei ancora qui, e si
+   riprende da questo punto. */
+.segnalibro {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0 0 10px; padding: 5px 12px 5px 10px;
+  border-radius: 999px; background: var(--azione); color: var(--su-azione);
+  font-size: var(--t-micro); font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.segnalibro::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--su-azione); }
+.segnalibro[hidden] { display: none; }
+.passo.appena-sfogliato > .segnalibro { animation: segnalibro-batte 2.4s ease-out both; }
+.passo.appena-sfogliato > .segnalibro::before { animation: segnalibro-punto 2.4s ease-out both; }
+.onda {
+  background-image: linear-gradient(105deg, currentColor 0%, currentColor 38%, #f2d27a 48%, #fff5cf 50%, #f2d27a 52%, currentColor 62%, currentColor 100%);
+  background-size: 280% 100%; background-position: 120% 0;
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+  animation: onda-luce 1.5s cubic-bezier(.4,0,.3,1) both;
+}
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes foglio-via-sinistra { from { transform: rotateY(0); opacity: 1; } to { transform: rotateY(-80deg) translateX(-6%); opacity: 0; } }
-  @keyframes foglio-via-destra  { from { transform: rotateY(0); opacity: 1; } to { transform: rotateY(80deg) translateX(6%); opacity: 0; } }
-  @keyframes foglio-da-destra   { from { transform: rotateY(70deg) translateX(8%); opacity: 0; } 40% { opacity: 1; } to { transform: rotateY(0); opacity: 1; } }
-  @keyframes foglio-da-sinistra { from { transform: rotateY(-70deg) translateX(-8%); opacity: 0; } 40% { opacity: 1; } to { transform: rotateY(0); opacity: 1; } }
+  @keyframes foglio-gira-sinistra { from { transform: rotateY(0); } to { transform: rotateY(-180deg); } }
+  @keyframes foglio-gira-destra   { from { transform: rotateY(0); } to { transform: rotateY(180deg); } }
+  @keyframes foglio-ombra { from { opacity: 0; } 45% { opacity: 1; } to { opacity: 1; } }
+  @keyframes segnalibro-batte { 0%, 100% { transform: scale(1); } 12%, 40%, 68% { transform: scale(1.06); } 26%, 54%, 82% { transform: scale(1); } }
+  @keyframes segnalibro-punto { 0%, 100% { opacity: 1; } 12%, 40%, 68% { opacity: .35; } 26%, 54%, 82% { opacity: 1; } }
+  @keyframes onda-luce { from { background-position: 120% 0; } to { background-position: -60% 0; } }
 }
 @media (prefers-reduced-motion: reduce) {
   .passi .passo.esce-avanti, .passi .passo.esce-indietro { display: none; }
-  .passi .passo.entra-avanti, .passi .passo.entra-indietro { animation: none; }
+  .onda { animation: none; background-image: none; color: inherit; -webkit-text-fill-color: inherit; }
 }
 .passi .passo > h3 { margin-top: var(--s3); }
 .passi-nav {

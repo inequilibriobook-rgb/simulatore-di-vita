@@ -205,24 +205,68 @@
        un foglio che si gira, e il nuovo entra dall'altro; la direzione
        segue il verso (avanti: verso sinistra; indietro: verso destra). */
     var sfogliaInCorso = null;
+    /* il titolo su cui passa l'onda: quello della sezione che contiene i
+       passi (per i fogli e' l'h2 del capitolo; per una scheda dentro una
+       sezione apribile e' il titolo del tasto) */
+    var sezioneTitolo = scheda.closest('section, .capitolo, .riquadro') || scheda;
+    var titolo = sezioneTitolo.querySelector('.apribile-titolo') || sezioneTitolo.querySelector('.cap-titolo') ||
+                 sezioneTitolo.querySelector('.sezione-t') || sezioneTitolo.querySelector('h2');
+    function segnalibro(passo) {
+      var s = passo.querySelector(':scope > .segnalibro');
+      if (!s) {
+        s = document.createElement('span');
+        s.className = 'segnalibro no-stampa';
+        passo.insertBefore(s, passo.firstChild);
+      }
+      return s;
+    }
     function mostra(k, sfoglia) {
       var prima = i;
       i = Math.max(0, Math.min(schermate.length - 1, k));
       var verso = i > prima ? 'avanti' : (i < prima ? 'indietro' : '');
-      if (sfogliaInCorso) { clearTimeout(sfogliaInCorso.t); sfogliaInCorso.el.classList.remove('esce-avanti', 'esce-indietro'); sfogliaInCorso = null; }
-      schermate.forEach(function (d, j) {
-        d.classList.remove('entra-avanti', 'entra-indietro', 'esce-avanti', 'esce-indietro');
-        d.classList.toggle('qui', j === i);
+      if (sfogliaInCorso) {
+        clearTimeout(sfogliaInCorso.t1); clearTimeout(sfogliaInCorso.t2);
+        sfogliaInCorso.vecchio.classList.remove('esce-avanti', 'esce-indietro');
+        sfogliaInCorso.nuovo.classList.remove('entra-avanti', 'entra-indietro');
+        scheda.style.minHeight = '';
+        sfogliaInCorso = null;
+      }
+      schermate.forEach(function (d) {
+        d.classList.remove('entra-avanti', 'entra-indietro', 'esce-avanti', 'esce-indietro', 'appena-sfogliato');
+        var sb = d.querySelector(':scope > .segnalibro'); if (sb) { sb.hidden = true; }
       });
       if (sfoglia && verso && prima !== i) {
+        /* LO SFOGLIARE (Igor, 18/09/2026: «più professionale, niente
+           dissolvenza strana, niente scatti, non troppo veloce»). Come si
+           gira una pagina vera: il foglio nuovo e' gia' sotto, fermo; il
+           foglio vecchio, sopra, ruota intorno al suo bordo — quello
+           sinistro andando avanti, quello destro tornando indietro — fino
+           a girarsi del tutto, e quando mostra il dorso sparisce. Nessuna
+           trasparenza: si vede il foglio girare e quello sotto scoprirsi.
+           Sette decimi di secondo, con una curva che parte piano e frena
+           piano. L'altezza della sezione resta quella del foglio piu' alto
+           finche' dura il movimento, cosi' niente salta. */
         var vecchio = schermate[prima], nuovo = schermate[i];
+        var hV = vecchio.getBoundingClientRect().height;
+        nuovo.classList.add('qui');
+        var hN = nuovo.getBoundingClientRect().height;
+        scheda.style.minHeight = Math.max(hV, hN) + 'px';
         vecchio.classList.add('esce-' + verso);
-        nuovo.classList.add('entra-' + verso);
-        sfogliaInCorso = { el: vecchio, t: setTimeout(function () {
-          vecchio.classList.remove('esce-' + verso);
-          nuovo.classList.remove('entra-' + verso);
+        var sb = segnalibro(nuovo);
+        sb.textContent = 'Continua da qui · foglio ' + (i + 1) + ' di ' + schermate.length;
+        sb.hidden = false;
+        nuovo.classList.add('appena-sfogliato');
+        if (titolo) { titolo.classList.remove('onda'); void titolo.offsetWidth; titolo.classList.add('onda'); }
+        var stato = { vecchio: vecchio, nuovo: nuovo };
+        sfogliaInCorso = stato;
+        stato.t1 = setTimeout(function () {
+          vecchio.classList.remove('qui', 'esce-' + verso);
+          scheda.style.minHeight = '';
           sfogliaInCorso = null;
-        }, 420) };
+        }, 720);
+        stato.t2 = setTimeout(function () { if (titolo) { titolo.classList.remove('onda'); } }, 1600);
+      } else {
+        schermate.forEach(function (d, j) { d.classList.toggle('qui', j === i); });
       }
       Array.prototype.forEach.call(punti, function (p, j) { p.classList.toggle('qui', j <= i); });
       indietro.disabled = (i === 0);
