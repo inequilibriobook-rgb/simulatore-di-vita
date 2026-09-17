@@ -169,10 +169,10 @@
     disegnaScala(soloPn.pn, ultimoTiro);
 
     if (ultimoTiro === null) {
-      q('bloccoEsito').style.display = 'none';
+      q('bloccoEsito').hidden = true;
       return;
     }
-    q('bloccoEsito').style.display = '';
+    q('bloccoEsito').hidden = false;
 
     /* il racconto: l'uscita principale, secondo il libro.
        Serve il risultato completo (stato dopo, delta, rischio), non il solo nodo. */
@@ -307,7 +307,7 @@
     contatoreTiri = 0;
     ultimoTiro = null;
     q('statoSeme').textContent = 'Seme ' + seme + ' · non hai ancora tirato il dado';
-    q('bloccoEsito').style.display = 'none';
+    q('bloccoEsito').hidden = true;
     disegna();
   }
 

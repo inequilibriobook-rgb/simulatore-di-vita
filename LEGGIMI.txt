@@ -32,6 +32,11 @@ SUL TELEFONO E SUL TABLET
   l'elenco verticale, e in fondo a ogni scheda il tasto «Dopo». Le schede
   non viste stanno fuori dallo schermo, larghe come la pagina, cosi' le
   figure vi si disegnano giuste; in stampa si vedono tutte.
+  I testi a passi (Avanti / Indietro) si sfogliano come fogli di un
+  quaderno: il passo che se ne va ruota via da un lato, il nuovo entra
+  dall'altro, e lo schermo non si muove. Nella lettura lunga ogni
+  capitolo e' diviso in fogli di quattro paragrafi (data-fogli="4"), con
+  la figura su un foglio suo; in stampa i fogli escono tutti.
   Le parole con il punto interrogativo aprono la spiegazione subito sotto
   la parola, larga quanto il testo, una alla volta; un clic sulla parola o
   un doppio clic sul riquadro la chiude. Sotto i 600 px le tabelle con una

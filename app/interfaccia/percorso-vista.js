@@ -409,8 +409,15 @@
                 if (righe[i] === testaRiga) { continue; }
                 for (j = 0; j < righe[i].cells.length; j++) {
                   var th = testaRiga.cells[j];
-                  if (th && !righe[i].cells[j].hasAttribute('data-etichetta')) {
-                    righe[i].cells[j].setAttribute('data-etichetta', (th.textContent || '').trim());
+                  var cella = righe[i].cells[j];
+                  if (th && !cella.hasAttribute('data-etichetta')) {
+                    cella.setAttribute('data-etichetta', (th.textContent || '').trim());
+                  }
+                  /* le celle corte («aiuta», «toglie», una sigla) stanno in
+                     fila con la loro intestazione, come i numeri, e tengono
+                     il loro colore */
+                  if (j > 0 && !cella.classList.contains('num') && (cella.textContent || '').trim().length <= 14) {
+                    cella.classList.add('corta');
                   }
                 }
               }

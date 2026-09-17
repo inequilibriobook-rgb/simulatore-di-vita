@@ -246,12 +246,12 @@
       '</div>';
 
     q('esito').innerHTML = h;
-    q('bloccoEsito').style.display = '';
+    q('bloccoEsito').hidden = false;
 
     disegnaGrafico(tr);
     q('racconto').innerHTML = V.disegna(R.componiRaccontoTraiettoria(tr));
-    q('bloccoSettimane').style.display = '';
-    q('bloccoRacconto').style.display = '';
+    q('bloccoSettimane').hidden = false;
+    q('bloccoRacconto').hidden = false;
   }
 
   /* ---------------- il grafico settimana per settimana ---------------- */  /* RIFATTO IL 04/09/2026, come il grafico della settimana — e con una cosa

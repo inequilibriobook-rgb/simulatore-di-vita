@@ -126,20 +126,48 @@
       return !(n.nodeType === 3 && !n.nodeValue.trim());
     });
     var passi = [], corrente = null;
-    figli.forEach(function (n) {
-      var titolo = n.nodeType === 1 && n.tagName === 'H3';
-      if (titolo || !corrente) {
-        corrente = { titolo: titolo ? n : null, nodi: [] };
-        passi.push(corrente);
-        if (titolo) { return; }
+    /* I FOGLI (18/09/2026). Igor: «usiamo la stessa tecnica per spezzare la
+       lungaggine del testo nel modello letto per intero: micro post-it».
+       Con data-fogli="4" la divisione non e' ai titoli <h3> (che li' non
+       ci sono) ma a blocchi di quattro paragrafi, piu' o meno una
+       schermata; una figura fa foglio da sola, con quello che la precede;
+       il titolo del capitolo (h2) resta fuori, sopra tutti i fogli. */
+    var perFoglio = parseInt(scheda.getAttribute('data-fogli') || '0', 10);
+    var testa = null;
+    if (perFoglio > 0) {
+      figli.forEach(function (n) {
+        var el = n.nodeType === 1;
+        if (el && n.tagName === 'H2' && !passi.length && !corrente) { testa = n; return; }
+        var figura = el && n.classList && n.classList.contains('figura');
+        if (!corrente || corrente.nodi.length >= perFoglio || (figura && corrente.nodi.length >= 2)) {
+          corrente = { titolo: null, nodi: [] };
+          passi.push(corrente);
+        }
+        corrente.nodi.push(n);
+        if (figura) { corrente = null; }
+      });
+      /* un ultimo foglio di un paragrafo solo si unisce a quello prima */
+      if (passi.length > 1 && passi[passi.length - 1].nodi.length === 1 && passi[passi.length - 2].nodi.length < perFoglio + 2) {
+        var ultimo = passi.pop(); passi[passi.length - 1].nodi = passi[passi.length - 1].nodi.concat(ultimo.nodi);
       }
-      corrente.nodi.push(n);
-    });
+    } else {
+      figli.forEach(function (n) {
+        var titolo = n.nodeType === 1 && n.tagName === 'H3';
+        if (titolo || !corrente) {
+          corrente = { titolo: titolo ? n : null, nodi: [] };
+          passi.push(corrente);
+          if (titolo) { return; }
+        }
+        corrente.nodi.push(n);
+      });
+    }
     passi = passi.filter(function (p) { return p.titolo || p.nodi.length; });
     if (passi.length < 2) { return; }
 
     scheda.innerHTML = '';
+    if (testa) { scheda.appendChild(testa); }
     scheda.classList.add('passi');
+    if (perFoglio > 0) { scheda.classList.add('fogli'); }
     var schermate = passi.map(function (p, i) {
       var d = document.createElement('div');
       d.className = 'passo';
@@ -169,14 +197,37 @@
     var dove = nav.querySelector('.passi-dove');
     var punti = nav.querySelectorAll('.passi-punti i');
     var i = 0;
-    function mostra(k, scorri) {
+    /* SI SFOGLIA, E LO SCHERMO STA FERMO (Igor, 18/09/2026: «quando
+       vado avanti lo schermo non deve salire né scendere: deve restare
+       immobile, e si deve vedere l'effetto di sfogliare un foglio»). Prima
+       ogni «Avanti» riportava la scheda in cima allo schermo; adesso la
+       pagina non si muove. Il passo che se ne va ruota via da un lato, come
+       un foglio che si gira, e il nuovo entra dall'altro; la direzione
+       segue il verso (avanti: verso sinistra; indietro: verso destra). */
+    var sfogliaInCorso = null;
+    function mostra(k, sfoglia) {
+      var prima = i;
       i = Math.max(0, Math.min(schermate.length - 1, k));
-      schermate.forEach(function (d, j) { d.classList.toggle('qui', j === i); });
+      var verso = i > prima ? 'avanti' : (i < prima ? 'indietro' : '');
+      if (sfogliaInCorso) { clearTimeout(sfogliaInCorso.t); sfogliaInCorso.el.classList.remove('esce-avanti', 'esce-indietro'); sfogliaInCorso = null; }
+      schermate.forEach(function (d, j) {
+        d.classList.remove('entra-avanti', 'entra-indietro', 'esce-avanti', 'esce-indietro');
+        d.classList.toggle('qui', j === i);
+      });
+      if (sfoglia && verso && prima !== i) {
+        var vecchio = schermate[prima], nuovo = schermate[i];
+        vecchio.classList.add('esce-' + verso);
+        nuovo.classList.add('entra-' + verso);
+        sfogliaInCorso = { el: vecchio, t: setTimeout(function () {
+          vecchio.classList.remove('esce-' + verso);
+          nuovo.classList.remove('entra-' + verso);
+          sfogliaInCorso = null;
+        }, 420) };
+      }
       Array.prototype.forEach.call(punti, function (p, j) { p.classList.toggle('qui', j <= i); });
       indietro.disabled = (i === 0);
       avanti.hidden = (i === schermate.length - 1);
       dove.textContent = (i + 1) + ' di ' + schermate.length;
-      if (scorri) { scheda.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
       if (globale.FormuleVista && globale.FormuleVista.adatta) {
         setTimeout(function () { globale.FormuleVista.adatta(schermate[i]); }, 30);
       }
@@ -202,8 +253,8 @@
   }
   function nascostaDaSola(sez) {
     /* la sezione che il codice della pagina tiene nascosta finche' non c'e'
-       un risultato (style="display:none") */
-    return sez.style && sez.style.display === 'none';
+       un risultato (attributo hidden) */
+    return sez.hidden || (sez.style && sez.style.display === 'none');
   }
   function montaSchede(gruppo) {
     if (!gruppo.length || gruppo[0].__schede) { return; }
@@ -298,7 +349,7 @@
         }
         aggiorna();
       });
-      gruppo.forEach(function (g) { oss.observe(g, { attributes: true, attributeFilter: ['style'] }); });
+      gruppo.forEach(function (g) { oss.observe(g, { attributes: true, attributeFilter: ['style', 'hidden'] }); });
     }
     gruppo.forEach(function (g, i) {
       g.__schede = true;
@@ -335,7 +386,7 @@
   }
 
   function avvia() {
-    Array.prototype.forEach.call(document.querySelectorAll('[data-passi]'), montaPassi);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-passi], [data-fogli]'), montaPassi);
     montaTutteLeSchede();
     Array.prototype.forEach.call(document.querySelectorAll('section[data-apribile]'), montaApribile);
     apriPerAncora();

@@ -308,15 +308,15 @@
       q('erroreCatena').textContent = 'L’elenco dei gesti è vuoto, e senza gesti non c’è ' +
         'una catena da far girare. Scrivi qui sopra almeno un gesto — uno per riga — e poi ' +
         'premi «Esegui la catena».';
-      q('erroreCatena').style.display = '';
+      q('erroreCatena').hidden = false;
       ['bloccoGran', 'bloccoDiag', 'bloccoTrai', 'bloccoMC', 'bloccoRacconto'].forEach(function (id) {
         var el = q(id);
-        if (el) { el.style.display = 'none'; }
+        if (el) { el.hidden = true; }
       });
       ultimaCatena = null;
       return;
     }
-    q('erroreCatena').style.display = 'none';
+    q('erroreCatena').hidden = true;
     var seme = semeDa(q('seme').value);
     ultimaCatena = catena;
 
@@ -355,7 +355,7 @@
       ? ' <em>Campione</em> qui vuol dire l’insieme dei casi su cui si fa il conto, e ' +
         'allargarlo con delle copie non lo rende più solido: lo fa soltanto sembrare.'
       : '');
-    q('bloccoGran').style.display = '';
+    q('bloccoGran').hidden = false;
 
     /* la catena vera gira sui nodi distinti, con la calibrazione scelta */
     var ris = MS.eseguiCatenaMicro(gran.catena_deduplicata,
@@ -405,13 +405,13 @@
       return '<div class="avviso" style="border-left-color:var(--critico);' +
         'background:color-mix(in srgb, var(--critico) 7%, var(--superficie))">' + esc(a) + '</div>';
     }).join('');
-    q('bloccoDiag').style.display = '';
+    q('bloccoDiag').hidden = false;
 
     /* il racconto della sequenza: non com'è andato un gesto, ma che storia è stata */
     if (window.Racconto && window.VistaRacconto) {
       q('racconto').innerHTML = window.VistaRacconto.disegna(
         window.Racconto.componiRaccontoCatena(ris));
-      q('bloccoRacconto').style.display = '';
+      q('bloccoRacconto').hidden = false;
     }
 
     q('strIniziale').textContent = ris.stato_iniziale.stress_str;
@@ -464,8 +464,8 @@
           '</td><td class="num">' + conSegno(nd.delta_ceduto.stress_str) +
           '</td><td class="num">' + nd.stato_persistente.stress_str + '</td></tr>';
       }).join('');
-    q('bloccoTrai').style.display = '';
-    q('bloccoMC').style.display = '';
+    q('bloccoTrai').hidden = false;
+    q('bloccoMC').hidden = false;
     q('mcTasselli').innerHTML = '';
     q('mcEsiti').innerHTML = '';
     q('mcNota').innerHTML = 'Scegli qui sotto quante volte ripetere la scena. ' +
@@ -562,10 +562,10 @@
       if (!righe.length) {
         q('erroreCatena').textContent = 'Le righe ripetute copiano i gesti che ci sono già, ' +
           'e qui non ce n’è ancora nessuno. Scrivi almeno un gesto qui sopra e poi riprova.';
-        q('erroreCatena').style.display = '';
+        q('erroreCatena').hidden = false;
         return;
       }
-      q('erroreCatena').style.display = 'none';
+      q('erroreCatena').hidden = true;
       var agg = [];
       for (var i = 0; i < 40; i++) { agg.push(righe[i % righe.length]); }
       q('gesti').value = righe.concat(agg).join('\n');

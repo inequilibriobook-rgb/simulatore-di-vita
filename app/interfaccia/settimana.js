@@ -318,12 +318,12 @@
     if (notaGiorni) { h += '<p class="nota">' + esc(notaGiorni) + '</p>'; }
 
     q('esito').innerHTML = h;
-    q('bloccoEsito').style.display = '';
+    q('bloccoEsito').hidden = false;
 
     disegnaGrafico(w);
     q('racconto').innerHTML = V.disegna(R.componiRaccontoSettimana(w));
-    q('bloccoGiorni').style.display = '';
-    q('bloccoRacconto').style.display = '';
+    q('bloccoGiorni').hidden = false;
+    q('bloccoRacconto').hidden = false;
   }
 
   function tassello(k, val, sotto) {

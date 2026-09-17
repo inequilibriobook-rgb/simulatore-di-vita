@@ -117,7 +117,7 @@
         'Non è un blocco tecnico. Il modello calcola la riuscita di un gesto, e in questa ' +
         'situazione la riuscita del gesto non è il problema.</p></div>';
       ['bloccoScena', 'bloccoLivello', 'bloccoDomande', 'bloccoRisultato'].forEach(function (b) {
-        q(b).style.display = 'none';
+        q(b).hidden = true;
       });
       return;
     }
@@ -146,9 +146,9 @@
 
     q('esitoSicurezza').innerHTML = '<p class="nota">Nessuna delle cinque situazioni ti riguarda, ' +
       'quindi si può andare avanti.</p>';
-    q('bloccoScena').style.display = '';
-    q('bloccoLivello').style.display = '';
-    q('bloccoDomande').style.display = '';
+    q('bloccoScena').hidden = false;
+    q('bloccoLivello').hidden = false;
+    q('bloccoDomande').hidden = false;
   }
 
   /* ---------------------------------------------------------------
@@ -185,7 +185,7 @@
       livello = b.getAttribute('data-liv');
       disegnaLivelli();
       disegnaDomande();
-      q('bloccoRisultato').style.display = 'none';
+      q('bloccoRisultato').hidden = true;
       ultimo = null;
     });
   }
@@ -455,7 +455,7 @@
       descrizione: q('descrizione').value || 'Scena descritta dal questionario',
       provenienza: provenienzaRisposte()
     });
-    q('bloccoRisultato').style.display = '';
+    q('bloccoRisultato').hidden = false;
     disegnaRisultato(ultimo);
     var quante = selezione ? selezione.scelte.length : Q.perLivello(livello).length;
     var date = quante - ultimo.senza_risposta.length;
@@ -487,9 +487,9 @@
     /* il modello sta ancora distinguendo qualcosa? */
     var av = q('avvisoRisoluzione');
     if (r.risoluzione.stato === 'piena') {
-      av.style.display = 'none';
+      av.hidden = true;
     } else {
-      av.style.display = '';
+      av.hidden = false;
       av.style.borderLeftColor = (r.risoluzione.stato === 'esaurita') ? 'var(--critico)' : 'var(--attenzione)';
       av.innerHTML = '<strong>' +
         (r.risoluzione.stato === 'esaurita' ? 'Qui il numero ha smesso di distinguere.' : 'Il numero è appoggiato al bordo.') +
@@ -818,7 +818,7 @@
   q('tira').addEventListener('click', tira);
   q('azzera').addEventListener('click', function () {
     risposte = {}; toccateAMano = {}; ultimo = null;
-    q('bloccoRisultato').style.display = 'none';
+    q('bloccoRisultato').hidden = true;
     q('statoCalcolo').textContent = '';
     disegnaDomande();
   });

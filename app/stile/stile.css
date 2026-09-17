@@ -3112,8 +3112,31 @@ body.lettura { background: var(--piano); }
 @media print { .apribile-corpo { display: block !important; } .apribile-freccia { display: none; } }
 
 /* --- le schede a passi --- */
+.passi { position: relative; perspective: 1400px; }
 .passi .passo { display: none; }
-.passi .passo.qui { display: block; animation: entra .18s ease both; }
+.passi .passo.qui { display: block; }
+/* LO SFOGLIARE (18/09/2026): il passo che se ne va resta visibile per un
+   attimo, sopra, e ruota via come un foglio girato; il nuovo entra
+   ruotando dall'altro lato. Avanti: il foglio si gira verso sinistra.
+   Indietro: verso destra. Lo schermo non si muove. */
+.passi .passo.esce-avanti, .passi .passo.esce-indietro {
+  display: block; position: absolute; left: 0; right: 0; top: 0; pointer-events: none; z-index: 2;
+  backface-visibility: hidden; background: var(--superficie);
+}
+.passi .passo.esce-avanti { transform-origin: left center; animation: foglio-via-sinistra .4s cubic-bezier(.4,0,.6,1) both; }
+.passi .passo.esce-indietro { transform-origin: right center; animation: foglio-via-destra .4s cubic-bezier(.4,0,.6,1) both; }
+.passi .passo.entra-avanti { transform-origin: right center; animation: foglio-da-destra .42s cubic-bezier(.2,.7,.3,1) both; }
+.passi .passo.entra-indietro { transform-origin: left center; animation: foglio-da-sinistra .42s cubic-bezier(.2,.7,.3,1) both; }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes foglio-via-sinistra { from { transform: rotateY(0); opacity: 1; } to { transform: rotateY(-80deg) translateX(-6%); opacity: 0; } }
+  @keyframes foglio-via-destra  { from { transform: rotateY(0); opacity: 1; } to { transform: rotateY(80deg) translateX(6%); opacity: 0; } }
+  @keyframes foglio-da-destra   { from { transform: rotateY(70deg) translateX(8%); opacity: 0; } 40% { opacity: 1; } to { transform: rotateY(0); opacity: 1; } }
+  @keyframes foglio-da-sinistra { from { transform: rotateY(-70deg) translateX(-8%); opacity: 0; } 40% { opacity: 1; } to { transform: rotateY(0); opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .passi .passo.esce-avanti, .passi .passo.esce-indietro { display: none; }
+  .passi .passo.entra-avanti, .passi .passo.entra-indietro { animation: none; }
+}
 .passi .passo > h3 { margin-top: var(--s3); }
 .passi-nav {
   display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "indietro punti avanti" "uscita uscita uscita";
@@ -3297,9 +3320,9 @@ summary.riepilogo-piccolo { cursor: pointer; font-size: var(--t-piccolo); color:
   table.dati.impila tr:last-child { border-bottom: 0; }
   table.dati.impila td { padding: 2px 0; border-bottom: 0; text-align: left; white-space: normal; }
   table.dati.impila td:first-child { font-size: var(--t-corpo); padding-bottom: 4px; }
-  table.dati.impila td:not(.num):not(:first-child) { color: var(--inchiostro-2); font-size: var(--t-nota); line-height: 1.5; }
-  table.dati.impila td.num { display: inline-block; margin: 6px 18px 0 0; text-align: left; font-variant-numeric: tabular-nums; }
-  table.dati.impila td.num::before {
+  table.dati.impila td:not(.num):not(.corta):not(:first-child) { color: var(--inchiostro-2); font-size: var(--t-nota); line-height: 1.5; }
+  table.dati.impila td.num, table.dati.impila td.corta { display: inline-block; margin: 6px 18px 0 0; text-align: left; font-variant-numeric: tabular-nums; font-weight: 600; }
+  table.dati.impila td.num::before, table.dati.impila td.corta::before {
     content: attr(data-etichetta) ' ';
     color: var(--inchiostro-3); font-size: var(--t-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
     display: block; margin-bottom: 1px;
