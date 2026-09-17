@@ -469,6 +469,46 @@
     montaMenu(document.getElementById('barraMenu'), document.getElementById('barraMenuTendina'));
     montaMenu(document.getElementById('barraSandwich'), document.getElementById('barraSandwichTendina'));
 
+    /* IL TASTO SOVRAPPOSTO PER TORNARE IN ALTO (17/09/2026).
+       Igor: «metti sempre un tasto sovrapposto per tornare in alto e poter
+       scegliere un altro capitolo: se sbaglio capitolo devo tornare indietro
+       con un tasto, velocemente». Un tasto rotondo, fisso in basso a destra,
+       che compare dopo una schermata di scorrimento. Nella lettura lunga
+       porta in cima E apre l'indice dei capitoli; nelle altre pagine porta in
+       cima, dove c'e' il menu. Solo sugli schermi stretti: sul computer c'e'
+       la colonna dell'indice e la barra e' sempre sotto mano. */
+    (function tornaInAlto() {
+      var lettura = !!document.querySelector('.contenitore-lettura');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'torna-in-alto no-stampa';
+      b.setAttribute('aria-label', lettura ? 'Torna in alto e apri l’indice dei capitoli' : 'Torna in alto');
+      b.innerHTML = '<span aria-hidden="true">↑</span><small>' + (lettura ? 'Capitoli' : 'In alto') + '</small>';
+      b.hidden = true;
+      document.body.appendChild(b);
+      b.addEventListener('click', function () {
+        globale.scrollTo({ top: 0, behavior: 'smooth' });
+        if (lettura) {
+          var nav = document.querySelector('.indice-lettura');
+          var tasto = nav && nav.querySelector('.indice-apri');
+          if (nav && tasto && !nav.classList.contains('aperto')) { tasto.click(); }
+        }
+      });
+      var ultimo = 0;
+      function guarda() {
+        var y = globale.scrollY || document.documentElement.scrollTop || 0;
+        var mostra = y > 600;
+        if (mostra !== !b.hidden) { b.hidden = !mostra; }
+        ultimo = y;
+      }
+      var attesa = null;
+      globale.addEventListener('scroll', function () {
+        if (attesa) { return; }
+        attesa = setTimeout(function () { attesa = null; guarda(); }, 120);
+      }, { passive: true });
+      guarda();
+    }());
+
     /* le vecchie utilita' in alto a destra e la pila di link spariscono:
        adesso stanno nella barra */
     var vecchie = document.querySelector('.strumenti-alto');

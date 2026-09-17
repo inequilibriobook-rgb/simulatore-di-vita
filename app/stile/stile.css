@@ -2985,3 +2985,28 @@ body.lettura { background: var(--piano); }
   box-shadow: var(--ombra-alta); font-size: var(--t-corpo);
 }
 .nuova-versione button { flex: none; }
+
+/* ==========================================================================
+   IL TASTO SOVRAPPOSTO «TORNA IN ALTO» (17/09/2026, percorso-vista.js)
+   Solo sugli schermi stretti; compare dopo una schermata di scorrimento.
+   ========================================================================== */
+.torna-in-alto { display: none; }
+@media (max-width: 940px) {
+  .torna-in-alto {
+    position: fixed; right: 14px; bottom: 18px; z-index: 150;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
+    width: 58px; height: 58px; padding: 0; border-radius: 50%;
+    background: var(--azione); color: var(--su-azione); border: 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,.22); cursor: pointer; white-space: nowrap;
+    animation: entra .18s ease both;
+  }
+  .torna-in-alto[hidden] { display: none; }
+  .torna-in-alto span { font-size: 20px; line-height: 1; font-weight: 700; }
+  .torna-in-alto small { font-size: 10px; line-height: 1.1; font-weight: 600; letter-spacing: .02em; }
+  .torna-in-alto:hover, .torna-in-alto:focus-visible, .torna-in-alto:active {
+    background: color-mix(in srgb, var(--azione) 84%, black); color: var(--su-azione);
+  }
+  /* se in basso c'e' la striscia «versione nuova», il tasto sale sopra di lei */
+  body:has(.nuova-versione) .torna-in-alto { bottom: 84px; }
+}
+@media print { .torna-in-alto { display: none !important; } }
