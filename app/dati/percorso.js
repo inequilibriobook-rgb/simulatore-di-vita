@@ -100,7 +100,7 @@
       { file: 'IL-MODELLO.html', nome: 'Il modello, letto per intero', icona: '❦',
         domanda: 'Voglio capirlo prima di usarlo.',
         breve: 'diciannove capitoli, sedici figure che si muovono',
-        invito: 'Le altre pagine sono strumenti, e questa invece è una lettura, dal primo gesto alle mille giocate. C’è tutta la matematica, e le figure si muovono mentre le guardi.' },
+        invito: 'Le altre pagine sono strumenti, e questa invece è una lettura, dal primo gesto alle mille ripetizioni. C’è tutta la matematica, e le figure si muovono mentre le guardi.' },
       { file: 'LA-SCENA.html', nome: 'Racconta la scena', icona: '✎',
         domanda: 'Voglio scriverla come la racconterei, non un gesto per riga.',
         breve: 'la divide in nodi da sola',
@@ -120,11 +120,11 @@
       { file: 'MONTECARLO.html', nome: 'Mille volte la stessa scena', icona: '▓',
         domanda: 'Un caso solo non basta: fammi vedere la distribuzione.',
         breve: 'la distribuzione, non un caso',
-        invito: 'La stessa scena, rigiocata centinaia o migliaia di volte. Vedi come si distribuiscono gli esiti. Vedi quanto si stringe l’intervallo, cioè la fascia di incertezza intorno al risultato, mentre le ripetizioni salgono. E vedi come vanno due varianti con lo stesso dado.' },
+        invito: 'La stessa scena, ripetuta centinaia o migliaia di volte, ogni volta con un dado diverso. Vedi come si distribuiscono gli esiti. Vedi quanto si stringe l’intervallo, cioè la fascia di incertezza intorno al risultato, mentre le ripetizioni salgono. E vedi come vanno due varianti con lo stesso dado.' },
       { file: 'INDAGINE.html', nome: 'Dove si rompe, e perché', icona: '⌖',
         domanda: 'Qual è il punto debole di questa sequenza?',
         breve: 'i punti delicati, con gli intervalli',
-        invito: 'Qui la scena non si racconta: si esamina. Il simulatore la gioca migliaia di volte, e poi dice quale gesto è il punto debole, e quanto siamo sicuri che lo sia. Dice anche da dove vengono i punti che gli mancano, e quale condizione cambierebbe davvero le cose.' }
+        invito: 'Qui la scena non si racconta: si esamina. Il simulatore la ripete migliaia di volte, e poi dice quale gesto è il punto debole, e quanto siamo sicuri che lo sia. Dice anche da dove vengono i punti che gli mancano, e quale condizione cambierebbe davvero le cose.' }
     ]
   };
 

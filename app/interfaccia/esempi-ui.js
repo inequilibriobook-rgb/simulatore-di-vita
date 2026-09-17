@@ -316,7 +316,7 @@
 
       '<div class="caso-azioni">' +
         '<a class="bottone primario" href="' + collegamentoCursori(caso) + '">Aprilo nei cursori e cambia i numeri</a>' +
-        '<a class="bottone secondario" href="MONTECARLO.html#caso=' + esc(caso.id) + '">Rigiocalo mille volte</a>' +
+        '<a class="bottone secondario" href="MONTECARLO.html#caso=' + esc(caso.id) + '">Ripetilo mille volte</a>' +
       '</div>' +
       '<p class="caso-fonte">Nel ' + esc(caso.fonte) + '</p>' +
       '</div>';

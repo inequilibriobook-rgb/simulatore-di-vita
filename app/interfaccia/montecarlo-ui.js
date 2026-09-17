@@ -213,8 +213,8 @@
     var h = A.istogramma(campione, { fasce: compatto ? 8 : 14 });
     if (!h) {
       return '<p class="nota">Qui non c’è ancora niente da disegnare. La scena non ha ' +
-        'prodotto nessun numero da mettere in un istogramma. Prova a rigiocarla, oppure ' +
-        'aumenta il numero di giocate qui sopra.</p>';
+        'prodotto nessun numero da mettere in un istogramma. Prova a ripeterla, oppure ' +
+        'aumenta il numero di ripetizioni qui sopra.</p>';
     }
 
     /* TUTTE LE RIPETIZIONI ALLO STESSO NUMERO.
@@ -227,7 +227,7 @@
     if (h.degenere) {
       return '<div class="istogramma-piatto">' +
         '<p class="piatto-num">' + num(h.minimo) + '</p>' +
-        '<p class="piatto-dice">Tutte e ' + h.n + ' le giocate finiscono sullo stesso ' +
+        '<p class="piatto-dice">Tutte e ' + h.n + ' le ripetizioni finiscono sullo stesso ' +
         'valore di <b>' + esc(titolo) + '</b>. Non c’è una distribuzione da mostrare. ' +
         'C’è un solo risultato possibile.' +
         (h.minimo >= 100
@@ -279,7 +279,7 @@
         g.push('<rect x="' + (x + 1.5) + '" y="' + (T + ph - alt) + '" width="' +
           Math.max(1, largo - 3) + '" height="' + alt + '" rx="3" fill="' + tinta + '" opacity="0.86">' +
           '<title>da ' + f.da + ' a ' + f.a + ': ' +
-          Lg.plurale(f.n, 'giocata', 'giocate') + ' su ' + h.n +
+          Lg.plurale(f.n, 'ripetizione', 'ripetizioni') + ' su ' + h.n +
           ' (' + Math.round(f.quota * 100) + '%)</title></rect>');
       }
       if (i % Math.ceil(h.fasce.length / 8) === 0) {
@@ -308,7 +308,7 @@
 
     return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" style="max-width:100%;height:auto" ' +
       'role="img" aria-label="Istogramma di ' + esc(titolo) + ' su ' + h.n +
-      ' giocate">' +
+      ' ripetizioni">' +
       g.join('') + '</svg>';
   }
 
@@ -318,8 +318,8 @@
   function disegnaConvergenza(conv) {
     if (!conv) {
       return '<p class="nota">Per vedere come si stringe l’intervallo servono almeno ' +
-        'due giocate. Con una sola non c’è ancora niente da confrontare. Scegli un ' +
-        'numero più alto nel comando «Giocate» qui sopra.</p>';
+        'due ripetizioni. Con una sola non c’è ancora niente da confrontare. Scegli un ' +
+        'numero più alto nel comando «Ripetizioni» qui sopra.</p>';
     }
     var W = 900, H = 280, L = 48, R = 18, T = 22, B = 40;
     var pw = W - L - R, ph = H - T - B;
@@ -370,10 +370,10 @@
         'fill="var(--inchiostro-3)">' + num(n, 0) + '</text>');
     });
     g.push('<text x="' + (L + pw / 2) + '" y="' + (H - 1) + '" text-anchor="middle" font-size="10.5" ' +
-      'fill="var(--inchiostro-3)">giocate</text>');
+      'fill="var(--inchiostro-3)">ripetizioni</text>');
 
     return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" style="max-width:100%;height:auto" ' +
-      'role="img" aria-label="Come si stringe l’intervallo di confidenza mentre le giocate salgono">' +
+      'role="img" aria-label="Come si stringe l’intervallo di confidenza mentre le ripetizioni salgono">' +
       g.join('') + '</svg>' +
       '<div class="legenda">' +
       '<span class="voce-legenda"><i class="segno linea" style="background:var(--azione)"></i>la media, man mano</span>' +
@@ -452,7 +452,7 @@
       var raggio = 2.2 + Math.sqrt(mucchi[c] / piuAlto) * 8;
       g.push('<circle cx="' + xy[0] + '" cy="' + xy[1] + '" r="' + raggio.toFixed(1) +
         '" fill="var(--azione)" opacity="0.34"><title>' +
-        Lg.plurale(mucchi[c], 'giocata', 'giocate') + ' qui</title></circle>');
+        Lg.plurale(mucchi[c], 'ripetizione', 'ripetizioni') + ' qui</title></circle>');
     });
 
     /* la retta dei minimi quadrati, disegnata solo da un capo all'altro dei
@@ -477,13 +477,13 @@
       esc(nomeY) + '</text>');
 
     return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" style="max-width:100%;height:auto" ' +
-      'role="img" aria-label="Ogni punto è una giocata: ' + esc(nomeX) + ' in orizzontale, ' +
+      'role="img" aria-label="Ogni punto è una ripetizione: ' + esc(nomeX) + ' in orizzontale, ' +
       esc(nomeY) + ' in verticale">' + g.join('') + '</svg>' +
       '<div class="legenda">' +
       '<span class="voce-legenda"><i class="segno" style="background:var(--azione);opacity:.4"></i>' +
-      'le giocate: più il cerchio è grande, più ce ne sono finite lì</span>' +
+      'le ripetizioni: più il cerchio è grande, più ce ne sono finite lì</span>' +
       '<span class="voce-legenda"><i class="segno linea" style="background:var(--ostacola)"></i>la riga che passa più vicino a tutti i punti</span>' +
-      '<span class="voce-legenda">' + Lg.intero(x.length) + ' giocate, ammucchiate in ' +
+      '<span class="voce-legenda">' + Lg.intero(x.length) + ' ripetizioni, ammucchiate in ' +
       Lg.plurale(chiavi.length, 'punto', 'punti') + '</span></div>';
   }
 
@@ -529,7 +529,7 @@
       return '<p class="nota">' +
         (coppie.length && coppie[0].misura && coppie[0].misura.spiegazione
           ? esc(coppie[0].misura.spiegazione) + fermo
-          : 'Qui non c’è ancora niente da confrontare. Servono almeno tre giocate perché la ' +
+          : 'Qui non c’è ancora niente da confrontare. Servono almeno tre ripetizioni perché la ' +
             'domanda «si muovono insieme?» abbia una risposta. Con due punti soli passa ' +
             'sempre una riga esatta, e il numero uscirebbe al massimo comunque.') +
         '</p>' + avvertenzaScritta(m);
@@ -591,7 +591,7 @@
       '<p class="caso-eti">La stessa cosa, disegnata</p>' +
       '<p style="margin-top:0">Il grafico qui sotto mostra la coppia più legata delle tre: ' +
       'in orizzontale ' + esc(forte.prima) + ', in verticale ' + esc(forte.seconda) + '. ' +
-      'Ogni cerchio raccoglie le giocate finite nello stesso posto, e più ce ne sono, più il ' +
+      'Ogni cerchio raccoglie le ripetizioni finite nello stesso posto, e più ce ne sono, più il ' +
       'cerchio è grande. La riga rossa passa più vicino che può a tutti i punti, e si chiama ' +
       '<span data-parola="correlazione">regressione</span>.</p>' +
       disegnaNuvola(campionePer(m, forte.prima), campionePer(m, forte.seconda),
@@ -760,14 +760,14 @@
       '<p class="nota-leve">Senza toccare niente riesce il <b>' + num(dati.base) + ' %</b> dei gesti' +
       (m && m.nodo && Math.abs(m.nodo.quota_riuscite * 100 - dati.base) > 0.05 &&
        dati.giocate !== stato.ripetizioni
-        ? '. Il numero è misurato sulle ' + num(dati.giocate, 0) + ' giocate di questa sezione. ' +
+        ? '. Il numero è misurato sulle ' + num(dati.giocate, 0) + ' ripetizioni di questa sezione. ' +
           'Nella sezione 6 lo stesso numero è ' + num(m.nodo.quota_riuscite * 100) + ' %, perché ' +
-          'lì viene da ' + num(stato.ripetizioni, 0) + ' giocate. Sono due misure oneste della ' +
-          'stessa grandezza, fatte su due gruppi di giocate diversi. È normale che non ' +
+          'lì viene da ' + num(stato.ripetizioni, 0) + ' ripetizioni. Sono due misure oneste della ' +
+          'stessa grandezza, fatte su due gruppi di ripetizioni diversi. È normale che non ' +
           'coincidano al decimale. '
         : '. ') +
       cima + '. In fondo c’è <b>' + esc(ultima.nome) + '</b>, con ' + num(ultima.ampiezza) + '.</p>' +
-      '<p class="nota-leve">Tutte le giocate usano lo stesso seme. La differenza non è il dado, ' +
+      '<p class="nota-leve">Tutte le ripetizioni usano lo stesso seme. La differenza non è il dado, ' +
       'è la leva. Un trattino vuol dire che quella direzione non era disponibile: una leva ' +
       'già a zero non si può abbassare.' +
       /* Le giocate delle leve scalano al contrario della lunghezza della
@@ -775,10 +775,10 @@
          sono le stesse. Quando sono le stesse, dire «invece delle 500 di
          sopra» e' una frase che si smentisce da sola: si dice l'altra. */
       (dati.giocate === stato.ripetizioni
-        ? ' Ogni variante è stata rigiocata ' + num(dati.giocate, 0) + ' volte, come la scena ' +
-          'qui sopra. Sono quindici scene rigiocate da capo, e costano tempo.'
-        : ' Ogni variante è stata rigiocata ' + num(dati.giocate, 0) + ' volte invece di ' +
-          num(stato.ripetizioni, 0) + '. Sono quindici scene da rigiocare da capo, e con una ' +
+        ? ' Ogni variante è stata ripetuta ' + num(dati.giocate, 0) + ' volte, come la scena ' +
+          'qui sopra. Sono quindici scene rifatte da capo, e costano tempo.'
+        : ' Ogni variante è stata ripetuta ' + num(dati.giocate, 0) + ' volte invece di ' +
+          num(stato.ripetizioni, 0) + '. Sono quindici scene da rifare da capo, e con una ' +
           'scena lunga costerebbero minuti.') +
       pareggi(dati) + '</p>';
   }
@@ -807,11 +807,11 @@
         : 'Muovendo quella leva il carico finale è più ' +
           (dati.media < 0 ? 'basso' : 'alto') + ' di <b>' + num(Math.abs(dati.media), 2) +
           ' punti</b>, in media. ') +
-      'Guardando poi giocata per giocata, ' +
+      'Guardando poi ripetizione per ripetizione, ' +
       (giu === n
-        ? 'il carico è sceso in tutte e ' + Lg.intero(n) + ' le giocate. '
+        ? 'il carico è sceso in tutte e ' + Lg.intero(n) + ' le ripetizioni. '
         : (su === n
-          ? 'il carico è salito in tutte e ' + Lg.intero(n) + ' le giocate. '
+          ? 'il carico è salito in tutte e ' + Lg.intero(n) + ' le ripetizioni. '
           : 'il carico è sceso ' + Lg.plurale(giu, 'volta', 'volte') + ', è salito ' +
             Lg.plurale(su, 'volta', 'volte') + ' ed è rimasto identico ' +
             Lg.plurale(uguale, 'volta', 'volte') + ', su ' + Lg.intero(n) + '. ')) +
@@ -820,7 +820,7 @@
         : 'La fascia, invece, dice questo: se rifacessi lo stesso confronto tante volte, con dadi ' +
           'sempre nuovi, la differenza media cadrebbe fra <b>' + numFisso(basso, 2) + '</b> e <b>' +
           numFisso(alto, 2) + '</b> punti in 95 casi su 100. È una fascia sulla media, non sulla ' +
-          'singola giocata. Le singole giocate si allontanano molto di più.') +
+          'singola ripetizione. Le singole ripetizioni si allontanano molto di più.') +
       '</p>';
   }
 
@@ -886,14 +886,14 @@
           num(daScritto(num(b.stress_finale.media)) - daScritto(num(a.stress_finale.media))) +
           ', non ' + num(d) + '. Non è un errore di conto. Le due medie qui sopra sono ' +
           'arrotondate al decimo ciascuna, per stare in una riga. La differenza invece è ' +
-          'calcolata sulle differenze fra le singole giocate e arrotondata alla fine. '
+          'calcolata sulle differenze fra le singole ripetizioni e arrotondata alla fine. '
         : '') +
       (significativa
         ? '<b>La fascia non comprende zero.</b> Il confronto segnala una differenza fra le ' +
           'medie simulate, nelle ipotesi della prova.'
         : '<b>La fascia comprende zero.</b> La prova non distingue le medie con questo ' +
           'criterio. Non dimostra che le varianti siano uguali.') +
-      ' Le colonne usano lo stesso seme (' + stato.seme + ') e le giocate sono confrontate ' +
+      ' Le colonne usano lo stesso seme (' + stato.seme + ') e le ripetizioni sono confrontate ' +
       'a coppie. La fascia riguarda la media, non tutti i risultati futuri. Anche una fascia ' +
       'che in questo campione non si allontana da zero non garantisce che ogni altro tiro ' +
       'dia la stessa differenza.' +
@@ -913,7 +913,7 @@
           (o.quota * 100).toFixed(1) + '%"></span></span>' +
         '<span class="dist-quota">' + window.Lingua.numero(o.quota * 100) +
             '<small>%</small></span>' +
-        '<span class="dist-conta">' + Lg.plurale(o.n, 'giocata', 'giocate') +
+        '<span class="dist-conta">' + Lg.plurale(o.n, 'ripetizione', 'ripetizioni') +
         '</span></div>';
     }).join('') + '</div>';
   }
@@ -934,7 +934,7 @@
         'suo effetto allo stato, e lo stato è il carico e l’assetto che la persona si ' +
         'porta dietro. ' +
         (alTetto
-          ? 'E il risultato è questo: <b>tutte le giocate finiscono a cento</b>. Non è una ' +
+          ? 'E il risultato è questo: <b>tutte le ripetizioni finiscono a cento</b>. Non è una ' +
             'distribuzione stretta: è una distribuzione che non c’è più, perché il carico ' +
             'ha toccato il tetto prima della fine della catena. Da lì in su il modello non ' +
             'distingue più fra un gesto pessimo e uno catastrofico. Con pochi gesti si vede ' +
@@ -945,7 +945,7 @@
     }
     return '<p class="nota-nodo">' +
       (ampiezza === 0
-        ? 'Tutte le giocate finiscono sullo stesso numero, e c’è una '
+        ? 'Tutte le ripetizioni finiscono sullo stesso numero, e c’è una '
         : 'La distribuzione è larga <b>' + ampiezza + ' punti</b>, e c’è una ') +
       'ragione precisa. Il trasferimento di stato, cioè quanta parte dell’effetto di un ' +
       'gesto passa al gesto dopo, misurato è il <b>quattro virgola sei per cento</b>, come ' +
@@ -1004,16 +1004,16 @@
            attributo di un disegno: va scritto in italiano, con la virgola.
            Prima usciva «5.5 volte», con il punto dell'inglese, a due
            centimetri da «4,6 %». */
-        : '<p class="nota-nodo">Attenzione a non sommare le due n. La scena è stata rigiocata ' +
+        : '<p class="nota-nodo">Attenzione a non sommare le due n. La scena è stata ripetuta ' +
           num(m.ripetizioni, 0) + ' volte, e ogni volta ha attraversato ' + m.granularita.nodi_distinti +
           ' nodi. Le <b>valutazioni</b> sono ' + num(tot, 0) + ': è quante volte, in tutto, ' +
           'è stato calcolato un gesto. Ma <b>n resta ' + num(m.ripetizioni, 0) +
           '</b>. Il <b>campione</b> è quello, non le valutazioni, perché campione vuol ' +
           'dire quante repliche indipendenti della quantità finale si hanno a ' +
-          'disposizione. I nodi interni della stessa giocata si passano l’uno all’altro ' +
+          'disposizione. I nodi interni della stessa ripetizione si passano l’uno all’altro ' +
           'il carico che lasciano: non sono repliche in più del suo risultato finale. La ' +
-          'precisione va stimata sulle giocate, e non esiste un fattore universale che si ' +
-          'possa ricavare dal solo rapporto fra valutazioni e giocate.</p>') +
+          'precisione va stimata sulle ripetizioni, e non esiste un fattore universale che si ' +
+          'possa ricavare dal solo rapporto fra valutazioni e ripetizioni.</p>') +
       '<p class="caso-eti">Come sono andati i singoli nodi</p>' + esitiNodo +
       '<p class="caso-eti">E con quale margine</p>' +
       '<p class="nota" style="margin-top:0">Il margine è la distanza fra la probabilità ' +
@@ -1037,9 +1037,9 @@
         (g.repliche ? '<p class="asse-avviso">' + esc(g.spiegazione) + '</p>' : '') +
       '</div>' +
       '<div class="asse">' +
-        '<p class="asse-eti">Asse 2 · giocate</p>' +
+        '<p class="asse-eti">Asse 2 · ripetizioni</p>' +
         '<p class="asse-num">' + m.ripetizioni + '</p>' +
-        '<p class="asse-dice">volte che la <b>stessa</b> catena è stata rigiocata con dadi diversi. ' +
+        '<p class="asse-dice">volte che la <b>stessa</b> catena è stata rifatta con dadi diversi. ' +
         'Non cambia il numero di nodi. Cambia quanto ci si può fidare del numero che esce.</p>' +
       '</div>' +
       '<div class="asse asse-somma">' +
@@ -1071,37 +1071,37 @@
       'italiano.</b> ';
 
     frase += 'La <b>media</b> è ' + num(st.media) + ', e si ottiene sommando il carico finale ' +
-      'di tutte e ' + Lg.intero(quante) + ' le giocate e dividendo per ' + Lg.intero(quante) + '. ';
+      'di tutte e ' + Lg.intero(quante) + ' le ripetizioni e dividendo per ' + Lg.intero(quante) + '. ';
 
     if (st.incertezza_ignota) {
-      frase += 'Il <b>±</b> qui non c’è, e non è una dimenticanza: con una giocata sola non ' +
+      frase += 'Il <b>±</b> qui non c’è, e non è una dimenticanza: con una ripetizione sola non ' +
         'c’è nessun modo di dire quanto quel numero balla. Serve almeno un secondo caso. ';
     } else {
       frase += 'Il <b>± ' + num(st.semiampiezza_95, 2) + '</b> accanto non dice quanto le ' +
-        'giocate sono diverse fra loro. Dice un’altra cosa. Rigiocando ' + Lg.intero(quante) +
+        'ripetizioni sono diverse fra loro. Dice un’altra cosa. Ripetendo la scena ' + Lg.intero(quante) +
         ' volte è uscito ' + num(st.media) + '; con altri ' + Lg.intero(quante) +
         ' dadi sarebbe uscito un numero un po’ diverso. La <b>fascia fra ' + numFisso(basso, 2) +
         ' e ' + numFisso(alto, 2) + '</b> è quella in cui quel numero cade in 95 casi su 100. ';
     }
 
     frase += 'La <b>mediana</b> è ' + num(st.mediana) + ', e si legge così: metti in fila ' +
-      'tutte le giocate, dalla più bassa alla più alta, e metà è finita sotto ' +
+      'tutte le ripetizioni, dalla più bassa alla più alta, e metà è finita sotto ' +
       num(st.mediana) + ', metà sopra. ';
 
     frase += 'L’<b>80 % sta fra ' + num(st.p10) + ' e ' + num(st.p90) + '</b> vuol dire ' +
-      'questo: su cento giocate come questa, ottanta finiscono lì dentro, dieci finiscono ' +
+      'questo: su cento ripetizioni come questa, ottanta finiscono lì dentro, dieci finiscono ' +
       'sotto ' + num(st.p10) + ' e dieci sopra ' + num(st.p90) + '. Sono il decimo e il ' +
       'novantesimo percentile, quelli che il capitolo 47 usa proprio per dire quanto è ' +
       'stabile la scena. ';
 
     frase += 'Lo <b>scarto medio</b> è ' + num(st.deviazione) + ' punti. È la terza ' +
-      'grandezza, e si confonde di continuo con il ±: dice quanto una giocata qualunque si ' +
+      'grandezza, e si confonde di continuo con il ±: dice quanto una ripetizione qualunque si ' +
       'allontana dalla media. ';
 
     if (!st.incertezza_ignota && st.semiampiezza_95 > 0) {
       var volte = st.deviazione / st.semiampiezza_95;
       frase += 'Qui è <b>' + num(volte) + ' volte più largo</b> del ±, e non è un caso. ' +
-        'Rigiocando di più il ± si stringe. Lo scarto no: lo scarto è la scena, il ± è ' +
+        'Ripetendo di più il ± si stringe. Lo scarto no: lo scarto è la scena, il ± è ' +
         'quanto la conosciamo.';
     }
     return frase + '</p>';
@@ -1114,17 +1114,17 @@
     var perMeta = n * 4;
     var perLaSoglia = A.ripetizioniConsigliate(m.stress_finale.deviazione, stato.soglia);
     return '<p class="nota"><b>Lo stesso, detto in italiano.</b> Con ' + Lg.intero(n) +
-      ' giocate la fascia è ±' + num(semi, 2) + '. Vuol dire che il numero da tenere a mente ' +
+      ' ripetizioni la fascia è ±' + num(semi, 2) + '. Vuol dire che il numero da tenere a mente ' +
       'non è «' + num(m.stress_finale.media) + '», ma «' + num(m.stress_finale.media) +
       ', e comunque fra ' + numFisso(m.stress_finale.intervallo_95[0], 2) + ' e ' +
       numFisso(m.stress_finale.intervallo_95[1], 2) + '». Per dimezzare quella fascia, cioè per ' +
-      'arrivare a ±' + num(semi / 2, 2) + ', non basta raddoppiare le giocate: ne servono ' +
+      'arrivare a ±' + num(semi / 2, 2) + ', non basta raddoppiare le ripetizioni: ne servono ' +
       'quattro volte tante, ' + Lg.intero(perMeta) + '. È la radice quadrata del capitolo 47, ' +
       'ed è il motivo per cui a un certo punto conviene fermarsi. ' +
       (conv.basta_a !== null
         ? 'La soglia che hai scelto, ±' + num(stato.soglia, 2) + ', è già stata raggiunta.'
         : 'Per arrivare alla soglia che hai scelto, ±' + num(stato.soglia, 2) +
-          ', servirebbero circa ' + Lg.intero(perLaSoglia) + ' giocate. Il conto viene dalla ' +
+          ', servirebbero circa ' + Lg.intero(perLaSoglia) + ' ripetizioni. Il conto viene dalla ' +
           'formula qui sopra, rovesciata, con lo scarto misurato in questa prova.') +
       '</p>';
   }
@@ -1197,8 +1197,8 @@
     var pieno = q('avanzPieno'), riga = q('avanzRiga');
     if (pieno) { pieno.style.width = (quota * 100).toFixed(1) + '%'; }
     if (riga) {
-      riga.innerHTML = 'Sto rigiocando ' + esc(nome) + '. Fatte <b>' + Lg.intero(fatte) +
-        '</b> giocate su ' + Lg.intero(totali) + '. La pagina risponde lo stesso, perché il ' +
+      riga.innerHTML = 'Sto ripetendo ' + esc(nome) + '. Fatte <b>' + Lg.intero(fatte) +
+        '</b> ripetizioni su ' + Lg.intero(totali) + '. La pagina risponde lo stesso, perché il ' +
         'conto è diviso apposta in pezzi piccoli.';
     }
     barra.style.display = '';
@@ -1340,7 +1340,7 @@
         num(m.stress_finale.media) + '</div><div class="s">± ' +
         num(m.stress_finale.semiampiezza_95, 2) + ' al 95 %</div></div>' +
       '<div class="tassello"><div class="k">Mediana</div><div class="v">' +
-        num(m.stress_finale.mediana) + '</div><div class="s">metà delle giocate sta sotto</div></div>' +
+        num(m.stress_finale.mediana) + '</div><div class="s">metà delle ripetizioni sta sotto</div></div>' +
       '<div class="tassello"><div class="k">L’80 % sta fra</div><div class="v" style="font-size:var(--t-medio)">' +
         num(m.stress_finale.p10) + ' e ' + num(m.stress_finale.p90) +
         '</div><div class="s">dal 10° al 90° percentile</div></div>' +
@@ -1352,7 +1352,7 @@
          una sola. */
       '<div class="tassello"><div class="k">Quanto si sparpagliano</div><div class="v">' +
         num(m.stress_finale.deviazione) + '</div><div class="s">punti di scarto medio ' +
-        'fra una giocata e la media</div></div>' +
+        'fra una ripetizione e la media</div></div>' +
       '<div class="tassello"><div class="k">n</div><div class="v">' + m.ripetizioni +
         '</div><div class="s">' + esc(m.unita_statistica) + '</div></div>' +
       '</div>' +
@@ -1366,7 +1366,7 @@
       '<span class="voce-legenda"><i class="segno" style="background:var(--inchiostro-3);opacity:.18"></i>fra il 10° e il 90° percentile</span>' +
       '</div>' +
       '<p class="nota">Ogni barra è una fascia di carico finale, e la sua altezza è il numero ' +
-      'di giocate finite lì dentro. Se media e mediana sono lontane, la distribuzione pende ' +
+      'di ripetizioni finite lì dentro. Se media e mediana sono lontane, la distribuzione pende ' +
       'da una parte, e in quel caso la media da sola racconta male.</p>' +
       notaSullaLarghezza(m);
 
@@ -1389,7 +1389,7 @@
       '</div></div>';
 
     q('esiti').innerHTML = distribuzioneEsiti(m) +
-      '<p class="nota">Su ' + num(m.ripetizioni, 0) + ' giocate della stessa scena. ' +
+      '<p class="nota">Su ' + num(m.ripetizioni, 0) + ' ripetizioni della stessa scena. ' +
       'Se esce una barra sola, non è un errore. Quando la catena, cioè la scena vista come ' +
       'una fila di anelli, un gesto dopo l’altro, è lunga, l’esito complessivo è quello ' +
       'dell’anello peggiore. E più anelli ci sono, più è probabile che almeno uno vada ' +
@@ -1449,7 +1449,7 @@
            l'avanzamento che si vede, e il limite del libro torna a essere il
            limite del menu. Accanto a ogni voce c'e' scritto quanto costa e a
            che cosa serve: sceglierne una non deve essere indovinare. */
-        '<label class="comando"><span>Giocate</span>' +
+        '<label class="comando"><span>Ripetizioni</span>' +
           '<select id="cRip">' +
             [[100, 'per farsi un’idea'], [300, ''], [500, 'un buon punto di partenza'],
              [1000, 'quadro stabile'], [2000, ''], [5000, 'per differenze piccole'],
@@ -1478,7 +1478,7 @@
           '</select></label>' +
       '</div>' +
       '<div class="barra-azioni">' +
-        '<button class="primario" id="rifai">Rigioca la scena</button>' +
+        '<button class="primario" id="rifai">Ripeti la scena</button>' +
         '<button id="nuovoSeme">Cambia dado</button>' +
         '<span class="nota" id="statoCalcolo"></span>' +
       '</div>' +

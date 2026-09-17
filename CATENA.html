@@ -22,16 +22,16 @@
 
   <header class="testata">
     <p class="occhiello">Simulatore di vita 3.0 · catena e statistica</p>
-    <h1>Più gesti di seguito, e la stessa scena rigiocata molte volte</h1>
+    <h1>Più gesti di seguito, e la stessa scena ripetuta molte volte</h1>
     <p class="sottotitolo">
       Metti più gesti in fila, come in una mattinata vera: il carico di ognuno si porta
-      dietro al successivo. Poi rigioca la stessa sequenza centinaia di volte, con dadi
+      dietro al successivo. Poi ripeti la stessa sequenza centinaia di volte, con dadi
       nuovi, per vedere quanto costa davvero e quanto spesso.
     </p>
   </header>
 
   <!-- ====================== PERCHÉ QUESTA PAGINA, E COME SI USA ====================== -->
-  <section class="riquadro no-stampa" data-apribile data-anteprima="Che cos’è una catena di gesti, che cosa costa la sequenza intera, e perché si rigioca più volte.">
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Che cos’è una catena di gesti, che cosa costa la sequenza intera, e perché si ripete più volte.">
     <h2>Perché questa pagina, e come si usa</h2>
     <div data-passi>
     <p>
@@ -51,9 +51,9 @@
       pagina, e non è la stessa cosa che chiedere se i gesti sono riusciti. Si può riuscire
       in tutto, e arrivare in fondo a pezzi.
     </p>
-    <h3>Perché si rigioca più volte</h3>
+    <h3>Perché si ripete più volte</h3>
     <p>
-      Poi la stessa fila si rigioca centinaia o migliaia di volte, e ogni giro ha dadi
+      Poi la stessa fila viene ripetuta centinaia o migliaia di volte, e ogni giro ha dadi
       nuovi. Il dado è il numero estratto a caso, da 1 a 100, che decide se un gesto riesce.
       Così non guardi più un caso solo: guardi la forma di tutti i casi possibili.
     </p>
@@ -63,12 +63,10 @@
   <!-- ============ LA CATENA ============ -->
   <section class="riquadro no-stampa">
     <h2>1 · La catena di gesti</h2>
-    <label for="gesti" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+    <label class="etichetta-campo" for="gesti">
       Scrivi un gesto per riga
     </label>
-    <textarea id="gesti" rows="9" spellcheck="false"
-      style="width:100%;font:inherit;font-size:14px;line-height:1.5;padding:11px 13px;border-radius:8px;
-             border:1px solid var(--bordo);background:var(--piano);color:var(--inchiostro);resize:vertical"></textarea>
+    <textarea class="campo-lungo" id="gesti" rows="9" spellcheck="false"></textarea>
 
     <div class="griglia-cursori" id="cursoriCatena" style="margin-top:20px"></div>
 
@@ -79,7 +77,7 @@
         <input id="seme" type="number" value="424242">
       </span>
       <button id="duplica">Aggiungi 40 righe ripetute</button>
-      <span class="nota" style="margin:0">Una <b>replica</b> è una riga già scritta,
+      <span class="nota senza-margini">Una <b>replica</b> è una riga già scritta,
         ricopiata tale e quale: stesso gesto, stesse condizioni. Premi il pulsante e guarda
         che cosa succede. Il simulatore le riconosce, e le conta una volta sola.</span>
     </div>
@@ -88,22 +86,22 @@
       identica, oggi o fra un anno.</p>
     <div class="avviso" id="erroreCatena" style="display:none;margin-top:12px"></div>
     <div class="barra-azioni" style="margin-top:12px">
-      <span class="nota" style="margin:0">Quanto arriva davvero al gesto dopo? Nel modello
+      <span class="nota senza-margini">Quanto arriva davvero al gesto dopo? Nel modello
         si chiama <b data-parola="trasferimento_di_stato">trasferimento di stato</b>. Qui
         scegli quanto:</span>
       <button id="cal32" class="primario">misurato &nbsp;·&nbsp; 4,6 %</button>
       <button id="calStorica">storico &nbsp;·&nbsp; passa tutto</button>
-      <span class="nota" id="notaCal" style="margin:0"></span>
+      <span class="nota senza-margini" id="notaCal"></span>
     </div>
   </section>
 
   <!-- ============ GRANULARITÀ ============ -->
   <section class="riquadro" id="bloccoGran" style="display:none">
     <h2>2 · Il primo asse: quanti gesti <em>diversi</em> ci sono davvero</h2>
-    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Gli <b>«assi»</b> sono i due modi in cui questo conto può crescere. Il primo è quanti
       gesti diversi contiene la scena, e sta qui sotto. Il secondo è quante volte la si
-      rigioca, e sta al punto 6. Fra loro non si moltiplicano mai: la ragione sta in fondo
+      rifà, e sta al punto 6. Fra loro non si moltiplicano mai: la ragione sta in fondo
       alla pagina, e vale la pena leggerla. Da qui in avanti il gesto calcolato si chiama
       anche <span data-parola="nodo">«nodo»</span>. È lo stesso gesto, con il nome che usa il
       libro.
@@ -115,7 +113,7 @@
   <!-- ============ DIAGNOSI ============ -->
   <section class="riquadro" id="bloccoDiag" style="display:none">
     <h2>3 · Il modello dice ancora qualcosa?</h2>
-    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Un modello che ha smesso di distinguere continua a dare numeri, e da fuori sembrano
       risposte come prima. È il guasto più insidioso che gli possa capitare, perché non dà
       nessun segnale: la macchina gira, e non dice più niente. Per questo qui sotto ci sono
@@ -144,33 +142,33 @@
     <div id="grafico"></div>
     <p class="nota" id="notaSat"></p>
     <details style="margin-top:14px">
-      <summary style="cursor:pointer;font-size:13px;color:var(--inchiostro-2)">Vedi gesto per gesto in tabella</summary>
-      <div style="max-height:340px;overflow:auto"><table class="dati" id="tabCatena"></table></div>
+      <summary class="riepilogo-piccolo">Vedi gesto per gesto in tabella</summary>
+      <div class="avvolgi-tabella alta-limitata"><table class="dati" id="tabCatena"></table></div>
     </details>
   </section>
 
   <!-- ============ MONTE CARLO ============ -->
   <section class="riquadro" id="bloccoMC" style="display:none">
-    <h2>6 · Il secondo asse: la stessa scena, rigiocata molte volte</h2>
-    <p style="margin-top:0">
-      Rigiocare vuol dire ripartire dall’inizio, con gli stessi identici gesti e dadi nuovi.
-      Ognuna di queste partite si chiama <strong data-parola="giocata">«giocata»</strong>, ed
-      è la parola che tutte queste pagine usano sempre.
-      «<span data-parola="ripetizioni">Ripetizioni</span>» dice soltanto quante giocate se
-      ne chiedono. Tutto questo serve perché un tiro solo non dimostra niente: da un lancio
+    <h2>6 · Il secondo asse: la stessa scena, ripetuta molte volte</h2>
+    <p class="senza-sopra">
+      Ripetere vuol dire ripartire dall’inizio, con gli stessi identici gesti e dadi nuovi.
+      Ognuna di queste prove si chiama <strong data-parola="ripetizione">«ripetizione»</strong>: è la stessa scena
+      rifatta da capo con un dado diverso. È la parola che tutte queste pagine usano sempre.
+      «<span data-parola="ripetizioni">Ripetizioni</span>» dice soltanto quante se ne
+      chiedono. Tutto questo serve perché un tiro solo non dimostra niente: da un lancio
       solo non si giudica nemmeno un dado.
     </p>
-    <div class="barra-azioni" style="margin-top:0;margin-bottom:20px">
-      <span class="nota" style="margin:0">quante giocate:</span>
+    <div class="barra-azioni senza-sopra spazio-sotto">
+      <span class="nota senza-margini">quante ripetizioni:</span>
       <button data-rip="100">100</button>
       <button data-rip="1000">1.000</button>
       <button data-rip="10000">10.000</button>
-      <span class="nota" id="statoMC" style="margin:0"></span>
+      <span class="nota senza-margini" id="statoMC"></span>
     </div>
     <div class="verifica" id="mcTasselli"></div>
 
     <h3 style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--inchiostro-3);
-               margin:26px 0 12px;font-weight:600">Come finisce la scena, su tutte le giocate</h3>
+               margin:26px 0 12px;font-weight:600">Come finisce la scena, su tutte le ripetizioni</h3>
     <div class="contributi" id="mcEsiti"></div>
 
     <div class="avviso" id="mcNota" style="border-left-color:var(--aiuta);background:color-mix(in srgb, var(--aiuta) 7%, var(--superficie))"></div>
@@ -178,7 +176,7 @@
   <!-- ====================== LE PAROLE ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Le parole che hanno una voce scritta, spiegate una per una; le altre nel punto della pagina in cui compaiono.">
     <h2>Le parole, spiegate</h2>
-    <p style="color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Le parole del simulatore vogliono dire una cosa precisa. Qui sotto ci sono quelle
       che hanno una voce scritta, e le altre sono spiegate nel punto della pagina in cui
       compaiono.
@@ -188,11 +186,11 @@
 
 
   <footer class="piede">
-    <p>I due assi non vanno mai moltiplicati fra loro. I gesti moltiplicati per le giocate
-      danno un numero grande, che si chiama <b data-parola="valutazioni">valutazioni</b>: ma
-      quel numero non è né un gesto né una giocata, e quindi non vuol dire niente. Quello che
-      si conta davvero è la singola giocata della scena. Il trasferimento di stato al 4,6 % è
-      una misura, fatta sui cinquecento nodi del capitolo 28.</p>
+    <p>I due assi non vanno mai moltiplicati fra loro. I gesti moltiplicati per le
+      ripetizioni danno un numero grande, che si chiama <b data-parola="valutazioni">valutazioni</b>: ma
+      quel numero non è né un gesto né una ripetizione, e quindi non vuol dire niente. Quello
+      che si conta davvero è la singola ripetizione della scena. Il trasferimento di stato al
+      4,6 % è una misura, fatta sui cinquecento nodi del capitolo 28.</p>
   </footer>
 </div>
 

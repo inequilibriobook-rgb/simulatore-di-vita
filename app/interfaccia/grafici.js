@@ -176,7 +176,7 @@
       t.aggiungi('<rect x="' + n(t.x(r.q1)) + '" y="' + n(yc - h / 2) + '" width="' +
         n(Math.max(1.5, t.x(r.q3) - t.x(r.q1))) + '" height="' + n(h) +
         '" rx="2" fill="var(--azione-tenue)" stroke="var(--azione)" stroke-width="1.1">' +
-        '<title>' + esc(v.etichetta + ' — metà delle giocate fra Pn ' + num(r.q1, 0) +
+        '<title>' + esc(v.etichetta + ' — metà delle ripetizioni fra Pn ' + num(r.q1, 0) +
           ' e ' + num(r.q3, 0) + ', mediana ' + num(r.mediana, 0)) + '</title></rect>');
       /* la mediana */
       t.aggiungi('<line x1="' + n(t.x(r.mediana)) + '" y1="' + n(yc - h / 2) + '" x2="' +
@@ -194,7 +194,7 @@
       '" text-anchor="middle" font-size="10.5" fill="var(--inchiostro-3)">' +
       esc(opz.titoloX || 'probabilità del gesto (Pn), da 0 a 100') + '</text>');
     return t.chiudi(opz.descrizione ||
-      'Quanto oscilla la probabilità di ogni gesto fra una giocata e l’altra') +
+      'Quanto oscilla la probabilità di ogni gesto fra una ripetizione e l’altra') +
       /* LA SCATOLA E I BAFFI NON SI CAPISCONO DA SOLI.
          E' l'unica figura del pacchetto che usa una convenzione statistica
          invece di una barra, e non aveva legenda: chi non l'ha gia' vista
@@ -205,10 +205,10 @@
         /* il segno prende il colore del CONTORNO della scatola, non del suo
            riempimento: --azione-tenue e' al 10 per cento e in un quadratino
            da undici pixel non si vedrebbe affatto */
-        { testo: 'la scatola: metà delle giocate stanno qui dentro',
+        { testo: 'la scatola: metà delle ripetizioni stanno qui dentro',
           colore: 'var(--azione)' },
         { testo: 'la riga viva: la mediana', colore: 'var(--azione-viva)', forma: 'linea' },
-        { testo: 'i baffi: dalla giocata più bassa alla più alta',
+        { testo: 'i baffi: dalla ripetizione più bassa alla più alta',
           colore: 'var(--inchiostro-3)', forma: 'linea' },
         { testo: 'il tratteggio: i due bordi oltre cui la Pn non può andare',
           colore: 'var(--inchiostro-3)', forma: 'tratteggio' },
@@ -536,9 +536,9 @@
            il segno di percentuale stava attaccato alla cifra mentre in tutto
            il resto del progetto ha il suo spazio. */
         '<title>' + (i === 0
-            ? 'Prima di cominciare è intatto il ' + pct(p.quota) + ' % delle giocate'
+            ? 'Prima di cominciare è intatto il ' + pct(p.quota) + ' % delle ripetizioni'
             : 'Dopo ' + i + (i === 1 ? ' gesto' : ' gesti') + ' è ancora intatto il ' +
-              pct(p.quota) + ' % delle giocate') +
+              pct(p.quota) + ' % delle ripetizioni') +
         '</title></circle>');
     });
     t.aggiungi('<path d="' + d + '" fill="none" stroke="var(--azione-viva)" stroke-width="2.2"/>');
@@ -547,7 +547,7 @@
       esc(opz.titoloX || 'quanti gesti sono già stati fatti') + '</text>');
     t.asseY('quota ancora intatta');
     return t.chiudi(opz.descrizione ||
-      'Quante giocate arrivano intatte fino a ciascun gesto');
+      'Quante ripetizioni arrivano intatte fino a ciascun gesto');
   }
 
   var API = {

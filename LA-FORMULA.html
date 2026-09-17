@@ -23,9 +23,9 @@
   <header class="testata">
     <p class="occhiello">Simulatore di vita 3.0 · come è fatto dentro</p>
     <h1>La matematica, da zero</h1>
-    <p class="sottotitolo">Il calcolo che sta dietro ogni numero del simulatore, aperto pezzo
-      per pezzo: che cosa significa ogni lettera, da dove viene ogni valore, e il codice vero
-      che lo esegue.</p>
+    <p class="sottotitolo">Questa pagina apre pezzo per pezzo il calcolo che sta dietro ogni
+      numero del simulatore. Vedrai che cosa vuol dire ogni lettera, da dove viene ogni
+      valore, e qual è il codice vero che lo esegue.</p>
   </header>
 
   <section class="riquadro no-stampa" data-apribile data-anteprima="Perché la matematica è aperta qui, come è organizzata questa pagina, e dove sta la parte che il libro chiama più importante di tutte.">
@@ -45,7 +45,7 @@
   <!-- ====================== DOVE SI CREA UN NODO ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Che cos’è un nodo, cioè il gesto più piccolo che si può misurare, e le due strade per costruirne uno.">
     <h2>1 · Dove si crea un nodo</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Un <span data-parola="nodo">«nodo»</span> è un «gesto» solo, con un inizio e una fine che
       si riconoscono. Bere un bicchiere d’acqua è un nodo. «Fare la spesa» no, perché dentro
       ci stanno venti gesti diversi. Per crearne uno ci sono due strade, e tutte e due
@@ -82,7 +82,7 @@
   <!-- ====================== LA FORMULA ====================== -->
   <section class="riquadro">
     <h2>2 · La formula, in una riga</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       La formula madre è semplice, e lo è di proposito: chiunque deve poterla rifare con
       carta e penna. Fa una somma, e poi applica il «clamp», cioè il «taglio» ai bordi. I pezzi
       della somma si chiamano termini. Ce n’è uno per ogni cosa che nella scena conta: il
@@ -108,7 +108,7 @@
   <!-- ====================== UN CALCOLO, PASSO PER PASSO ====================== -->
   <section class="riquadro" id="passoPerPasso">
     <h2>3 · Un calcolo del libro, passo per passo</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Il capitolo 39 del libro fa dodici calcoli completi. Dieci arrivano a un numero. Due
       si fermano prima, perché in quei due casi fermarsi è il risultato.
       <strong>Scegli una scheda</strong>, cioè uno dei dodici casi qui sotto. I cursori qui sopra si mettono da soli sui valori
@@ -117,14 +117,14 @@
       accanto all’altro: quello che il motore ha appena calcolato e quello stampato nel
       libro.
     </p>
-    <div id="schedeLibro" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px"></div>
+    <div class="schede-fila" id="schedeLibro"></div>
     <div id="svolgimento"></div>
   </section>
 
   <!-- ====================== PEZZO PER PEZZO ====================== -->
   <section class="riquadro">
     <h2>4 · Ogni pezzo, uno per volta</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       I termini sono nove. Per ognuno la tabella dice che cosa misura, quanto vale in
       questo momento e di quanto sposta la probabilità di riuscita. I cursori qui sopra la
       riscrivono mentre li muovi, e non c’è niente da rifare a mano.
@@ -145,7 +145,7 @@
   <!-- ====================== LE TABELLE A GRADINI ====================== -->
   <section class="riquadro">
     <h2>5 · Le due tabelle a gradini</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Le due tabelle qui sotto sono grossolane, e il modello non lo nasconde. Nella vita lo
       stress non cambia a scatti. Qui a scatti cambia lo stesso, e il motivo è semplice: una
       scala a «fasce», cioè a scaglioni, si legge in un attimo e si può contestare. Una curva
@@ -156,7 +156,7 @@
       toglie cinque punti.
     </p>
     <h3 class="sotto-titolo">PenSTR — la penalità da <span data-parola="carico">carico</span></h3>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       La sigla è fatta di due parole. <strong>STR</strong> sta per stress, ed è il carico che
       ti porti dietro dai giorni prima. <strong>Pen</strong> sta per penalità, cioè i punti
       che quel peso toglie. Si legge «pen di STR», e non è una moltiplicazione: dentro entra
@@ -171,7 +171,7 @@
       sotto dice la stessa cosa, riga per riga.</p>
     <div class="avvolgi-tabella"><table class="dati" id="tabellaStr"></table></div>
     <h3 class="sotto-titolo">DEB — la penalità da <span data-parola="debito">debito</span></h3>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       <strong>DEB</strong> sta per debito, ed è quello che si accumula quando insisti su una
       strada che non funziona. Riprovi nello stesso modo, senza cambiare niente e senza una
       pausa vera. E a ogni tentativo il debito cresce.
@@ -188,7 +188,7 @@
   <!-- ====================== IL TAGLIO ====================== -->
   <section class="riquadro">
     <h2>6 · Il taglio ai bordi</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Per i nodi ammessi al calcolo, <strong>Pn</strong>, cioè la probabilità di riuscita del
       nodo, resta sempre fra 5 e 95. Sono limiti del modello, non della realtà. Un gesto
       impossibile non riceve una possibilità vera solo perché il numero si ferma a 5. Per
@@ -218,7 +218,7 @@
   <!-- ====================== IL DADO ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Come il numero finale diventa un sì o un no: si tira un dado da cento facce, e si guarda di quanto ci si è passati vicino.">
     <h2>7 · Il dado, e di quanto ci passa</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Il dado, che nel simulatore non è un oggetto ma un numero estratto a caso, dà un numero
       intero da 1 a 100, e basta. Non esistono colpi fortunati che valgono doppio, né numeri
       che fanno fallire da soli: ognuno dei cento numeri ha la stessa possibilità di
@@ -247,7 +247,7 @@
   <!-- ====================== IL CODICE ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Le righe vere del programma che fanno il calcolo, per chi vuole guardare dentro il motore.">
     <h2>8 · Il codice che lo fa</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Quello che vedi qui sotto è il codice vero del motore. Sono le stesse righe che hanno
       appena calcolato i numeri qui sopra.
     </p>
@@ -258,7 +258,7 @@
   <!-- ====================== QUELLO CHE MANCA ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Le quattro cose che il libro lascia scoperte, e che però cambiano come va a finire la scena.">
     <h2>9 · Che cosa la formula non contiene</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Il libro dedica a questo la sezione che chiama la più importante di tutto l’apparato.
       La ragione la dice il libro stesso: <em>chi legge un formulario si aspetta che
       sia completo, e conclude che ciò che manca sia irrilevante. Qui è il contrario: mancano
@@ -275,7 +275,7 @@
   <!-- ====================== LE PAROLE ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Le parole e le sigle di questa pagina, spiegate una per una, con un esempio.">
     <h2>10 · Le parole, spiegate</h2>
-    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Questa pagina è piena di sigle, e nessuna va imparata a memoria. Stanno tutte qui
       sotto, raccolte per argomento e sciolte una per una. Se una ti è sfuggita mentre
       leggevi, la ritrovi qui. Quelle del calcolo stanno sotto «Come nasce il numero».

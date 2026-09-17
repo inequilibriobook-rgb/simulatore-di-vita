@@ -594,7 +594,7 @@
      confermato con le sue mani (vedi `provenienzaRisposte` più sopra). */
   var PROVENIENZA_ETICHETTA = {
     stimato: 'stimato dal testo della scena, non confermato',
-    proxy: 'valore proxy, non confermato',
+    proxy: 'valore stimato da un altro dato collegato, non confermato',
     incompleto: 'dato incompleto'
   };
   var PROVENIENZA_TITOLO = 'Il capitolo 21 del libro chiama così la provenienza di un dato: non ' +

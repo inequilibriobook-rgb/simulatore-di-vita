@@ -386,15 +386,15 @@
      ==================================================================== */
   figura('distribuzione', {
     titolo: 'Mille volte la stessa mattina',
-    didascalia: 'La stessa catena, rigiocata mille volte con dadi diversi. Non un caso ' +
+    didascalia: 'La stessa catena, ripetuta mille volte con dadi diversi. Non un caso ' +
                 'solo, quindi, ma la forma di tutti i casi possibili. Si vedono la ' +
-                'media, e la fascia in cui finisce il novanta per cento delle giocate.',
+                'media, e la fascia in cui finisce il novanta per cento delle ripetizioni.',
     disegna: function () {
       var m = A.montecarlo(catena(30, 45), { ripetizioni: 1000, seme: 424242,
                                              calibrazione: MS.CALIBRAZIONE });
       var h = A.istogramma(m.campioni.stress, { fasce: 14 });
       if (!h || h.degenere) {
-        return '<p class="figura-conto">Tutte le giocate finiscono sullo stesso numero: ' +
+        return '<p class="figura-conto">Tutte le ripetizioni finiscono sullo stesso numero: ' +
           h.minimo + '. Non c’è una distribuzione da mostrare.</p>';
       }
       var primo = h.fasce[0].da, ultimo = h.fasce[h.fasce.length - 1].a;
@@ -404,7 +404,7 @@
       g.griglia([0, Math.round(maxN / 2), maxN]);
       g.bandaX(m.stress_finale.p10, m.stress_finale.p90, COLORI.neutro, 0.09);
       g.barre(h.fasce.map(function (f) {
-        return [(f.da + f.a) / 2, f.n, 'da ' + f.da + ' a ' + f.a + ': ' + f.n + ' giocate'];
+        return [(f.da + f.a) / 2, f.n, 'da ' + f.da + ' a ' + f.a + ': ' + f.n + ' ripetizioni'];
       }), { colore: COLORI.ostacola });
       g.sogliaX(m.stress_finale.media, 'media ' + num(m.stress_finale.media), 'var(--inchiostro)');
       var tacche = [];
@@ -412,29 +412,17 @@
         tacche.push([v, String(v)]);
       }
       g.asseX(tacche, 'carico alla fine della mattina');
-      g.asseY('quante giocate, su mille');
-      return g.chiudi('La distribuzione del carico finale su mille giocate') +
+      g.asseY('quante ripetizioni, su mille');
+      return g.chiudi('La distribuzione del carico finale su mille ripetizioni') +
         D.legenda([
-          { testo: 'quante giocate finiscono in quella fascia', colore: COLORI.ostacola },
-          { testo: 'fra il 10° e il 90° percentile: l’80 % delle giocate', colore: COLORI.neutro, opacita: 0.35 }
+          { testo: 'quante ripetizioni finiscono in quella fascia', colore: COLORI.ostacola },
+          { testo: 'fra il 10° e il 90° percentile: l’80 % delle ripetizioni', colore: COLORI.neutro, opacita: 0.35 }
         ]) +
         '<p class="figura-conto">Media <b>' + num(m.stress_finale.media) + '</b>, mediana <b>' +
-        num(m.stress_finale.mediana) + '</b>, e l’ottanta per cento delle giocate fra <b>' +
+        num(m.stress_finale.mediana) + '</b>, e l’ottanta per cento delle ripetizioni fra <b>' +
         num(m.stress_finale.p10) + '</b> e <b>' + num(m.stress_finale.p90) + '</b>. La ' +
-                                                                             'distribuzione ' +
-                                                                             'è stretta, ' +
-                                                                             'e non è un ' +
-                                                                             'difetto ' +
-                                                                             'del ' +
-                                                                             'grafico. È ' +
-                                                                             'il ' +
-                                                                             'trasferimento ' +
-                                                                             'al 4,6 % ' +
-                                                                             'che tiene ' +
-                                                                             'tutte le ' +
-                                                                             'giocate ' +
-                                                                             'vicine fra ' +
-                                                                             'loro.</p>';
+        'distribuzione è stretta, e non è un difetto del grafico. È il trasferimento al ' +
+        '4,6 % che tiene tutte le ripetizioni vicine fra loro.</p>';
     }
   });
 
@@ -443,7 +431,7 @@
      ==================================================================== */
   figura('convergenza', {
     titolo: 'L’intervallo si stringe con la radice',
-    didascalia: 'Le stesse mille giocate di prima, lette a fette. Per ogni n si vede la ' +
+    didascalia: 'Le stesse mille ripetizioni di prima, lette a fette. Per ogni n si vede la ' +
                 'media sui primi n valori, con la fascia che le spetta. Non è una ' +
                 'previsione: è quello che è successo davvero, man mano.',
     disegna: function () {
@@ -484,8 +472,8 @@
   figura('assi', {
     titolo: 'Un errore di denominatore, a variabilità fissata',
     didascalia: 'Le due fasce partono dalla stessa media e dalla stessa variabilità ' +
-                'fra le giocate. La seconda, però, commette l’errore di mettere al ' +
-                'denominatore il numero di valutazioni invece del numero di giocate, ' +
+                'fra le ripetizioni. La seconda, però, commette l’errore di mettere al ' +
+                'denominatore il numero di valutazioni invece del numero di ripetizioni, ' +
                 'e per questo viene fuori più stretta di quanto abbia diritto di essere. ' +
                 'È un esempio, non una regola: il fattore cambia da caso a caso.',
     disegna: function () {
@@ -505,16 +493,16 @@
         g.aggiungi('<text x="' + (g.L - 10) + '" y="' + (g.y(y) + 4).toFixed(1) +
           '" text-anchor="end" font-size="11" fill="var(--inchiostro-2)">' + esc(eti) + '</text>');
       }
-      fascia(1.45, giusta, COLORI.azione, 'n = ' + m.ripetizioni + ' giocate');
+      fascia(1.45, giusta, COLORI.azione, 'n = ' + m.ripetizioni + ' ripetizioni');
       fascia(0.55, finta, COLORI.ostacola, 'n = ' + num(m.valutazioni_totali, 0) + ' valutazioni');
       g.sogliaX(m.stress_finale.media, 'media ' + num(m.stress_finale.media), 'var(--inchiostro)');
       g.asseX([], 'carico finale');
-      return g.chiudi('Le due fasce a confronto: contando le giocate e contando le valutazioni') +
-        '<p class="figura-conto">La fascia calcolata sulle giocate è <b>± ' + num(giusta, 2) +
+      return g.chiudi('Le due fasce a confronto: contando le ripetizioni e contando le valutazioni') +
+        '<p class="figura-conto">La fascia calcolata sulle ripetizioni è <b>± ' + num(giusta, 2) +
         '</b>. Se al denominatore si mettessero, per sbaglio, le ' +
         num(m.valutazioni_totali, 0) + ' valutazioni, la fascia diventerebbe <b>± ' + num(finta, 2) +
-        '</b>: più stretta di <b>' + num(Math.sqrt(nodi)) + ' volte</b>, senza che sia stata giocata ' +
-        'una sola giocata in più. È una precisione finta, e il rapporto vale solo per questo ' +
+        '</b>: più stretta di <b>' + num(Math.sqrt(nodi)) + ' volte</b>, senza che sia stata fatta ' +
+        'una sola ripetizione in più. È una precisione finta, e il rapporto vale solo per questo ' +
         'esempio: con un’altra scena il numero cambia.</p>';
     }
   });

@@ -886,7 +886,7 @@
              'Un fallimento così è soprattutto un’informazione: dice che il gesto era sul ' +
              'confine, e che bastava spostare una cosa sola perché finisse dall’altra parte. ' +
              'Riprovare, qui, ha senso più che in ogni altro caso. A una condizione, però: ' +
-             'che prima si cambi qualcosa, perché rifare tutto uguale vuol dire rigiocare lo ' +
+             'che prima si cambi qualcosa, perché rifare tutto uguale vuol dire ripetere lo ' +
              'stesso tiro.',
       breve: 'Non è andata, ma è mancato pochissimo: riprovare ha senso, a patto di cambiare ' +
              'prima qualcosa.'
@@ -1705,7 +1705,7 @@
     }
     if (s.floor1_attivo) {
       /* «sta impedendo» era il progressivo inglese: il modello impedisce */
-      pezzi.push('⚠️ Il «pavimento» di protezione è attivo, cioè la difesa che il modello accende da solo quando il carico è salito troppo, e da cui in poi il riposo rende circa la metà' + perchePavimento(s) +
+      pezzi.push('⚠️ Il «pavimento» di protezione è attivo, cioè la difesa che il modello accende da solo quando il carico è salito troppo. Da lì in poi il riposo rende circa la metà' + perchePavimento(s) +
         '. Il modello impedisce che le cose peggiorino oltre un certo punto, e non è ' +
         'una buona notizia: è un freno d’emergenza. Quello che si legge adesso è uno stato ' +
         'tenuto su dal modello, non lo stato che ci sarebbe senza.');
@@ -2312,7 +2312,7 @@
       if (dopo.floor1_attivo && !prima.floor1_attivo) {
         trovati.push({ i: i, peso: 95, tipo: 'pavimento', nodo: n,
           testo: aGesto(i) + ' («' + n.descrizione + '») si è acceso il «pavimento» di ' +
-                 'protezione, cioè la difesa che il modello accende da solo quando il carico è salito troppo, e da cui in poi il riposo rende circa la metà, e il modello ha smesso di lasciar peggiorare le cose. È un freno ' +
+                 'protezione, cioè la difesa che il modello accende da solo quando il carico è salito troppo. Da lì in poi il riposo rende circa la metà. Il modello smette di lasciar peggiorare le cose: è un freno ' +
                  'd’emergenza, non un miglioramento.' });
       }
       if (dopo.debito_deb > prima.debito_deb) {
@@ -3002,8 +3002,8 @@
         : 'Le ' + notte.notti + ' notti hanno restituito, in media, ');
       if (notte.pavimento_attivo) {
         t = quanteNotti + inPunti(notte.restituito_per_notte) + ' di carico' +
-          (notte.notti === 1 ? '' : ' a notte') + '. Ma il «pavimento» di protezione (cioè la difesa che il modello accende da solo quando il carico è salito troppo, e da cui in poi il riposo rende circa la metà) è ' +
-          'attivo, e il recupero è già dimezzato: quello che si vede non è quanto la notte ' +
+          (notte.notti === 1 ? '' : ' a notte') + '. Ma il «pavimento» di protezione è attivo: è la difesa che il modello accende da solo quando il carico è salito troppo, e da cui in poi il riposo rende circa la metà. ' +
+          'Il recupero è già dimezzato: quello che si vede non è quanto la notte ' +
           'può dare, è quanto le resta da dare.';
       } else if (notte.restituito_per_notte <= 0) {
         t = 'Le notti non hanno restituito niente: in media il carico al risveglio è uguale ' +

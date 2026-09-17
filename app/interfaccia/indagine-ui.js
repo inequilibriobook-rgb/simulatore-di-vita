@@ -182,7 +182,7 @@
   function indaga() {
     var testo = q('scena').value.trim();
     if (!testo) { dimmi('Scrivi una scena, o scegli un esempio qui sopra.'); return; }
-    dimmi('Primo tempo di tre: sto rigiocando la scena…');
+    dimmi('Primo tempo di tre: sto ripetendo la scena…');
 
     var mioGiro = ++giroIndagine;
     var t0 = (globale.performance && performance.now) ? performance.now() : Date.now();
@@ -259,17 +259,17 @@
             'pezzo di contesto', 'pezzi di contesto') +
           ', cioè le frasi che dicono come stai, non che cosa fai'
         : '') +
-      ', e ho giocato la scena ' + Lg.intero(ind.ripetizioni) + ' volte. ' +
-      'Ogni gesto è stato valutato una volta per giocata, quindi in tutto le valutazioni ' +
+      ', e ho ripetuto la scena ' + Lg.intero(ind.ripetizioni) + ' volte. ' +
+      'Ogni gesto è stato valutato una volta per ripetizione, quindi in tutto le valutazioni ' +
       'sono ' + Lg.intero(ind.valutazioni) + '. Ma il <strong>campione</strong> non è quello. ' +
       'Campione vuol dire su quanti casi davvero indipendenti è calcolato un numero, e qui ' +
       'i casi indipendenti sono <strong>' + Lg.intero(ind.ripetizioni) + '</strong>, cioè ' +
-      'quante volte la scena è stata giocata da capo. I gesti di una stessa giocata, invece, ' +
+      'quante volte la scena è stata rifatta da capo. I gesti di una stessa ripetizione, invece, ' +
       'sono legati l’uno all’altro: se il primo va male, il secondo parte più carico. Contarli ' +
       'uno per uno stringerebbe tutti gli intervalli, senza una sola informazione in più.';
 
     if (ind.ridotto) {
-      q('lettura').innerHTML += '<br><br><strong>Ho dovuto ridurre le giocate.</strong> ' +
+      q('lettura').innerHTML += '<br><br><strong>Ho dovuto ridurre le ripetizioni.</strong> ' +
         esc(ind.ridotto.perche);
     }
     disegnaMappa();
@@ -285,10 +285,10 @@
     /* le due figure che ancora non ci sono si annunciano, invece di lasciare
        due buchi bianchi in mezzo alla pagina */
     q('tornado').innerHTML = '<p class="nota">Sto provando le modifiche, una per volta. ' +
-      'Ogni modifica è una scena intera da rigiocare da capo, e sono sedici.</p>';
+      'Ogni modifica è una scena intera da rifare da capo, e sono sedici.</p>';
     q('letturaLeve').innerHTML = '';
     q('curvaCarico').innerHTML = '<p class="nota">Questa curva arriva per ultima: fa scorrere ' +
-      'il carico di partenza da 0 a 100, e per ogni valore rigioca la scena.</p>';
+      'il carico di partenza da 0 a 100, e per ogni valore ripete la scena.</p>';
     q('letturaCarico').innerHTML = '';
     if (globale.Glossario && globale.Glossario.decoraTutte) { globale.Glossario.decoraTutte(); }
   }
@@ -304,7 +304,7 @@
     });
     q('mappa').innerHTML = G.barreConIntervallo(voci, {
       titoloX: 'quante volte questo gesto è andato male, su ' +
-               Lg.intero(ind.ripetizioni) + ' giocate',
+               Lg.intero(ind.ripetizioni) + ' ripetizioni',
       descrizione: 'Rischio di ciascun gesto della scena, con l’intervallo di confidenza'
     }) + notaTagliati();
 
@@ -332,12 +332,12 @@
          «Fra 22,1 % e 27,0 %» è una fascia, e una fascia si legge solo se
          qualcuno dice di che cosa. Qui sotto la stessa fascia è detta contando
          giocate: sono le stesse cifre, ma diventano una cosa che si immagina. */
-      ' <b>Detto contando le giocate:</b> su cento giocate come questa, il gesto ' +
+      ' <b>Detto contando le ripetizioni:</b> su cento ripetizioni come questa, il gesto ' +
       'riesce fra ' + fraseCento(1 - primo.rischio.alto) + ' e ' +
       fraseCento(1 - primo.rischio.basso) + ' volte, e va male fra ' +
       fraseCento(primo.rischio.basso) + ' e ' + fraseCento(primo.rischio.alto) + '. ' +
       'Non è un numero preciso, ed è giusto così, perché ' + Lg.intero(ind.ripetizioni) +
-      ' giocate non bastano a dire di più.' +
+      ' ripetizioni non bastano a dire di più.' +
       (unoSolo
         ? ' Con un gesto solo non c’è nessuna classifica da stilare, e nessun confronto da ' +
           'fare. Quello che segue racconta questo gesto, senza metterlo in fila con altri.'
@@ -347,17 +347,17 @@
       var secondo = ind.nodi[c.secondo];
       h += '<p class="nota">' + (c.distinguibili
         ? '<strong>Il confronto esplorativo distingue i primi due.</strong> In ' +
-          Lg.plurale(c.solo_primo, 'giocata', 'giocate') + ' il gesto ' + (c.primo + 1) +
+          Lg.plurale(c.solo_primo, 'ripetizione', 'ripetizioni') + ' il gesto ' + (c.primo + 1) +
           ' è andato male e il gesto ' + (c.secondo + 1) + ' no. Il contrario è successo in ' +
           Lg.intero(c.solo_secondo) + '. È un segnale della prova, non una certezza.'
         : '<strong>Attenzione: la differenza con il secondo NON è distinguibile.</strong> ' +
           'Il gesto ' + (c.primo + 1) + ' e il gesto ' + (c.secondo + 1) + ' si scambiano il ' +
           'primato troppo spesso. Non si può dire quale sia davvero il peggiore: ' +
-          Lg.plurale(c.solo_primo, 'giocata', 'giocate') + ' contro ' +
-          Lg.intero(c.solo_secondo) + '. Con più giocate forse si separerebbero. ' +
+          Lg.plurale(c.solo_primo, 'ripetizione', 'ripetizioni') + ' contro ' +
+          Lg.intero(c.solo_secondo) + '. Con più ripetizioni forse si separerebbero. ' +
           'Per adesso vanno trattati come due punti deboli, non come uno.') +
         '<br><em>Il confronto è fatto con la prova di McNemar, che è quella giusta quando ' +
-        'i due gesti vengono dalle stesse giocate. Nella stessa mattina, infatti, se il primo ' +
+        'i due gesti vengono dalle stesse ripetizioni. Nella stessa mattina, infatti, se il primo ' +
         'va male il secondo parte più carico: non sono indipendenti, e quindi non si possono ' +
         'confrontare come se lo fossero. I primi due gesti sono scelti dopo aver visto i ' +
         'dati, quindi questo confronto resta esplorativo e non tiene conto di quella ' +
@@ -392,7 +392,7 @@
     if (ind.nodi.length === 1) {
       return '<p class="nota"><strong>La scatola è ridotta a una riga, e non poteva essere ' +
         'altrimenti.</strong> La scena ha un gesto solo. Prima di lui non è successo niente, ' +
-        'quindi la sua probabilità è la stessa in tutte le giocate. Non ha modo di ' +
+        'quindi la sua probabilità è la stessa in tutte le ripetizioni. Non ha modo di ' +
         'muoversi. Quello che il dado decide è l’esito, non la probabilità. Per vedere ' +
         'una scatola aprirsi davvero serve una scena con almeno un gesto prima.</p>';
     }
@@ -401,9 +401,9 @@
       return '<p class="nota"><strong>' + Lg.plurale(mosse.length, 'scatola', 'scatole') +
         ' su ' + Lg.intero(mostrati.length) + ' ' +
         (mosse.length === 1 ? 'ha una larghezza vera' : 'hanno una larghezza vera') +
-        '.</strong> Vuol dire che lì la probabilità del gesto è cambiata da una giocata ' +
+        '.</strong> Vuol dire che lì la probabilità del gesto è cambiata da una ripetizione ' +
         'all’altra. Il carico lasciato dai gesti prima ha scavalcato un gradino della ' +
-        'tabella. Così il gesto si è trovato più fragile in certe giocate che in altre. È ' +
+        'tabella. Così il gesto si è trovato più fragile in certe ripetizioni che in altre. È ' +
         'proprio quello che questa pagina cerca.</p>';
     }
     return '<p class="nota"><strong>Tutte le scatole sono ridotte a una riga, e c’è una ' +
@@ -426,7 +426,7 @@
          e' dirlo — indicando dove quel numero si puo' cambiare davvero. */
       'E qui va detto qualcosa che vale per tutta la pagina. Con il trasferimento misurato al ' +
       '4,6 % queste scatole restano chiuse quasi sempre: non basta allungare la scena, e non ' +
-      'basta farla partire carica. Perché una si apra, il carico deve cambiare fra una giocata ' +
+      'basta farla partire carica. Perché una si apra, il carico deve cambiare fra una ripetizione ' +
       'e l’altra proprio di quel tanto che serve a scavalcare un gradino, e sono coincidenze ' +
       'rare. A spalancarle è la calibrazione storica, quella di prima che il 4,6 % venisse ' +
       'misurato, e la si può provare in <a href="MONTECARLO.html">Mille volte la stessa ' +
@@ -436,7 +436,7 @@
   function disegnaScatole() {
     q('scatole').innerHTML = G.scatolaBaffi(daMostrare().map(function (k) {
       return { etichetta: nomeNodo(k), r: ind.nodi[k].pn };
-    }), { descrizione: 'Come si distribuisce la probabilità di ciascun gesto sulle giocate' }) +
+    }), { descrizione: 'Come si distribuisce la probabilità di ciascun gesto sulle ripetizioni' }) +
       notaTagliati() + notaScatolePiatte();
   }
 
@@ -499,12 +499,12 @@
       'questo. La formula è una somma, e qui non c’è nessuna approssimazione.</p>';
     if (n.dipende_dal_prima > 0.5) {
       h += '<p class="nota">Questa probabilità <strong>non è sempre la stessa</strong>. ' +
-        'Oscilla di ±' + num(n.dipende_dal_prima, 1) + ' punti fra una giocata e l’altra. ' +
+        'Oscilla di ±' + num(n.dipende_dal_prima, 1) + ' punti fra una ripetizione e l’altra. ' +
         'Nel peggiore dei casi è scesa a ' + num(n.pn.minimo, 0) + '. La colonna che ' +
         'cambia è quella del carico. E cambia per quello che è successo nei gesti prima.</p>';
     } else if (k === 0) {
       h += '<p class="nota">Questo è il primo gesto della scena. Prima di lui non è successo ' +
-        'niente, quindi la sua probabilità è la stessa in tutte le giocate. È l’unico gesto ' +
+        'niente, quindi la sua probabilità è la stessa in tutte le ripetizioni. È l’unico gesto ' +
         'di cui si può dire «vale tanto», senza aggiungere «dipende».</p>';
     }
     q('letturaCascata').innerHTML = h;
@@ -540,7 +540,7 @@
 
     q('rottura').innerHTML = G.barreConIntervallo(voci, {
       massimo: Math.min(1, max * 1.1),
-      titoloX: 'quante giocate si sono rotte QUI per la prima volta',
+      titoloX: 'quante ripetizioni si sono rotte QUI per la prima volta',
       descrizione: 'Distribuzione del primo gesto andato male'
     }) +
       /* «NELLO 0,0 % DELLE GIOCATE... SONO 0 GIOCATE SU 2.000» E' UNA FRASE CHE
@@ -550,23 +550,23 @@
          vuole una risposta netta. */
       '<p class="nota">' +
       (ind.rottura.mai === 0
-        ? '<strong>Nessuna giocata è arrivata in fondo intatta.</strong> In tutte e ' +
-          Lg.intero(ind.ripetizioni) + ' le giocate, prima della fine, almeno un gesto è ' +
+        ? '<strong>Nessuna ripetizione è arrivata in fondo intatta.</strong> In tutte e ' +
+          Lg.intero(ind.ripetizioni) + ' le ripetizioni, prima della fine, almeno un gesto è ' +
           'andato male.'
         : ind.rottura.mai === ind.ripetizioni
           ? '<strong>Non si è mai rotto niente.</strong> Tutte e ' +
-            Lg.intero(ind.ripetizioni) + ' le giocate sono arrivate in fondo con ogni gesto ' +
+            Lg.intero(ind.ripetizioni) + ' le ripetizioni sono arrivate in fondo con ogni gesto ' +
             'riuscito.'
-          : nelPerCento(ind.rottura.quota_mai) + ' delle giocate non si è rotto niente. La ' +
+          : nelPerCento(ind.rottura.quota_mai) + ' delle ripetizioni non si è rotto niente. La ' +
             'scena è arrivata in fondo con tutti i gesti riusciti: sono ' +
-            Lg.plurale(ind.rottura.mai, 'giocata', 'giocate') + ' su ' +
+            Lg.plurale(ind.rottura.mai, 'ripetizione', 'ripetizioni') + ' su ' +
             Lg.intero(ind.ripetizioni) + '.') + '</p>' +
       (scarto !== 0
         ? '<p class="nota"><strong>Se sommi queste percentuali non fanno 100, e non è un ' +
           'errore.</strong> Fanno ' + num(somma, 1) + '. Ogni quota è arrotondata al decimo. ' +
           'Tutti quegli arrotondamenti messi in fila si portano dietro ' +
           (scarto > 0 ? 'un avanzo' : 'un ammanco') + ' di ' +
-          num(Math.abs(scarto), 1) + '. I conteggi invece tornano esatti. Le giocate rotte sono ' +
+          num(Math.abs(scarto), 1) + '. I conteggi invece tornano esatti. Le ripetizioni rotte sono ' +
           Lg.intero(ind.rottura.per_nodo.reduce(function (t, r) { return t + r.quante; }, 0)) +
           ', quelle arrivate intatte sono ' + Lg.intero(ind.rottura.mai) + '. Insieme fanno ' +
           Lg.intero(ind.ripetizioni) + ', senza avanzi. Meglio farti vedere la ' +
@@ -576,7 +576,7 @@
 
     q('sopravvivenza').innerHTML = G.sopravvivenza(ind.rottura.sopravvivenza, {
       titoloX: 'quanti gesti sono già stati fatti',
-      descrizione: 'Curva di sopravvivenza: quante giocate arrivano intatte a ciascun gesto'
+      descrizione: 'Curva di sopravvivenza: quante ripetizioni arrivano intatte a ciascun gesto'
     });
   }
 
@@ -591,7 +591,7 @@
       descrizione: 'Effetto di ciascuna modifica sulla probabilità che la scena arrivi in fondo intatta'
     });
 
-    q('tornado').innerHTML += '<p class="nota">La fascia qui sopra confronta le giocate a ' +
+    q('tornado').innerHTML += '<p class="nota">La fascia qui sopra confronta le ripetizioni a ' +
       'coppie, non come due gruppi separati. Il calcolo usa il metodo di <strong>Wilson</strong>, ' +
       'una formula che regge bene anche vicino a zero o a cento, e usa ' +
       '<strong>Bonferroni</strong>, per la ragione che la sezione 8 spiega. Vale per ' +
@@ -604,11 +604,11 @@
       'dire esiti buoni o un costo basso: vuol dire soltanto che nessun gesto è andato ' +
       'male. La scena risulta intatta ' +
       articoloNel(leve.base.quota, true) + '<strong>' + pct(leve.base.quota) +
-      '&nbsp;%</strong> delle giocate. ';
+      '&nbsp;%</strong> delle ripetizioni. ';
     if (!utili.length) {
       h += 'Nessuna delle modifiche provate sposta questo numero abbastanza. Con ' +
-        Lg.intero(leve.ripetizioni) + ' giocate, il loro effetto non si distingue dal caso. ' +
-        'Non vuol dire che non servano: vuol dire che per dirlo servirebbero più giocate.</p>';
+        Lg.intero(leve.ripetizioni) + ' ripetizioni, il loro effetto non si distingue dal caso. ' +
+        'Non vuol dire che non servano: vuol dire che per dirlo servirebbero più ripetizioni.</p>';
     } else {
       var m = utili[0];
       h += 'La modifica che sposta di più è <strong>«' + esc(m.leva.nome) + '»</strong>. ' +
@@ -620,12 +620,12 @@
            cifre raccontate come giocate — quante sono migliorate, quante
            peggiorate, e dentro quale fascia sta la differenza su cento — sono
            la stessa statistica e si capiscono senza saperla. */
-        '<p class="nota"><b>Detto contando le giocate.</b> Le due versioni sono state ' +
-        'giocate con gli stessi dadi, quindi ogni giocata ha la sua gemella. Su ' +
+        '<p class="nota"><b>Detto contando le ripetizioni.</b> Le due versioni sono state ' +
+        'ripetute con gli stessi dadi, quindi ogni ripetizione ha la sua gemella. Su ' +
         Lg.intero(m.ic.n) + ' coppie, la modifica ne ha salvate ' + Lg.intero(m.ic.migliora) +
         ' e ne ha rovinate ' + Lg.intero(m.ic.peggiora) + '. Tutte le altre sono finite ' +
         'uguali, e quelle non dicono niente né a favore né contro. La fascia ' +
-        'al 95 % è questa: su cento giocate come queste, la modifica ne fa arrivare in ' +
+        'al 95 % è questa: su cento ripetizioni come queste, la modifica ne fa arrivare in ' +
         'fondo intatte ' +
         (m.ic.alto < 0
           ? 'fra ' + fraseCento(-m.ic.alto) + ' e ' + fraseCento(-m.ic.basso) + ' in meno'
@@ -681,9 +681,9 @@
       h += '<p class="nota"><strong>' + aParole(gruppo.length, true) + ' ' +
         Lg.concorda(gruppo.length, 'leva che pareggia', 'leve che pareggiano') +
         ', e non è un errore.</strong> ' +
-        Lg.elenco(nomi) + ' spostano esattamente lo stesso numero di giocate. ' +
+        Lg.elenco(nomi) + ' spostano esattamente lo stesso numero di ripetizioni. ' +
         'Succede perché valgono gli stessi punti di probabilità. Con gli stessi tiri di dado, ' +
-        'punti uguali ribaltano le stesse identiche giocate. Ed è proprio per questo che ' +
+        'punti uguali ribaltano le stesse identiche ripetizioni. Ed è proprio per questo che ' +
         'si riusano gli stessi tiri.' +
         (suCarico
           ? ' Nel caso del carico c’è anche una ragione in più, e viene dal libro. La penalità ' +
@@ -694,8 +694,8 @@
     }
 
     h += '<p class="nota">Le leve sono state misurate su ' +
-      Lg.intero(leve.ripetizioni) + ' giocate. Sono meno di quelle dell’indagine ' +
-      'principale, perché ogni leva richiede di rigiocare tutta la scena da capo. ' +
+      Lg.intero(leve.ripetizioni) + ' ripetizioni. Sono meno di quelle dell’indagine ' +
+      'principale, perché ogni leva richiede di rifare tutta la scena da capo. ' +
       'Gli intervalli qui sono quindi un po’ più larghi, ed è giusto saperlo.</p>';
     q('letturaLeve').innerHTML = h;
   }
@@ -710,7 +710,7 @@
       x: [0, 100], passoTacche: 10, nomeX: 'carico di partenza',
       titoloX: 'con quanto carico si arriva alla scena',
       segna: s ? { x: s.a, testo: 'qui la curva piega' } : null,
-      descrizione: 'Quante giocate arrivano in fondo intatte, al variare del carico di partenza'
+      descrizione: 'Quante ripetizioni arrivano in fondo intatte, al variare del carico di partenza'
     });
     var h = '';
     if (s) {
@@ -724,7 +724,7 @@
         'piega starebbe altrove.</p>';
     }
     h += '<p class="nota">La curva è stata misurata su ' +
-      Lg.intero(curva.ripetizioni) + ' giocate per ogni valore di carico provato. ' +
+      Lg.intero(curva.ripetizioni) + ' ripetizioni per ogni valore di carico provato. ' +
       'I valori provati sono ' + curva.punti.length + '.</p>';
     q('letturaCarico').innerHTML = h;
   }
@@ -756,12 +756,12 @@
     { fino: 0.10, nome: 'arancione', tinta: 'var(--serio)',
       dice: 'il rumore statistico può spostare l’interpretazione',
       poi: 'Si può dire quale gesto è delicato. Non di quanto. Prima di aumentare le ' +
-           'giocate, conviene guardare se la scena si può descrivere meglio.' },
+           'ripetizioni, conviene guardare se la scena si può descrivere meglio.' },
     { fino: Infinity, nome: 'rosso', tinta: 'var(--ostacola)',
       dice: 'troppo largo perché il risultato regga qualsiasi conclusione',
-      poi: 'E il consiglio, qui, non è «aumenta le giocate». È prima di tutto un altro: ' +
+      poi: 'E il consiglio, qui, non è «aumenta le ripetizioni». È prima di tutto un altro: ' +
            '<strong>semplifica la scena</strong>. Una fascia così larga non si chiude ' +
-           'rigiocando. Si chiude descrivendo meno cose, e meglio.' }
+           'ripetendola. Si chiude descrivendo meno cose, e meglio.' }
   ];
 
   function semaforoPrecisione(semiampiezza) {
@@ -794,8 +794,8 @@
     var peggiore = ind.nodi[p.nodo_meno_preciso];
     q('precisione').innerHTML =
       '<div class="tasselli">' +
-        tassello('Giocate', Lg.intero(ind.ripetizioni),
-                 'è questo il campione: una giocata è una partita intera della scena') +
+        tassello('Ripetizioni', Lg.intero(ind.ripetizioni),
+                 'è questo il campione: una ripetizione è una scena intera, dal primo gesto all’ultimo') +
         tassello('Intervallo più largo', '±' + pct(p.ampiezza_massima / 2) + ' %',
                  'sul gesto ' + (p.nodo_meno_preciso + 1)) +
         /* «CONFRONTI FATTI: 1» CONTRADDICEVA LA RIGA SOTTO.
@@ -821,14 +821,14 @@
           (p.nodo_meno_preciso + 1) + '. È detto con un margine di ±') +
       pct(p.ampiezza_massima / 2) + '&nbsp;%. ' +
       'Per dimezzarlo servirebbero circa ' + Lg.intero(p.ripetizioni_per_meta_ampiezza) +
-      ' giocate. L’intervallo, infatti, si stringe come la radice del numero di giocate: ' +
+      ' ripetizioni. L’intervallo, infatti, si stringe come la radice del numero di ripetizioni: ' +
       'per stringerlo a metà bisogna quadruplicarle, e raddoppiarle non basta.</p>' +
       /* LO STESSO MARGINE, CONTATO IN GIOCATE.
          «±2,3 %» è un numero che si legge e non si vede. Contato in giocate su
          cento diventa una cosa che si immagina, ed è la stessa identica cifra. */
-      '<p><b>Detto contando le giocate.</b> Quel gesto è andato male ' +
+      '<p><b>Detto contando le ripetizioni.</b> Quel gesto è andato male ' +
       fraseCento(peggiore.rischio.quota) + ' volte su cento. La fascia dice che il numero ' +
-      'vero, quello che verrebbe da infinite giocate con questi stessi dati, sta fra ' +
+      'vero, quello che verrebbe da infinite ripetizioni con questi stessi dati, sta fra ' +
       fraseCento(peggiore.rischio.basso) + ' e ' + fraseCento(peggiore.rischio.alto) +
       ' su cento. Tutto il resto della pagina va letto tenendo a mente questa larghezza. ' +
       'Nessun numero qui dentro è più preciso di così.</p>' +

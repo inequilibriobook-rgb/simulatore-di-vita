@@ -468,15 +468,15 @@
     q('bloccoMC').style.display = '';
     q('mcTasselli').innerHTML = '';
     q('mcEsiti').innerHTML = '';
-    q('mcNota').innerHTML = 'Scegli qui sotto quante volte rigiocare la scena. ' +
-      'Più giocate fai, più stretto diventa il margine di incertezza intorno alla media: ' +
-      'con poche giocate il caso pesa ancora molto, con molte non pesa quasi niente.';
+    q('mcNota').innerHTML = 'Scegli qui sotto quante volte ripetere la scena. ' +
+      'Più ripetizioni fai, più stretto diventa il margine di incertezza intorno alla media: ' +
+      'con poche ripetizioni il caso pesa ancora molto, con molte non pesa quasi niente.';
   }
 
   /* ---- Monte Carlo ---- */
   function montecarlo(rip) {
     if (!ultimaCatena) { return; }
-    q('statoMC').textContent = 'Sto rigiocando la scena…';
+    q('statoMC').textContent = 'Sto ripetendo la scena…';
     setTimeout(function () {
       var seme = semeDa(q('seme').value);
       var t0 = performance.now();
@@ -485,17 +485,17 @@
       var st = m.stress_finale;
 
       q('mcTasselli').innerHTML =
-        tassello('Giocate', Lg.intero(rip),
-                 'volte che la scena è stata rigiocata da capo, con dadi nuovi') +
-        tassello('Gesti diversi', m.granularita.nodi_distinti, 'in ogni giocata') +
+        tassello('Ripetizioni', Lg.intero(rip),
+                 'volte che la scena è stata rifatta da capo, con dadi nuovi') +
+        tassello('Gesti diversi', m.granularita.nodi_distinti, 'in ogni ripetizione') +
         tassello('Valutazioni', Lg.intero(m.valutazioni_totali),
                  'i due numeri qui accanto moltiplicati fra loro: un conto che non si usa ' +
-                 'mai, perché quello che si conta è la giocata') +
+                 'mai, perché quello che si conta è la ripetizione') +
         tassello('Carico finale medio', Lg.numero(st.media, 2),
                  'rifacendo tutto da capo, 95 volte su 100 la media finirebbe dentro ' +
                  '± ' + Lg.numero(st.semiampiezza_95, 2) + ' da questo numero') +
         tassello('Il valore di mezzo', st.mediana,
-                 'metà delle giocate finisce sotto e metà sopra — si chiama mediana; ' +
+                 'metà delle ripetizioni finisce sotto e metà sopra — si chiama mediana; ' +
                  'in tutto si va da ' + st.minimo + ' a ' + st.massimo) +
         tassello('Quanto ci è voluto', Lg.numero(ms / 1000) + ' secondi',
                  m.calibrazione === 'storica'
@@ -528,7 +528,7 @@
       }).join('') + '</div>' + notaDistribuzione(m);
 
       q('mcNota').innerHTML = '<strong>Come si contano.</strong> ' + esc(m.nota_conteggio) +
-        ' Il caso singolo che hai visto qui sopra <em>appartiene</em> a queste giocate: ' +
+        ' Il caso singolo che hai visto qui sopra <em>appartiene</em> a queste ripetizioni: ' +
         'non è stato calcolato a parte, ed è una di queste.';
       q('statoMC').textContent = '';
     }, 30);

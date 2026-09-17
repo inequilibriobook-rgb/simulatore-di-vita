@@ -453,7 +453,7 @@
   figura('statodopo', {
     segueLaScena: true,
     titolo: 'Che cosa resta, dopo',
-    didascalia: 'Lo stesso gesto, giocato una volta con un tiro fortunato e una con uno ' +
+    didascalia: 'Lo stesso gesto, ripetuto una volta con un tiro fortunato e una con uno ' +
                 'sfortunato. Non cambia solo l’esito. Cambia anche da dove parte il ' +
                 'gesto successivo, e quella differenza resta.',
     disegna: function () {

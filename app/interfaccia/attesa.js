@@ -33,7 +33,7 @@
     'Sto tirando i dadi, tanti dadi.',
     'Quaranta giorni per volta, una settimana dopo l’altra.',
     'Il conto lo faccio io, tu intanto leggi.',
-    'Sono giocate vere, non numeri ricopiati: ci vuole un momento.',
+    'Sono ripetizioni vere, ognuna con un dado diverso, non numeri ricopiati: ci vuole un momento.',
     'Quasi. Le ultime settimane sono sempre le più lunghe.'
   ];
 

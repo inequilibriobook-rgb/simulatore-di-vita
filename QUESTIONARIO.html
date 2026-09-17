@@ -24,9 +24,9 @@
     <p class="occhiello">Simulatore di vita 3.0 · dalle domande al numero</p>
     <h1>Rispondi, e guarda da dove viene il numero</h1>
     <p class="sottotitolo">
-      Rispondi a poche domande, come le farebbe una persona che ti sta davanti: il nodo lo
-      costruisce il simulatore al posto tuo, e ogni numero del risultato dice da quale
-      risposta viene.
+      Rispondi a poche domande, come le farebbe una persona che ti sta davanti. Il «nodo»,
+      cioè il passaggio più piccolo della scena, lo costruisce il simulatore al posto tuo.
+      Ogni numero del risultato dice da quale risposta viene.
     </p>
   </header>
 
@@ -50,7 +50,7 @@
   <!-- ============ 1 · IL CANCELLO ============ -->
   <section class="riquadro no-stampa">
     <h2>1 · Prima di calcolare qualsiasi cosa</h2>
-    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Ci sono situazioni in cui dare una percentuale è sbagliato e basta. Queste cinque
       domande servono a riconoscerle prima di partire. Se anche a una sola rispondi sì, il
       simulatore si ferma e non calcola niente. Non perché si sia rotto, ma perché in un
@@ -63,17 +63,15 @@
   <!-- ============ 2 · LA SCENA ============ -->
   <section class="riquadro no-stampa" id="bloccoScena" style="display:none">
     <h2>2 · La scena e la sua difficoltà di partenza</h2>
-    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       La «scena» è il gesto che stai per fare, con quello che gli sta intorno: scrivila in una
       frase, come la diresti a voce. Il simulatore la usa per riconoscere di che cosa si
       tratta e per scegliere le domande giuste.
     </p>
-    <label for="descrizione" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+    <label class="etichetta-campo" for="descrizione">
       Che cosa stai per fare
     </label>
-    <input id="descrizione" type="text" value="Uscire di casa in orario per un appuntamento"
-           style="width:100%;font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;
-                  border:1px solid var(--bordo);background:var(--piano);color:var(--inchiostro)">
+    <input class="campo-lungo" id="descrizione" type="text" value="Uscire di casa in orario per un appuntamento">
     <p class="nota" style="margin-top:14px">
       Il punto di partenza <strong>P0</strong> lo scegli tu, qui sotto, e non lo decidono le
       domande. Il motivo è che P0 non parla di come stai oggi, ma del gesto e delle capacità
@@ -97,7 +95,7 @@
   <!-- ============ 3 · IL LIVELLO ============ -->
   <section class="riquadro no-stampa" id="bloccoLivello" style="display:none">
     <h2>3 · Quante domande vuoi che ti faccia</h2>
-    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Fare più domande non vuol dire ottenere più precisione. Vuol dire soltanto guardare
       la scena da più lati. Per bere un bicchiere d’acqua bastano sei domande, e anzi
       avanzano. Per una giornata di lavoro, figli e pratiche arretrate, sei sarebbero poche.
@@ -108,7 +106,7 @@
   <!-- ============ 4 · LE DOMANDE ============ -->
   <section class="riquadro no-stampa" id="bloccoDomande" style="display:none">
     <h2>4 · Le domande</h2>
-    <p class="nota" style="margin-top:0">
+    <p class="nota senza-sopra">
       <span id="contaRisposte"></span>
       <span class="avanzamento" style="display:block;max-width:320px"><i id="barraAvanzamento" style="width:0"></i></span>
     </p>
@@ -117,7 +115,7 @@
     <div class="barra-azioni">
       <button class="primario" id="calcola">Costruisci il nodo e calcola</button>
       <button id="azzera">Ricomincia</button>
-      <span class="nota" id="statoCalcolo" style="margin:0"></span>
+      <span class="nota senza-margini" id="statoCalcolo"></span>
     </div>
   </section>
 
@@ -165,7 +163,7 @@
         <label for="seme">seme</label>
         <input id="seme" type="number" value="424242">
       </span>
-      <span class="nota" style="margin:0">Il «seme» è il numero da cui parte il dado. Con lo
+      <span class="nota senza-margini">Il «seme» è il numero da cui parte il dado. Con lo
         stesso seme esce lo stesso tiro, e la prova si può rifare identica quando
         vuoi.</span>
     </div>
@@ -175,7 +173,7 @@
   <!-- ====================== LE PAROLE ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Dieci argomenti, e le parole del simulatore spiegate una per una, con un esempio.">
     <h2>Le parole, spiegate</h2>
-    <p style="color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Ogni parola che il simulatore usa vuol dire una cosa precisa. Qui ci sono tutte,
       raccolte in dieci argomenti, e scegli tu quello che ti serve.
     </p>

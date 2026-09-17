@@ -24,9 +24,9 @@
     <p class="occhiello">Simulatore di vita 3.0 · dalla scena ai nodi</p>
     <h1>Racconta la scena, e guardala aprirsi</h1>
     <p class="sottotitolo">
-      Scrivi una mattina come la racconteresti a un amico: il simulatore la scompone nei
-      gesti che contiene, propone i nove valori di ciascuno, e calcola tutto — un gesto alla
-      volta, con il carico che passa dall’uno all’altro.
+      Scrivi una mattina come la racconteresti a un amico. Il simulatore la divide nei gesti
+      che contiene e propone i nove valori di ciascuno. Poi calcola tutto, un gesto alla
+      volta: la fatica del primo passa al secondo, e così via.
     </p>
   </header>
 
@@ -72,7 +72,7 @@
   <!-- ====================== LA SCENA ====================== -->
   <section class="riquadro no-stampa">
     <h2>1 · La scena</h2>
-    <label for="scena" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+    <label class="etichetta-campo" for="scena">
       Che cosa è successo, raccontato come lo diresti
     </label>
     <p class="nota" style="margin:0 0 8px">
@@ -80,10 +80,7 @@
       Cancellalo e scrivi la tua scena, oppure premi <em>Svuota</em>. Poi premi
       <em>Apri e calcola</em>.
     </p>
-    <textarea id="scena" rows="6" spellcheck="false"
-      style="width:100%;font:inherit;font-size:15px;line-height:1.6;padding:12px 14px;
-             border-radius:9px;border:1px solid var(--bordo);background:var(--piano);
-             color:var(--inchiostro);resize:vertical"></textarea>
+    <textarea class="campo-lungo" id="scena" rows="6" spellcheck="false"></textarea>
     <div class="comandi" style="margin-top:14px">
       <label class="comando"><span>Carico di partenza</span>
         <input type="number" id="caricoBase" min="0" max="100" value="40"></label>
@@ -112,8 +109,8 @@
       <button class="primario" id="apri">Apri e calcola</button>
       <button id="svuota">Svuota</button>
       <button id="calcolaScena">Ricalcola</button>
-      <button id="rigioca">Rigioca la scena</button>
-      <label class="comando comando-corto"><span>quante giocate</span>
+      <button id="rigioca">Ripeti la scena</button>
+      <label class="comando comando-corto"><span>ripetizioni</span>
         <select id="ripetizioni">
           <option value="200">200</option>
           <option value="1000" selected>1.000</option>
@@ -128,7 +125,7 @@
   <!-- ====================== CHE COSA HO LETTO ====================== -->
   <section class="riquadro">
     <h2>2 · Che cosa ho letto</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Ogni pezzo del tuo racconto può essere un gesto oppure un contesto. Se è un
       <strong>gesto</strong>, cioè un «nodo» nella catena della scena, verrà calcolato. Se è <strong>contesto</strong>,
       descrive la scena intorno e vale per tutti i gesti insieme: la pioggia, il rumore, la
@@ -142,7 +139,7 @@
   <!-- ====================== I NODI ====================== -->
   <section class="riquadro">
     <h2>3 · I nodi, uno per uno, con tutti i valori</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Per ogni gesto trovi i nove valori, e il <strong>perché</strong> di ognuno. Poi c’è
       il calcolo completo: la somma termine per termine, il taglio ai bordi, il dado. Poi il
       <span data-parola="margine">margine</span> con la sua
@@ -156,7 +153,7 @@
   <!-- ====================== LA CATENA ====================== -->
   <section class="riquadro">
     <h2>4 · La scena intera</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Quello che una persona si porta addosso non resta fermo: passa da un gesto a quello
       dopo. Il carico che vedi sul gesto numero dieci non è nato lì, gliel’hanno lasciato i
       nove gesti prima. E l’esito della scena non è la media degli esiti. Lo decide l’anello
@@ -169,7 +166,7 @@
   <!-- ====================== IL RACCONTO ====================== -->
   <section class="riquadro">
     <h2>5 · Che storia è stata</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Ogni esito viene raccontato, non solo calcolato. Il racconto è il testo in prosa che
       il simulatore scrive sotto i numeri, e non dice com’è andato un gesto della sequenza.
       Dice dove la scena ha cambiato pendenza, cioè dove il carico è salito o sceso più in
@@ -184,15 +181,16 @@
 
   <!-- ====================== MILLE VOLTE ====================== -->
   <section class="riquadro">
-    <h2>6 · La stessa scena, rigiocata molte volte</h2>
-    <p style="margin-top:0">
+    <h2>6 · La stessa scena, ripetuta molte volte</h2>
+    <p class="senza-sopra">
       Quello che hai visto fin qui è <em>un</em> caso: quella scena, con quei tiri. Ma i
-      tiri potevano uscire diversi. Se rigiochi la stessa scena con dadi nuovi, non vedi più
-      un caso solo: vedi la forma di tutti i casi possibili. Ogni partita si chiama
-      <strong data-parola="giocata">«giocata»</strong>. Le giocate della scena intera si
-      contano a parte rispetto a quelle dei singoli gesti. Sono due numerosità diverse, cioè
-      due conteggi separati, due <em>n</em> come si dice in statistica. Sommarle sarebbe
-      l’errore del capitolo 27.
+      tiri potevano uscire diversi. Se rifai la stessa scena con dadi nuovi, non vedi più
+      un caso solo: vedi la forma di tutti i casi possibili. Ogni prova si chiama
+      <strong data-parola="ripetizione">«ripetizione»</strong>, cioè la stessa scena rifatta da
+      capo con un dado diverso. Le ripetizioni della scena intera si contano a parte
+      rispetto a quelle dei singoli gesti. Sono due numerosità diverse, cioè due conteggi
+      separati, due <em>n</em> come si dice in statistica. Sommarle sarebbe l’errore del
+      capitolo 27.
     </p>
     <div id="montecarlo"></div>
   </section>

@@ -597,9 +597,9 @@
   function disegnaMonteCarlo() {
     if (!mc) {
       q('montecarlo').innerHTML = senzaGesti()
-        ? perche('niente da rigiocare')
-        : '<p class="nota">Premi <b>Rigioca la scena</b> qui sopra, e invece di un caso solo ' +
-          'vedrai la forma di tutti i casi possibili. Quante volte rigiocarla lo scegli tu, ' +
+        ? perche('niente da ripetere')
+        : '<p class="nota">Premi <b>Ripeti la scena</b> qui sopra, e invece di un caso solo ' +
+          'vedrai la forma di tutti i casi possibili. Quante volte ripeterla lo scegli tu, ' +
           'nel menù accanto al pulsante.</p>';
       return;
     }
@@ -614,7 +614,7 @@
       g.bandaX(mc.stress_finale.p10, mc.stress_finale.p90, 'var(--inchiostro-3)', 0.09);
       g.barre(h.fasce.map(function (f) {
         return [(f.da + f.a) / 2, f.n, 'da ' + f.da + ' a ' + f.a + ': ' +
-                L.plurale(f.n, 'giocata', 'giocate')];
+                L.plurale(f.n, 'ripetizione', 'ripetizioni')];
       }), { colore: 'var(--ostacola)' });
       g.sogliaX(mc.stress_finale.media, 'media ' + num(mc.stress_finale.media), 'var(--inchiostro)');
       var tacche = [];
@@ -624,7 +624,7 @@
       g.asseX(tacche, 'carico alla fine della scena');
       dentro = g.chiudi('La distribuzione del carico finale');
     } else if (h) {
-      dentro = '<p class="figura-conto">Tutte le giocate finiscono a <b>' + h.minimo +
+      dentro = '<p class="figura-conto">Tutte le ripetizioni finiscono a <b>' + h.minimo +
         '</b>. Non c’è una distribuzione da mostrare, cioè un ventaglio di risultati ' +
         'diversi. C’è un solo esito possibile.</p>';
     }
@@ -642,7 +642,7 @@
           num(mc.stress_finale.semiampiezza_95, 2) + ' al 95 %</div></div>' +
         '<div class="tassello"><div class="k">Gesti riusciti</div><div class="v">' +
           num(mc.nodo.quota_riuscite * 100) + '<small style="font-size:var(--t-piccolo)">%</small>' +
-          '</div><div class="s">contando tutti i gesti di tutte le giocate</div></div>' +
+          '</div><div class="s">contando tutti i gesti di tutte le ripetizioni</div></div>' +
       '</div>' +
       '<p class="nota-doppia">' + esc(mc.nota_conteggio) + ' Le due n non si sommano: ' +
       'è la regola del capitolo 27, e questa pagina la scrive ogni volta.</p>' +
@@ -657,7 +657,7 @@
           '<span class="dist-quota">' + globale.Lingua.numero(o.quota * 100) +
             '<small>%</small></span>' +
           '<span class="dist-conta">' +
-          L.plurale(o.n, 'giocata', 'giocate') + '</span></div>';
+          L.plurale(o.n, 'ripetizione', 'ripetizioni') + '</span></div>';
       }).join('') + '</div>';
   }
 
@@ -819,7 +819,7 @@
     q('rigioca').addEventListener('click', function () {
       var b2 = q('rigioca');
       var prima = b2.textContent;
-      b2.textContent = 'Sto rigiocando la scena…';
+      b2.textContent = 'Sto ripetendo la scena…';
       /* un fotogramma al browser per mostrarlo, poi si comincia: mille
          ripetizioni su una scena lunga sono qualche secondo di lavoro vero */
       setTimeout(function () { rigioca(); b2.textContent = prima; }, 30);

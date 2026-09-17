@@ -517,11 +517,11 @@
        tabella: la parentesi sta li', e non si ripete sotto la seconda. */
     var primaVolta = (idDiv === 'grigliaMigliore');
     q(idDiv).innerHTML = h + '</table>' +
-      '<p class="nota" style="margin-top:6px">Ogni casella dice quante giocate su cento ' +
+      '<p class="nota" style="margin-top:6px">Ogni casella dice quante ripetizioni su cento ' +
       'riescono a uscirne entro quaranta giorni.' +
       (primaVolta
-        ? ' Una giocata è una partita intera, dal primo giorno all’ultimo, con i suoi ' +
-          'tiri di dado.'
+        ? ' Una ripetizione, cioè questi stessi quaranta giorni rifatti da capo con dadi ' +
+          'nuovi, è una prova intera, dal primo giorno all’ultimo, con i suoi tiri di dado.'
         : '') +
       ' Ogni casella è provata con ' + SEMI_UI + ' semi diversi, cioè con altrettante ' +
       'sequenze di tiri di dado, e quello che vedi è la loro media.</p>';
@@ -544,9 +544,9 @@
       '</div>' +
       '<div class="avviso" style="margin-top:12px">' +
       '<strong>Non c’è un declino graduale.</strong> ' +
-      'Misurato su 200 giocate da trenta giorni, il carico finisce o attorno a 52, o a 99, ' +
+      'Misurato su 200 ripetizioni da trenta giorni, il carico finisce o attorno a 52, o a 99, ' +
       'e non c’è quasi niente in mezzo. Non si scivola giù: si sta, e poi si cade. ' +
-      'Su cento giocate, quelle già cadute sono zero dopo cinque giorni, quindici dopo ' +
+      'Su cento ripetizioni, quelle già cadute sono zero dopo cinque giorni, quindici dopo ' +
       'quindici giorni e sessantatré dopo trenta. ' +
       'Per questo la domanda utile non è «a che punto sono», ma «da quanto va avanti».' +
       '</div>' +
@@ -556,7 +556,7 @@
       'da lì in avanti il recupero continua a funzionare, ma rende circa la metà, ' +
       'e il modello smette di lasciar peggiorare lo stato. ' +
       'E ci si entra da tre porte diverse: carico da 85 in su, assetto da 25 in giù, ' +
-      'costo nascosto da 70 in su. Su 566 giocate in cui il pavimento si è acceso, la ' +
+      'costo nascosto da 70 in su. Su 566 ripetizioni in cui il pavimento si è acceso, la ' +
       'prima porta è stata il carico nel 64 % dei casi, e <b>il costo nascosto nel 35 %</b>.' +
       '</div>';
   }

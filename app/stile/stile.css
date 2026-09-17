@@ -417,7 +417,8 @@ table.dati {
   border-radius: var(--raggio);
   border-collapse: separate; border-spacing: 0; overflow: hidden;
 }
-table.dati th, table.dati td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--griglia); }
+/* il padding delle celle sta piu' sotto, in un posto solo (era scritto anche qui, e non valeva mai) */
+table.dati th, table.dati td { text-align: left; }
 table.dati th { color: var(--inchiostro-3); font-weight: 600; font-size: var(--t-piccolo); text-transform: uppercase; letter-spacing: .05em; }
 table.dati td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 550; }
 /* anche le tabelle senza la classe «dati» (quelle della lettura lunga): stesse regole */
@@ -3229,3 +3230,53 @@ body.lettura { background: var(--piano); }
 @media (hover: hover) and (pointer: fine) { #barraTesto:hover { border-color: var(--azione); } }
 /* la riga «nel libro, capitolo 39, pagina 371» sotto ogni esempio pronto */
 .carta-livello .carta-fonte { display: inline-block; margin-top: 4px; font-style: normal; font-size: var(--t-micro); color: var(--inchiostro-3); }
+
+
+/* ==========================================================================
+   COERENZA GRAFICA (17/09/2026): le regole che tolgono gli stili scritti
+   a mano dentro le pagine. Igor: «questa non e' una disposizione
+   professionale: allineamenti perfetti, cornici, tabelle, bottoni uguali».
+   Tre agenti hanno letto le dodici pagine e il foglio, e hanno trovato le
+   stesse ricette CSS ricopiate a mano decine di volte con piccole
+   differenze. Qui ognuna ha un nome, e le pagine usano il nome.
+   ========================================================================== */
+/* il primo elemento di un riquadro, di una sezione apribile o di un passo
+   non ha spazio sopra, e l'ultimo non ne ha sotto: prima ogni pagina lo
+   scriveva a mano (style="margin-top:0"), piu' di trenta volte */
+.riquadro > :first-child, .apribile-corpo > :first-child, .passo > :first-child { margin-top: 0; }
+.riquadro > :last-child, .apribile-corpo > :last-child, .passo > :last-child { margin-bottom: 0; }
+/* il paragrafo tecnico in grigio che apre un riquadro */
+.intro-tecnica { margin-top: 0; color: var(--inchiostro-2); font-size: var(--t-nota); line-height: 1.6; }
+/* il campo di testo grande (la frase, la scena): una ricetta sola */
+.campo-lungo {
+  width: 100%; font: inherit; font-size: max(16px, var(--t-corpo)); line-height: 1.5;
+  padding: 11px 13px; border-radius: 10px; border: 1px solid var(--bordo);
+  background: var(--piano); color: var(--inchiostro); resize: vertical;
+}
+.campo-lungo:focus-visible { outline: 2px solid var(--azione); outline-offset: 1px; border-color: var(--azione); }
+/* l'etichetta piccola in maiuscoletto sopra un gruppo (h3 o p) */
+.etichetta-riquadro {
+  margin: 0 0 8px; font-size: var(--t-piccolo); font-weight: 650; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--inchiostro-3);
+}
+/* i due titoli dei dettagli a scomparsa: grande (primo livello) e piccolo */
+summary.riepilogo { cursor: pointer; font-weight: 600; font-size: var(--t-medio); }
+summary.riepilogo-piccolo { cursor: pointer; font-size: var(--t-piccolo); color: var(--inchiostro-2); }
+/* una fila di schede-bottone che va a capo */
+.schede-fila { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--s4); }
+/* il contenuto che compare solo dopo un calcolo: una convenzione sola */
+.nascosto, [hidden] { display: none !important; }
+/* bottoni nella stessa fila: mai piu' stretti di undici caratteri, cosi'
+   due tasti affiancati non differiscono che di poco */
+.barra-azioni > button, .barra-azioni > .bottone { min-width: 11ch; }
+/* il bottone dentro la griglia dei comandi si allinea al bordo basso dei
+   campi (che hanno l'etichetta sopra), non al centro della riga */
+.comandi > .primario, .comandi > button { align-self: end; }
+/* i piccoli aggiustamenti di spazio che le pagine scrivevano a mano */
+.senza-sopra { margin-top: 0 !important; }
+.senza-sotto { margin-bottom: 0 !important; }
+.senza-margini { margin: 0 !important; }
+.spazio-sotto { margin-bottom: 20px; }
+.alta-limitata { max-height: 340px; overflow: auto; }
+/* l'etichetta di un campo («Che cosa stai per fare») */
+.etichetta-campo { display: block; font-size: var(--t-piccolo); font-weight: 550; margin: 0 0 6px; }

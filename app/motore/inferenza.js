@@ -62,8 +62,8 @@
     if (!mancanti.length) { return; }
     throw new Error('inferenza.js non può partire: ' +
       (mancanti.length === 1
-        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per rigiocare la scena migliaia di volte.'
-        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per rigiocare la scena migliaia di volte.') +
+        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per ripetere la scena migliaia di volte.'
+        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per ripetere la scena migliaia di volte.') +
       ' Ordine di caricamento: calibrazione.js, lingua.js, casuale-mt.js, nucleo.js, ' +
       'stato.js, microsemantica.js, analisi.js, e solo dopo questo file.');
   }([['Nucleo (nucleo.js)', N], ['Stato (stato.js)', S], ['Analisi (analisi.js)', A],
@@ -268,7 +268,7 @@
     if (nodi.length > TROPPI_GESTI) {
       return { troppo_grande: true, gesti: nodi.length,
         perche: 'Questa scena ha ' + conLeMigliaia(nodi.length) + ' gesti, e sono troppi ' +
-          'per essere giocati qui dentro anche una volta sola. Servirebbero minuti, non ' +
+          'per essere ripetuti qui dentro anche una volta sola. Servirebbero minuti, non ' +
           'secondi. Una scena così non si indaga tutta insieme: si indaga un pezzo per ' +
           'volta. E i pezzi si scelgono guardando dove il carico sale.' };
     }
@@ -278,12 +278,12 @@
     var ripetizioni = Math.max(50, Math.min(chieste, Math.floor(budget / K)));
     var ridotto = (ripetizioni < chieste)
       ? { chieste: chieste, usate: ripetizioni, gesti: K,
-          perche: 'Questa scena ha ' + conLeMigliaia(K) + ' gesti. Giocarla ' +
+          perche: 'Questa scena ha ' + conLeMigliaia(K) + ' gesti. Ripeterla ' +
             conLeMigliaia(chieste) + ' volte vorrebbe dire ' + conLeMigliaia(K * chieste) +
             ' valutazioni. Chi guarda la pagina resterebbe fermo ad aspettare ' +
-            'troppo a lungo. Le giocate sono state ridotte a ' + conLeMigliaia(ripetizioni) +
+            'troppo a lungo. Le ripetizioni sono state ridotte a ' + conLeMigliaia(ripetizioni) +
             '. Gli intervalli qui sotto sono quindi più larghi di quanto sarebbero stati ' +
-            'con tutte le giocate chieste. Ed è scritto di quanto.' }
+            'con tutte le ripetizioni chieste. Ed è scritto di quanto.' }
       : null;
     /* per ogni nodo: la Pn di ogni giocata, e se ha fallito */
     var pnPerNodo = [], falliPerNodo = [], terminiPerNodo = [], esitiPerNodo = [];
@@ -455,12 +455,12 @@
         nodo_meno_preciso: doveMax,
         ripetizioni_per_meta_ampiezza: Math.ceil(ripetizioni * 4)
       },
-      unita_statistica: 'una giocata intera della scena',
-      nota_conteggio: (K === 1 ? 'Un gesto solo, giocato ' : conLeMigliaia(K) + ' gesti, giocati ') +
+      unita_statistica: 'una ripetizione intera della scena',
+      nota_conteggio: (K === 1 ? 'Un gesto solo, ripetuto ' : conLeMigliaia(K) + ' gesti, ripetuti ') +
         (ripetizioni === 1 ? 'una volta' : conLeMigliaia(ripetizioni) + ' volte') +
         ': in tutto ' + (K * ripetizioni === 1 ? 'una valutazione' : conLeMigliaia(K * ripetizioni) + ' valutazioni') +
         '. Le valutazioni NON sono il campione: il campione è ' + conLeMigliaia(ripetizioni) +
-        ', cioè quante volte la scena è stata giocata da capo.'
+        ', cioè quante volte la scena è stata rifatta da capo.'
     };
   }
 
@@ -679,7 +679,7 @@
       metodo_statistico: 'discordi_appaiati_wilson975_bonferroni2_2026-09-14',
       righe: righe,
       nodo: soloNodo,
-      metodo: 'Ogni variante è stata giocata con gli stessi identici tiri di dado della ' +
+      metodo: 'Ogni variante è stata ripetuta con gli stessi identici tiri di dado della ' +
               'versione di partenza. Si chiama «numeri casuali comuni». Vuol dire che le ' +
               'due versioni hanno avuto esattamente la stessa fortuna. Così la differenza ' +
               'che si vede è la modifica, e non il caso.'

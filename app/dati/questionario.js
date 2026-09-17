@@ -596,10 +596,10 @@
               'un messaggio teso. Prepararsi per un colloquio. Portare avanti una ' +
               'mattina in famiglia.' },
     { id: 'profonda', nome: 'Profonda', prefissi: ['R', 'T', 'P'],
-      quando: 'Per quando pesa qualcosa che dura: affrontare una questione di salute, o ' +
-              'una relazione difficile. Un lavoro sotto pressione. La cura di un’altra ' +
-              'persona, o i bambini. I conflitti che tornano sempre uguali, e uno stress ' +
-              'che non passa.' },
+      quando: 'Per le situazioni che pesano da tempo e non passano: una questione di ' +
+              'salute, una relazione difficile. Un lavoro sotto pressione. Prendersi cura ' +
+              'di un’altra persona, o dei bambini. I litigi che tornano sempre uguali, ' +
+              'lo stress che non molla.' },
     { id: 'professionale', nome: 'Professionale', prefissi: ['R', 'T', 'P', 'X'],
       quando: 'Per un uso clinico o di ricerca, e solo per orientarsi: ripetere le ' +
               'stesse domande, identiche. Registrare le risposte con criteri fissi. Dire ' +

@@ -251,7 +251,7 @@ window.Domande = [
   "area": "Famiglia/figli",
   "territorio": "relazione",
   "livello": "standard",
-  "domanda": "I figli sono ancora addormentati durante i primi 500 nodi?",
+  "domanda": "I figli sono ancora addormentati nel primo blocco della mattina?",
   "riferimento": {
    "risposta": "Sì, nessuna interferenza reale nel primo blocco",
    "effetti": [

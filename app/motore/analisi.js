@@ -48,8 +48,8 @@
     if (!mancanti.length) { return; }
     throw new Error('analisi.js non può partire: ' +
       (mancanti.length === 1
-        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per contare i nodi distinti e per rigiocare la scena.'
-        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per contare i nodi distinti e per rigiocare la scena.') +
+        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per contare i nodi distinti e per ripetere la scena.'
+        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per contare i nodi distinti e per ripetere la scena.') +
       ' Ordine di caricamento: nucleo.js, calibrazione.js, casuale-mt.js, stato.js, ' +
       'microsemantica.js, tempo.js, settimana-tipo.js, e i dati prima di chi li usa.');
   }([['Nucleo (nucleo.js)', N], ['Stato (stato.js)', S]]
@@ -286,17 +286,17 @@
       ripetizioni: d.ripetizioni,
       calibrazione: d.calibrazione,
       seme_base: d.seme,
-      unita_statistica: 'una giocata intera della scena',
+      unita_statistica: 'una ripetizione intera della scena',
       valutazioni_totali: quanteValut,
       nota_conteggio: (d.quantiNodi === 1
-          ? 'Un gesto solo, giocato '
-          : conLeMigliaia(d.quantiNodi) + ' gesti diversi, giocati ') +
+          ? 'Un gesto solo, ripetuto '
+          : conLeMigliaia(d.quantiNodi) + ' gesti diversi, ripetuti ') +
         (d.ripetizioni === 1 ? 'una volta' : conLeMigliaia(d.ripetizioni) + ' volte') +
         ': in tutto ' + (quanteValut === 1
           ? 'una valutazione'
           : conLeMigliaia(quanteValut) + ' valutazioni') +
         '. Ma le valutazioni non sono il campione: il campione è ' + conLeMigliaia(d.ripetizioni) +
-        ', cioè quante volte la scena è stata giocata da capo.',
+        ', cioè quante volte la scena è stata rifatta da capo.',
       esiti: ordina(d.esiti, d.ripetizioni),
       /* Le fasce escono con la chiave E con il nome italiano accanto: chi le
          mostra non deve andare a cercarsi una tabella da un'altra parte, e
@@ -638,14 +638,14 @@
           conLaVirgola(ultima.semiampiezza) + '.'
         : (bastaA !== null
             ? 'L’intervallo è sceso sotto ±' + conLaVirgola(soglia) + ' dopo ' +
-              (bastaA === 1 ? 'una giocata' : conLeMigliaia(bastaA) + ' giocate') +
-              '. È il primo passaggio osservato sotto la soglia. Altre giocate possono ' +
+              (bastaA === 1 ? 'una ripetizione' : conLeMigliaia(bastaA) + ' ripetizioni') +
+              '. È il primo passaggio osservato sotto la soglia. Altre ripetizioni possono ' +
               'ancora cambiare la media e la fascia. Controllare la soglia a ogni ' +
               'tappa non garantisce una copertura del 95 per cento quando ci si ferma.'
-            : 'Dopo ' + (tot === 1 ? 'una giocata' : conLeMigliaia(tot) + ' giocate') +
+            : 'Dopo ' + (tot === 1 ? 'una ripetizione' : conLeMigliaia(tot) + ' ripetizioni') +
               ' l’intervallo è ancora ±' + conLaVirgola(ultima.semiampiezza) +
               '. È più largo della soglia ±' + conLaVirgola(soglia) +
-              ' che ci si era dati. Quindi le giocate non bastano, e non importa quante siano.')
+              ' che ci si era dati. Quindi le ripetizioni non bastano, e non importa quante siano.')
     };
   }
 
@@ -687,7 +687,7 @@
       'Non prova una causa. Dice che due grandezze si muovono insieme, e ' +
         'basta. Il perché resta tutto da cercare. Serve a scegliere quale ' +
         'pista andare a verificare, non a chiudere la domanda.',
-      'Con diecimila punti quasi tutto correla con quasi tutto. Più giocate ' +
+      'Con diecimila punti quasi tutto correla con quasi tutto. Più ripetizioni ' +
         'ci sono, più è facile che un legame spunti fuori. E un legame ' +
         'piccolo, su tanti punti, esce comunque come un numero diverso da zero.',
       'Una relazione debole, vista su un grafico, sembra fortissima. ' +
@@ -705,7 +705,7 @@
   function correlazione(x, y) {
     if (!x || !y) { return null; }
     if (x.length !== y.length) {
-      throw new Error('La correlazione confronta due grandezze della STESSA giocata, ' +
+      throw new Error('La correlazione confronta due grandezze della STESSA ripetizione, ' +
         'quindi le due file devono essere lunghe uguali: qui sono ' + x.length +
         ' e ' + y.length + '.');
     }
@@ -738,8 +738,8 @@
         variazione_spiegata: null,
         spiegazione: 'Qui il conto non si può fare, e il motivo è chiaro. ' +
           (sxx === 0 && syy === 0
-            ? 'Tutte e due restano ferme sullo stesso valore in ogni giocata. '
-            : 'Una delle due resta ferma sullo stesso valore in ogni giocata. ') +
+            ? 'Tutte e due restano ferme sullo stesso valore in ogni ripetizione. '
+            : 'Una delle due resta ferma sullo stesso valore in ogni ripetizione. ') +
           'Una cosa che non si muove non può muoversi insieme a un’altra.',
         avvertenza: AVVERTENZA
       };

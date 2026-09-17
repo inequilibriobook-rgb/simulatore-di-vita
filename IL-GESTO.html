@@ -25,9 +25,9 @@
     <p class="occhiello">Simulatore di vita 3.0 · il singolo gesto</p>
     <h1>Un gesto alla volta: che probabilità hai di riuscirci</h1>
     <p class="sottotitolo">
-      Descrivi un gesto solo — bere un bicchiere d’acqua, scrivere un messaggio — e scopri che
-      probabilità hai di riuscirci adesso, quanto ti costerà, e come cambia se muovi anche una
-      sola condizione.
+      Descrivi un gesto solo: bere un bicchiere d’acqua, scrivere un messaggio. Il simulatore
+      ti dice che probabilità hai di riuscirci adesso e quanto ti costerà. Poi muovi una
+      condizione sola, e vedi come cambia.
     </p>
   </header>
 
@@ -83,12 +83,10 @@
 
   <section class="riquadro no-stampa">
     <h2>1 · La scena</h2>
-    <label for="descrizione" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+    <label class="etichetta-campo" for="descrizione">
       Che cosa sta succedendo
     </label>
-    <input id="descrizione" type="text" value="Bere un bicchiere d’acqua alzandosi dal divano"
-           style="width:100%;font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;
-                  border:1px solid var(--bordo);background:var(--piano);color:var(--inchiostro)">
+    <input class="campo-lungo" id="descrizione" type="text" value="Bere un bicchiere d’acqua alzandosi dal divano">
     <p class="nota">Fai attenzione a come scrivi la frase, perché alcune parole cambiano il
     modo in cui il simulatore la legge. Se ci metti dentro <code>acqua</code>,
     <code>farmaco</code> o <code>pausa</code>, capisce che stai facendo una delle
@@ -131,7 +129,7 @@
     </p>
 
     <details style="margin-top:16px">
-      <summary style="cursor:pointer;font-size:13px;color:var(--inchiostro-2)">Vedi gli stessi dati in tabella</summary>
+      <summary class="riepilogo-piccolo">Vedi gli stessi dati in tabella</summary>
       <div class="avvolgi-tabella"><table class="dati" id="tabellaDati"></table></div>
     </details>
 
@@ -142,7 +140,7 @@
         <input id="seme" type="number" value="424242">
         <button id="applicaSeme">Reimposta</button>
       </span>
-      <span class="nota" id="statoSeme" style="margin:0"></span>
+      <span class="nota senza-margini" id="statoSeme"></span>
     </div>
     <p class="nota">Il «seme» è il numero di partenza da cui il dado ricava tutti i suoi tiri.
       Con lo stesso seme escono sempre gli stessi dadi, nello stesso ordine, e vale in questo
@@ -177,7 +175,7 @@
   <!-- ====================== LE PAROLE ====================== -->
   <section class="riquadro" data-apribile data-anteprima="Dieci argomenti, e le parole del simulatore spiegate una per una, con un esempio.">
     <h2>5 · Le parole, spiegate</h2>
-    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+    <p class="intro-tecnica">
       Il simulatore usa poche parole, e ognuna vuol dire una cosa precisa. Sono raccolte in
       dieci argomenti, e scegli quello che ti serve. Accanto a ogni parola c’è un esempio che
       la mette al lavoro, perché si capisce prima così che con una definizione.

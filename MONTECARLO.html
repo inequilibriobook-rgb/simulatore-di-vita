@@ -24,13 +24,13 @@
     <p class="occhiello">Simulatore di vita 3.0 · la distribuzione</p>
     <h1>Mille volte la stessa scena</h1>
     <p class="sottotitolo">
-      Questa pagina rigioca la stessa mattina mille volte, sempre con lo stesso punto di
-      partenza ma con il dado diverso ogni volta, e ti mostra quante di quelle mattine
-      finiscono bene, quante male, e quante a denti stretti.
+      Questa pagina rifà la stessa mattina mille volte. Il punto di partenza resta lo
+      stesso ogni volta, ma il dado cambia. Alla fine la pagina mostra quante di quelle
+      mille mattine vanno bene, quante vanno male, e quante finiscono a denti stretti.
     </p>
   </header>
 
-  <section class="riquadro no-stampa" data-apribile data-anteprima="Perché si rigioca la stessa scena tante volte, e le due cose — quanti pezzi ha la scena, quante volte la ripeti — che non vanno mai confuse.">
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Perché si rifà la stessa scena tante volte, e le due cose — quanti pezzi ha la scena, quante volte la ripeti — che non vanno mai confuse.">
     <h2>Perché questa pagina, e come si usa</h2>
     <p class="sottotitolo">
       Immagina la stessa mattina rivissuta mille volte. Stessa sveglia, stessa stanchezza,
@@ -39,25 +39,26 @@
       sola, e raccontano com’è andata. Questa lo tira mille volte. Così non mostra un caso
       solo, ma <strong>la forma di tutti i casi possibili</strong>: quante mattine
       finiscono bene, quante male, e quante a denti stretti. Il metodo si chiama
-      <strong>Monte Carlo</strong>, dal nome di un casinò, ma il gioco non c’entra e dietro
-      non c’è niente di misterioso. Quando un conto è troppo intricato per farlo con carta
-      e penna, lo si fa rifare a una macchina moltissime volte. Poi si guarda come si
-      distribuiscono i risultati. Tutto qui.
+      <strong>Monte Carlo</strong>, dal nome di un casinò famoso, ma qui non si scommette
+      niente e dietro non c’è nulla di misterioso. Quando un conto è troppo intricato per
+      farlo con carta e penna, lo si fa rifare a una macchina moltissime volte, e poi si
+      guarda come si distribuiscono i risultati: non c’è altro, dietro il nome altisonante.
     </p>
     <p class="sottotitolo" style="font-size:14px">
       Quattro parole, prima di cominciare, perché tornano in ogni riga di questa pagina.
       Un «gesto» è un’azione sola, con un inizio e una fine riconoscibili. Una «scena» è una
       fila di gesti di seguito, in cui ognuno passa al successivo il
       <span data-parola="carico">«carico»</span> che ha lasciato. Il carico è la pressione
-      accumulata, da 0 a 100. E ogni volta che la scena riparte dall’inizio con dadi
-      nuovi, quella partita si chiama <strong>«giocata»</strong>. Mille giocate vuol dire
-      mille volte la stessa scena: le condizioni sono sempre le stesse, i tiri di dado non
-      lo sono mai. Mille mattine uguali, con dadi diversi.
+      accumulata, da 0 a 100. E ogni volta che la scena riparte dall’inizio con un dado
+      nuovo, quel giro si chiama <strong>«ripetizione»</strong>: cioè la stessa scena
+      rifatta da capo, punto per punto uguale, ma con un tiro di dado diverso. Mille
+      ripetizioni vogliono dire mille volte la stessa scena: le condizioni restano sempre
+      le stesse, i tiri di dado non lo sono mai. Mille mattine uguali, con dadi diversi.
     </p>
     <p class="sottotitolo">
       Per usare bene il metodo bisogna tenere separate due cose che si confondono sempre.
       La prima è <strong>quanti gesti diversi ha una scena</strong>. La seconda è
-      <strong>quante volte la si rigioca</strong>. Sono due numeri diversi, e restano
+      <strong>quante volte la si ripete</strong>. Sono due numeri diversi, e restano
       diversi anche quando sembrano grandi allo stesso modo. La sezione 7 esiste apposta
       perché nessuno li sommi mai.
     </p>
@@ -66,7 +67,7 @@
         avere. Le schede sono i casi di esempio del capitolo 39, ognuno con la sua
         probabilità di riuscita già calcolata, quella che il libro chiama Pn. E «nodo» è il
         nome che il libro dà al gesto singolo.</li>
-      <li><strong>Scegli quante giocate fare.</strong> Non serve esagerare: più sotto c’è
+      <li><strong>Scegli quante ripetizioni fare.</strong> Non serve esagerare: più sotto c’è
         il modo di sapere quando bastano, e non è il loro numero a dirlo.</li>
       <li><strong>Guarda la forma,</strong> non solo la media. Due scene con la stessa
         media possono raccontare due vite diverse, e la media da sola non lo fa
@@ -76,7 +77,7 @@
 
   <!-- ====================== I COMANDI ====================== -->
   <section class="riquadro no-stampa">
-    <h2>1 · Che cosa rigiocare, e con quante giocate</h2>
+    <h2>1 · Che cosa ripetere, e con quante ripetizioni</h2>
     <div id="comandi"></div>
   </section>
 
@@ -89,31 +90,33 @@
   <section class="riquadro" data-apribile data-anteprima="Cinque parole che sembrano dire la stessa cosa e invece no: il centro di tutti i risultati, quello di mezzo, quanto si sparpagliano, e quanto puoi fidarti del numero medio.">
     <h2>Che cosa vogliono dire questi cinque numeri</h2>
     <p class="nota">
-      La <strong>media</strong> si ottiene sommando le giocate e dividendo per quante sono,
-      e dice dove sta il centro di tutte le giocate. La <strong>mediana</strong> dice qual
-      è la giocata di mezzo: quella che ne ha metà sopra e metà sotto. Non sono lo stesso
-      numero, e la differenza si vede subito con un esempio. Se una giocata su cento
-      finisce a un valore altissimo, la media si sposta verso l’alto, perché quel valore
-      entra nella somma. La mediana non si muove, perché conta le posizioni e non le
-      distanze. Il <strong>± al 95 %</strong> è una terza grandezza ancora. Non dice quanto
-      le giocate si allontanano fra loro. Dice quanto è incerta la media, cioè fino a che
+      La <strong>media</strong> si ottiene sommando le ripetizioni e dividendo per quante
+      sono, e dice dove sta il centro di tutte le ripetizioni. La <strong>mediana</strong>
+      dice qual è la ripetizione di mezzo: quella che ne ha metà sopra e metà sotto. Non
+      sono lo stesso numero, e la differenza si vede subito con un esempio. Se una
+      ripetizione su cento finisce a un valore altissimo, la media si sposta verso l’alto,
+      perché quel valore entra nella somma. La mediana non si muove, perché conta le
+      posizioni e non le distanze. Il <strong>± al 95 %</strong> è una terza grandezza
+      ancora. Non dice quanto le ripetizioni si allontanano fra loro. Dice quanto è incerta
+      la media, cioè fino a che
       punto ci si può fidare di quel numero. Sono tre grandezze diverse, e si confondono di
       continuo.
     </p>
     <p class="nota">
-      Quanto le giocate si allontanano fra loro lo dice il quarto riquadro,
+      Quanto le ripetizioni si allontanano fra loro lo dice il quarto riquadro,
       <strong>quanto si sparpagliano</strong>. È lo scarto medio dalla media, che in
       statistica si chiama <strong>deviazione standard</strong>. Si legge così: presa una
-      giocata a caso, di quanto si allontana dalla media, in media. Scarto e ± vanno tenuti
-      separati, e c’è un modo semplice per ricordarlo. Rigiocando di più, il ± si stringe,
+      ripetizione a caso, di quanto si allontana dalla media, in media. Scarto e ± vanno
+      tenuti separati, e c’è un modo semplice per ricordarlo. Ripetendo la scena di più, il
+      ± si stringe,
       perché la media la si conosce sempre meglio. Lo scarto no: lo scarto è la scena, e la
       scena non cambia perché la guardi più a lungo.
     </p>
-    <p class="nota" style="margin-bottom:0">
+    <p class="nota senza-sotto">
       L’ultimo riquadro, l’<strong>80 % sta fra</strong>, si legge così. Si mettono in fila
-      tutte le giocate, dalla più bassa alla più alta. Poi si scarta il dieci per cento da
-      ciascuna delle due estremità, come si tagliano le code. Nella parte che resta in mezzo
-      cadono otto giocate su dieci. I due punti di taglio si chiamano
+      tutte le ripetizioni, dalla più bassa alla più alta. Poi si scarta il dieci per cento
+      da ciascuna delle due estremità, come si tagliano le code. Nella parte che resta in
+      mezzo cadono otto ripetizioni su dieci. I due punti di taglio si chiamano
       <strong>percentili</strong>, cioè posizioni in quella fila di numeri: qui sono il
       decimo e il novantesimo, quelli che il capitolo 47 nomina per dire quanto è stabile
       la scena.
@@ -123,21 +126,22 @@
   <!-- ====================== L’ISTOGRAMMA ====================== -->
   <section class="riquadro">
     <h2>3 · La forma della distribuzione</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Un riassunto non è una <strong>«distribuzione»</strong>, e la parola conviene
       impararla qui, perché da adesso in poi torna dappertutto. La distribuzione è
       l’elenco di tutti i risultati usciti, con accanto quante volte è uscito ciascuno. È
       la forma per intero, prima che qualcuno la riassuma in un numero. Facciamo un
-      esempio. La media vale, poniamo, 71, e le giocate se ne allontanano in media di 9
+      esempio. La media vale, poniamo, 71, e le ripetizioni se ne allontanano in media di 9
       punti. Questi due numeri non bastano a distinguere <em>una gobba sola</em> da
       <em>due gobbe lontane</em>. E la differenza non è un dettaglio. Due gobbe vogliono
       dire che la stessa scena ha <strong>due destini</strong>, non un destino incerto:
       certe mattine finiscono bene, certe finiscono male, e quasi nessuna finisce a metà.
     </p>
-    <p class="nota" style="margin-top:0">
+    <p class="nota senza-sopra">
       La figura che disegna quella forma si chiama <strong>istogramma</strong>, e si costruisce
-      così. Le giocate vengono divise in fasce: da 60 a 62, da 62 a 64, e così via. Poi ogni
-      colonna viene disegnata alta quante sono le giocate finite in quella fascia. Niente di più.
+      così. Le ripetizioni vengono divise in fasce: da 60 a 62, da 62 a 64, e così via. Poi
+      ogni colonna viene disegnata alta quante sono le ripetizioni finite in quella fascia.
+      Niente di più.
     </p>
     <div id="istogramma"></div>
   </section>
@@ -145,7 +149,7 @@
   <!-- ====================== GLI ALTRI DUE ====================== -->
   <section class="riquadro">
     <h2>4 · Non solo il carico</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Il carico è la grandezza più citata, ma non è l’unica che si muove. L’«assetto» e il
       «costo nascosto» raccontano la parte che l’«esito» non dice. L’assetto è quanto si è
       ancora orientati e saldi dentro la scena. Il costo nascosto è il prezzo di un gesto
@@ -157,11 +161,11 @@
   <!-- ====================== GLI ESITI ====================== -->
   <section class="riquadro">
     <h2>5 · I nove esiti della scena, in proporzione</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Il modello non risponde «riuscito» o «non riuscito». Distingue nove esiti, e il
       motivo è semplice. Fra una riuscita pulita e una riuscita che ha lasciato macerie c’è
       proprio la differenza che questo simulatore è fatto per misurare. Ogni riga qui sotto
-      è uno dei nove esiti, e la sua barra dice in quante giocate su cento la scena è
+      è uno dei nove esiti, e la sua barra dice in quante ripetizioni su cento la scena è
       finita in quel modo.
     </p>
     <div id="esiti"></div>
@@ -170,7 +174,7 @@
   <!-- ====================== IL NODO ====================== -->
   <section class="riquadro">
     <h2>6 · Sotto la scena, i singoli nodi</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       L’esito della scena non è l’esito dei gesti che la compongono. Un gesto può andare
       male dentro una scena che finisce bene, e una scena può finire male con tutti i
       gesti riusciti. Qui sotto si scende al livello del nodo, che è il nome che il libro
@@ -186,12 +190,12 @@
   <!-- ====================== I DUE ASSI ====================== -->
   <section class="riquadro">
     <h2>7 · I due assi, che non si sommano mai</h2>
-    <p style="margin-top:0">Le due parole rispondono a due domande diverse. La
+    <p class="senza-sopra">Le due parole rispondono a due domande diverse. La
       <strong>granularità</strong> dice quanti gesti diversi ha la scena. Le
-      <strong>giocate</strong> dicono quante volte quella scena è stata rigiocata da capo.
-      Una scena di trenta gesti, rigiocata cinquecento volte, costa alla macchina
-      quindicimila valutazioni. I risultati finali però sono cinquecento, uno per giocata.
-      Il campione è quello, e non l’altro.</p>
+      <strong>ripetizioni</strong> dicono quante volte quella scena è stata rifatta da capo.
+      Una scena di trenta gesti, rifatta cinquecento volte, costa alla macchina
+      quindicimila valutazioni. I risultati finali però sono cinquecento, uno per
+      ripetizione. Il campione è quello, e non l’altro.</p>
     <div id="assi"></div>
     <p>A chi sbaglia questo conto succede una cosa sola, e si può dire con precisione:
       gli intervalli gli escono più stretti del vero, e più stretti di un fattore pari
@@ -200,19 +204,19 @@
       diviso quaranta fa dodici e mezzo, e la radice di dodici e mezzo fa circa tre e
       mezzo. Quindi ogni fascia usciva tre volte e mezzo più stretta del dovuto, e nessuno
       aveva raccolto un solo dato in più.</p>
-    <p style="margin-bottom:0">C’è poi un secondo punto, e quello non si aggiusta con
-      nessun conto. Tutte le giocate partono dagli stessi identici dati: l’unica cosa che
-      cambia è il dado. Quindi non sono cinquecento mattine osservate. Sono cinquecento
+    <p class="senza-sotto">C’è poi un secondo punto, e quello non si aggiusta con
+      nessun conto. Tutte le ripetizioni partono dagli stessi identici dati: l’unica cosa
+      che cambia è il dado. Quindi non sono cinquecento mattine osservate. Sono cinquecento
       tiri sulla stessa mattina. Il libro lo dice in una riga, e conviene impararla:
       <strong>le repliche misurano il dado, non la persona</strong>.</p>
   </section>
 
   <!-- ====================== LA CONVERGENZA ====================== -->
   <section class="riquadro">
-    <h2>8 · Quante giocate bastano</h2>
-    <p style="margin-top:0">
-      La domanda che tutti fanno è sempre la stessa: «quante volte devo rigiocare?». La
-      risposta giusta non è un numero. È questa, e viene dal capitolo 47:
+    <h2>8 · Quante ripetizioni bastano</h2>
+    <p class="senza-sopra">
+      La domanda che tutti fanno è sempre la stessa: «quante volte devo ripetere la
+      scena?». La risposta giusta non è un numero. È questa, e viene dal capitolo 47:
     </p>
     <blockquote class="citazione">
       Si guarda l’ampiezza dell’intervallo, non il numero di iterazioni. Se l’intervallo è stretto
@@ -220,8 +224,8 @@
       e non importa quante siano.
     </blockquote>
     <p class="nota">
-      Il libro dice «<em>iterazioni</em>», perché è la parola della statistica. Qui dentro si
-      chiamano giocate. Sono la stessa identica cosa, chiamata con due nomi diversi.
+      Il libro dice «<em>iterazioni</em>», perché è la parola della statistica. Qui dentro le
+      chiamiamo ripetizioni. Sono la stessa identica cosa, chiamata con due nomi diversi.
     </p>
     <p>
       La fascia che il grafico disegna viene da una formula. È corta, e si può tenere a
@@ -230,22 +234,23 @@
     <div class="formula-libro" data-formula="intervallo"></div>
     <p class="formula-fonte">Si legge così: la media, più o meno una quantità che si chiama
       <em>semiampiezza</em>. Quello che spiega tutto è la radice di n, sotto la linea di
-      frazione. Se quadruplichi le giocate, la radice raddoppia. E se la radice raddoppia,
-      la fascia si dimezza. Per questo, a un certo punto, rigiocare ancora rende sempre
-      meno.</p>
+      frazione. Se quadruplichi le ripetizioni, la radice raddoppia. E se la radice
+      raddoppia, la fascia si dimezza. Per questo, a un certo punto, ripetere ancora la
+      scena rende sempre meno.</p>
     <p>
-      La stessa formula si può rovesciare. Allora dice quante giocate servono per avere
+      La stessa formula si può rovesciare. Allora dice quante ripetizioni servono per avere
       la precisione che vuoi. Nella formula, ε è la semiampiezza che accetti.
     </p>
     <div class="formula-libro" data-formula="quante_ripetizioni"></div>
     <p class="formula-fonte">Ed è la ragione per cui la regola guarda l’ampiezza e non il
-      numero delle giocate. Il numero che serve dipende da <em>s</em>, cioè da quanto la
-      scena è variabile, quindi cambia da scena a scena. L’ampiezza no: quella si guarda,
-      e si decide.</p>
+      numero delle ripetizioni. Il numero che serve dipende da <em>s</em>, cioè da quanto
+      la scena è variabile, quindi cambia da scena a scena. L’ampiezza no: quella si
+      guarda, e si decide.</p>
     <p>
-      Il grafico qui sotto non è una previsione. Sono le <strong>stesse giocate</strong> di
-      prima, prese a gruppi sempre più grandi. Si prende un primo gruppetto di giocate e se
-      ne fa la media. Poi si prende un gruppo più grande, poi uno più grande ancora, e ogni
+      Il grafico qui sotto non è una previsione. Sono le <strong>stesse ripetizioni</strong>
+      di prima, prese a gruppi sempre più grandi. Si prende un primo gruppetto di
+      ripetizioni e se ne fa la media. Poi si prende un gruppo più grande, poi uno più
+      grande ancora, e ogni
       volta si ricalcola la media, e con lei l’intervallo. La banda che si stringe non è un
       modello di quello che dovrebbe succedere. È quello che è successo davvero, man mano.
       Il nome tecnico di questo restringersi è <strong>convergenza</strong>: il numero
@@ -257,15 +262,15 @@
   <!-- ====================== IL CONFRONTO ====================== -->
   <section class="riquadro">
     <h2>9 · Due varianti a confronto</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       La domanda che conta quasi sempre non è «come va questa scena», ma
       <strong>«cambia qualcosa, se muovo questa leva?»</strong>. Una «leva», qui, è un
-      valore della formula, usato come una manopola. Si muove una leva sola e si rigioca
+      valore della formula, usato come una manopola. Si muove una leva sola e si ripete
       tutto con lo <strong>stesso seme</strong>. Il «seme» è il numero di partenza dei tiri
       di dado, e usarlo di nuovo dà, punto per punto, gli stessi tiri. Così la differenza
       fra le due colonne non può venire dal dado: se c’è, viene dalla leva.
     </p>
-    <p class="nota" style="margin-top:0">
+    <p class="nota senza-sopra">
       Un avviso sull’aritmetica, prima che tu prenda la calcolatrice. I due carichi medi
       qui sotto sono arrotondati al decimo, per stare in una riga. La differenza invece è
       calcolata sui numeri per esteso, e viene arrotondata una volta sola, alla fine. Ogni
@@ -280,17 +285,18 @@
   <!-- ====================== LE LEVE ====================== -->
   <section class="riquadro">
     <h2>10 · Quale leva sposta di più</h2>
-    <p style="margin-top:0">
+    <p class="senza-sopra">
       Ogni leva viene mossa del suo passo naturale, prima in meglio e poi in peggio, e si
       misura di quanto cambia la quota dei gesti riusciti, cioè quanti gesti su cento
-      riescono. Anche qui tutte le giocate partono dallo stesso seme, per la ragione appena
-      detta. La domanda a cui risponde è molto pratica: <em>se posso cambiare una cosa
+      riescono. Anche qui tutte le ripetizioni partono dallo stesso seme, per la ragione
+      appena detta. La domanda a cui risponde è molto pratica: <em>se posso cambiare una
+      cosa
       sola, quale conviene?</em> Sotto la figura, una riga parla di «punti percentuali fra
       i due estremi». Quel numero è solo una somma: il numero di sinistra più il numero di
       destra.
     </p>
     <div id="leve"></div>
-    <p class="nota" style="margin-bottom:0">
+    <p class="nota senza-sotto">
       Attenzione a che cosa questo grafico <strong>non</strong> dice. Dice quanto pesa una leva
       <em>in questa scena</em>, non in generale. E non dice se quella leva si può muovere
       davvero. Abbassare il carico di quindici punti è facile da scrivere e difficile da fare.
@@ -300,18 +306,18 @@
   <!-- ============ CHE COSA SI MUOVE INSIEME (LA REGRESSIONE) ============ -->
   <section class="riquadro">
     <h2>11 · Che cosa si muove insieme</h2>
-    <p style="margin-top:0">
-      Con diecimila giocate in mano viene subito la voglia di cercare quali grandezze si
+    <p class="senza-sopra">
+      Con diecimila ripetizioni in mano viene subito la voglia di cercare quali grandezze si
       muovono insieme. È facile, ed è una tentazione. Il simulatore lo fa, ed è qui sotto.
       Ma il numero da solo non basta mai, e la parte che conta di più, in questa sezione,
       è quella scritta in fondo.
     </p>
-    <p class="nota" style="margin-top:0">
+    <p class="nota senza-sopra">
       Il conto si chiama <strong>coefficiente di correlazione</strong>, e dice quanto due
       grandezze si muovono insieme. Va da meno uno a più uno. A più uno le due grandezze
       salgono sempre insieme. A meno uno una sale e l’altra scende. A zero non si muovono
-      insieme per niente. Ogni punto del conto è una giocata: i due numeri vengono dalla
-      stessa partita, mai da due partite diverse.
+      insieme per niente. Ogni punto del conto è una ripetizione: i due numeri vengono
+      dalla stessa ripetizione, mai da due ripetizioni diverse.
     </p>
     <div id="correlazioni"></div>
   </section>
