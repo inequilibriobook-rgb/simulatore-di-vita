@@ -400,9 +400,21 @@
         'stato_prima. Ha ricevuto invece ' + descriviTipo(n) + '.');
     }
     n = n || {};
+    /* UN NODO GIA' NORMALIZZATO NON SI NORMALIZZA DUE VOLTE (17/09/2026).
+       Ogni funzione del motore normalizza il nodo che riceve, per prudenza,
+       come fa il Python: misurato, diciannove normalizzazioni per ogni gesto
+       di una settimana, e sul telefono la pagina della settimana impiegava
+       un minuto ad aprirsi. Il risultato di questa funzione porta un segno
+       invisibile (una proprieta' non enumerabile: non finisce nel JSON, non
+       compare in Object.keys, non tocca la parita' con il Python); chi lo
+       ripassa qui lo riceve indietro com'e'. Chi vuole modificarlo ne fa
+       prima una copia (applicaStatoAlNodo in stato.js): il nodo segnato non
+       si tocca mai. Le 204.042 grandezze del confronto con il Python restano
+       identiche. */
+    if (n.__normale === true) { return n; }
     var etichette = Array.isArray(n.etichette) ? n.etichette.slice()
                   : (n.etichette ? [String(n.etichette)] : []);
-    return {
+    var pronto = {
       id:            testoNonVuoto(n.id, 'node'),
       descrizione:   testoNonVuoto(n.descrizione, 'Nodo operativo'),
       p0:            clampInt(n.p0 !== undefined ? n.p0 : 50, 1, 99),
@@ -415,6 +427,8 @@
       famiglia:      testoNonVuoto(n.famiglia),
       etichette:     etichette
     };
+    Object.defineProperty(pronto, '__normale', { value: true, enumerable: false });
+    return pronto;
   }
 
   /* ---------------------------------------------------------------------

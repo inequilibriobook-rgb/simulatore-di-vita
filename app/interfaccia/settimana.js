@@ -491,15 +491,6 @@
   var CARICHI = [40, 50, 60, 70, 80];
   var SEMI_UI = 8;
 
-  function griglia(cambio) {
-    return COSTI.map(function (c) {
-      return { costo: c, celle: CARICHI.map(function (s) {
-        var n = 0;
-        for (var r = 0; r < SEMI_UI; r++) { if (esce(s, c, cambio, 313131 + r * 977)) { n++; } }
-        return n / SEMI_UI;
-      }) };
-    });
-  }
 
   function disegnaGriglia(idDiv, cambio, righe) {
     var h = '<p style="font-size:14px;font-weight:600;margin:16px 0 6px">' +
@@ -595,19 +586,11 @@
              libero: !dopo.stato_finale.floor1_attivo };
   }
 
-  function disegnaUscita() {
+  function disegnaUscitaDa(risU, dentro) {
     var h = '';
     [5, 20].forEach(function (gg) {
-      var dentroC = [], dentroS = [];
-      var righe = CAMBI.map(function (c) {
-        var lib = 0;
-        for (var r = 0; r < SEMI_UI; r++) {
-          var x = bloccaPoiCambia(gg, c, 313131 + r * 977);
-          if (x.libero) { lib++; }
-          if (c === CAMBI[0]) { dentroC.push(x.costo_dentro); dentroS.push(x.carico_dentro); }
-        }
-        return { n: c.n, esce: lib / SEMI_UI };
-      });
+      var dentroC = dentro[gg].c.slice(), dentroS = dentro[gg].s.slice();
+      var righe = CAMBI.map(function (c) { return { n: c.n, esce: risU[gg + '_' + c.n] }; });
       var mc = dentroC.sort(function (a, b) { return a - b; })[Math.floor(dentroC.length / 2)];
       var ms = dentroS.sort(function (a, b) { return a - b; })[Math.floor(dentroS.length / 2)];
       h += '<p style="font-size:14px;font-weight:600;margin:18px 0 4px">Dopo ' + gg +
@@ -630,6 +613,68 @@
     q('uscita').innerHTML = h;
   }
 
+  /* LA MISURA A PASSI, CON LA BARRA (17/09/2026).
+     Le due griglie (2 × 6 costi × 5 carichi × 8 semi = 480 settimane da
+     quaranta giorni) e l'uscita (2 × 6 cambi × 8 semi = 96, ciascuna con il
+     blocco prima) sono 576 simulazioni: dieci secondi sul computer, un minuto
+     sul telefono. Prima giravano tutte all'apertura, e la pagina restava
+     ferma. Adesso partono quando la sezione entra nello schermo, un passo per
+     volta (un passo = una casella, cioè otto semi), con la barra che si
+     riempie; fra un passo e l'altro la pagina risponde. I numeri sono gli
+     stessi di prima, seme per seme: cambia solo quando si fanno. */
+  function misuraAPassi(dove, allaFine, subito) {
+    var celleM = [], celleD = [];
+    COSTI.forEach(function (c) { CARICHI.forEach(function (s) { celleM.push([c, s]); celleD.push([c, s]); }); });
+    var uscite = [];
+    [5, 20].forEach(function (gg) { CAMBI.forEach(function (c) { uscite.push([gg, c]); }); });
+    var risM = {}, risD = {}, risU = {}, dentro = { 5: { c: [], s: [] }, 20: { c: [], s: [] } };
+    var passi = celleM.length + celleD.length + uscite.length;
+
+    function cella(cambio, c, s) {
+      var n = 0;
+      for (var r = 0; r < SEMI_UI; r++) { if (esce(s, c, cambio, 313131 + r * 977)) { n++; } }
+      return n / SEMI_UI;
+    }
+    function passo(i) {
+      var k;
+      if (i < celleM.length) { k = celleM[i]; risM[k[0] + '_' + k[1]] = cella(MIGLIORE, k[0], k[1]); return; }
+      i -= celleM.length;
+      if (i < celleD.length) { k = celleD[i]; risD[k[0] + '_' + k[1]] = cella(MEDIO, k[0], k[1]); return; }
+      i -= celleD.length;
+      var u = uscite[i], gg = u[0], c = u[1], lib = 0;
+      for (var r = 0; r < SEMI_UI; r++) {
+        var x = bloccaPoiCambia(gg, c, 313131 + r * 977);
+        if (x.libero) { lib++; }
+        if (c === CAMBI[0]) { dentro[gg].c.push(x.costo_dentro); dentro[gg].s.push(x.carico_dentro); }
+      }
+      risU[gg + '_' + c.n] = lib / SEMI_UI;
+    }
+    function righe(ris) {
+      return COSTI.map(function (c) {
+        return { costo: c, celle: CARICHI.map(function (s) { return ris[c + '_' + s]; }) };
+      });
+    }
+    function fine() {
+      disegnaGriglia('grigliaMigliore', MIGLIORE, righe(risM));
+      disegnaGriglia('grigliaMedia', MEDIO, righe(risD));
+      disegnaUscitaDa(risU, dentro);
+      if (allaFine) { allaFine(); }
+    }
+    if (window.Attesa) {
+      window.Attesa.lavora(dove, passi, passo, fine, {
+        titolo: 'Sto misurando il punto di non ritorno: ' + passi + ' caselle, ' +
+          (passi * SEMI_UI) + ' settimane simulate.',
+        /* la sentinella e' la sezione intera, che ha un'altezza: una <div>
+           vuota, alta zero, puo' passare fuori dallo schermo in un salto
+           senza che l'osservatore la veda */
+        quandoVisibile: subito ? null : (q('grigliaMigliore').closest('.riquadro') || q('grigliaMigliore'))
+      });
+    } else {
+      for (var i = 0; i < passi; i++) { passo(i); }
+      fine();
+    }
+  }
+
   /* ---------------- avvio ---------------- */
   function avvia() {
     disegnaLivelli();
@@ -649,13 +694,11 @@
     q('rifai').addEventListener('click', function () {
       q('misuraLive').innerHTML = '<p class="nota">Sto rifacendo le misure adesso: ' +
         'ci vogliono un paio di secondi.</p>';
-      setTimeout(function () {
-        disegnaGriglia('grigliaMigliore', MIGLIORE, griglia(MIGLIORE));
-        disegnaGriglia('grigliaMedia', MEDIO, griglia(MEDIO));
-        disegnaUscita();
+      q('grigliaMigliore').innerHTML = ''; q('grigliaMedia').innerHTML = ''; q('uscita').innerHTML = '';
+      misuraAPassi(q('misuraLive'), function () {
         q('misuraLive').innerHTML = '<p class="nota">Rifatte adesso, dentro questa pagina: ' +
           'i numeri qui sopra non sono scritti a mano.</p>';
-      }, 30);
+      }, true);
     });
 
     q('tema').addEventListener('click', function () {
@@ -669,11 +712,11 @@
        controllo visibile che lo richiamasse. */
     q('stampa').addEventListener('click', function () { window.print(); });
 
-    /* la misura gira all'apertura: la tabella non è mai un ricordo */
-    disegnaGriglia('grigliaMigliore', MIGLIORE, griglia(MIGLIORE));
-    disegnaGriglia('grigliaMedia', MEDIO, griglia(MEDIO));
-    disegnaUscita();
+    /* la settimana di esempio subito; la misura del punto di non ritorno
+       (576 settimane) a passi, quando la sezione entra nello schermo: la
+       tabella non è mai un ricordo, ma non tiene ferma la pagina */
     esegui();
+    misuraAPassi(q('misuraLive'));
   }
 
   if (document.readyState === 'loading') {

@@ -470,7 +470,11 @@
 
   /* --- LA CATENA: lo stato passa da un gesto al successivo ----------- */
   function applicaStatoAlNodo(nodo, stato) {                    // [py:apply_state_to_node]
-    var n = N.normalizzaNodo(nodo);
+    /* il nodo normalizzato e' condiviso (vedi normalizzaNodo): qui se ne fa
+       una copia superficiale prima di cambiargli lo stato, cosi' chi lo
+       aveva in mano lo ritrova com'era */
+    var n0 = N.normalizzaNodo(nodo), n = {};
+    for (var k in n0) { if (Object.prototype.hasOwnProperty.call(n0, k)) { n[k] = n0[k]; } }
     n.stato_prima = stato;
     return n;
   }

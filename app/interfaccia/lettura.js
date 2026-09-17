@@ -115,7 +115,24 @@
     nav.className = 'indice-lettura no-stampa';
     nav.setAttribute('aria-label', 'Indice della lettura');
     nav.innerHTML = '<p class="indice-titolo">In questa lettura</p>' +
+      /* il tasto che apre l'indice sugli schermi stretti (il foglio di stile
+         lo mostra solo li'): dice «In questa lettura» e, accanto, il
+         capitolo in cui si e' */
+      '<button type="button" class="indice-apri no-stampa" aria-expanded="false">' +
+        '<span>In questa lettura</span><small class="indice-dove"></small>' +
+        '<span class="freccia-giu" aria-hidden="true">▾</span></button>' +
       '<div class="indice-voci">' + dentro + '</div>';
+    var tasto = nav.querySelector('.indice-apri');
+    tasto.addEventListener('click', function () {
+      var aperto = nav.classList.toggle('aperto');
+      tasto.setAttribute('aria-expanded', aperto ? 'true' : 'false');
+    });
+    /* toccato un capitolo, l'indice si richiude */
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.indice-voce')) {
+        nav.classList.remove('aperto'); tasto.setAttribute('aria-expanded', 'false');
+      }
+    });
     return nav;
   }
 
@@ -138,6 +155,11 @@
       Array.prototype.forEach.call(document.querySelectorAll('.indice-voce'), function (a) {
         var suo = a.getAttribute('data-per') === attivo;
         a.classList.toggle('qui', suo);
+        /* il tasto dell'indice (schermi stretti) dice in quale capitolo si e' */
+        if (suo) {
+          var dove = document.querySelector('.indice-dove');
+          if (dove) { dove.textContent = a.textContent.replace(/\u00AD/g, ''); }
+        }
         if (suo && a.scrollIntoView) {
           var cont = a.closest('.indice-voci');
           if (cont && (a.offsetTop < cont.scrollTop ||
@@ -212,7 +234,9 @@
          che e' successo la prima volta che questa pagina e' girata. Adesso
          la figura rotta si dichiara al suo posto, con il messaggio vero, e
          la lettura continua. */
+      var disegnata = false;
       function rifai() {
+        disegnata = true;
         try {
           if (def.primaDiDisegnare) { def.primaDiDisegnare(); }
           tela.innerHTML = def.disegna();
@@ -226,7 +250,23 @@
         if (globale.Glossario && globale.Glossario.decoraTutte) { globale.Glossario.decoraTutte(); }
       }
       el.__rifai = rifai;
-      rifai();
+      /* LE FIGURE SI DISEGNANO QUANDO SI ARRIVA A VEDERLE (17/09/2026).
+         Sedici figure, alcune con centinaia di giocate dentro: disegnarle
+         tutte all'apertura teneva ferma la pagina un secondo e mezzo sul
+         computer, dieci sul telefono. Adesso ognuna si disegna quando entra
+         nello schermo (con un margine di due schermate, cosi' e' pronta
+         prima che il lettore ci arrivi); nel frattempo mostra una riga che
+         dice che sta per arrivare. Se il browser non sa osservare, si
+         disegna subito, come prima. Se qualcuno chiede di rifarla prima
+         (i cursori della scena), si disegna in quel momento. */
+      var rifaiUnaVolta = function () { if (!disegnata) { rifai(); } };
+      if (globale.IntersectionObserver) {
+        tela.innerHTML = '<p class="figura-attesa"><span aria-hidden="true">⏳</span> La figura si disegna fra un istante…</p>';
+        var oss = new IntersectionObserver(function (voci) {
+          if (voci.some(function (v) { return v.isIntersecting; })) { oss.disconnect(); rifaiUnaVolta(); }
+        }, { rootMargin: '1200px 0px' });
+        oss.observe(el);
+      } else { rifaiUnaVolta(); }
       if (def.lega) {
         def.lega(el, function () {
           rifai();

@@ -476,7 +476,13 @@ footer.piede { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--
    il CSS di stampa era già curato ma nessun controllo visibile lo richiamava;
    Ctrl+P/Cmd+P non è scontato per un lettore non esperto. Stesso involucro
    posizionato, i due bottoni ora vivono dentro .strumenti-alto. */
-.strumenti-alto { position: absolute; top: 22px; right: 20px; display: flex; gap: 8px; }
+/* I DUE BOTTONI NON SI VEDONO PIU' (17/09/2026). Stanno nella barra in
+   alto (Stampa e Tema, o il menu sul telefono) da quando esiste la barra; lo
+   script li nascondeva dopo averla costruita, e sul telefono, che e' lento,
+   per un attimo comparivano in sovraimpressione e poi sparivano (Igor li
+   ha visti). Ora sono nascosti dal foglio di stile, cioe' subito: restano
+   nella pagina solo perche' la barra li aziona da li'. */
+.strumenti-alto { display: none; }
 
 @media (max-width: 680px) {
   .riga-contributo { grid-template-columns: 130px 1fr 52px; gap: 8px; }
@@ -2356,10 +2362,24 @@ body.lettura { background: var(--piano); }
     position: static; max-height: none; margin-top: var(--s3);
     border-bottom: 1px solid var(--bordo); padding-bottom: var(--s2);
   }
-  .indice-voci { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px; }
-  .indice-parte { display: none; }
-  .indice-voce { white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; }
-  .indice-voce.qui { border-left: none; border-bottom-color: var(--azione); }
+  /* Igor, 17/09: «quel sottomenu che scorre orizzontalmente deve scorrere
+     verticalmente». L'indice e' un elenco verticale, chiuso, che si apre
+     con un tasto: «In questa lettura ▾», con il capitolo corrente accanto.
+     Aperto, si vede tutto in colonna; toccato un capitolo, si richiude. */
+  .indice-voci { display: none; flex-direction: column; gap: 2px; padding-bottom: 4px; }
+  .indice-lettura.aperto .indice-voci { display: flex; }
+  .indice-parte { display: block; margin-top: 8px; }
+  .indice-voce { white-space: normal; padding: 9px 10px; border-left: 3px solid transparent; border-radius: 6px; }
+  .indice-voce.qui { border-left-color: var(--azione); background: var(--azione-tenue); }
+  .indice-titolo { display: none; }
+  .indice-apri {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%;
+    padding: 10px 12px; border: 1px solid var(--bordo); border-radius: 10px; background: var(--superficie);
+    font: inherit; font-size: var(--t-corpo); font-weight: 600; color: var(--inchiostro); cursor: pointer; text-align: left;
+  }
+  .indice-apri small { font-weight: 500; color: var(--inchiostro-3); font-size: var(--t-piccolo); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .indice-apri .freccia-giu { transition: transform .16s ease; }
+  .indice-lettura.aperto .indice-apri .freccia-giu { transform: rotate(180deg); }
   .testo-lettura { padding-top: var(--s3); }
   .testo-lettura p { font-size: var(--t-lettura-li); }
   .figura { width: 100%; margin-left: 0; padding: var(--s3); }
@@ -2906,3 +2926,17 @@ body.lettura { background: var(--piano); }
 .installa p { margin: 0 0 var(--s3); }
 .installa p:last-child { margin-bottom: 0; }
 .installa .passo-scelte { margin: var(--s3) 0; }
+
+/* ==========================================================================
+   L'ATTESA CHE SI VEDE (17/09/2026, app/interfaccia/attesa.js)
+   ========================================================================== */
+.attesa { margin: var(--s3) 0; padding: var(--s3) var(--s4); border: 1px solid var(--bordo); border-radius: var(--raggio); background: var(--piano); }
+.attesa-testa { display: flex; align-items: center; gap: 10px; font-size: var(--t-corpo); font-weight: 600; }
+.attesa-clessidra { font-size: 20px; line-height: 1; animation: gira-clessidra 2.4s ease-in-out infinite; }
+@keyframes gira-clessidra { 0%, 40% { transform: rotate(0deg); } 60%, 100% { transform: rotate(180deg); } }
+.attesa-quota { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--inchiostro-3); font-weight: 600; white-space: nowrap; }
+.attesa-barra { height: 10px; margin-top: 10px; border-radius: 999px; background: var(--neutro); overflow: hidden; }
+.attesa-barra > i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--azione), var(--buono)); transition: width .25s ease; }
+.attesa-frase { margin: 8px 0 0; font-size: var(--t-nota); color: var(--inchiostro-2); }
+@media (prefers-reduced-motion: reduce) { .attesa-clessidra { animation: none; } }
+.figura-attesa { margin: 0; padding: var(--s4); text-align: center; color: var(--inchiostro-3); font-size: var(--t-nota); min-height: 120px; display: flex; align-items: center; justify-content: center; gap: 8px; }
