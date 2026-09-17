@@ -18,8 +18,9 @@ SUL TELEFONO E SUL TABLET
   file che il dispositivo si tiene; è generato da scripts/genera_sw.py e
   non si tocca a mano) e app/interfaccia/installa.js, che li attiva solo
   quando il simulatore arriva da un indirizzo web. Aperto dal disco con il
-  doppio clic non cambia niente. index.html serve solo all'indirizzo web:
-  manda subito ad APRI-QUI.html. Le icone stanno in app/icone/.
+  doppio clic non cambia niente. index.html è la pagina di benvenuto
+  dell'indirizzo web e dell'icona: il dado, due righe, il tasto «Entra nel
+  simulatore» che porta ad APRI-QUI.html. Le icone stanno in app/icone/.
   Il testo che corre è giustificato e sillabato in italiano: le regole di
   sillabazione (il dizionario di LibreOffice) stanno in
   app/dati/sillabazione-it.js, generato da scripts/genera_sillabazione.py,
@@ -221,7 +222,7 @@ CHE COSA È GIÀ VERIFICATO
   34 controlli sugli esempi numerici pubblicati, dal libro e dal Mega Canvas.
      Tutti superati. Compreso il caso limite del taglio in basso, dove la
      probabilità si ferma a 5.
-  1197 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
+  1200 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
      sotto è quello che le suite stampano quando girano.
   164 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
      formula, le fasce di PenSTR, le quattro scogliere, le tre porte del
@@ -246,7 +247,8 @@ CHE COSA È GIÀ VERIFICATO
      mini-settimane, 25 traiettorie, 300 recuperi fra giorni, 300 notti di
      sonno e 400 regimi. Prima il livello settimana era verificato solo
      contro se stesso.
-  36 controlli sull’app installabile. Il manifesto è valido ed entra da
+  39 controlli sull’app installabile. Il manifesto è valido ed entra dalla
+     pagina di benvenuto (index.html), che sta in piedi da sola e porta ad
      APRI-QUI; le icone esistono e sono PNG veri; l’elenco della cache in
      sw.js è quello vero (ogni file elencato esiste, ogni file che serve è
      elencato); ogni pagina porta manifesto, icona e script; dal disco e

@@ -1,24 +1,115 @@
 <!doctype html>
-<html lang="it">
+<html lang="it" data-tema="chiaro">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Simulatore di vita 3.0</title>
-<!-- L'INGRESSO DI CHI ARRIVA DA UN INDIRIZZO WEB (17/09/2026).
-     Sul computer si entra con un doppio clic su APRI-QUI.html; da un sito il
-     browser apre «index.html» e questa pagina lo manda subito lì, senza
-     farsi vedere. Chi ha JavaScript spento trova il collegamento. -->
-<meta http-equiv="refresh" content="0; url=APRI-QUI.html">
+<!-- LA PAGINA DI BENVENUTO (17/09/2026).
+     Igor: «siccome è una web app, scriverei una pagina introduttiva: due righe, elegante,
+     professionale ma anche un po' simpatica, animata, con il tasto che attiva il
+     simulatore; perché "Ce l'hai fatta, sì o no?" sa di pagina interna». E' la prima
+     cosa che si vede dall'indirizzo web e dall'icona sul telefono: il dado che tira e si
+     ferma, il nome, due righe, un tasto. Tutto sta in questo file, senza altri
+     caricamenti, così compare subito anche senza rete. Dal disco (doppio clic) si
+     continua a entrare da APRI-QUI.html, come dice il libro. -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
 <link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
 <style>
-  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-         background: #F1F4F5; color: #41565E; font-family: ui-sans-serif, system-ui, sans-serif; padding: 24px; }
-  @media (prefers-color-scheme: dark) { body { background: #0D1417; color: #A6B9C0; } }
-  a { color: inherit; }
+  :root {
+    --piano: #eef1f5; --superficie: #ffffff; --inchiostro: #0e1518; --inchiostro-2: #41565e;
+    --inchiostro-3: #5f6874; --azione: #0e6b70; --azione-scura: #0b565a; --su-azione: #ffffff;
+    --bordo: rgba(16,24,40,.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --piano: #0b0d11; --superficie: #181b22; --inchiostro: #ffffff; --inchiostro-2: #c2c8d2;
+            --inchiostro-3: #8b93a1; --azione: #1d8a90; --azione-scura: #166c71; --bordo: rgba(255,255,255,.12); }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: var(--piano); color: var(--inchiostro);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; min-height: 100dvh;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+  }
+  .benvenuto { width: 100%; max-width: 480px; text-align: center; }
+  .dado {
+    width: 112px; height: 112px; margin: 0 auto 26px; display: block;
+    animation: tira 2.1s cubic-bezier(.2,.9,.3,1.05) both;
+    transform-origin: 50% 50%;
+  }
+  @keyframes tira {
+    0%   { transform: translateY(-140px) rotate(-260deg) scale(.7); opacity: 0; }
+    35%  { opacity: 1; }
+    60%  { transform: translateY(12px) rotate(30deg) scale(1.04); }
+    78%  { transform: translateY(-10px) rotate(-8deg) scale(1); }
+    90%  { transform: translateY(3px) rotate(2deg); }
+    100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  }
+  .punto { opacity: 0; animation: accendi .35s ease both; }
+  .punto:nth-child(2) { animation-delay: 1.9s; }
+  .punto:nth-child(3) { animation-delay: 2.0s; }
+  .punto:nth-child(4) { animation-delay: 2.1s; }
+  .punto:nth-child(5) { animation-delay: 2.2s; }
+  .punto:nth-child(6) { animation-delay: 2.3s; }
+  @keyframes accendi { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
+  .occhiello {
+    margin: 0 0 8px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--inchiostro-3); animation: sale .7s ease 1.4s both;
+  }
+  h1 {
+    margin: 0 0 14px; font-size: clamp(30px, 8vw, 40px); line-height: 1.08; letter-spacing: -.02em;
+    font-weight: 700; animation: sale .7s ease 1.55s both;
+  }
+  h1 small { display: block; font-size: .42em; font-weight: 600; letter-spacing: .02em; color: var(--inchiostro-3); margin-top: 6px; }
+  .righe {
+    margin: 0 auto 26px; max-width: 40ch; font-size: 17px; line-height: 1.55; color: var(--inchiostro-2);
+    text-align: center; animation: sale .7s ease 1.75s both;
+  }
+  .righe b { color: var(--inchiostro); }
+  .entra {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 0 30px; border-radius: 16px; border: 0;
+    background: var(--azione); color: var(--su-azione); text-decoration: none;
+    font-size: 18px; font-weight: 700; letter-spacing: .01em;
+    box-shadow: 0 8px 24px rgba(14,107,112,.28);
+    animation: sale .7s ease 2.0s both;
+    transition: transform .08s ease, background-color .15s ease;
+  }
+  .entra:hover, .entra:focus-visible { background: var(--azione-scura); outline: none; }
+  .entra:active { transform: translateY(1px); }
+  .entra .freccia { transition: transform .2s ease; }
+  .entra:hover .freccia { transform: translateX(4px); }
+  .nota { margin: 22px 0 0; font-size: 13px; color: var(--inchiostro-3); animation: sale .7s ease 2.3s both; }
+  .nota a { color: inherit; }
+  @keyframes sale { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .dado, .punto, .occhiello, h1, .righe, .entra, .nota { animation: none; opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
-<p>Apertura del simulatore… <a href="APRI-QUI.html">Se non si apre da solo, tocca qui.</a></p>
-<script>location.replace('APRI-QUI.html');</script>
+<main class="benvenuto">
+  <svg class="dado" viewBox="0 0 120 120" aria-hidden="true">
+    <rect x="6" y="6" width="108" height="108" rx="26" fill="var(--azione)"/>
+    <rect x="24" y="24" width="72" height="72" rx="14" fill="none" stroke="#fff" stroke-width="5"/>
+    <circle class="punto" cx="40" cy="40" r="7.5" fill="#fff"/>
+    <circle class="punto" cx="80" cy="40" r="7.5" fill="#fff"/>
+    <circle class="punto" cx="60" cy="60" r="7.5" fill="#fff"/>
+    <circle class="punto" cx="40" cy="80" r="7.5" fill="#fff"/>
+    <circle class="punto" cx="80" cy="80" r="7.5" fill="#fff"/>
+  </svg>
+  <p class="occhiello">Il compagno del libro</p>
+  <h1>Simulatore di vita <small>versione 3.0</small></h1>
+  <p class="righe">Prende un gesto piccolo di una giornata qualsiasi — alzarsi, scrivere quel messaggio, uscire in orario — e ti dice <b>che probabilità ha di riuscire</b> e <b>quanto ti costerà</b>. Poi tira il dado, e ti racconta com’è andata.</p>
+  <a class="entra" href="APRI-QUI.html">Entra nel simulatore <span class="freccia" aria-hidden="true">→</span></a>
+  <p class="nota">Niente da installare, niente che esce da qui: tutto resta sul tuo dispositivo.</p>
+</main>
+<script src="app/interfaccia/installa.js"></script>
 </body>
 </html>

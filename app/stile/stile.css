@@ -3010,3 +3010,7 @@ body.lettura { background: var(--piano); }
   body:has(.nuova-versione) .torna-in-alto { bottom: 84px; }
 }
 @media print { .torna-in-alto { display: none !important; } }
+
+/* le due righe di benvenuto sopra il titolo di APRI-QUI (17/09/2026) */
+.benvenuto-righe { margin: 0 0 14px; font-size: var(--t-medio); line-height: 1.5; color: var(--inchiostro-2); max-width: 62ch; }
+.benvenuto-righe em { font-style: italic; color: var(--inchiostro); }
