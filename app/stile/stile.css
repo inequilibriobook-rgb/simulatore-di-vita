@@ -355,7 +355,12 @@ button, .bottone {
   transition: background-color .13s ease, border-color .13s ease,
               color .13s ease, transform .06s ease;
 }
-button:hover, .bottone:hover { border-color: var(--inchiostro-3); background: var(--piano); }
+/* il colore «al passaggio» solo dove c'e' un mouse: sul telefono l'effetto
+   resta appiccicato dopo il tocco, e un bottone pieno diventava grigio su
+   bianco (Igor, 17/09, il tasto dell'indice) */
+@media (hover: hover) and (pointer: fine) {
+  button:hover, .bottone:hover { border-color: var(--inchiostro-3); background: var(--piano); }
+}
 button:active, .bottone:active { transform: translateY(1px); }
 button:focus-visible, .bottone:focus-visible,
 [data-parola]:focus-visible, a:focus-visible, summary:focus-visible,
@@ -2388,6 +2393,11 @@ body.lettura { background: var(--piano); }
     background: var(--azione); color: var(--su-azione);
     font: inherit; font-size: 16px; font-weight: 650; letter-spacing: .01em;
     cursor: pointer; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  }
+  /* toccato o premuto resta del suo colore, appena piu' scuro: mai grigio su bianco */
+  .indice-apri:hover, .indice-apri:focus, .indice-apri:focus-visible, .indice-apri:active,
+  .indice-lettura.aperto .indice-apri {
+    background: color-mix(in srgb, var(--azione) 84%, black); color: var(--su-azione); border-color: transparent;
   }
   .indice-apri:active { transform: translateY(1px); }
   .indice-apri-icona { font-size: 18px; line-height: 1; }

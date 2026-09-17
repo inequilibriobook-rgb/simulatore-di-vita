@@ -2,8 +2,8 @@
    Registrato da app/interfaccia/installa.js solo quando il simulatore arriva da un indirizzo web.
    Alla prima apertura scarica tutti i file qui sotto; da allora le pagine si aprono anche senza
    rete. Quando l'elenco o un file cambia, cambia la versione, e i dispositivi si aggiornano da soli.
-   Versione: 89d0d60c3f04 (68 file). */
-var VERSIONE = 'simulatore-89d0d60c3f04';
+   Versione: 46a331e4942d (68 file). */
+var VERSIONE = 'simulatore-46a331e4942d';
 var FILE = [
   'APRI-QUI.html',
   'CATENA.html',
