@@ -3388,3 +3388,25 @@ tr.glossa-riga > td > .glossa { margin-top: 4px; max-width: none; }
   .con-schede > section.scheda-via { position: static; visibility: visible; width: auto; margin: 0 0 var(--s5); }
   .schede-nav, .schede-elenco, .schede-piede { display: none !important; }
 }
+
+/* I GESTI DELLA SCENA SI SFOGLIANO UNO ALLA VOLTA (18/09/2026, scena-ui.js) */
+.carta-nodo.nodo-via { display: none; }
+.sfoglia-nodi {
+  display: grid; grid-template-columns: 46px minmax(0, 1fr) 46px; grid-template-rows: auto auto; gap: 6px 8px;
+  align-items: stretch; margin: var(--s3) 0 var(--s3); padding: 6px; border-radius: 14px;
+  background: var(--superficie); border: 1px solid var(--bordo);
+}
+.sfoglia-nodi button { font: inherit; cursor: pointer; border: 0; border-radius: 10px; background: var(--piano); color: var(--inchiostro); }
+.sfoglia-prima, .sfoglia-dopo { font-size: 26px; line-height: 1; font-weight: 600; min-height: 50px; }
+.sfoglia-prima:disabled, .sfoglia-dopo:disabled { opacity: .3; cursor: default; }
+.sfoglia-dove { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 4px 8px; }
+.sfoglia-dove small { font-size: var(--t-micro); letter-spacing: .06em; text-transform: uppercase; color: var(--inchiostro-3); font-weight: 600; }
+.sfoglia-dove b { font-size: var(--t-corpo); font-weight: 650; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.sfoglia-tutti { grid-column: 1 / -1; min-height: 40px; font-size: var(--t-piccolo); font-weight: 600; }
+.sfoglia-nodi.in-fila .sfoglia-dove { opacity: .45; }
+@media (min-width: 700px) {
+  .sfoglia-nodi { grid-template-columns: 46px minmax(0, 1fr) 46px auto; grid-template-rows: auto; }
+  .sfoglia-tutti { grid-column: auto; padding: 0 14px; }
+}
+@media (hover: hover) and (pointer: fine) { .sfoglia-nodi button:not(:disabled):hover { background: var(--azione-tenue); } }
+@media print { .carta-nodo.nodo-via { display: block; } .sfoglia-nodi { display: none; } }

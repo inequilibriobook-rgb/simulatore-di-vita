@@ -211,6 +211,44 @@
   /* --------------------------------------------------------------------
      2 · I NODI, CON TUTTI I VALORI E TUTTO IL CALCOLO
      -------------------------------------------------------------------- */
+  /* I GESTI SI SFOGLIANO UNO ALLA VOLTA (18/09/2026).
+     Igor: «le pagine restano lunghissime». La sezione «I nodi, uno per uno»
+     con dodici gesti e nove valori ciascuno era alta novemila pixel sul
+     telefono. Adesso si vede un gesto per volta, con «‹ Gesto 3 di 12 ›» e
+     il titolo del gesto; «Tutti in fila» li rimette uno sotto l'altro, per
+     chi li vuole confrontare. La scelta resta quando i numeri si
+     ricalcolano (la sezione si ridisegna a ogni ritocco). */
+  var nodoCorrente = 0, nodiInFila = false;
+  function sfogliaNodi() {
+    var dove = q('nodi');
+    var carte = Array.prototype.slice.call(dove.querySelectorAll('.carta-nodo'));
+    if (carte.length < 2) { return; }
+    var nav = document.createElement('div');
+    nav.className = 'sfoglia-nodi no-stampa';
+    nav.innerHTML =
+      '<button type="button" class="sfoglia-prima" aria-label="Gesto precedente">‹</button>' +
+      '<div class="sfoglia-dove"><small></small><b></b></div>' +
+      '<button type="button" class="sfoglia-dopo" aria-label="Gesto successivo">›</button>' +
+      '<button type="button" class="sfoglia-tutti secondario"></button>';
+    dove.insertBefore(nav, carte[0]);
+    if (nodoCorrente >= carte.length) { nodoCorrente = carte.length - 1; }
+    function mostra(k) {
+      nodoCorrente = Math.max(0, Math.min(carte.length - 1, k));
+      carte.forEach(function (c, j) { c.classList.toggle('nodo-via', !nodiInFila && j !== nodoCorrente); });
+      var n = carte[nodoCorrente];
+      nav.querySelector('.sfoglia-dove small').textContent = 'Gesto ' + (nodoCorrente + 1) + ' di ' + carte.length;
+      nav.querySelector('.sfoglia-dove b').textContent = (n.querySelector('.nodo-testo b') || {}).textContent || '';
+      nav.querySelector('.sfoglia-prima').disabled = nodiInFila || nodoCorrente === 0;
+      nav.querySelector('.sfoglia-dopo').disabled = nodiInFila || nodoCorrente === carte.length - 1;
+      nav.querySelector('.sfoglia-tutti').textContent = nodiInFila ? 'Uno alla volta' : 'Tutti in fila';
+      nav.classList.toggle('in-fila', nodiInFila);
+    }
+    nav.querySelector('.sfoglia-prima').addEventListener('click', function () { mostra(nodoCorrente - 1); });
+    nav.querySelector('.sfoglia-dopo').addEventListener('click', function () { mostra(nodoCorrente + 1); });
+    nav.querySelector('.sfoglia-tutti').addEventListener('click', function () { nodiInFila = !nodiInFila; mostra(nodoCorrente); });
+    mostra(nodoCorrente);
+  }
+
   function tasselloValore(nodo, c, v, daMano) {
     return '<div class="tassello v-' + c.k + (daMano ? ' a-mano' : '') + '">' +
       '<div class="k"><span data-parola="' + esc(c.k) + '">' + esc(c.k) + '</span></div>' +
@@ -428,6 +466,8 @@
           bloccoCalcolo(n, r) + '</details>' +
         '</article>';
     }).join('');
+
+    sfogliaNodi();
 
     (function () {
       var bottone = q('nodi').querySelector('#apri-tutto');
