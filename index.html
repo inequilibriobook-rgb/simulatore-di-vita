@@ -38,11 +38,33 @@
     padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
   }
   .benvenuto { width: 100%; max-width: 480px; text-align: center; }
-  .dado {
-    width: 112px; height: 112px; margin: 0 auto 26px; display: block;
-    animation: tira 2.1s cubic-bezier(.2,.9,.3,1.05) both;
-    transform-origin: 50% 50%;
+  .dado { width: 112px; height: 112px; margin: 0 auto 26px; display: block; transform-origin: 50% 50%; }
+  .occhiello { margin: 0 0 8px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--inchiostro-3); }
+  h1 { margin: 0 0 14px; font-size: clamp(30px, 8vw, 40px); line-height: 1.08; letter-spacing: -.02em; font-weight: 700; }
+  h1 small { display: block; font-size: .42em; font-weight: 600; letter-spacing: .02em; color: var(--inchiostro-3); margin-top: 6px; }
+  .righe { margin: 0 auto 26px; max-width: 40ch; font-size: 17px; line-height: 1.55; color: var(--inchiostro-2); text-align: center; }
+  .righe b { color: var(--inchiostro); }
+  .entra {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 0 30px; border-radius: 16px; border: 0;
+    background: var(--azione); color: var(--su-azione); text-decoration: none;
+    font-size: 18px; font-weight: 700; letter-spacing: .01em;
+    box-shadow: 0 8px 24px rgba(14,107,112,.28);
+    transition: transform .08s ease, background-color .15s ease;
   }
+  .entra:hover, .entra:focus-visible { background: var(--azione-scura); outline: none; }
+  .entra:active { transform: translateY(1px); }
+  .entra .freccia { transition: transform .2s ease; }
+  .entra:hover .freccia { transform: translateX(4px); }
+  .nota { margin: 22px 0 0; font-size: 13px; color: var(--inchiostro-3); }
+  .nota a { color: inherit; }
+
+  /* LE ANIMAZIONI SONO UN DI PIU'. Valgono solo quando il documento porta la
+     classe «anima», che gli da' uno script all'apertura; e dopo tre secondi
+     lo stesso script mette «ferma», che rende tutto visibile e fermo comunque.
+     Cosi', se le animazioni non partono (un visualizzatore che le blocca, uno
+     script che non gira), la pagina si vede lo stesso: prima era bianca. */
+  .anima .dado { animation: tira 2.1s cubic-bezier(.2,.9,.3,1.05) both; }
   @keyframes tira {
     0%   { transform: translateY(-140px) rotate(-260deg) scale(.7); opacity: 0; }
     35%  { opacity: 1; }
@@ -51,49 +73,29 @@
     90%  { transform: translateY(3px) rotate(2deg); }
     100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
   }
-  .punto { opacity: 0; animation: accendi .35s ease both; }
-  .punto:nth-child(2) { animation-delay: 1.9s; }
-  .punto:nth-child(3) { animation-delay: 2.0s; }
-  .punto:nth-child(4) { animation-delay: 2.1s; }
-  .punto:nth-child(5) { animation-delay: 2.2s; }
-  .punto:nth-child(6) { animation-delay: 2.3s; }
+  .anima .punto { animation: accendi .35s ease both; }
+  .anima .punto:nth-child(2) { animation-delay: 1.9s; }
+  .anima .punto:nth-child(3) { animation-delay: 2.0s; }
+  .anima .punto:nth-child(4) { animation-delay: 2.1s; }
+  .anima .punto:nth-child(5) { animation-delay: 2.2s; }
+  .anima .punto:nth-child(6) { animation-delay: 2.3s; }
   @keyframes accendi { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
-  .occhiello {
-    margin: 0 0 8px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--inchiostro-3); animation: sale .7s ease 1.4s both;
-  }
-  h1 {
-    margin: 0 0 14px; font-size: clamp(30px, 8vw, 40px); line-height: 1.08; letter-spacing: -.02em;
-    font-weight: 700; animation: sale .7s ease 1.55s both;
-  }
-  h1 small { display: block; font-size: .42em; font-weight: 600; letter-spacing: .02em; color: var(--inchiostro-3); margin-top: 6px; }
-  .righe {
-    margin: 0 auto 26px; max-width: 40ch; font-size: 17px; line-height: 1.55; color: var(--inchiostro-2);
-    text-align: center; animation: sale .7s ease 1.75s both;
-  }
-  .righe b { color: var(--inchiostro); }
-  .entra {
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    min-height: 56px; padding: 0 30px; border-radius: 16px; border: 0;
-    background: var(--azione); color: var(--su-azione); text-decoration: none;
-    font-size: 18px; font-weight: 700; letter-spacing: .01em;
-    box-shadow: 0 8px 24px rgba(14,107,112,.28);
-    animation: sale .7s ease 2.0s both;
-    transition: transform .08s ease, background-color .15s ease;
-  }
-  .entra:hover, .entra:focus-visible { background: var(--azione-scura); outline: none; }
-  .entra:active { transform: translateY(1px); }
-  .entra .freccia { transition: transform .2s ease; }
-  .entra:hover .freccia { transform: translateX(4px); }
-  .nota { margin: 22px 0 0; font-size: 13px; color: var(--inchiostro-3); animation: sale .7s ease 2.3s both; }
-  .nota a { color: inherit; }
+  .anima .occhiello { animation: sale .7s ease 1.4s both; }
+  .anima h1 { animation: sale .7s ease 1.55s both; }
+  .anima .righe { animation: sale .7s ease 1.75s both; }
+  .anima .entra { animation: sale .7s ease 2.0s both; }
+  .anima .nota { animation: sale .7s ease 2.3s both; }
   @keyframes sale { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .ferma .dado, .ferma .punto, .ferma .occhiello, .ferma h1, .ferma .righe, .ferma .entra, .ferma .nota {
+    animation: none !important; opacity: 1 !important; transform: none !important;
+  }
   @media (prefers-reduced-motion: reduce) {
-    .dado, .punto, .occhiello, h1, .righe, .entra, .nota { animation: none; opacity: 1; transform: none; }
+    .anima .dado, .anima .punto, .anima .occhiello, .anima h1, .anima .righe, .anima .entra, .anima .nota { animation: none; }
   }
 </style>
 </head>
 <body>
+<script>(function(){var r=document.documentElement;r.className+=" anima";setTimeout(function(){r.className+=" ferma";},3000);}());</script>
 <main class="benvenuto">
   <svg class="dado" viewBox="0 0 120 120" aria-hidden="true">
     <rect x="6" y="6" width="108" height="108" rx="26" fill="var(--azione)"/>
