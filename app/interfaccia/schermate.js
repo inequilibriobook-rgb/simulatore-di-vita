@@ -228,6 +228,16 @@
       indietro.disabled = (i === 0);
       avanti.hidden = (i === schermate.length - 1);
       dove.textContent = (i + 1) + ' di ' + schermate.length;
+      /* L'ANCORA E' IL TITOLO (Igor, 18/09/2026): «quando vado avanti o
+         indietro il titolo — "3 · La formula in una riga" — deve tornare
+         sempre alla stessa altezza, con il bordo superiore dello schermo
+         come riferimento assoluto». Quindi a ogni foglio la sezione va in
+         cima, di colpo e non con lo scorrimento morbido, cosi' il titolo
+         sta esattamente dove stava: lo sfogliare avviene sotto un titolo
+         fermo. Lo spazio per la barra fissa lo da' scroll-margin-top. */
+      if (sfoglia && prima !== i) {
+        try { scheda.scrollIntoView({ block: 'start', behavior: 'auto' }); } catch (e) { scheda.scrollIntoView(true); }
+      }
       if (globale.FormuleVista && globale.FormuleVista.adatta) {
         setTimeout(function () { globale.FormuleVista.adatta(schermate[i]); }, 30);
       }
