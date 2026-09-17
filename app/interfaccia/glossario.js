@@ -135,16 +135,26 @@
        in griglia o in riga — e si esce dalla griglia prima di inserire. Il
        riquadro nasce cosi' largo quanto tutta la griglia, che e' l'unico
        posto in cui una spiegazione si legge. */
-    var dove = (el.closest && el.closest('.cursore, li, p, td, h1, h2, h3, h4, .tassello')) || el;
+    var dove = (el.closest && el.closest('.cursore, li, p, td, th, h1, h2, h3, h4, .tassello, .comando, label')) || el;
+    /* Igor, 17/09/2026: «se clicco sul punto interrogativo, la spiegazione
+       viene compressa dentro una tabellina». Era la tabella dei termini:
+       la parola sta in una cella, e un riquadro messo dopo la cella
+       diventa una cella anonima, stretta come una colonna. Quindi si sale
+       anche fuori dalle tabelle (riga, corpo, tabella, e la cornice che
+       le fa scorrere), non solo fuori da griglie e file. */
     var risalite = 0;
-    while (dove.parentNode && dove.parentNode !== document.body && risalite < 4) {
+    while (dove.parentNode && dove.parentNode !== document.body && risalite < 8) {
+      var padre = dove.parentNode;
       var disposizione = '';
       try {
-        disposizione = G.getComputedStyle(dove.parentNode).display;
+        disposizione = G.getComputedStyle(padre).display;
       } catch (e) { break; }
-      if (disposizione !== 'grid' && disposizione !== 'inline-grid' &&
-          disposizione !== 'flex' && disposizione !== 'inline-flex') { break; }
-      dove = dove.parentNode;
+      var tabellare = /^table/.test(disposizione) || /^(TR|TBODY|THEAD|TFOOT|TABLE)$/.test(padre.tagName);
+      var affiancato = disposizione === 'grid' || disposizione === 'inline-grid' ||
+                       disposizione === 'flex' || disposizione === 'inline-flex';
+      var cornice = padre.classList && (padre.classList.contains('avvolgi-tabella') || padre.classList.contains('scorre'));
+      if (!tabellare && !affiancato && !cornice) { break; }
+      dove = padre;
       risalite++;
     }
     if (dove.parentNode) { dove.parentNode.insertBefore(box, dove.nextSibling); }
@@ -158,6 +168,17 @@
     var aperto = !box.hidden;
     box.hidden = aperto;
     el.setAttribute('aria-expanded', String(!aperto));
+    /* il riquadro puo' stare sotto una tabella lunga: quando si apre, se
+       non e' gia' in vista, la pagina scorre fino a mostrarlo */
+    if (!aperto && box.scrollIntoView) {
+      try {
+        var r = box.getBoundingClientRect();
+        var alto = G.innerHeight || document.documentElement.clientHeight;
+        if (r.top < 70 || r.bottom > alto) {
+          box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      } catch (e) { /* browser vecchio: resta dov'e' */ }
+    }
   }
 
   function parolaDa(bersaglio) {

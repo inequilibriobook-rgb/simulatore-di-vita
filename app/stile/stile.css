@@ -3280,3 +3280,29 @@ summary.riepilogo-piccolo { cursor: pointer; font-size: var(--t-piccolo); color:
 .alta-limitata { max-height: 340px; overflow: auto; }
 /* l'etichetta di un campo («Che cosa stai per fare») */
 .etichetta-campo { display: block; font-size: var(--t-piccolo); font-weight: 550; margin: 0 0 6px; }
+
+/* ==========================================================================
+   LE TABELLE CHE RACCONTANO SI IMPILANO SUL TELEFONO (17/09/2026)
+   percorso-vista.js mette «impila» alle tabelle con tre o piu' colonne e
+   una colonna di frasi, e scrive su ogni cella il nome della colonna. Sotto
+   i 600 px ogni riga e' una scheda: la prima cella in grassetto e' il
+   titolo, le celle di testo vanno a capo per intero, le celle numeriche
+   stanno in fila con l'intestazione davanti, in piccolo.
+   ========================================================================== */
+@media (max-width: 600px) {
+  table.dati.impila, table.dati.impila tbody, table.dati.impila tr, table.dati.impila td { display: block; }
+  table.dati.impila thead, table.dati.impila tr.impila-testa { display: none; }
+  .avvolgi-tabella > table.dati.impila { min-width: 0; width: 100%; }
+  table.dati.impila tr { padding: 10px 0 12px; border-bottom: 1px solid var(--griglia); }
+  table.dati.impila tr:last-child { border-bottom: 0; }
+  table.dati.impila td { padding: 2px 0; border-bottom: 0; text-align: left; white-space: normal; }
+  table.dati.impila td:first-child { font-size: var(--t-corpo); padding-bottom: 4px; }
+  table.dati.impila td:not(.num):not(:first-child) { color: var(--inchiostro-2); font-size: var(--t-nota); line-height: 1.5; }
+  table.dati.impila td.num { display: inline-block; margin: 6px 18px 0 0; text-align: left; font-variant-numeric: tabular-nums; }
+  table.dati.impila td.num::before {
+    content: attr(data-etichetta) ' ';
+    color: var(--inchiostro-3); font-size: var(--t-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+    display: block; margin-bottom: 1px;
+  }
+  table.dati.impila tr.fascia-qui { background: var(--azione-tenue); border-radius: 8px; padding-left: 8px; padding-right: 8px; }
+}

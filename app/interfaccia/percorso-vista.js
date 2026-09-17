@@ -380,6 +380,43 @@
             teste.forEach(function (h) { h.classList.add('num'); });
           }
         }
+        /* LE TABELLE CHE RACCONTANO SI IMPILANO SUL TELEFONO (17/09/2026).
+           Igor: «la tabellina viene pressata, compressa». Una tabella con tre
+           o piu' colonne e una colonna di frasi intere (la tabella dei nove
+           termini: nome, che cosa misura, valore, sposta) su 320-390 px
+           diventa una colonna di parole una sotto l'altra. Percio' sotto i
+           600 px ogni riga diventa una scheda: il nome in alto, la frase
+           sotto, i numeri in fila con la loro intestazione davanti. Il
+           foglio di stile fa il resto, con la classe «impila»; qui si
+           decide quali tabelle, e si scrive su ogni cella il nome della
+           sua colonna (data-etichetta). */
+        if (colonne >= 3 && !tb.classList.contains('impila') && !tb.classList.contains('non-impilare')) {
+          var lunga = false, testaRiga = null;
+          for (i = 0; i < righe.length && !lunga; i++) {
+            for (j = 0; j < righe[i].cells.length; j++) {
+              var cc = righe[i].cells[j];
+              if (cc.tagName === 'TD' && (cc.textContent || '').trim().length > 60) { lunga = true; break; }
+            }
+          }
+          if (lunga) {
+            tb.classList.add('impila');
+            for (i = 0; i < righe.length; i++) {
+              if (righe[i].cells.length && righe[i].cells[0].tagName === 'TH') { testaRiga = righe[i]; break; }
+            }
+            if (testaRiga) {
+              testaRiga.classList.add('impila-testa');
+              for (i = 0; i < righe.length; i++) {
+                if (righe[i] === testaRiga) { continue; }
+                for (j = 0; j < righe[i].cells.length; j++) {
+                  var th = testaRiga.cells[j];
+                  if (th && !righe[i].cells[j].hasAttribute('data-etichetta')) {
+                    righe[i].cells[j].setAttribute('data-etichetta', (th.textContent || '').trim());
+                  }
+                }
+              }
+            }
+          }
+        }
       });
     }
     allineaTabelle();
