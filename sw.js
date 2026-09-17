@@ -2,8 +2,8 @@
    Registrato da app/interfaccia/installa.js solo quando il simulatore arriva da un indirizzo web.
    Alla prima apertura scarica tutti i file qui sotto; da allora le pagine si aprono anche senza
    rete. Quando l'elenco o un file cambia, cambia la versione, e i dispositivi si aggiornano da soli.
-   Versione: e26f90961afc (68 file). */
-var VERSIONE = 'simulatore-e26f90961afc';
+   Versione: 912ad16849ca (69 file). */
+var VERSIONE = 'simulatore-912ad16849ca';
 var FILE = [
   'APRI-QUI.html',
   'CATENA.html',
@@ -56,6 +56,7 @@ var FILE = [
   'app/interfaccia/questionario-ui.js',
   'app/interfaccia/racconto-vista.js',
   'app/interfaccia/scena-ui.js',
+  'app/interfaccia/schermate.js',
   'app/interfaccia/settimana.js',
   'app/interfaccia/sillaba.js',
   'app/interfaccia/traiettoria.js',

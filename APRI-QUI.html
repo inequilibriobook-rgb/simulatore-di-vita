@@ -25,7 +25,36 @@
     <p class="benvenuto-righe">Benvenuto. Questo è il simulatore che accompagna il libro
       dal titolo <em>Simulatore di vita 3.0</em>. Tutto parte da una domanda sola.</p>
     <h1>Ce l’hai fatta, sì o no? E quanto ti è costato?</h1>
-    <p class="sottotitolo">
+    <p class="sottotitolo">Un gesto piccolo, le condizioni di quel momento, una probabilità, un dado,
+      e il conto di quanto ti è costato. Comincia da dove vuoi.</p>
+  </header>
+
+  <!-- ====================== I TASTI GRANDI ====================== -->
+  <nav class="tasti-grandi no-stampa" aria-label="Da dove cominciare">
+    <a class="tasto-grande principale" href="#comincia" data-apri="#comincia">
+      <span class="tg-icona" aria-hidden="true">▶</span>
+      <span class="tg-testo"><b>Comincia da qui</b><small>Che cos’è questo simulatore, in un minuto e quattro schermate.</small></span>
+      <span class="tg-freccia" aria-hidden="true">→</span></a>
+    <a class="tasto-grande" href="IL-GESTO.html">
+      <span class="tg-icona" aria-hidden="true">1</span>
+      <span class="tg-testo"><b>Prova subito un gesto</b><small>Nove cursori, un dado, e il racconto di com’è andata.</small></span>
+      <span class="tg-freccia" aria-hidden="true">→</span></a>
+    <a class="tasto-grande" href="LA-SCENA.html">
+      <span class="tg-icona" aria-hidden="true">✎</span>
+      <span class="tg-testo"><b>Racconta una scena</b><small>Scrivi una mattina come la diresti a voce: il simulatore la divide nei gesti.</small></span>
+      <span class="tg-freccia" aria-hidden="true">→</span></a>
+    <a class="tasto-grande" href="QUESTIONARIO.html">
+      <span class="tg-icona" aria-hidden="true">?</span>
+      <span class="tg-testo"><b>Fammi delle domande</b><small>Non sai che numeri mettere: rispondi, e il nodo lo costruisce il simulatore.</small></span>
+      <span class="tg-freccia" aria-hidden="true">→</span></a>
+  </nav>
+
+  <!-- ====================== CHE COS'È, IN UN MINUTO ====================== -->
+  <section class="riquadro" id="comincia" data-apribile data-anteprima="Quattro schermate brevi: il gesto, il dado, il costo, e perché da fuori non si vede.">
+    <h2>Che cos’è, in un minuto</h2>
+    <div data-passi data-uscita="IL-GESTO.html" data-uscita-testo="Basta così: portami al simulatore">
+    <h3>Un gesto piccolo, in una giornata qualsiasi</h3>
+    <p>
       Immagina una giornata qualsiasi, e dentro quella giornata un gesto piccolo (in queste
       pagine un gesto è un’azione sola, con un inizio e una fine): bere un bicchiere
       d’acqua, scrivere quel messaggio che rimandi da ore, alzarti dal divano.
@@ -34,27 +63,35 @@
       probabilità hai di riuscirci: non in generale, ma proprio adesso, nelle condizioni
       in cui ti trovi.
     </p>
-    <p class="sottotitolo">
+    <h3>Poi tira un dado</h3>
+    <p>
       A quel punto tira un dado. Perché una probabilità, da sola, non decide niente: dice
       soltanto quanto le cose potrebbero andare in un modo o nell’altro. È il dado a dire
       come sono andate davvero, e il simulatore te lo racconta, come farebbe un amico che
       era lì a guardare.
     </p>
-    <p class="sottotitolo">
+    <h3>E ti dice quanto ti è costato</h3>
+    <p>
       Un semplice calcolo di probabilità si fermerebbe qui: riuscito, oppure no. Questo
       modello invece continua, e ti dice <strong>quanto ti è costato riuscirci</strong>.
       Quanta stanchezza ti ha lasciato addosso. E quanta di quella stanchezza ti
       ritroverai davanti quando arriverà il gesto successivo.
     </p>
-    <p class="sottotitolo">
+    <h3>Da fuori non si vede</h3>
+    <p>
       Perché una giornata andata bene e una giornata andata bene a denti stretti, viste da
       fuori, sembrano quasi la stessa giornata. Chi ti guarda vede che ce l’hai fatta, ma
       non vede che cosa ti è costato. È quel costo che il simulatore prova a misurare.
     </p>
-  </header>
+      <p class="passo-scelte" data-passi-fine>
+        <a class="bottone primario" href="IL-GESTO.html">Prova subito un gesto</a>
+        <a class="bottone secondario" href="#teoria" data-apri="#teoria">Leggi la teoria, in cinque minuti</a>
+      </p>
+    </div>
+  </section>
 
   <!-- ====================== DA DOVE COMINCIARE ====================== -->
-  <section class="riquadro no-stampa">
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Le quattro strade, e qual è la tua: un gesto solo, una giornata a parole, la teoria, le domande.">
     <h2>Da dove cominciare</h2>
     <p style="margin-top:0">
       Non c’è un ordine da rispettare, e non c’è niente da leggere prima: puoi aprire una
@@ -94,7 +131,11 @@
         simulatore al posto tuo.</span>
       </a>
     </div>
-    <p class="nota" id="senza-internet">
+  </section>
+
+  <section class="riquadro no-stampa" id="senza-internet" data-apribile data-anteprima="Niente da installare, niente che esce da qui; e come averlo sul telefono, sul tablet, sul computer.">
+    <h2>Sul telefono, sul tablet, sul computer</h2>
+    <p class="nota">
       <strong>Non serve internet, e non serve installare niente.</strong> Tutto quello che
       vedi gira dentro il browser che hai già, cioè il programma con cui apri le pagine di
       internet. Quindi si può usare su un treno, in aereo, o da una chiavetta infilata in un
@@ -108,8 +149,9 @@
   </section>
 
   <!-- ====================== LA TEORIA ====================== -->
-  <section class="riquadro" id="teoria">
+  <section class="riquadro" id="teoria" data-apribile data-anteprima="Tutto il modello in otto schermate: il nodo, la formula, il taglio, il dado, i nove esiti, il costo nascosto, il tempo, i limiti.">
     <h2>La teoria, in cinque minuti</h2>
+    <div data-passi data-uscita="IL-GESTO.html" data-uscita-testo="Basta così: portami al simulatore">
     <p style="margin-top:0">
       Quello che segue è tutto il modello, e non una versione ridotta per chi comincia. Di
       matematica ce n’è poca, e ce n’è poca apposta: una somma, una tabella, un «taglio ai bordi»
@@ -299,11 +341,13 @@
       vuoi la matematica aperta pezzo per pezzo, c’è <a href="LA-FORMULA.html">la matematica,
       da zero</a>. Lì, accanto a ogni passaggio, sta il codice che lo esegue.
     </p>
+    </div>
   </section>
 
   <!-- ====================== IL GIRO COMPLETO ====================== -->
-  <section class="riquadro" id="giro">
+  <section class="riquadro" id="giro" data-apribile data-anteprima="L’esempio del libro, passo per passo: la scena, i dati, il calcolo, il tiro, la lettura, la modifica. E i numeri li cambi tu.">
     <h2>Un giro completo, in dieci minuti</h2>
+    <div data-passi data-uscita="IL-GESTO.html" data-uscita-testo="Basta così: portami al simulatore">
     <p style="margin-top:0">
       Il libro, prima di qualunque formula, comincia con un esempio solo: una scena, i suoi
       numeri, il calcolo, un tiro di dado, che cosa vuol dire il risultato, e poi una modifica
@@ -412,10 +456,11 @@
       scena</a>. Rigioca una scena come questa quante volte vuoi, e ti mostra la
       distribuzione, cioè quante volte esce ogni risultato su mille giocate.
     </p>
+    </div>
   </section>
 
   <!-- ====================== LE PAGINE ====================== -->
-  <section class="riquadro no-stampa">
+  <section class="riquadro no-stampa" data-apribile data-anteprima="La mappa: quattro livelli del tempo, una lettura, due strade per costruire una scena, quattro strumenti.">
     <h2>Le altre undici pagine, e a che domanda risponde ognuna</h2>
     <p style="margin-top:0">
       Con questa che stai leggendo le pagine sono dodici, e questa è l’unica che non calcola
@@ -429,7 +474,7 @@
   </section>
 
   <!-- ====================== IL LIBRO ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Ogni numero a schermo viene da una pagina stampata: qui c’è scritto da quale.">
     <h2>Il libro e il simulatore</h2>
     <p style="margin-top:0">
       Questo simulatore non si ispira a un libro: <strong>è il libro, messo in funzione</strong>,
@@ -453,7 +498,7 @@
   </section>
 
   <!-- ====================== LE PAROLE ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Dieci argomenti, e le parole del simulatore spiegate una per una, con un esempio.">
     <h2>Le parole, spiegate</h2>
     <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
       Il simulatore usa poche parole, e ognuna vuol dire una cosa precisa. Sono raccolte
@@ -484,6 +529,7 @@
 <script src="app/interfaccia/glossario.js"></script>
 <script src="app/dati/verifica.js"></script>
 <script src="app/interfaccia/casa.js"></script>
+<script src="app/interfaccia/schermate.js"></script>
 <script src="app/interfaccia/attesa.js"></script>
 <script src="app/dati/sillabazione-it.js"></script>
 <script src="app/interfaccia/sillaba.js"></script>

@@ -1424,11 +1424,11 @@ input[type="radio"], input[type="checkbox"] {
 /* Un collegamento dentro il testo resta un collegamento — sottolineato e
    nel colore dell'azione — ma non c'e' piu' nessuna navigazione scritta a
    mano in mezzo ai paragrafi: quella la fa la barra in alto. */
-.contenitore a:not(.bottone):not(.gradino):not(.porta):not(.marchio) {
+.contenitore a:not(.bottone):not(.gradino):not(.porta):not(.marchio):not(.tasto-grande):not(.imbocco):not(.strada) {
   color: var(--azione); text-underline-offset: 2px;
   text-decoration-thickness: 1px;
 }
-.contenitore a:not(.bottone):not(.gradino):not(.porta):not(.marchio):hover {
+.contenitore a:not(.bottone):not(.gradino):not(.porta):not(.marchio):not(.tasto-grande):not(.imbocco):not(.strada):hover {
   color: var(--azione-viva);
 }
 
@@ -3014,3 +3014,86 @@ body.lettura { background: var(--piano); }
 /* le due righe di benvenuto sopra il titolo di APRI-QUI (17/09/2026) */
 .benvenuto-righe { margin: 0 0 14px; font-size: var(--t-medio); line-height: 1.5; color: var(--inchiostro-2); max-width: 62ch; }
 .benvenuto-righe em { font-style: italic; color: var(--inchiostro); }
+
+/* ==========================================================================
+   LE SCHERMATE (17/09/2026, app/interfaccia/schermate.js)
+   Le sezioni che si aprono e le schede a passi: il testo del libro servito
+   una schermata per volta, come in un'app.
+   ========================================================================== */
+/* --- le sezioni che si aprono --- */
+.apribile { padding: 0; overflow: hidden; }
+.apribile > .apribile-testa { margin: 0; font-size: inherit; }
+.apribile-tasto {
+  display: grid; grid-template-columns: 1fr auto; grid-template-areas: "titolo freccia" "anteprima freccia";
+  align-items: center; column-gap: 14px; row-gap: 4px; width: 100%;
+  padding: 18px 22px; border: 0; border-radius: 0; background: var(--superficie);
+  font: inherit; color: var(--inchiostro); text-align: left; cursor: pointer; white-space: normal;
+  transition: background-color .15s ease;
+}
+.apribile-tasto:hover, .apribile-tasto:focus-visible { background: var(--azione-tenue); outline: none; }
+.apribile-titolo { grid-area: titolo; display: flex; align-items: baseline; gap: 10px; font-size: var(--t-grande); font-weight: 650; letter-spacing: -.01em; line-height: 1.25; }
+.apribile-anteprima { grid-area: anteprima; font-size: var(--t-nota); font-weight: 400; letter-spacing: 0; color: var(--inchiostro-2); line-height: 1.45; text-align: left; hyphens: manual; }
+.apribile-freccia {
+  grid-area: freccia; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--azione); color: var(--su-azione); font-size: 18px; font-weight: 700;
+  transition: transform .18s ease;
+}
+.apribile.aperta .apribile-freccia { transform: rotate(180deg); }
+.apribile.aperta .apribile-anteprima { display: none; }
+.apribile-corpo { display: none; padding: 4px 22px 22px; border-top: 1px solid var(--bordo); }
+.apribile.aperta .apribile-corpo { display: block; }
+.apribile.aperta .apribile-tasto { background: var(--piano); }
+@media (max-width: 520px) {
+  .apribile-tasto { padding: 14px 16px; }
+  .apribile-titolo { font-size: var(--t-titolo); }
+  .apribile-corpo { padding: 4px 16px 16px; }
+}
+@media print { .apribile-corpo { display: block !important; } .apribile-freccia { display: none; } }
+
+/* --- le schede a passi --- */
+.passi .passo { display: none; }
+.passi .passo.qui { display: block; animation: entra .18s ease both; }
+.passi .passo > h3 { margin-top: var(--s3); }
+.passi-nav {
+  display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "indietro punti avanti" "uscita uscita uscita";
+  align-items: center; gap: 10px 12px; margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--bordo);
+}
+.passi-indietro { grid-area: indietro; }
+.passi-avanti { grid-area: avanti; }
+.passi-punti { grid-area: punti; display: flex; justify-content: center; gap: 6px; }
+.passi-punti i { display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--neutro); cursor: pointer; transition: background-color .15s ease, transform .15s ease; }
+.passi-punti i.qui { background: var(--azione); }
+.passi-punti i:hover { transform: scale(1.3); }
+.passi-dove { display: none; }
+.passi-uscita { grid-area: uscita; justify-self: center; font-size: var(--t-nota); color: var(--inchiostro-3); text-decoration: underline; text-underline-offset: 3px; }
+.passi-uscita:hover { color: var(--azione); }
+.passi-fine { margin-top: var(--s4); }
+@media (max-width: 520px) {
+  .passi-nav { grid-template-columns: 1fr 1fr; grid-template-areas: "punti punti" "indietro avanti" "uscita uscita"; }
+  .passi-indietro, .passi-avanti { width: 100%; justify-content: center; }
+  .passi-punti { margin-bottom: 2px; }
+}
+@media print { .passi .passo { display: block !important; } .passi-nav { display: none; } }
+
+/* --- i tasti grandi della pagina di apertura --- */
+.tasti-grandi { display: grid; gap: 10px; margin: var(--s4) 0 var(--s3); }
+.tasto-grande {
+  display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 14px;
+  border: 1px solid var(--bordo); background: var(--superficie); color: var(--inchiostro);
+  text-decoration: none; font: inherit; text-align: left; cursor: pointer; white-space: normal;
+  box-shadow: var(--ombra); transition: transform .08s ease, border-color .15s ease, background-color .15s ease;
+}
+.tasto-grande:hover, .tasto-grande:focus-visible { border-color: var(--azione); background: var(--azione-tenue); outline: none; }
+.tasto-grande:active { transform: translateY(1px); }
+.tasto-grande.principale { background: var(--azione); color: var(--su-azione); border-color: var(--azione); }
+.tasto-grande.principale:hover, .tasto-grande.principale:focus-visible { color: var(--su-azione); }
+.tasto-grande.principale:hover { background: color-mix(in srgb, var(--azione) 84%, black); }
+.tasto-grande .tg-icona { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; background: rgba(0,0,0,.06); font-size: 20px; }
+.tasto-grande.principale .tg-icona { background: rgba(255,255,255,.18); }
+.tasto-grande .tg-testo { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.tasto-grande .tg-testo b { font-size: var(--t-medio); font-weight: 650; line-height: 1.2; }
+.tasto-grande .tg-testo small { font-size: var(--t-nota); color: var(--inchiostro-2); line-height: 1.35; text-align: left; hyphens: manual; }
+.tasto-grande.principale .tg-testo small { color: rgba(255,255,255,.85); }
+.tasto-grande .tg-freccia { flex: none; font-size: 20px; color: var(--inchiostro-3); }
+.tasto-grande.principale .tg-freccia { color: var(--su-azione); }
+@media (min-width: 700px) { .tasti-grandi { grid-template-columns: 1fr 1fr; } .tasti-grandi .tasto-grande.principale { grid-column: 1 / -1; } }
