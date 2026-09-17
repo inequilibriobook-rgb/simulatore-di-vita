@@ -129,7 +129,9 @@
 
     return '<header class="app-barra no-stampa">' +
       '<div class="app-barra-dentro">' +
-        '<a class="marchio" href="APRI-QUI.html">' +
+        /* il nome nella barra porta alla pagina di benvenuto (17/09/2026): e'
+           l'unico modo di rivederla da dentro, e c'e' anche nel pacchetto */
+        '<a class="marchio" href="index.html" title="La pagina di benvenuto">' +
           '<span class="marchio-nome">Simulatore di vita</span>' +
           '<span class="marchio-versione">3.0</span></a>' +
         '<nav class="percorso-scala" aria-label="I livelli del tempo, dal più corto al più lungo">' +
