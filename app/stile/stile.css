@@ -279,7 +279,7 @@ input[type=range] { width: 100%; accent-color: var(--aiuta); margin: 0; }
   display: grid; grid-template-columns: 190px 1fr 66px; align-items: center; gap: 12px;
   padding: 3px 0; border-radius: 6px;
 }
-.riga-contributo:hover { background: color-mix(in srgb, var(--inchiostro) 4%, transparent); }
+@media (hover: hover) and (pointer: fine) { .riga-contributo:hover { background: color-mix(in srgb, var(--inchiostro) 4%, transparent); } }
 .riga-contributo .etichetta { font-size: var(--t-piccolo); color: var(--inchiostro-2); }
 .riga-contributo .etichetta b { color: var(--inchiostro); font-weight: 600; }
 .pista { position: relative; height: 20px; }
@@ -1352,7 +1352,11 @@ table.dati thead th, table.dati th:first-child:not(td ~ th) {
 }
 table.dati th, table.dati td { padding: 9px 13px; border-bottom: 1px solid var(--griglia); }
 table.dati tr:last-child th, table.dati tr:last-child td { border-bottom: none; }
-table.dati tbody tr:hover td, table.dati tr:hover td { background: var(--azione-tenue); }
+/* il colore al passaggio del mouse solo dove c'e' un mouse: al tocco, sul
+   telefono, una riga che si colora sembra un collegamento e non lo e' */
+@media (hover: hover) and (pointer: fine) {
+  table.dati tbody tr:hover td, table.dati tr:hover td { background: var(--azione-tenue); }
+}
 .avvolgi-tabella { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 /* SUL TELEFONO UNA TABELLA SI TRASCINA, NON SI SCHIACCIA.
    Il riquadro sapeva gia' scorrere, ma non aveva mai occasione di farlo:
@@ -1439,7 +1443,7 @@ input[type="radio"], input[type="checkbox"] {
 .cursore + .cursore, .riga-contributo + .riga-contributo {
   box-shadow: inset 0 1px 0 var(--griglia);
 }
-.cursore:hover, .riga-contributo:hover { background: var(--piano); }
+@media (hover: hover) and (pointer: fine) { .cursore:hover, .riga-contributo:hover { background: var(--piano); } }
 .cursore:focus-within { background: var(--azione-tenue); }
 
 /* il valore del cursore diventa una pillola, cosi' si legge come un dato e
@@ -1528,7 +1532,7 @@ svg:hover .col-giorno:hover { opacity: 1; }
   padding: 9px 11px; border-radius: var(--raggio-s);
   transition: background-color .12s ease;
 }
-.riga-distribuzione:hover { background: var(--piano); }
+@media (hover: hover) and (pointer: fine) { .riga-distribuzione:hover { background: var(--piano); } }
 .dist-glifo { font-size: var(--t-medio); color: var(--tinta); text-align: center; line-height: 1; }
 .dist-nome { font-size: var(--t-piccolo); font-weight: 600; }
 .dist-pista {
@@ -1799,7 +1803,7 @@ pre.codice {
   display: grid; grid-template-columns: 70px minmax(110px, 1.2fr) 3fr 52px;
   align-items: center; gap: var(--s3); padding: 6px 10px; border-radius: var(--raggio-s);
 }
-.riga-termine:hover { background: var(--superficie); }
+@media (hover: hover) and (pointer: fine) { .riga-termine:hover { background: var(--superficie); } }
 .termine-k { font-size: var(--t-piccolo); font-weight: 700; font-variant-numeric: tabular-nums; }
 .termine-nome { font-size: var(--t-piccolo); color: var(--inchiostro-2); }
 .termine-pista { position: relative; height: 11px; border-radius: 999px; background: var(--piano); }

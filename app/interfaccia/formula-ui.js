@@ -450,7 +450,10 @@
         var sp = (c.k === 'C') ? -cfg.pesoComplessita * v.C
                : (c.k === 'DEB') ? -cfg.pesoDebito * v.DEB
                : (c.k === 'STR') ? -penStr : v[c.k];
-        return '<tr><td><b>' + esc(c.nome) + '</b> <span class="glossa-sigla">' +
+        /* il nome del termine apre la sua voce del glossario (17/09/2026: sul
+           telefono le righe si coloravano al tocco e sembravano collegamenti
+           senza esserlo; adesso lo sono, e la riga non si colora piu') */
+        return '<tr><td><b><span data-parola="' + esc(c.k) + '">' + esc(c.nome) + '</span></b> <span class="glossa-sigla">' +
           esc(c.k) + '</span></td><td>' + esc(t.breve || '') + '</td>' +
           '<td class="num">' + num(v[c.k]) + '</td>' +
           '<td class="num" style="color:' + (sp > 0 ? 'var(--aiuta)' : (sp < 0 ? 'var(--ostacola)' : 'var(--inchiostro-3)')) +
