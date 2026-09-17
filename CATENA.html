@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catena di gesti e analisi statistica — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · catena e statistica</p>
+    <h1>Più gesti di seguito, e la stessa scena rigiocata molte volte</h1>
+    <p class="sottotitolo">
+      Fin qui hai guardato un gesto alla volta. In questa pagina i gesti si mettono uno dopo
+      l’altro, a formare una «scena» (cioè una fila di gesti di seguito), ed è qui che tutto
+      cambia. Un «gesto» è un’azione sola, con un inizio e una
+      fine: bere un bicchiere d’acqua, non «fare la spesa». Il
+      <span data-parola="carico">«carico»</span> è la pressione accumulata che ti porti
+      dietro, da 0 a 100. Quello che il primo gesto ti lascia addosso te lo porti dentro il
+      secondo, e quello che ti lascia il secondo te lo porti dentro il terzo. Quattro gesti
+      facili, presi a uno a uno, li fai tutti. Messi in fila, invece, diventano tutt’altra
+      cosa.
+    </p>
+    <p class="sottotitolo">
+      Alla fine trovi scritto quanto è costata la sequenza intera. È questa la domanda della
+      pagina, e non è la stessa cosa che chiedere se i gesti sono riusciti. Si può riuscire
+      in tutto, e arrivare in fondo a pezzi.
+    </p>
+    <p class="sottotitolo">
+      Poi la stessa fila si rigioca centinaia o migliaia di volte, e ogni giro ha dadi
+      nuovi. Il dado è il numero estratto a caso, da 1 a 100, che decide se un gesto riesce.
+      Così non guardi più un caso solo: guardi la forma di tutti i casi possibili.
+    </p>
+  </header>
+
+  <!-- ============ LA CATENA ============ -->
+  <section class="riquadro no-stampa">
+    <h2>1 · La catena di gesti</h2>
+    <label for="gesti" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+      Scrivi un gesto per riga
+    </label>
+    <textarea id="gesti" rows="9" spellcheck="false"
+      style="width:100%;font:inherit;font-size:14px;line-height:1.5;padding:11px 13px;border-radius:8px;
+             border:1px solid var(--bordo);background:var(--piano);color:var(--inchiostro);resize:vertical"></textarea>
+
+    <div class="griglia-cursori" id="cursoriCatena" style="margin-top:20px"></div>
+
+    <div class="barra-azioni">
+      <button class="primario" id="esegui">Esegui la catena</button>
+      <span class="campo-seme">
+        <label for="seme">seme</label>
+        <input id="seme" type="number" value="424242">
+      </span>
+      <button id="duplica">Aggiungi 40 righe ripetute</button>
+      <span class="nota" style="margin:0">Una <b>replica</b> è una riga già scritta,
+        ricopiata tale e quale: stesso gesto, stesse condizioni. Premi il pulsante e guarda
+        che cosa succede. Il simulatore le riconosce, e le conta una volta sola.</span>
+    </div>
+    <p class="nota" style="margin:10px 0 0">Il <b>«seme»</b> è il numero da cui partono i
+      dadi. Con lo stesso seme escono sempre gli stessi tiri, e la catena si può rifare
+      identica, oggi o fra un anno.</p>
+    <div class="avviso" id="erroreCatena" style="display:none;margin-top:12px"></div>
+    <div class="barra-azioni" style="margin-top:12px">
+      <span class="nota" style="margin:0">Quanto arriva davvero al gesto dopo? Nel modello
+        si chiama <b data-parola="trasferimento_di_stato">trasferimento di stato</b>. Qui
+        scegli quanto:</span>
+      <button id="cal32" class="primario">misurato &nbsp;·&nbsp; 4,6 %</button>
+      <button id="calStorica">storico &nbsp;·&nbsp; passa tutto</button>
+      <span class="nota" id="notaCal" style="margin:0"></span>
+    </div>
+  </section>
+
+  <!-- ============ GRANULARITÀ ============ -->
+  <section class="riquadro" id="bloccoGran" style="display:none">
+    <h2>2 · Il primo asse: quanti gesti <em>diversi</em> ci sono davvero</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Gli <b>«assi»</b> sono i due modi in cui questo conto può crescere. Il primo è quanti
+      gesti diversi contiene la scena, e sta qui sotto. Il secondo è quante volte la si
+      rigioca, e sta al punto 6. Fra loro non si moltiplicano mai: la ragione sta in fondo
+      alla pagina, e vale la pena leggerla. Da qui in avanti il gesto calcolato si chiama
+      anche <span data-parola="nodo">«nodo»</span>. È lo stesso gesto, con il nome che usa il
+      libro.
+    </p>
+    <div class="verifica" id="gran"></div>
+    <p class="nota" id="granSpiega" style="margin-top:14px"></p>
+  </section>
+
+  <!-- ============ DIAGNOSI ============ -->
+  <section class="riquadro" id="bloccoDiag" style="display:none">
+    <h2>3 · Il modello dice ancora qualcosa?</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Un modello che ha smesso di distinguere continua a dare numeri, e da fuori sembrano
+      risposte come prima. È il guasto più insidioso che gli possa capitare, perché non dà
+      nessun segnale: la macchina gira, e non dice più niente. Per questo qui sotto ci sono
+      i cinque segni da guardare, per accorgersene in tempo.
+    </p>
+    <div class="verifica" id="diag"></div>
+    <div id="avvisiSat"></div>
+  </section>
+
+  <!-- ============ IL RACCONTO ============ -->
+  <section class="riquadro" id="bloccoRacconto" style="display:none">
+    <h2>4 · Che storia è stata questa sequenza</h2>
+    <div id="racconto" class="racconto"></div>
+  </section>
+
+  <!-- ============ TRAIETTORIA ============ -->
+  <section class="riquadro" id="bloccoTrai" style="display:none">
+    <h2>5 · Come cambia la persona, gesto dopo gesto</h2>
+    <div class="esito-principale">
+      <div>
+        <div class="numero-eroe" id="strFinale">—</div>
+        <div class="eroe-etichetta">carico accumulato alla fine (era <span id="strIniziale">—</span>)</div>
+      </div>
+      <div><span class="pillola" id="pillolaEsito"></span></div>
+    </div>
+    <div id="grafico"></div>
+    <p class="nota" id="notaSat"></p>
+    <details style="margin-top:14px">
+      <summary style="cursor:pointer;font-size:13px;color:var(--inchiostro-2)">Vedi gesto per gesto in tabella</summary>
+      <div style="max-height:340px;overflow:auto"><table class="dati" id="tabCatena"></table></div>
+    </details>
+  </section>
+
+  <!-- ============ MONTE CARLO ============ -->
+  <section class="riquadro" id="bloccoMC" style="display:none">
+    <h2>6 · Il secondo asse: la stessa scena, rigiocata molte volte</h2>
+    <p style="margin-top:0">
+      Rigiocare vuol dire ripartire dall’inizio, con gli stessi identici gesti e dadi nuovi.
+      Ognuna di queste partite si chiama <strong data-parola="giocata">«giocata»</strong>, ed
+      è la parola che tutte queste pagine usano sempre.
+      «<span data-parola="ripetizioni">Ripetizioni</span>» dice soltanto quante giocate se
+      ne chiedono. Tutto questo serve perché un tiro solo non dimostra niente: da un lancio
+      solo non si giudica nemmeno un dado.
+    </p>
+    <div class="barra-azioni" style="margin-top:0;margin-bottom:20px">
+      <span class="nota" style="margin:0">quante giocate:</span>
+      <button data-rip="100">100</button>
+      <button data-rip="1000">1.000</button>
+      <button data-rip="10000">10.000</button>
+      <span class="nota" id="statoMC" style="margin:0"></span>
+    </div>
+    <div class="verifica" id="mcTasselli"></div>
+
+    <h3 style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--inchiostro-3);
+               margin:26px 0 12px;font-weight:600">Come finisce la scena, su tutte le giocate</h3>
+    <div class="contributi" id="mcEsiti"></div>
+
+    <div class="avviso" id="mcNota" style="border-left-color:var(--aiuta);background:color-mix(in srgb, var(--aiuta) 7%, var(--superficie))"></div>
+  </section>
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <details>
+      <summary style="cursor:pointer;font-weight:600;font-size:16px">
+        Le parole, spiegate
+      </summary>
+      <p style="color:var(--inchiostro-2);font-size:15px">
+        Le parole del simulatore vogliono dire una cosa precisa. Qui sotto ci sono quelle
+        che hanno una voce scritta, e le altre sono spiegate nel punto della pagina in cui
+        compaiono.
+      </p>
+      <div data-glossario></div>
+    </details>
+  </section>
+
+
+  <footer class="piede">
+    <p>I due assi non vanno mai moltiplicati fra loro. I gesti moltiplicati per le giocate
+      danno un numero grande, che si chiama <b data-parola="valutazioni">valutazioni</b>: ma
+      quel numero non è né un gesto né una giocata, e quindi non vuol dire niente. Quello che
+      si conta davvero è la singola giocata della scena. Il trasferimento di stato al 4,6 % è
+      una misura, fatta sui cinquecento nodi del capitolo 28.</p>
+  </footer>
+</div>
+
+
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/microsemantica.js"></script>
+<script src="app/motore/analisi.js"></script>
+<script src="app/motore/racconto.js"></script>
+<script src="app/interfaccia/racconto-vista.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/interfaccia/catena.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

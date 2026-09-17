@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La matematica, da zero — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · come è fatto dentro</p>
+    <h1>La matematica, da zero</h1>
+    <p class="sottotitolo">
+      Tutto quello che il simulatore calcola sta in una riga sola. In questa pagina quella
+      riga si apre pezzo per pezzo, come si apre un orologio per guardare gli ingranaggi.
+      Vedrai che cosa vuol dire ogni simbolo, da dove arriva ogni numero e quale codice lo
+      produce: proprio le righe del motore, cioè della parte del programma che fa i conti.
+      In fondo alla
+      pagina c’è la sezione che il libro chiama la più importante di tutto l’apparato, che è
+      la parte del libro dove stanno le formule. È la sezione che dice
+      <strong>che cosa la formula non contiene</strong>.
+    </p>
+  </header>
+
+  <!-- ====================== DOVE SI CREA UN NODO ====================== -->
+  <section class="riquadro">
+    <h2>1 · Dove si crea un nodo</h2>
+    <p style="margin-top:0">
+      Un <span data-parola="nodo">«nodo»</span> è un «gesto» solo, con un inizio e una fine che
+      si riconoscono. Bere un bicchiere d’acqua è un nodo. «Fare la spesa» no, perché dentro
+      ci stanno venti gesti diversi. Per crearne uno ci sono due strade, e tutte e due
+      portano allo stesso posto.
+    </p>
+    <div class="due-strade">
+      <a class="strada" href="IL-GESTO.html">
+        <span class="strada-n">A</span>
+        <span class="strada-t">
+          <b>So che numeri mettere</b>
+          <small>Scrivi la scena in una frase. Poi muovi i nove cursori, cioè le levette da
+            trascinare, una per ogni valore. La probabilità cambia sotto i tuoi occhi mentre
+            li sposti.</small>
+        </span>
+      </a>
+      <a class="strada" href="QUESTIONARIO.html">
+        <span class="strada-n">B</span>
+        <span class="strada-t">
+          <b>Non so che numeri mettere</b>
+          <small>Rispondi a qualche domanda: da sei a quarantanove, a seconda di quanto vuoi
+            entrare nel dettaglio. Il nodo lo costruisce il simulatore al posto tuo.</small>
+        </span>
+      </a>
+    </div>
+    <p class="nota">
+      Una <strong>«scena»</strong>, invece, è fatta di più nodi uno dopo l’altro. Ogni nodo
+      consegna a quello che segue il carico che ha lasciato. Il «carico» è la pressione
+      accumulata che ti porti dietro, misurata da 0 a 100: quella che al mattino c’è già,
+      prima ancora di cominciare. La scena si costruisce nella pagina della catena, un gesto
+      per riga.
+    </p>
+  </section>
+
+  <!-- ====================== LA FORMULA ====================== -->
+  <section class="riquadro">
+    <h2>2 · La formula, in una riga</h2>
+    <p style="margin-top:0">
+      La formula madre è semplice, e lo è di proposito: chiunque deve poterla rifare con
+      carta e penna. Fa una somma, e poi applica il «clamp», cioè il «taglio» ai bordi. I pezzi
+      della somma si chiamano termini. Ce n’è uno per ogni cosa che nella scena conta: il
+      corpo, il tempo, l’ambiente, e così via. Da dove vengono i valori di quei termini lo
+      spiega la «taratura», che è la scelta ragionata dei numeri, fatta prima di calcolare e
+      non dopo. E il resoconto, il documento che il simulatore scrive alla fine, tiene sempre
+      separati il numero che esce dal calcolo e il racconto che se ne fa.
+    </p>
+    <div class="formula-libro" data-formula="madre"></div>
+    <p class="formula-fonte">Questa è la formula canonica, come la stampa il libro al
+      capitolo 5. Non è ricopiata a mano. Un programma la legge nel Canone, cioè nel testo
+      definitivo del libro, ed è da lì che il simulatore prende tutto quello che non decide
+      da sé.</p>
+    <p style="margin-bottom:6px">
+      Qui sotto la stessa formula è aperta, con i numeri veri scritti sotto ogni simbolo.
+      <strong>Muovi i cursori</strong> e guarda come cambiano. È il modo più rapido per capire
+      quale termine pesa davvero e quale, invece, quasi niente.
+    </p>
+    <div class="formula-madre" id="formulaMadre"></div>
+    <div class="griglia-cursori" id="cursoriFormula"></div>
+  </section>
+
+  <!-- ====================== UN CALCOLO, PASSO PER PASSO ====================== -->
+  <section class="riquadro" id="passoPerPasso">
+    <h2>3 · Un calcolo del libro, passo per passo</h2>
+    <p style="margin-top:0">
+      Il capitolo 39 del libro fa dodici calcoli completi. Dieci arrivano a un numero. Due
+      si fermano prima, perché in quei due casi fermarsi è il risultato.
+      <strong>Scegli una scheda</strong>, cioè uno dei dodici casi qui sotto. I cursori qui sopra si mettono da soli sui valori
+      del libro, e qui sotto il conto si svolge un passo alla volta, con il totale scritto
+      dopo ogni passo, come farebbe un insegnante alla lavagna. In fondo trovi due numeri uno
+      accanto all’altro: quello che il motore ha appena calcolato e quello stampato nel
+      libro.
+    </p>
+    <div id="schedeLibro" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px"></div>
+    <div id="svolgimento"></div>
+  </section>
+
+  <!-- ====================== PEZZO PER PEZZO ====================== -->
+  <section class="riquadro">
+    <h2>4 · Ogni pezzo, uno per volta</h2>
+    <p style="margin-top:0">
+      I termini sono nove. Per ognuno la tabella dice che cosa misura, quanto vale in
+      questo momento e di quanto sposta la probabilità di riuscita. I cursori qui sopra la
+      riscrivono mentre li muovi, e non c’è niente da rifare a mano.
+    </p>
+    <div class="avvolgi-tabella"><table class="dati" id="tabellaTermini"></table></div>
+    <p class="nota">
+      Un decimo valore non c’è, e non è una dimenticanza. È l’<span data-parola="assetto">«assetto»</span>,
+      che il libro scrive <strong>POS</strong>, e dice se la persona è ancora orientata dentro
+      la scena o se ne è uscita trascinata. Il libro lo tiene fuori dalla formula, e lo
+      dichiara con una riga di controllo sola: «POS fuori formula». Il motivo è semplice. Un
+      assetto «fragile» è già stato contato, sotto forma di chiarezza ridotta o di carico più
+      alto. Sommarlo anche da solo vorrebbe dire contarlo due volte. Il motore lo usa dopo,
+      quando dà un nome all’«esito», cioè al modo in cui il gesto finisce: non un semplice
+      «riuscito o no», ma uno di nove nomi diversi.
+    </p>
+  </section>
+
+  <!-- ====================== LE TABELLE A GRADINI ====================== -->
+  <section class="riquadro">
+    <h2>5 · Le due tabelle a gradini</h2>
+    <p style="margin-top:0">
+      Le due tabelle qui sotto sono grossolane, e il modello non lo nasconde. Nella vita lo
+      stress non cambia a scatti. Qui a scatti cambia lo stesso, e il motivo è semplice: una
+      scala a «fasce», cioè a scaglioni, si legge in un attimo e si può contestare. Una curva
+      continua, invece, non la contesta nessuno, perché nessuno la sa leggere. Se il carico,
+      che la formula scrive STR, cade vicino al confine fra due fasce, conviene dirlo. Un
+      punto in più o in meno, lì, vale cinque punti di risultato. Il «debito», di cui si parla
+      più sotto, è invece più facile da leggere: entra come numero intero, e ogni unità
+      toglie cinque punti.
+    </p>
+    <h3 class="sotto-titolo">PenSTR — la penalità da <span data-parola="carico">carico</span></h3>
+    <p style="margin-top:0">
+      La sigla è fatta di due parole. <strong>STR</strong> sta per stress, ed è il carico che
+      ti porti dietro dai giorni prima. <strong>Pen</strong> sta per penalità, cioè i punti
+      che quel peso toglie. Si legge «pen di STR», e non è una moltiplicazione: dentro entra
+      il carico, fuori esce la penalità, come in una macchina che trasforma una cosa in
+      un’altra.
+    </p>
+    <div class="formula-libro" data-formula="penstr"></div>
+    <p class="formula-fonte">È quella che si chiama una <strong>funzione a gradini</strong>:
+      piatta dentro ogni fascia, con un salto secco al confine, proprio come una scala di
+      casa. Una <span data-parola="fascia">fascia</span> è un tratto della scala del carico,
+      per esempio da 40 a 59. Dentro quel tratto la penalità non cambia mai. La tabella qui
+      sotto dice la stessa cosa, riga per riga.</p>
+    <div class="avvolgi-tabella"><table class="dati" id="tabellaStr"></table></div>
+    <h3 class="sotto-titolo">DEB — la penalità da <span data-parola="debito">debito</span></h3>
+    <p style="margin-top:0">
+      <strong>DEB</strong> sta per debito, ed è quello che si accumula quando insisti su una
+      strada che non funziona. Riprovi nello stesso modo, senza cambiare niente e senza una
+      pausa vera. E a ogni tentativo il debito cresce.
+    </p>
+    <div class="formula-libro" data-formula="debito"></div>
+    <p class="formula-fonte">Qui invece la tabella <em>è</em> la formula: basta moltiplicare per
+      cinque. Ed è proprio qui che sta la differenza fra le due penalità. Quella da carico
+      sale a scalini larghi e disuguali. Quella da debito sale dritta, un gradino uguale
+      all’altro. È una differenza che si vede solo scrivendole tutt’e due, una accanto
+      all’altra.</p>
+    <div class="avvolgi-tabella"><table class="dati" id="tabellaDeb"></table></div>
+  </section>
+
+  <!-- ====================== IL TAGLIO ====================== -->
+  <section class="riquadro">
+    <h2>6 · Il taglio ai bordi</h2>
+    <p style="margin-top:0">
+      Per i nodi ammessi al calcolo, <strong>Pn</strong>, cioè la probabilità di riuscita del
+      nodo, resta sempre fra 5 e 95. Sono limiti del modello, non della realtà. Un gesto
+      impossibile non riceve una possibilità vera solo perché il numero si ferma a 5. Per
+      questo il valore «grezzo», cioè la somma prima del taglio, va tenuto accanto a Pn. Così
+      si vede a occhio quanto ha lavorato il clamp.
+    </p>
+    <p>
+      Se i due numeri coincidono, la scena stava dentro i confini e il taglio non ha toccato
+      niente. Se sono diversi, il taglio è intervenuto. E allora siamo davanti a un caso
+      limite: una scena così favorevole, o così sfavorevole, da finire contro uno dei due
+      estremi. Sono scene che vale la pena rileggere con calma. Quasi sempre c’è una
+      condizione scritta due volte, per esempio una stanchezza contata sia come corpo sia
+      come carico.
+    </p>
+    <div class="formula-libro" data-formula="clamp"></div>
+    <p class="formula-fonte">Nella riga stampata il taglio porta il nome inglese che gli dà il
+      libro: <span data-parola="clamp"><em>clamp</em></span>, che vuol dire «morsetto». Ed è
+      proprio quello che fa un morsetto: stringe il numero fra due estremi e non lo lascia
+      scappare da nessuna parte. La riga si legge da dentro verso fuori. Il <em>max</em> è il
+      maggiore fra due numeri, e porta a 5 tutto quello che stava sotto. Il <em>min</em> è il
+      minore fra due numeri, e riporta a 95 tutto quello che andava oltre. In una riga
+      sola:</p>
+    <div class="formula-libro" data-formula="confini"></div>
+    <div class="due-numeri" id="taglio"></div>
+  </section>
+
+  <!-- ====================== IL DADO ====================== -->
+  <section class="riquadro">
+    <h2>7 · Il dado, e di quanto ci passa</h2>
+    <p style="margin-top:0">
+      Il dado, che nel simulatore non è un oggetto ma un numero estratto a caso, dà un numero
+      intero da 1 a 100, e basta. Non esistono colpi fortunati che valgono doppio, né numeri
+      che fanno fallire da soli: ognuno dei cento numeri ha la stessa possibilità di
+      uscire. La regola è una sola. Se il tiro è minore o uguale a Pn, il
+      gesto riesce. La distanza fra il tiro e Pn si chiama
+      <span data-parola="margine">«margine»</span>, e anche il margine, come il carico, si
+      legge a fasce.
+    </p>
+    <div class="formula-libro" data-formula="dado"></div>
+    <p class="formula-fonte">Il segno <strong>⟺</strong> vuol dire «se e solo se». La «soglia»
+      di cui parla, cioè il numero da non superare, è Pn. Ogni tiro fino a Pn compreso
+      riesce, ogni tiro oltre Pn fallisce, e non c’è una terza possibilità.</p>
+    <p>
+      Da qui viene una conseguenza che si dice spesso e si scrive di rado. I numeri
+      favorevoli sono quelli da 1 a Pn, e sono esattamente Pn numeri su cento.
+    </p>
+    <div class="formula-libro" data-formula="probabilita"></div>
+    <p class="formula-fonte">Ecco perché Pn = 70 si legge «settanta per cento», e non «di solito
+      riesce». È una frazione, ed è esatta.</p>
+    <p>E il margine è sempre la distanza da Pn. Si misura dalla parte in cui il tiro è
+      caduto: sotto, se il gesto è riuscito; sopra, se è fallito.</p>
+    <div class="formula-libro" data-formula="margini"></div>
+    <div class="avvolgi-tabella"><table class="dati" id="tabellaMargini"></table></div>
+  </section>
+
+  <!-- ====================== IL CODICE ====================== -->
+  <section class="riquadro">
+    <h2>8 · Il codice che lo fa</h2>
+    <p style="margin-top:0">
+      Quello che vedi qui sotto è il codice vero del motore. Sono le stesse righe che hanno
+      appena calcolato i numeri qui sopra.
+    </p>
+    <pre class="codice" id="codicePn"></pre>
+    <pre class="codice" id="codicePen"></pre>
+  </section>
+
+  <!-- ====================== QUELLO CHE MANCA ====================== -->
+  <section class="riquadro">
+    <h2>9 · Che cosa la formula non contiene</h2>
+    <p style="margin-top:0">
+      Il libro dedica a questo la sezione che chiama la più importante di tutto l’apparato.
+      La ragione la dice il libro stesso: <em>chi legge un formulario si aspetta che
+      sia completo, e conclude che ciò che manca sia irrilevante. Qui è il contrario: mancano
+      quattro cose, e sono tutte cose che cambiano gli esiti.</em>
+    </p>
+    <div class="manca" id="cosaManca"></div>
+    <p class="nota">
+      Per riempire questi buchi, cioè i punti che il libro lascia scoperti, il simulatore usa
+      numeri suoi. Sono tenuti separati dalla formula del libro. Si possono cambiare quando
+      serve, senza toccare il resto del calcolo.
+    </p>
+  </section>
+
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <h2>10 · Le parole, spiegate</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Questa pagina è piena di sigle, e nessuna va imparata a memoria. Stanno tutte qui
+      sotto, raccolte per argomento e sciolte una per una. Se una ti è sfuggita mentre
+      leggevi, la ritrovi qui. Quelle del calcolo stanno sotto «Come nasce il numero».
+    </p>
+    <div data-glossario></div>
+  </section>
+
+  <footer class="piede">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, le soglie, il dado e i nove esiti
+      sono quelli del libro.</p>
+  </footer>
+
+</div>
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/dati/formule.js"></script>
+<script src="app/interfaccia/formule-vista.js"></script>
+<script src="app/interfaccia/formula-ui.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

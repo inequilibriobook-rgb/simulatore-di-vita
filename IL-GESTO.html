@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Il gesto — Simulatore di vita 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · il singolo gesto</p>
+    <h1>Un gesto alla volta: che probabilità hai di riuscirci</h1>
+    <p class="sottotitolo">
+      Qui c’è <strong>un solo «gesto»</strong>, cioè un’azione con un
+      inizio e una fine, e niente intorno. Per esempio: bere un bicchiere d’acqua, scrivere
+      un messaggio difficile, alzarti dal divano. Tu racconti come stanno le cose in questo momento, e il simulatore ti dice
+      <em>che probabilità hai di riuscirci</em>. Poi tira un dado, perché una probabilità
+      non è ancora un «esito», cioè il risultato vero e proprio, e ti racconta com’è andata.
+    </p>
+    <p class="sottotitolo">
+      E lì non si ferma. Ti dice anche <strong>quanto ti è costato</strong> quel gesto: quanta
+      stanchezza in più ti lascia addosso, e quanta di quella stanchezza ti ritroverai davanti
+      al gesto dopo. È la parte che un calcolo di probabilità, da solo, non direbbe mai.
+    </p>
+
+    <ol class="come-si-usa">
+      <li><strong>Scrivi che cosa stai per fare.</strong> Una frase, come la diresti a voce.</li>
+      <li><strong>Muovi i cursori</strong>, cioè le barrette da trascinare, una per ogni
+      condizione, finché non raccontano come stai davvero. Non c’è niente da premere: la
+      probabilità si muove mentre li sposti, e quindi vedi subito che cosa cambia.</li>
+      <li><strong>Tira il dado</strong> e leggi il racconto, che è com’è andata, scritto in
+      prosa dal simulatore. Le parole segnate con un punto interrogativo si aprono se ci
+      clicchi sopra, e si richiudono allo stesso modo, tutte le volte che vuoi.</li>
+    </ol>
+
+    <p class="sottotitolo" style="font-size:14px">
+      Non devi installare niente, e non serve nemmeno internet. Il conto si fa tutto qui
+      dentro, senza nessun server acceso da qualche parte. Quello che scrivi, quindi, non esce
+      da questo computer.
+    </p>
+  </header>
+
+  <div style="margin:0 0 4px">
+    <a href="QUESTIONARIO.html" class="bottone" style="display:inline-block;text-decoration:none">
+      Preferisci rispondere a domande? &rarr;</a>
+    &nbsp;
+    <a href="CATENA.html" class="bottone" style="display:inline-block;text-decoration:none">
+      Catena di gesti e analisi statistica &rarr;</a>
+    &nbsp;
+    <a href="SETTIMANA.html" class="bottone" style="display:inline-block;text-decoration:none">
+      La settimana, e il punto di non ritorno &rarr;</a>
+    &nbsp;
+    <a href="TRAIETTORIA.html" class="bottone" style="display:inline-block;text-decoration:none">
+      La traiettoria, sui mesi: la spirale &rarr;</a></div>
+
+
+  <!-- ====================== LA SCENA ====================== -->
+  <section class="riquadro no-stampa" style="background:var(--superficie)">
+    <p style="margin:0;font-size:14.5px;line-height:1.6">
+      <strong>Questa pagina calcola un gesto solo.</strong> Se invece hai in mente una «scena»
+      intera, cioè una fila di gesti uno dopo l’altro, raccontala in prosa in <a
+      href="LA-SCENA.html">Racconta la scena</a>. Alzarsi, sparecchiare, andare in bagno,
+      lavarsi i denti. Lì il testo viene diviso nei gesti che contiene, e ogni gesto viene
+      calcolato per conto suo. Ma non riparte da zero: si porta dietro il «carico» che il gesto
+      precedente gli ha lasciato, cioè la pressione accumulata, misurata da 0 a
+      100.
+    </p>
+  </section>
+
+  <section class="riquadro no-stampa">
+    <h2>1 · La scena</h2>
+    <label for="descrizione" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+      Che cosa sta succedendo
+    </label>
+    <input id="descrizione" type="text" value="Bere un bicchiere d’acqua alzandosi dal divano"
+           style="width:100%;font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;
+                  border:1px solid var(--bordo);background:var(--piano);color:var(--inchiostro)">
+    <p class="nota">Fai attenzione a come scrivi la frase, perché alcune parole cambiano il
+    modo in cui il simulatore la legge. Se ci metti dentro <code>acqua</code>,
+    <code>farmaco</code> o <code>pausa</code>, capisce che stai facendo una delle
+    <span data-parola="micro_azione">micro-azioni di cura</span>. Sono i gesti piccoli e
+    buoni per sé: bere, mangiare qualcosa, fermarsi un momento. Da lì in poi smette di
+    trattarla come un gesto qualunque.</p>
+  </section>
+
+  <!-- ====================== I CURSORI ====================== -->
+  <section class="riquadro no-stampa">
+    <h2>2 · Le condizioni · muovi i cursori e guarda che cosa cambia</h2>
+    <div class="griglia-cursori" id="cursori"></div>
+  </section>
+
+  <!-- ====================== IL CALCOLO ====================== -->
+  <section class="riquadro">
+    <h2>3 · La probabilità di riuscita</h2>
+
+    <div class="esito-principale">
+      <div>
+        <div class="numero-eroe" id="numeroPn">—</div>
+        <div class="eroe-etichetta" id="notaPn"></div>
+      </div>
+    </div>
+
+    <div class="scala" id="scala" role="img"
+         aria-label="Scala da 0 a 100: la parte piena è la probabilità di riuscita, il segno verticale è il tiro del dado"></div>
+    <div class="scala-assi"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+
+    <h3 style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--inchiostro-3);
+               margin:28px 0 12px;font-weight:600">Che cosa aiuta e che cosa ostacola</h3>
+    <div class="riga-contributo riga-base" id="basePartenza"></div>
+    <div class="contributi" id="contributi"></div>
+    <div class="riga-contributo riga-somma" id="sommaSpostamenti"></div>
+    <p class="nota">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--aiuta);
+                   vertical-align:middle;margin-right:4px"></span>Una barra verso destra aggiunge probabilità. &nbsp;
+      <span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--ostacola);
+                   vertical-align:middle;margin-right:4px"></span>Una barra verso sinistra la toglie.
+    </p>
+
+    <details style="margin-top:16px">
+      <summary style="cursor:pointer;font-size:13px;color:var(--inchiostro-2)">Vedi gli stessi dati in tabella</summary>
+      <div class="avvolgi-tabella"><table class="dati" id="tabellaDati"></table></div>
+    </details>
+
+    <div class="barra-azioni">
+      <button class="primario" id="tira">Tira il <span data-parola="dado">dado</span></button>
+      <span class="campo-seme">
+        <label for="seme"><span data-parola="seme">seme</span></label>
+        <input id="seme" type="number" value="424242">
+        <button id="applicaSeme">Reimposta</button>
+      </span>
+      <span class="nota" id="statoSeme" style="margin:0"></span>
+    </div>
+    <p class="nota">Il «seme» è il numero di partenza da cui il dado ricava tutti i suoi tiri.
+      Con lo stesso seme escono sempre gli stessi dadi, nello stesso ordine, e vale in questo
+      browser come in Python. È per questo che un esempio stampato nel libro si ripete
+      identico sul tuo schermo.</p>
+  </section>
+
+  <!-- ====================== L'ESITO A TRE LIVELLI ====================== -->
+  <section class="riquadro" id="bloccoEsito" style="display:none">
+    <h2>4 · Com’è andata</h2>
+    <p style="margin:0 0 20px"><span class="pillola pillola-esito" id="pillolaEsito"></span></p>
+
+    <div id="racconto" class="racconto"></div>
+
+    <div class="livelli" style="margin-top:26px">
+      <details class="livello" open>
+        <summary><span class="grado">1</span> In parole semplici</summary>
+        <div class="corpo" id="liv1"></div>
+      </details>
+      <details class="livello">
+        <summary><span class="grado">2</span> Come l’ho calcolato</summary>
+        <div class="corpo" id="liv2"></div>
+      </details>
+      <details class="livello">
+        <summary><span class="grado">3</span> Formula e valori tecnici</summary>
+        <div class="corpo" id="liv3"></div>
+      </details>
+    </div>
+  </section>
+
+
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <h2>5 · Le parole, spiegate</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Il simulatore usa poche parole, e ognuna vuol dire una cosa precisa. Sono raccolte in
+      dieci argomenti, e scegli quello che ti serve. Accanto a ogni parola c’è un esempio che
+      la mette al lavoro, perché si capisce prima così che con una definizione.
+    </p>
+    <div data-glossario></div>
+  </section>
+
+
+  <footer class="piede">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, le soglie, il dado e i nove esiti
+      sono quelli del libro.</p>
+  </footer>
+
+</div>
+
+<!-- Script classici, caricati in ordine. Nessun modulo ES, nessuna fetch:
+     è ciò che permette a questa pagina di funzionare con un doppio clic. -->
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/racconto.js"></script>
+<script src="app/interfaccia/racconto-vista.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/dati/formule.js"></script>
+<script src="app/interfaccia/formule-vista.js"></script>
+<script src="app/dati/verifica.js"></script>
+<script src="app/interfaccia/app.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

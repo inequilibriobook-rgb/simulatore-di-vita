@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulatore di vita 3.0 — apri qui</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · la pagina di apertura</p>
+    <h1>Ce l’hai fatta, sì o no? E quanto ti è costato?</h1>
+    <p class="sottotitolo">
+      Immagina una giornata qualsiasi, e dentro quella giornata un gesto piccolo (in queste
+      pagine un gesto è un’azione sola, con un inizio e una fine): bere un bicchiere
+      d’acqua, scrivere quel messaggio che rimandi da ore, alzarti dal divano.
+      Questo simulatore ti chiede di raccontargli come stai in quel momento. Quanto sei
+      stanco, quanta fretta hai, quanto è chiaro quello che devi fare. Poi ti dice che
+      probabilità hai di riuscirci: non in generale, ma proprio adesso, nelle condizioni
+      in cui ti trovi.
+    </p>
+    <p class="sottotitolo">
+      A quel punto tira un dado. Perché una probabilità, da sola, non decide niente: dice
+      soltanto quanto le cose potrebbero andare in un modo o nell’altro. È il dado a dire
+      come sono andate davvero, e il simulatore te lo racconta, come farebbe un amico che
+      era lì a guardare.
+    </p>
+    <p class="sottotitolo">
+      Un semplice calcolo di probabilità si fermerebbe qui: riuscito, oppure no. Questo
+      modello invece continua, e ti dice <strong>quanto ti è costato riuscirci</strong>.
+      Quanta stanchezza ti ha lasciato addosso. E quanta di quella stanchezza ti
+      ritroverai davanti quando arriverà il gesto successivo.
+    </p>
+    <p class="sottotitolo">
+      Perché una giornata andata bene e una giornata andata bene a denti stretti, viste da
+      fuori, sembrano quasi la stessa giornata. Chi ti guarda vede che ce l’hai fatta, ma
+      non vede che cosa ti è costato. È quel costo che il simulatore prova a misurare.
+    </p>
+  </header>
+
+  <!-- ====================== DA DOVE COMINCIARE ====================== -->
+  <section class="riquadro no-stampa">
+    <h2>Da dove cominciare</h2>
+    <p style="margin-top:0">
+      Non c’è un ordine da rispettare, e non c’è niente da leggere prima: puoi aprire una
+      pagina qualunque e cominciare a usarla. Le quattro strade qui sotto, però, portano in
+      posti diversi, e conviene sapere qual è la tua prima di incamminarti. Se non lo sai,
+      prendi la seconda, perché è quella che la maggior parte delle persone sta cercando. <strong>Scrivi una scena intera, cioè una fila di gesti uno dopo l’altro, così
+      come la racconteresti a voce a un amico. Il simulatore la scompone per te, gesto per
+      gesto.</strong>
+    </p>
+    <div class="imbocchi">
+      <a class="imbocco" href="IL-GESTO.html">
+        <span class="imbocco-eti">Voglio provare subito</span>
+        <strong>Un gesto solo</strong>
+        <span class="imbocco-nota">Muovi i nove cursori, che sono le barrette da trascinare, una
+          per ogni condizione. Poi tira il dado, e leggi com’è andata, raccontato in prosa. In
+          cinque minuti hai capito che cosa fa questo modello.</span>
+      </a>
+      <a class="imbocco" href="LA-SCENA.html">
+        <span class="imbocco-eti">Ho una scena intera da raccontare</span>
+        <strong>Una giornata, a parole</strong>
+        <span class="imbocco-nota">Scrivila come la racconteresti a voce, anche lunga. Il
+        simulatore la divide nei gesti che contiene e li calcola <em>uno per uno</em>. Alla fine
+        ti dice da quale parola è venuto fuori ogni numero.</span>
+      </a>
+      <a class="imbocco" href="#teoria">
+        <span class="imbocco-eti">Voglio capire prima</span>
+        <strong>La teoria, in cinque minuti</strong>
+        <span class="imbocco-nota">Sta qui sotto, e non dà niente per scontato. Che cos’è un
+        nodo, com’è fatta la formula, perché c’è di mezzo un dado. E perché i modi in cui un
+        gesto può finire sono nove, e non due.</span>
+      </a>
+      <a class="imbocco" href="QUESTIONARIO.html">
+        <span class="imbocco-eti">Non so che numeri mettere</span>
+        <strong>Le domande le fa il simulatore</strong>
+        <span class="imbocco-nota">Arrivi nello stesso posto della prima strada, ma per un’altra
+        via. Qui i cursori non ci sono. Rispondi a qualche domanda, e il nodo lo costruisce il
+        simulatore al posto tuo.</span>
+      </a>
+    </div>
+    <p class="nota" id="senza-internet">
+      <strong>Non serve internet, e non serve installare niente.</strong> Tutto quello che
+      vedi gira dentro il browser che hai già, cioè il programma con cui apri le pagine di
+      internet. Quindi si può usare su un treno, in aereo, o da una chiavetta infilata in un
+      computer che non è il tuo. E quello che scrivi resta lì: in queste pagine non c’è una
+      sola riga capace di mandarlo fuori.
+    </p>
+    <!-- Da un indirizzo web, e solo da lì, qui compare il riquadro «sul telefono,
+         sul tablet, sul computer» con l'installazione e il pacchetto da scaricare
+         (lo scrive app/interfaccia/installa.js). Dal disco resta vuoto e nascosto. -->
+    <div class="installa" data-installa hidden></div>
+  </section>
+
+  <!-- ====================== LA TEORIA ====================== -->
+  <section class="riquadro" id="teoria">
+    <h2>La teoria, in cinque minuti</h2>
+    <p style="margin-top:0">
+      Quello che segue è tutto il modello, e non una versione ridotta per chi comincia. Di
+      matematica ce n’è poca, e ce n’è poca apposta: una somma, una tabella, un «taglio ai bordi»
+      (il risultato non può scendere sotto 5 né salire sopra 95) e un dado. Può sembrare un limite, e invece è una scelta. Un modello che si può rifare a
+      mano su un foglio è un modello che chiunque può controllare, e di cui chiunque può dire,
+      con i numeri davanti, che sbaglia. È per questo che è stato tenuto così essenziale.
+    </p>
+
+    <h3>1 · Il nodo, cioè l’unità di misura</h3>
+    <p>
+      Prima di tutto bisogna mettersi d’accordo su che cosa si misura. L’unità che il
+      simulatore calcola si chiama <span data-parola="nodo">nodo</span>, ed è un gesto solo:
+      qualcosa che ha un inizio e una fine che si riconoscono, e un risultato che si può
+      osservare e raccontare.
+      Bere un bicchiere d’acqua è un nodo. Fare la spesa non lo è, perché è una sequenza di
+      gesti, e prima di calcolarla bisogna dividerla nei nodi che contiene. Rimettersi in
+      salute, poi, non lo è per niente: sono migliaia di nodi, sparsi su mesi.
+    </p>
+    <p>
+      Per riconoscerne uno c’è una regola semplice, e vale sempre. <strong>Se per dire com’è
+      andata devi raccontare una storia, quel gesto è troppo grande per essere un
+      nodo.</strong> Il nodo è il gradino più basso, e sotto non si scende. Tutto quello che
+      sta più in alto, una mattina o una settimana, si misura contando quanti nodi contiene.
+    </p>
+
+    <h3>2 · La formula: quello che aiuta, meno quello che ostacola</h3>
+    <p>
+      A ogni nodo il simulatore dà un numero da 1 a 100, che dice quante possibilità ha quel
+      gesto di riuscire. Si chiama <span data-parola="probabilita">probabilità
+      operativa</span>, e si scrive Pn. Non viene da un calcolo complicato. È il risultato di
+      una somma sola, ed eccola qui.
+    </p>
+    <div class="formula-libro" data-formula="madre"></div>
+    <p>
+      Si legge da sinistra verso destra, e ogni lettera è una parola abbreviata. Qui sotto le
+      trovi scritte tutte per esteso. Una sigla lasciata senza spiegazione è soltanto
+      un ostacolo in più fra te e il modello. <strong>P₀</strong> è la probabilità di
+      partenza: quanto vale il gesto di suo, in una giornata qualunque, prima che le
+      condizioni di oggi dicano la loro. Bere un bicchiere d’acqua parte alto, perché lo sai
+      fare a occhi chiusi. Compilare una pratica su un sito pubblico parte basso, e non serve
+      spiegare perché.
+    </p>
+    <p>
+      Poi arrivano cinque voci che spostano quel numero in su o in giù, secondo come stanno le
+      cose adesso. <strong>E</strong> sta per energia, e racconta come sta il corpo in questo
+      momento: quanto ha dormito, se gli fa male qualcosa, se si regge in piedi volentieri.
+      <strong>I</strong> sta per informazione, e dice quanto è chiaro quello che c’è da fare.
+      <strong>T</strong> sta per tempo, e dice quanta fretta c’è. <strong>M</strong> sta per
+      materialità, che è una parola un po’ rigida per dire l’ambiente intorno: lo spazio, gli
+      oggetti, la luce, il rumore. <strong>BP</strong>, infine, sta per bonus protettivo, ed è
+      l’aiuto concreto che in questo momento ti toglie davvero un peso dalle spalle: qualcuno
+      che tiene il bambino mentre finisci, il modulo che trovi già compilato a metà.
+    </p>
+    <p>
+      Le ultime tre voci, invece, tolgono soltanto, e tolgono parecchio. <strong>C</strong> è
+      la complessità, cioè quanti pezzi vanno tenuti insieme nello stesso momento, e ognuno
+      di quei pezzi costa cinque punti. È la voce che pesa di più in tutta la formula, e
+      proprio per questo va scritta con più cura delle altre. Complessità vuol dire
+      coordinamenti veri, cose da fare insieme, non la difficoltà che uno sente.
+      <strong>STR</strong> sta per stress, ed è il carico che ti porti dietro dai giorni
+      prima, la pressione accumulata, misurata da 0 a 100. Non toglie in proporzione, un po’
+      per ogni punto. Toglie a gradini, secondo una tabella. Per questo passare da 59 a 60 di
+      carico costa cinque punti tutti in una volta, mentre passare da 41 a 58 non costa
+      niente. <strong>DEB</strong> sta per debito da insistenza, e conta le volte in cui si è
+      insistito su una strada che non funzionava. È raro apposta, e ogni volta vale cinque
+      punti.
+    </p>
+
+    <h3>3 · Il taglio ai bordi: né impossibile, né certo</h3>
+    <p>
+      Qualunque cosa dica la somma, il risultato non scende mai sotto 5 e non sale mai sopra
+      95. Questo <span data-parola="taglio">taglio</span> serve a impedire due bugie. La
+      prima: se le condizioni sono pessime, la somma può dare anche meno tre, e il simulatore
+      scrive cinque lo stesso. Perché nella vita quasi niente è davvero impossibile, e un
+      modello che scrive zero afferma una cosa che non sa. La seconda bugia sta dall’altra
+      parte. Con condizioni ottime la somma può superare cento, e il taglio la riporta a
+      novantacinque, perché nemmeno il gesto più facile del mondo riesce proprio sempre.
+    </p>
+
+    <h3>4 · Il dado: la parte che nessuna analisi riesce a cogliere</h3>
+    <p>
+      A questo punto abbiamo un numero, ma non abbiamo ancora un esito. Sapere che un gesto ha
+      il settanta per cento di riuscire non dice se stasera è riuscito. Allora il simulatore
+      tira un <span data-parola="dado">dado</span> da cento facce, e se il numero che esce non
+      supera la probabilità, il gesto riesce. Non ci sono colpi fortunati che valgono doppio,
+      e non ci sono numeri che fanno fallire da soli: tutti i cento numeri hanno la stessa
+      possibilità di uscire.
+    </p>
+    <p>
+      Quel dado non è un ornamento, e non è nemmeno una scorciatoia presa per pigrizia. È il
+      posto in cui il modello mette <strong>tutto quello che nessuna analisi riesce a
+      prevedere</strong>. Una frase che ti sfugge mentre leggi, un pensiero che arriva di
+      traverso e ti distrae, l’attenzione che per due minuti tiene un po’ meno. Non sono
+      misteri: sono increspature troppo piccole per essere viste in anticipo. La <span
+      data-parola="taratura">taratura</span>, cioè il lavoro di guardare la scena e scegliere
+      i nove numeri che la descrivono, non può prevederle una per una, e allora le lascia al
+      dado, che viene tirato <em>dopo</em> il calcolo, mai prima. Il caso non decide quanto
+      sei capace: decide soltanto come va quella volta lì.
+    </p>
+
+    <h3>5 · Nove esiti, perché due non bastano</h3>
+    <p>
+      Il dado, però, dice soltanto se il gesto è passato, e non dice altro. Ed è qui che il
+      modello si allontana da un semplice calcolo di probabilità. È il punto che più di tutti
+      vale la pena di capire. Riuscito e fallito sono due parole troppo povere per raccontare
+      una giornata, e allora il simulatore ne usa nove. Non sono gradi diversi della stessa
+      cosa, come i voti a scuola: sono modi diversi in cui un gesto può finire.
+    </p>
+    <p>
+      Di riuscire ci sono quattro modi. C’è il <strong>successo pulito</strong>, che non è
+      costato niente di importante. C’è il <strong>successo costoso ma sostenibile</strong>,
+      che chiede una pausa vera, e con quella pausa si chiude lì. C’è il <strong>successo
+      danneggiato</strong>, dove il risultato c’è ma qualcosa resta peggiorato. E c’è il
+      <strong>successo tossico</strong>, dove riuscire <em>in quel modo</em> insegna a chi lo
+      compie una regola sbagliata, che la prossima volta si ripresenterà. Poi ce n’è uno tenuto da
+      parte, perché è il più insidioso di tutti: il <strong>successo tecnico con fallimento
+      umano</strong>, in cui il compito è fatto e la persona no. Di non riuscire, allo stesso
+      modo, ci sono quattro modi. Il <strong>fallimento lieve</strong>: non è andata, il danno
+      è piccolo e si può riprovare. Il fallimento <strong>tecnico</strong>: si è rotto
+      qualcosa, un mezzo o uno strumento, e non la persona. Il fallimento
+      <strong>sistemico</strong>: non è andata, e ha trascinato con sé anche il resto della
+      giornata. E il <strong>quasi-collasso</strong>, quando molti segnali di allarme si
+      presentano tutti insieme: è raro, ed è fatto apposta per esserlo.
+    </p>
+    <p>
+      «Ce l’ho fatta» è una frase che diventa pericolosa quando chiude due domande invece di
+      aprirle: <em>come ci sono arrivato? e che cosa ho bruciato per arrivarci?</em> I nove
+      esiti servono proprio a tenerle aperte tutt’e due.
+    </p>
+
+    <h3>6 · Il costo nascosto, che nell’esito non si vede</h3>
+    <p>
+      Ogni gesto ha un costo, e non tutto quel costo si vede subito. La parte che si accumula
+      in silenzio il modello la chiama <span data-parola="costo_nascosto">costo
+      nascosto</span>, e per capirla basta una scena. Una sera vai a letto tardi per finire un
+      lavoro. Il giorno dopo stai ancora bene, quello dopo un po’ meno, e tre giorni più tardi
+      ti chiedi perché sei a pezzi, senza pensare nemmeno più a quella sera.
+    </p>
+    <p>
+      È per questo che una scena sola non basta, e serve guardare più tempo per volta:
+      una giornata intera, poi una settimana. Il costo
+      nascosto in un gesto non si vede. Si vede in una settimana.
+    </p>
+
+    <h3>7 · Quanto tempo si guarda per volta</h3>
+    <p>
+      Lo stesso modello guarda il tempo su quattro durate diverse, e ognuna vede una cosa che
+      le altre non possono vedere. Non sono ingrandimenti dello stesso grafico, presi via via
+      da più vicino. Sono proprio domande diverse, ed è per questo che ognuna ha una pagina
+      sua.
+    </p>
+    <ol class="livelli-teoria">
+      <li><strong>Il gesto</strong> dice se un’azione sola riesce, e a che prezzo.</li>
+      <li><strong>La catena</strong> — più gesti di seguito — dice quanto costa una sequenza,
+        perché il secondo gesto parte già con il carico che il primo gli ha lasciato.</li>
+      <li><strong>La settimana</strong> dice una cosa che nessuno dei due livelli
+        precedenti riesce a dire, perché è l’unica che ha la notte dentro:
+        <em>se il recupero sta ancora funzionando</em> (il recupero è la pausa che toglie
+        carico davvero, non quella che dà solo sollievo).</li>
+      <li><strong>La traiettoria</strong> — più settimane di fila — dice se sta cambiando il
+        modo di vivere, e non solo com’è andata l’ultima settimana.</li>
+    </ol>
+
+    <h3 id="non-e">8 · Che cosa questo modello non è</h3>
+    <p>
+      Ci sono quattro cose che questo modello non è.
+    </p>
+    <ul class="cosa-non-e">
+      <li><strong>Non è una previsione.</strong> Non dice che cosa succederà domani mattina.
+        Dice come si comporta una rappresentazione di domani mattina dentro un insieme di
+        regole scritte da qualcuno.</li>
+      <li><strong>Non è una diagnosi, e non è uno strumento clinico.</strong> Nessun numero
+        che esce da qui può entrare in una decisione clinica, assistenziale o giudiziaria.
+        Serve a farsi domande migliori, non a rispondere al posto di chi deve decidere.</li>
+      <li><strong>Non è una misura su una persona.</strong> I numeri che entrano nella scena
+        li scrive qualcuno, e se quei numeri fossero altri il risultato sarebbe un altro.
+        Per questo il simulatore ti lascia cambiarli, in ogni pagina: così vedi da te quanto
+        il risultato dipende dai numeri che qualcuno ha scelto.</li>
+      <li><strong>Non contiene una teoria della mente.</strong> Contiene una somma, una
+        tabella a gradini, un taglio ai bordi e un dado. Tutto quello che sembra profondo
+        viene da lì.</li>
+    </ul>
+    <p class="nota">
+      Se dopo questi cinque minuti te ne viene voglia di altri venti, c’è <a
+      href="IL-MODELLO.html">il modello letto per intero</a>. Sono diciannove capitoli,
+      scritti per essere letti di seguito, e le figure si muovono mentre le guardi. Se invece
+      vuoi la matematica aperta pezzo per pezzo, c’è <a href="LA-FORMULA.html">la matematica,
+      da zero</a>. Lì, accanto a ogni passaggio, sta il codice che lo esegue.
+    </p>
+  </section>
+
+  <!-- ====================== IL GIRO COMPLETO ====================== -->
+  <section class="riquadro" id="giro">
+    <h2>Un giro completo, in dieci minuti</h2>
+    <p style="margin-top:0">
+      Il libro, prima di qualunque formula, comincia con un esempio solo: una scena, i suoi
+      numeri, il calcolo, un tiro di dado, che cosa vuol dire il risultato, e poi una modifica
+      alla volta, per vedere che cosa cambia. Qui il giro è lo stesso, con una differenza:
+      sulla carta i numeri sono stampati, qui invece li puoi cambiare tu.
+    </p>
+    <p>
+      Quali numeri? I nove valori che descrivono la scena, cioè quanto vale il gesto di suo,
+      quanta energia c’è, quanta fretta, e così via, più il carico che la persona si porta
+      dietro dai giorni prima. Come si cambiano? Ogni bottone qui sotto apre la pagina del
+      gesto con quei numeri già al posto giusto. Lì accanto a ogni valore c’è un cursore,
+      cioè una barretta da trascinare: la sposti, e la probabilità si ricalcola sotto i tuoi
+      occhi. E perché farlo? Per capire quale dei numeri pesa davvero, e quanto. Se porti
+      l’energia da −10 a 0 e la probabilità sale di dieci punti, sai che quella sera contava
+      il corpo. Se sposti il tempo e cambia poco, sai che la fretta non era il problema. È
+      così che il modello va usato: una modifica alla volta, e ogni volta si guarda che cosa
+      è cambiato.
+    </p>
+
+    <h3>La scena</h3>
+    <p>
+      È sera. Una persona è seduta sul divano dopo una giornata pesante, e a un certo punto
+      deve alzarsi per bere un bicchiere d’acqua. Nessuno lo chiamerebbe un problema, e
+      infatti il modello non lo chiama così: lo chiama <span data-parola="nodo">nodo</span>,
+      cioè un passaggio piccolo, con un esito che si può guardare.
+    </p>
+
+    <h3>I dati</h3>
+    <p>
+      Il modello chiede poche cose, e le chiede sulla scena, non sulla persona.
+      <strong>P0 = 70</strong>, perché bere è un gesto che si conosce benissimo, e parte alto.
+      <strong>E = −10</strong>, perché il corpo è stanco e la schiena pesa. <strong>T =
+      −4</strong>, perché non c’è nessuna fretta vera, ma la sera è quasi finita.
+      <strong>I</strong>, <strong>M</strong> e <strong>BP</strong> restano a zero: non c’è
+      niente da capire, l’ambiente non pesa, e non c’è nessun aiuto in più. <strong>C =
+      0</strong>, perché è un passaggio solo e non c’è niente da coordinare. E poi c’è un
+      numero che non viene da questa scena ma dai giorni prima, il carico che questa persona
+      si porta dietro: <strong>STR = 84</strong> su 100.
+    </p>
+
+    <h3>Il calcolo</h3>
+    <p>
+      Si fa la somma: 70 − 10 + 0 − 4 + 0 + 0 − 0. Poi entra il carico, e a 84 la tabella a
+      gradini toglie venti punti, non uno di meno e non uno di più. Resta <strong>36</strong>.
+      Il taglio ai bordi qui non ha niente da fare, perché 36 sta già dentro i margini.
+    </p>
+    <p class="passo-scelte">
+      <a id="giroBase" class="bottone primario" href="IL-GESTO.html">Aprila con i cursori, e verifica che dia 36</a>
+    </p>
+    <p class="nota">
+      Una cosa da sapere prima di cliccare: a te il dado probabilmente non darà 42 come nel
+      racconto qui sotto, perché tira davvero, ogni volta che apri la pagina. Il
+      numero che non cambia mai è il 36. Ed è per farti vedere questo che il giro esiste.
+    </p>
+
+    <h3>Il tiro</h3>
+    <p>
+      Nel libro il dado esce con il numero 42. Per riuscire non doveva superare 36, e invece è
+      andato oltre di sei punti. Il gesto non riesce, il modello lo chiama <strong>fallimento
+      lieve</strong>, e il carico sale di un punto, a 85. A 85 si accende il «<span
+      data-parola="pavimento">pavimento</span>», che è il nome che il libro dà a una difesa
+      che il modello attiva da solo quando il carico è salito troppo: da lì in poi il
+      riposo rende circa la metà, e lo stato non viene più lasciato peggiorare. Da qui in poi il racconto si fa più corto e i
+      consigli diventano pochi e semplici, perché in questo stato una strategia raffinata
+      non reggerebbe.
+    </p>
+
+    <h3>La lettura</h3>
+    <p>
+      Trentasei su cento vuol dire che, con questi valori, il gesto riesce poco più di una
+      volta su tre. Non vuol dire che la persona è pigra, e non vuol dire che stasera «doveva»
+      farcela. Il numero da guardare non è il dado, che è andato come è andato: è il 36, e
+      soprattutto da dove viene. Dieci punti se li è presi il corpo, quattro il tempo, venti il
+      carico.
+    </p>
+
+    <h3>La modifica</h3>
+    <p>
+      Adesso il modello fa il suo mestiere, che è provare una modifica alla volta: mai due
+      insieme, altrimenti non si saprebbe più quale delle due ha funzionato. Proviamo con
+      <strong>cinque minuti in più</strong>, cioè con il tempo che passa da −4 a 0. La
+      probabilità sale a 40. Con lo stesso tiro di dado, il 42, il gesto fallisce ancora, ma
+      per due punti, non più per sei.
+    </p>
+    <p class="passo-scelte">
+      <a id="giroTempo" class="bottone secondario" href="IL-GESTO.html">Aprila con cinque minuti in più</a>
+    </p>
+    <p>
+      Proviamo invece ad <strong>aspettare che il corpo ci sia</strong>, cioè a portare
+      l’energia da −10 a 0. La probabilità sale a 46, e lo stesso 42 diventa una riuscita:
+      stretta, per quattro punti, ma una riuscita.
+    </p>
+    <p class="passo-scelte">
+      <a id="giroEnergia" class="bottone secondario" href="IL-GESTO.html">Aprila aspettando che il corpo ci sia</a>
+    </p>
+    <p>
+      Ma una giocata sola non decide niente. Una giocata è proprio questo: una partita della
+      scena, con il suo tiro di dado. Se la stessa scena la si rigioca mille volte, la prima
+      versione riesce in media trentasei volte su cento. La seconda, quella con l’energia a
+      0, arriva a quarantasei. Dieci punti in più, ed è quasi sempre così. Il libro chiama
+      leva ogni cosa che si cambia apposta per vedere se il risultato migliora, e prima
+      delle leve sul gesto conviene la leva sullo stato, cioè sulle condizioni con cui si
+      arriva al gesto. In pratica vuol dire un rientro vero, una pausa che toglie carico davvero e
+      abbassa il numero da cui tutto parte. Se vuoi vedere come si distribuiscono gli esiti,
+      invece di un caso solo, c’è <a href="MONTECARLO.html">mille volte la stessa
+      scena</a>. Rigioca una scena come questa quante volte vuoi, e ti mostra la
+      distribuzione, cioè quante volte esce ogni risultato su mille giocate.
+    </p>
+  </section>
+
+  <!-- ====================== LE PAGINE ====================== -->
+  <section class="riquadro no-stampa">
+    <h2>Le altre undici pagine, e a che domanda risponde ognuna</h2>
+    <p style="margin-top:0">
+      Con questa che stai leggendo le pagine sono dodici, e questa è l’unica che non calcola
+      niente: è l’ingresso, e serve a orientarsi. Le altre undici lavorano, ma non sono tutte dello stesso tipo.
+      Quattro sono le durate di tempo di cui si è appena parlato, messe in fila dalla più
+      corta alla più lunga. Una è il modello raccontato per intero, da leggere di seguito. Due
+      sono strade diverse per costruire una scena. E le ultime quattro sono strumenti che si
+      possono usare su qualunque durata.
+    </p>
+    <div id="mappaPagine"></div>
+  </section>
+
+  <!-- ====================== IL LIBRO ====================== -->
+  <section class="riquadro">
+    <h2>Il libro e il simulatore</h2>
+    <p style="margin-top:0">
+      Questo simulatore non si ispira a un libro: <strong>è il libro, messo in funzione</strong>,
+      cioè le sue regole trasformate in un programma che le applica. Ogni
+      numero che vedi a schermo viene da una pagina stampata, e questa tabella dice da quale.
+    </p>
+    <p class="nota">Ogni riga si apre: porta alla pagina del simulatore che spiega quel
+      pezzo, e a destra c’è dove continuare a leggere nel libro.</p>
+    <div class="ponte-libro">
+      <a href="LA-FORMULA.html"><span class="k">La formula, i pesi, il taglio</span><span class="v">nel libro: Apparato B</span></a>
+      <a href="IL-MODELLO.html#cap-9"><span class="k">I nove esiti</span><span class="v">nel libro: capitoli 14 e 15</span></a>
+      <a href="IL-MODELLO.html#cap-7"><span class="k">I margini di successo e fallimento</span><span class="v">nel libro: capitolo 9</span></a>
+      <a href="IL-MODELLO.html#cap-8"><span class="k">Il campo, cioè l’ambiente che risponde dopo il dado</span><span class="v">nel libro: capitolo 10</span></a>
+      <a href="IL-MODELLO.html#cap-10"><span class="k">I quattro livelli del tempo</span><span class="v">nel libro: capitolo 18</span></a>
+      <a href="ESEMPI.html"><span class="k">Le dodici schede di calcolo</span><span class="v">nel libro: capitolo 39</span></a>
+      <a href="MONTECARLO.html"><span class="k">Ripetere la stessa scena mille volte</span><span class="v">nel libro: capitolo 47</span></a>
+      <a href="#senza-internet"><span class="k">Perché si apre con un doppio clic</span><span class="v">nel libro: capitolo 48</span></a>
+      <a href="#non-e"><span class="k">Che cosa il modello non è</span><span class="v">nel libro: capitolo 49</span></a>
+      <a href="#mappaPagine"><span class="k">La guida di queste undici pagine</span><span class="v">nel libro: Apparato I</span></a>
+    </div>
+  </section>
+
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <h2>Le parole, spiegate</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Il simulatore usa poche parole, e ognuna vuol dire una cosa precisa. Sono raccolte
+      in dieci argomenti. Scegli quello che ti serve, e trovi le sue parole spiegate una
+      per una, ognuna con un esempio che la mette al lavoro. Il primo argomento sono le
+      nove condizioni che imposti tu. Gli altri sono quello che ti ritrovi scritto nel risultato.
+    </p>
+    <div data-glossario></div>
+  </section>
+
+  <nav class="percorso no-stampa" id="percorso"></nav>
+
+  <footer class="chiusura">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, i pesi, le soglie, il dado e i nove
+      esiti sono quelli del libro. Il simulatore non sa che cosa devi fare: sa dirti quanto ti
+      sta costando farlo.</p>
+  </footer>
+
+</div>
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/dati/formule.js"></script>
+<script src="app/interfaccia/formule-vista.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/dati/verifica.js"></script>
+<script src="app/interfaccia/casa.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

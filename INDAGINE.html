@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L’indagine — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · dove una scena si rompe</p>
+    <h1>L’indagine: qual è il punto debole, e che cosa lo rende debole</h1>
+    <p class="sottotitolo">
+      Le altre pagine rispondono alla domanda «come è andata». Questa ne fa una diversa, e
+      più difficile. Pensa a una mattina che si incrina: non c’è stato un disastro, ma a
+      un certo punto qualcosa ha ceduto, e da lì in poi tutto è costato di più.
+      <strong>Quando una sequenza di gesti va male, in quale punto cede per primo? E per
+      colpa di che cosa?</strong> Un «gesto», qui, è un’azione sola, con un inizio e una
+      fine riconoscibili. Per rispondere, il simulatore rigioca la stessa «scena», cioè la
+      sequenza presa tutta insieme, qualche migliaio di volte. Una partita intera, dal
+      primo gesto all’ultimo, qui si chiama <strong>«giocata»</strong>. Da tutte quelle
+      giocate ricava poi tre risposte: quali gesti sono delicati, che cosa li rende tali,
+      e quanto ci si può fidare di ogni numero che leggerai.
+    </p>
+
+    <div class="avviso-scena" style="margin-top:16px">
+      <p style="margin:0 0 8px"><strong>Prima di guardare qualunque numero, due premesse.</strong>
+        Sono brevi, e senza di loro ogni figura di questa pagina si legge male.</p>
+      <ol style="margin:0;padding-left:20px;line-height:1.62">
+        <li><strong>Il dado non è il colpevole.</strong> Il dado di questo modello non è
+          truccato: esce un numero da 1 a 100, e ognuno dei cento ha la stessa identica
+          possibilità di uscire. Quindi il rischio che un gesto vada male non dipende dalla
+          sorte. Dipende soltanto dalla sua
+          <span data-parola="probabilita">probabilità operativa</span>, quella che nelle
+          formule si scrive <b>Pn</b>. Il rischio vale <em>(100 − Pn) diviso 100</em>, e
+          nella formula non entra nient’altro. Un gesto che va male spesso non è un gesto
+          sfortunato: è un gesto che parte già con una probabilità bassa. La sfortuna non
+          si indaga; le condizioni sì.</li>
+        <li><strong>Allora perché rigiocare migliaia di volte?</strong> Perché dal secondo
+          gesto in poi la probabilità <em>può</em> smettere di essere un numero fisso. Il
+          primo gesto, comunque vada, lascia un po’ di
+          <span data-parola="carico">«carico»</span>, cioè la pressione che ci si porta
+          dietro, e quel carico pesa sulla probabilità del secondo. Rigiocando, allora, la
+          probabilità di un gesto non è più un numero solo. Diventa un ventaglio di numeri,
+          uno per giocata. In statistica quel ventaglio si chiama
+          <strong>«distribuzione»</strong>. Non vuol dire niente di più di questo: tutti i
+          valori usciti, e quante volte ciascuno è uscito. La larghezza del ventaglio dice
+          qualcosa di prezioso: quanto la probabilità di quel gesto dipende da com’è andata
+          prima. Può anche succedere che il ventaglio non si apra per niente. Capita
+          spesso, ed è un risultato anche quello: la sezione 3 dice quando succede e
+          perché.</li>
+      </ol>
+    </div>
+  </header>
+
+  <!-- ====================== 1 · LA SCENA ====================== -->
+  <section class="riquadro no-stampa">
+    <h2>1 · La scena da indagare</h2>
+    <p class="nota" style="margin:0 0 10px">
+      Scrivila in prosa, come la racconteresti a voce a un amico: «mi alzo, bevo un
+      bicchiere d’acqua, cerco le chiavi». Al resto pensa il simulatore, che legge il
+      racconto e ne ricava i gesti, uno per uno. Oppure prendi uno dei quattro esempi qui
+      sotto. Sono costruiti apposta, e ognuno ha un punto debole di natura diversa.
+    </p>
+    <p class="nota" style="margin:0 0 10px">
+      L’ultimo comando, il <strong>«seme»</strong>, è il numero da cui parte la lunga fila
+      dei tiri di dado. Con lo stesso seme escono gli stessi tiri, nello stesso ordine,
+      oggi e fra un mese. Serve proprio a questo. Cambia una parola della scena e rilancia
+      con lo stesso seme: quello che vedi cambiare è la parola, non la fortuna.
+    </p>
+    <div class="comandi" id="esempi" style="margin-bottom:12px"></div>
+    <textarea id="scena" rows="5" spellcheck="false"
+      style="width:100%;font:inherit;font-size:15px;line-height:1.6;padding:12px 14px;
+             border-radius:9px;border:1px solid var(--bordo);background:var(--piano);
+             color:var(--inchiostro);resize:vertical"></textarea>
+    <div class="comandi" style="margin-top:14px">
+      <label class="comando"><span>Carico di partenza</span>
+        <input type="number" id="caricoBase" min="0" max="100" value="45"></label>
+      <label class="comando"><span>Quante volte giocarla</span>
+        <select id="ripetizioni">
+          <option value="500">500 · veloce</option>
+          <option value="2000" selected>2.000 · buon compromesso</option>
+          <option value="10000">10.000 · preciso, qualche secondo</option>
+        </select></label>
+      <label class="comando"><span><span data-parola="seme">Seme</span> del
+        <span data-parola="dado">dado</span></span>
+        <input type="number" id="seme" value="424242"></label>
+      <button class="primario" id="indaga">Indaga la scena</button>
+      <span class="nota" id="statoIndagine" style="margin:0"></span>
+    </div>
+    <p class="nota" style="margin:12px 0 0" id="lettura"></p>
+  </section>
+
+  <!-- ====================== 2 · LA MAPPA ====================== -->
+  <section class="riquadro">
+    <h2>2 · La mappa dei punti delicati</h2>
+    <p>
+      Ogni riga è un gesto della scena. La barra dice <strong>quante volte quel gesto è
+      andato male</strong>, su tutte le giocate. Il segmento nero appoggiato sulla barra è
+      l’<strong>«intervallo di confidenza»</strong>, cioè una «fascia» di numeri invece di un
+      numero solo. Conviene capirlo bene una volta sola, perché torna in ogni figura di
+      questa pagina. Non dice dove sta il valore vero: dice fino a che punto puoi fidarti
+      del numero che hai davanti. E non misura quanto le giocate sono diverse fra loro,
+      che è un’altra grandezza, anche se le due si confondono di continuo. Misura di
+      quanto potrebbe essere sbagliata la barra, per il solo fatto che le giocate sono
+      tante ma non infinite. Più giocate fai, più quel segmento si accorcia.
+    </p>
+    <p class="nota">
+      <strong>Perché l’intervallo si disegna sempre.</strong> Una barra senza il suo
+      intervallo afferma «è così», mentre dovrebbe dire «è circa così, e il margine è
+      questo». Se qualcuno usa questo grafico per prendere una decisione, nascondere
+      l’incertezza è più grave che sbagliare il numero. Perché un numero sbagliato prima o
+      poi si scopre. Un’incertezza nascosta, no.
+    </p>
+    <div id="mappa"></div>
+    <div id="verdettoMappa"></div>
+  </section>
+
+  <!-- ====================== 3 · QUANTO DIPENDE DAL PRIMA ====================== -->
+  <section class="riquadro">
+    <h2>3 · Quanto ogni gesto dipende da com’è andata prima</h2>
+    <p>
+      Qui la stessa scena si guarda da un’altra angolazione. Per ogni gesto c’è una
+      <strong>scatola</strong>, e dentro la scatola sta metà delle giocate. Il bordo
+      sinistro è il valore sotto cui è finito un quarto delle volte. Il bordo destro è il
+      valore sopra cui è finito l’ultimo quarto. La riga spessa in mezzo è la
+      <strong>mediana</strong>, cioè il valore che sta esattamente a metà: tante giocate
+      sopra quante sotto. Non è la media, però, anche se le due si confondono spesso. Un
+      valore estremo trascina con sé la media, ma non la mediana, perché la mediana conta
+      le posizioni e non le distanze. I <strong>baffi</strong> arrivano fino al valore più
+      basso e a quello più alto usciti davvero.
+    </p>
+    <p>
+      Una scatola stretta vuol dire che quel gesto è sempre uguale a sé stesso: la sua
+      difficoltà non dipende da quello che è successo prima. Una scatola larga vuol dire
+      il contrario, e cioè che <strong>qualcosa, prima, lo ha reso fragile</strong>. Il
+      primo gesto ha sempre la scatola ridotta a una riga, e non è un difetto del disegno.
+      Prima di lui non è successo niente, quindi la sua probabilità non ha modo di
+      muoversi.
+    </p>
+    <p>
+      <strong>E capita spesso che siano ridotte a una riga tutte quante.</strong> Non è un
+      guasto. È forse la cosa più istruttiva che questa figura sappia dire. Con la
+      «calibrazione» misurata, cioè la «taratura» del modello con i numeri misurati e
+      dichiarati, ogni gesto passa al gesto dopo soltanto il 4,6 % del proprio effetto.
+      Così anche dopo parecchi gesti il carico si è mosso di una frazione di punto. E la
+      penalità del carico, cioè i punti che il carico toglie alla probabilità, non scende
+      poco per volta: scende a gradini. Finché il carico non scavalca un gradino, la
+      probabilità del gesto dopo resta esattamente la stessa. Per questo la premessa in
+      cima alla pagina dice «può smettere di essere un numero fisso», e non «smette». Qui
+      sotto c’è scritto se stavolta è successo, con i numeri della scena che hai davanti.
+    </p>
+    <div id="scatole"></div>
+    <p class="nota">
+      Le due righe verticali tratteggiate segnano il <span data-parola="taglio">«taglio» ai bordi</span>
+      del libro: 5 e 95. La probabilità non può uscire da lì, per quanto le condizioni
+      siano buone o cattive.
+    </p>
+  </section>
+
+  <!-- ====================== 4 · DA DOVE VENGONO I PUNTI ====================== -->
+  <section class="riquadro">
+    <h2>4 · Da dove vengono i punti che mancano</h2>
+    <p>
+      Questa è la figura più didattica della pagina, perché <strong>non salta un solo
+      passaggio</strong>. La formula del libro è una somma, e una somma si può disegnare
+      come una scala. Si comincia da quanto vale il gesto di suo. Poi si guarda ogni voce:
+      quelle in verde spingono in su, quelle in rosso tirano in giù, fino alla probabilità
+      finale.
+    </p>
+    <p>
+      Non è una stima e non è un’approssimazione. È aritmetica esatta. Se sommi con la
+      calcolatrice tutti i numeri scritti sopra le colonne, ottieni esattamente l’ultimo. Per
+      questo la scala risponde meglio di qualunque frase alla domanda «<em>ma perché proprio
+      questo gesto è difficile?</em>». Si vede il gradino in cui crolla, e quel gradino ha un
+      nome.
+    </p>
+    <div class="comandi no-stampa" style="margin-bottom:10px">
+      <label class="comando"><span>Quale gesto guardare</span>
+        <select id="qualeNodo"></select></label>
+    </div>
+    <div id="cascata"></div>
+    <div id="letturaCascata"></div>
+  </section>
+
+  <!-- ====================== 5 · DOVE SI ROMPE ====================== -->
+  <section class="riquadro">
+    <h2>5 · Dove si rompe la prima volta</h2>
+    <p>
+      Le due figure qui sotto raccontano la stessa cosa in due modi, e rispondono a due
+      domande diverse. La prima guarda le giocate andate male, e per ognuna dice <strong>a
+      quale gesto è successo la prima volta</strong>. È la domanda di chi ricostruisce una
+      sequenza: non «quanti errori ci sono stati», ma «dove ha ceduto per primo».
+    </p>
+    <div id="rottura"></div>
+    <p>
+      La seconda è la <strong>curva di sopravvivenza</strong>. Dice quante giocate arrivano
+      al gesto numero uno, due, tre… senza che sia ancora andato storto niente. Scende
+      sempre e non risale mai, per una ragione semplice: quando una giocata si è rotta,
+      resta rotta.
+    </p>
+    <p class="nota">
+      <strong>Perché è disegnata a gradini e non con una linea obliqua.</strong> Fra un
+      gesto e l’altro non succede niente. Il valore resta fermo, e poi salta. Una linea
+      obliqua farebbe credere che passi per tutti i valori intermedi: sarebbe verosimile,
+      e falso. Non è una finezza grafica. È la differenza fra dire il vero e dire quello
+      che sembra vero.
+    </p>
+    <div id="sopravvivenza"></div>
+  </section>
+
+  <!-- ====================== 6 · LE LEVE ====================== -->
+  <section class="riquadro">
+    <h2>6 · Che cosa succede se cambi una cosa sola</h2>
+    <p>
+      È la domanda che viene subito dopo aver trovato il punto debole. <em>E se togliessi
+      un pezzo da coordinare? E se partissi con dieci punti di carico in meno?</em> Ogni
+      barra qui sotto è una modifica, e la sua lunghezza dice di quanto cambia la
+      probabilità che l’intera scena arrivi in fondo senza un solo gesto andato male.
+    </p>
+    <p class="nota">
+      <strong>Due avvertenze, e non sono dettagli.</strong><br>
+      La prima: le varianti usano <strong>gli stessi identici tiri di dado</strong> della
+      versione di partenza. Confrontare due mondi con dadi diversi vorrebbe dire misurare
+      due grandezze insieme, l’effetto della modifica e il «rumore» del caso, cioè la
+      variazione dovuta solo al dado. E il rumore, spesso, è più grosso dell’effetto. Riusando gli stessi tiri, quello che resta è
+      soltanto la modifica. In statistica si chiamano <em>numeri casuali comuni</em>, e in
+      una simulazione sono l’unico modo di isolare l’effetto di una modifica.<br>
+      La seconda: le barre <strong>pallide</strong> sono quelle il cui effetto non si
+      distingue dal caso. Non vuol dire che quella modifica sia inutile. Vuol dire che con
+      queste giocate nessuno può affermarlo, ed è un’affermazione diversa, che va detta.
+    </p>
+    <div id="tornado"></div>
+    <div id="letturaLeve"></div>
+  </section>
+
+  <!-- ====================== 7 · DA DOVE PARTI ====================== -->
+  <section class="riquadro">
+    <h2>7 · Da dove parti cambia tutto</h2>
+    <p>
+      L’ultima domanda riguarda le <strong>condizioni di partenza</strong>. Quanto conta,
+      alla fine, il carico con cui si arriva alla scena? Per saperlo la curva fa scorrere
+      il carico iniziale da 0 a 100, e per ciascun valore misura quante giocate arrivano in
+      fondo intatte.
+    </p>
+    <p>
+      Quasi mai è una linea dritta. Di solito c’è un tratto in cui il carico in più quasi
+      non si sente. Poi c’è un punto in cui la curva piega e crolla. <strong>Quel punto è
+      ciò che conta sapere.</strong> È lì che dieci punti di carico costano il massimo, ed
+      è prima di quel punto, non dopo, che conviene intervenire.
+    </p>
+    <p class="nota">
+      Un’avvertenza. La fascia chiara intorno alla linea è l’<em>incertezza della
+      stima</em>: dice di quanto potrebbe essere sbagliata la linea. Non dice quanto le
+      giocate si allontanano fra loro. Quella è la variabilità dei risultati, ed è
+      un’altra grandezza. Le due, a vedersi, si somigliano moltissimo, e confonderle è
+      l’errore più frequente su questo tipo di figura. E il punto di piega che si vede qui
+      è una misura <strong>di questa scena</strong>. Non è una soglia del libro.
+    </p>
+    <div id="curvaCarico"></div>
+    <div id="letturaCarico"></div>
+  </section>
+
+  <!-- ====================== 8 · LA PRECISIONE ====================== -->
+  <section class="riquadro">
+    <h2>8 · Quanto è precisa l’indagine che hai appena letto</h2>
+    <p>
+      Il libro, al capitolo 47, dà una regola che vale per tutta questa pagina, e conviene
+      impararla una volta per tutte: <strong>«si guarda l’ampiezza dell’intervallo, non il
+      numero di iterazioni»</strong>. «Iterazioni» è la parola della statistica. Qui si
+      chiamano giocate, e sono la stessa cosa. Facciamo un esempio. «Il trenta per cento,
+      più o meno quattordici» è un’affermazione. «Il trenta per cento, più o meno uno» è
+      un’altra. Solo la seconda serve a decidere qualcosa.
+    </p>
+    <p>
+      Sotto i riquadri trovi un <strong>semaforo</strong>. Ha quattro luci, e viene dal
+      libro: verde, giallo, arancione, rosso. Attenzione a che cosa guarda. Non giudica la
+      scena, e non dice se le cose vanno bene o male. Dice soltanto quanto è stabile la
+      lettura che hai davanti. Una scena serena può accendere il rosso, e una scena pesante
+      il verde, perché sono due domande diverse.
+    </p>
+    <div id="precisione"></div>
+    <p class="nota">
+      <strong>E un avvertimento che quasi nessuno dà.</strong> Quando si mettono a
+      confronto molti gesti insieme, qualcuno esce estremo per puro caso. Facciamo un
+      esempio. Si guardano venti gesti con la soglia solita del cinque per cento: in media
+      uno sembra «notevole» anche quando non c’è proprio niente da notare. Per questo la
+      soglia di questa pagina viene alzata, in proporzione a quanti gesti si confrontano.
+      Si chiama correzione di <strong>Bonferroni</strong>, e il mestiere che fa è uno
+      solo: rende più difficile gridare alla scoperta man mano che le domande diventano
+      tante. È severa, forse anche troppo. Se sbaglia, sbaglia tacendo qualcosa di vero.
+      Non afferma mai qualcosa di falso. Il numero esatto che è stato usato è scritto qui
+      sopra.
+    </p>
+  </section>
+
+  <!-- ====================== 9 · CHE COSA NON È ====================== -->
+
+  <!-- ====================== 10 · LE PAROLE ====================== -->
+  <section class="riquadro">
+    <h2>9 · Le parole, spiegate</h2>
+    <p style="margin-top:0">
+      Questa pagina usa molte parole tecniche, e non si ferma a spiegarle ogni volta. Qui
+      sotto le trovi tutte, raccolte per argomento, spiegate per esteso e con un esempio.
+      Quelle della statistica stanno in «Leggere un mucchio di giocate» e in «I metodi e le
+      prove statistiche». Le stesse spiegazioni si aprono anche nel testo: basta cliccare le
+      parole sottolineate.
+    </p>
+    <div data-glossario></div>
+  </section>
+
+  <nav class="percorso no-stampa" id="percorso"></nav>
+
+  <footer class="chiusura">
+    <p><strong>Simulatore di vita 3.0.</strong> Gli intervalli sono calcolati con il metodo di
+      <strong>Wilson</strong>. Non sbaglia quando una percentuale è vicinissima a zero o a
+      cento: lì il conto che si impara a scuola arriva a dare percentuali sotto zero. I
+      confronti fra due gesti usano la prova di <strong>McNemar</strong>, quella giusta quando
+      i due numeri vengono dalle stesse giocate, e non da due gruppi separati. La soglia sale
+      secondo <strong>Bonferroni</strong>: più confronti si fanno, più sale. Tutto il calcolo
+      avviene dentro questa pagina. Niente esce da questo computer.</p>
+  </footer>
+
+</div>
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/microsemantica.js"></script>
+<script src="app/motore/analisi.js"></script>
+<script src="app/motore/inferenza.js"></script>
+<script src="app/dati/lessico.js"></script>
+<script src="app/motore/scena.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/interfaccia/disegno.js"></script>
+<script src="app/interfaccia/grafici.js"></script>
+<script src="app/interfaccia/indagine-ui.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

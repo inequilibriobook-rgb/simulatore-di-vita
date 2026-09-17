@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Il modello, letto per intero — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body class="lettura" id="cima">
+
+<div class="strumenti-alto no-stampa">
+  <button id="stampa" title="Stampa questa pagina">Stampa</button>
+  <button class="commutatore" id="tema">Tema scuro</button>
+</div>
+
+<div class="contenitore-lettura">
+<article class="testo-lettura">
+
+  <header class="testata-lettura">
+    <p class="occhiello">Simulatore di vita 3.0 · la lettura lunga</p>
+    <h1>Il modello, letto per intero</h1>
+    <p class="sottotitolo-lettura">
+      Le altre pagine sono strumenti, e si aprono quando c’è qualcosa da fare. Questa invece
+      è una lettura, da prendere come si prende un libro. Comincia da un «gesto» solo, cioè da
+      un’azione con un inizio e una fine, come bere un bicchiere d’acqua. E arriva a una
+      scena intera, una fila di gesti di seguito, rigiocata mille volte. In mezzo c’è tutta la
+      matematica, e a ogni passaggio c’è una figura che si muove insieme ai numeri.
+    </p>
+    <p class="sottotitolo-lettura piccolo">
+      Non serve sapere niente in anticipo. Ogni simbolo viene spiegato la prima volta che
+      compare, e ogni formula è scritta due volte, in matematica e in italiano. E ogni
+      affermazione ha accanto il modo di verificarla.
+    </p>
+    <div class="avviso-lettura">
+      <p><b>Come si legge.</b> Di seguito, dall’inizio alla fine, perché i capitoli si
+      appoggiano l’uno sull’altro. Le figure non sono disegni fermi: quelle con i cursori,
+      le barrette da trascinare, cambiano mentre le muovi. E con loro cambiano
+      anche le figure dei capitoli seguenti, perché lavorano tutte sulla stessa scena.
+      L’indice a lato dice sempre a che punto sei.</p>
+    </div>
+  </header>
+
+  <!-- ======================================================= PARTE PRIMA -->
+  <p class="parte">Parte prima · Che cosa si calcola</p>
+
+  <section class="capitolo">
+    <h2>Un gesto, non una vita</h2>
+
+    <p>Cominciamo da quello che il modello <em>non</em> fa, perché è quello che decide
+    tutto il resto. Non misura una persona, e non dice se qualcuno è capace, forte,
+    organizzato o fragile. Misura <strong>un gesto, in un momento preciso, nelle
+    condizioni di quel momento</strong>.</p>
+
+    <p>La differenza sembra sottile, e invece è tutto. Prova a chiederti «riesco a uscire di
+    casa in orario?»: è una domanda sulla persona, e non ha una risposta. Prova invece a
+    chiederti «questa mattina, con quattro ore di sonno, il bambino da vestire e le chiavi
+    che non si trovano, che probabilità ha di riuscire l’uscita?». Questa è una domanda su
+    una scena, e una risposta ce l’ha.</p>
+
+    <p>Il libro comincia con un esempio che sembra troppo piccolo per contare qualcosa, e
+    che invece regge tutto il resto. Una persona seduta sul divano ha sete e va a bere un
+    bicchiere d’acqua. Il corpo è riposato, la cucina è vicina, per terra non c’è niente da
+    scavalcare, e non capita niente che valga la pena raccontare. Adesso cambiamo un
+    dettaglio solo. La stessa persona ha una schiena che non risponde sempre bene, e si alza
+    di scatto senza appoggiarsi. Da fuori la scena è identica, ma dentro non lo è più,
+    perché il corpo deve mettere insieme, in meno tempo, equilibrio, spinta e stabilità. La
+    scena non è diventata più lunga: è diventata più delicata. E lo stesso identico intoppo,
+    una fitta, un capogiro, un piede che scivola, nella prima versione viene assorbito senza
+    che nessuno se ne accorga. Nella seconda no.</p>
+
+    <p>C’è poi una scorciatoia che il modello rifiuta apertamente, ed è la più frequente di
+    tutte. Sono le otto e dodici, e le chiavi non si trovano. La frase arriva prima ancora
+    della porta: «sono sempre il solito». In un istante un episodio si allarga, e pretende
+    di raccontare la persona intera. Il libro non risponde con un’assoluzione, che sarebbe la
+    stessa scorciatoia rovesciata. Risponde chiedendo di dire con precisione dove il problema
+    è successo, e in quale passaggio. Perché una responsabilità confusa diventa un peso,
+    mentre una responsabilità localizzata può diventare una mossa.</p>
+
+    <p>L’unità che si calcola si chiama «<span data-parola="nodo">nodo</span>», ed è un gesto
+    solo, con un inizio e una fine. Bere un bicchiere d’acqua è un nodo, e lo è anche
+    scrivere un messaggio difficile. «Fare la spesa» non lo è, perché è una sequenza, e va
+    aperta in nodi prima di poterla calcolare.</p>
+
+    <p>La regola per riconoscerne uno sta in una riga, e tira apposta in due direzioni
+    opposte: <em>un nodo deve essere abbastanza piccolo da poter essere calcolato, e
+    abbastanza importante da avere un senso</em>. Se è troppo grande non ha una probabilità
+    sua, perché contiene dieci gesti diversi. Il numero che ne esce è una media che non dice
+    niente. Se è troppo piccolo, invece, non costa niente. Sapere con quanto margine è stato
+    premuto un tasto non serve a nessuno.</p>
+
+    <p>La misura giusta, però, non è la dimensione del gesto. È quante condizioni possono
+    farlo inclinare. Inserire il codice alla cassa è un gesto minuscolo, in una giornata
+    qualunque. Diventa un nodo pieno con le mani occupate, la fila dietro, il codice
+    cambiato la settimana prima e la memoria stanca.</p>
+
+    <p>Un nodo ha due parti. La prima è <b>com’è il gesto in sé</b>: aprire una porta è
+    facile, preparare una lezione è meno facile. La seconda è <b>come sono le condizioni
+    adesso</b>. Quanto è stanco il corpo, quanto è chiaro che cosa fare, quanta fretta c’è,
+    com’è l’ambiente, e quanto «carico» ci si porta dietro dai giorni prima, cioè quanta
+    pressione ha già accumulato la persona nei giorni passati, su una scala da 0 a 100.</p>
+
+    <p>Il modello prende queste due parti e le mette insieme, e ne fa un numero: la
+    probabilità che quel gesto riesca, <em>prima</em> che il caso dica la sua. Quel numero
+    si chiama <b>Pn</b>, e i prossimi quattro capitoli servono a costruirlo.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>I nove numeri della taratura</h2>
+
+    <p>Prima della formula viene la «<span data-parola="taratura">taratura</span>», cioè il
+    momento in cui si guarda la scena e si decidono nove numeri. È il passaggio più
+    importante di tutti, e il libro lo dice in una regola secca: <em>tarare prima, calcolare
+    dopo</em>. Un valore scelto per far tornare il risultato non è una taratura, è una
+    giustificazione.</p>
+
+    <p>L’ordine conta per una ragione che sta in una frase del libro, e conviene ricordarla
+    a memoria: <em>una formula buona non corregge dati cattivi, li rende soltanto più
+    ordinati</em>. Il calcolo non migliora la realtà da cui parte. La rende trattabile, che
+    è un’altra cosa. Un numero può sembrare preciso, perché ha i decimali, ha il grafico, ha
+    la percentuale. E intanto si porta dentro, tutto intero, l’errore della premessa.</p>
+
+    <p>I nove numeri sono questi. Il primo dice com’è il gesto in sé. I cinque in mezzo
+    descrivono le condizioni, e possono aiutare o ostacolare. Gli ultimi tre misurano quello
+    che pesa comunque. Ogni simbolo è una parola abbreviata, e nella tabella la prima colonna
+    porta il simbolo, la seconda la parola per esteso. Da qui in avanti compariranno
+    soltanto le sigle, e vale la pena tornare a guardare questa tabella tutte le volte che
+    serve.</p>
+
+    <div class="avvolgi-tabella"><table class="dati">
+      <thead><tr><th>Simbolo</th><th>Che cosa misura</th><th>Se cresce</th></tr></thead>
+      <tbody>
+        <tr><td><b>P0</b></td><td>la <b>probabilità di partenza</b>: quanto è fattibile il gesto in sé, in condizioni ordinarie</td><td class="bene">aiuta</td></tr>
+        <tr><td><b>E</b></td><td>l’<b>energia</b>: il corpo adesso, con il sonno, il dolore, l’equilibrio</td><td class="bene">aiuta</td></tr>
+        <tr><td><b>I</b></td><td>l’<b>informazione</b>: quanto è chiaro che cosa fare, e con quali istruzioni</td><td class="bene">aiuta</td></tr>
+        <tr><td><b>T</b></td><td>il <b>tempo</b>: quanto ce n’è davvero, e quanta fretta c’è in questo momento</td><td class="bene">aiuta</td></tr>
+        <tr><td><b>M</b></td><td>la <b>materialità</b>: l’ambiente intorno, con lo spazio, gli oggetti, la luce, il rumore</td><td class="bene">aiuta</td></tr>
+        <tr><td><b>BP</b></td><td>il <b>bonus protettivo</b>: la protezione concreta e temporanea che c’è adesso</td><td class="bene">aiuta</td></tr>
+        <tr><td><b>C</b></td><td>la <b>complessità</b>: quanti pezzi vanno coordinati insieme</td><td class="male">toglie</td></tr>
+        <tr><td><b>STR</b></td><td>lo <b>stress</b>: il carico che ci si porta dietro dai giorni prima</td><td class="male">toglie</td></tr>
+        <tr><td><b>DEB</b></td><td>il <b>debito</b> da insistenza: quante volte si è forzato senza cambiare strada</td><td class="male">toglie</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>I cinque in mezzo possono essere <b>positivi o negativi</b>. Il segno non è un
+    giudizio: dice soltanto se quella condizione, adesso, aiuta o ostacola. Dormire bene è
+    <b>E</b> positivo, dormire quattro ore è <b>E</b> negativo. È la stessa variabile.</p>
+
+    <p>C’è poi una distinzione che regge la qualità di tutto il resto, e va fatta prima del
+    calcolo. Le parole sono tre: <b>dichiarato, ipotizzato, incerto</b>. Se una persona dice
+    di aver dormito sei ore, quello è un dato dichiarato. Un sonno descritto come «così così»
+    deve tradurlo qualcuno, e quella traduzione è un’ipotesi, non un fatto. Un dolore mai
+    misurato non si inventa. E un aiuto raccontato in modo vago non diventa aiuto reale solo
+    perché qualcuno lo ha nominato.</p>
+
+    <p>Accanto a ogni valore dovrebbe restare scritto di che qualità è. Il motivo è che
+    <strong>un numero, una volta scritto, perde memoria di come è nato</strong>. Il sei del
+    sonno e il sei della chiarezza sembrano la stessa informazione, ma il primo l’ha detto
+    chi ha dormito, e il secondo l’ha indovinato chi ascoltava.</p>
+
+    <p>E c’è una questione di misura. La taratura non ha una lunghezza fissa: cambia con la
+    scala della scena. Per il bicchiere d’acqua bastano poche cose, come l’energia, il
+    sonno, un eventuale dolore, la distanza, la luce, gli ostacoli e la fretta. Farci sopra
+    trenta domande sarebbe troppo. Il modello peserebbe più della scena che deve leggere.
+    Per una settimana di lavoro, figli, insonnia e pratiche arretrate, invece, poche domande
+    sarebbero ridicole.</p>
+
+    <p>La taratura serve anche a smascherare le illusioni gentili, che sono sempre le stesse
+    tre. Pensiamo di avere tempo. Crediamo che un compito sia semplice. E contiamo su un
+    aiuto che, al momento buono, non toglie peso a nessuno.</p>
+
+    <p>Qui sotto c’è la scena su cui lavoreremo per tutta la prima metà del libro. Muovila
+    finché non somiglia a una mattina che conosci. Le figure dei capitoli seguenti useranno
+    questa scena, e non un esempio inventato.</p>
+
+    <figure class="figura" data-figura="taratura"></figure>
+
+    <p>C’è un’osservazione che vale la pena fare subito, muovendo i cursori. Il numero che
+    esce <b>non è mai zero e non è mai cento</b>: si ferma a 5 in basso e a 95 in alto. Non
+    è una scelta arbitraria, e la spiega il capitolo 4. E la <b>complessità</b> sposta il
+    risultato molto più degli altri termini, perché un solo punto in più ne toglie cinque.
+    Anche questo ha una ragione, e la spiega il capitolo dopo.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>La formula, in una riga</h2>
+
+    <p>I nove numeri della taratura non restano isolati. Si combinano tutti in un solo
+    calcolo, che si scrive in una riga sola. Eccola qui sotto.</p>
+
+    <div class="formula-libro" data-formula="madre"></div>
+
+    <p>Fa paura per un secondo, e poi non più, perché non contiene niente di complicato: è
+    una <strong>somma</strong>. Si parte da quanto il gesto è fattibile in sé, si sommano le
+    cinque condizioni con il segno che hanno, e si sottraggono i tre termini che pesano. Poi
+    si taglia il risultato ai bordi. Nella riga stampata quel «taglio» porta il nome inglese
+    che gli dà il libro, <b>clamp</b>, che vuol dire «morsetto»: stringe il numero fra due
+    estremi e non lo lascia scappare da nessuna delle due parti. Se ne parla nel capitolo
+    dopo.</p>
+
+    <p>Vale la pena guardare che cosa <em>non</em> c’è in questa riga. Non ci sono
+    moltiplicazioni fra le variabili, non ci sono esponenti, e non c’è nemmeno una media
+    pesata, con coefficienti da tarare. Ogni termine entra una volta sola e vale quello che
+    dice di valere. La povertà della struttura è voluta, perché rende il conto rifacibile a
+    mano, su un foglio, da chiunque. E chi aggiunge decimali a questa riga non migliora il
+    modello: nasconde dietro una cifra una decisione che andava dichiarata.</p>
+
+    <p class="nota">Questa lettura racconta la formula per farla capire. Chi vuole vederla
+    scritta come nel Canone (il testo definitivo del libro) trova tutto in <a class="rimando"
+    href="LA-FORMULA.html">LA-FORMULA.html</a>. Lì si confronta riga per riga con il codice
+    vero del motore (il pezzo di programma che fa i conti).</p>
+
+    <p>Fuori dalla riga restano anche alcune grandezze importanti, e ci restano apposta. La
+    formula tiene fuori l’«assetto» della persona, cioè quanto è ancora orientata dentro la
+    scena, o quanto ne è uscita trascinata. Tiene fuori anche il «recupero», che è la pausa
+    che toglie carico davvero, non quella che dà solo sollievo. Non contiene la risposta del
+    «campo», l’ostacolo che reagisce al tentativo mentre è in corso. Non contiene il supporto
+    nel suo senso largo. Lascia fuori il «costo nascosto», il prezzo di un gesto che sembra
+    riuscito e si vede solo dopo. E non tocca l’aggiornamento dello stato dopo il gesto, né
+    le traiettorie lunghe. Esistono tutte, e ognuna ha un posto suo. Qualcuna agisce prima,
+    attraverso la taratura. Qualcun’altra agisce dopo, nella lettura dell’esito, che non è
+    «riuscito o no»: i modi in cui un gesto può finire sono nove.</p>
+
+    <p>La regola che regge questa scelta si chiama <span
+    data-parola="domicilio_unico">domicilio unico</span>, e dice che <strong>ogni fatto ha
+    una casa sola</strong>. Se l’assetto entrasse anche qui, il clima del sistema verrebbe
+    contato due volte. Un assetto fragile, infatti, si vede già in due posti: nella
+    chiarezza, che scende, e nella complessità, che sale.</p>
+
+    <p>Sarebbe facile aggiungere una variabile per ogni cosa: ansia, motivazione, memoria,
+    fame, rumore, vergogna. La riga sembrerebbe più completa, ma non lo sarebbe. Diventerebbe
+    solo troppo difficile da usare. E il modello perderebbe l’unica cosa che lo rende utile:
+    che il conto si può rifare a mano, e si può discutere.</p>
+
+    <p>Il numero prima del taglio ha un nome suo, perché serve conservarlo:</p>
+
+    <div class="formula-libro" data-formula="grezza"></div>
+
+    <p>Si legge «pi con raw», dove <em>raw</em> vuol dire «grezzo». Se il grezzo e il numero
+    finale coincidono, la scena stava dentro i confini. Se differiscono, il modello segnala
+    un caso di bordo, e va guardato.</p>
+
+    <p>Due termini hanno il numero cinque davanti, <b>5C</b> e <b>5 DEB</b>. La ragione è
+    che complessità e debito non si misurano in punti di probabilità: si contano. Un
+    coordinamento in più vale cinque punti in meno. Sempre, senza sfumature.</p>
+
+    <p>La figura qui sotto smonta la formula sulla scena di prima. Ogni barra è un termine,
+    e la sua lunghezza dice di quanto quella voce sposta il risultato.</p>
+
+    <figure class="figura" data-figura="contributi"></figure>
+
+    <p>Se muovi i cursori del capitolo precedente, vedi subito <strong>quale termine sta
+    decidendo questa scena</strong>. Il modello serve a far vedere questo, e quasi mai è il
+    termine che la persona si attribuisce.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>Il taglio ai bordi, e perché esiste</h2>
+
+    <p>Resta da spiegare il morsetto, che nella riga era soltanto un nome. Serve perché la
+    somma può uscire da qualunque parte. Con condizioni pessime può dare un numero negativo,
+    e con condizioni ottime può superare cento. Come probabilità, nessuno dei due significa
+    niente, e il taglio li riporta dentro.</p>
+
+    <div class="formula-libro" data-formula="clamp"></div>
+
+    <p>Si legge da dentro verso fuori, ed è più facile di come sembra. Prima viene <b>max(5,
+    x)</b>. Fra cinque e il valore grezzo prende il più grande: quindi <em>alza</em> tutto
+    ciò che stava sotto cinque. Poi viene <b>min(95, …)</b>. Fra novantacinque e quel
+    risultato prende il più piccolo: quindi <em>abbassa</em> tutto ciò che stava sopra
+    novantacinque. Messe insieme, le due operazioni dicono una cosa sola:</p>
+
+    <div class="formula-libro" data-formula="confini"></div>
+
+    <p>Una funzione si capisce meglio disegnata che descritta. Ecco che forma ha.</p>
+
+    <figure class="figura" data-figura="clamp"></figure>
+
+    <p>Nel tratto in diagonale il taglio non fa niente, e il valore esce com’è entrato. Nei
+    due pezzi piatti, in basso e in alto, fa invece il suo mestiere. Il punto acceso sulla
+    linea è la scena tarata al capitolo 2. Spingi i cursori agli estremi, e lo vedrai
+    lasciare la diagonale e appiattirsi contro uno dei due bordi.</p>
+
+    <p>Perché proprio 5 e 95? Perché il modello si rifiuta di dire «è garantito», e si
+    rifiuta di dire «è impossibile». Anche una scena molto favorevole può incontrare un
+    imprevisto, e anche una scena difficile può riuscire, magari con un aiuto o con un caso
+    favorevole. Il senso del taglio sta in una frase: <em>il modello conserva sempre una
+    quota minima di possibilità e una quota massima di incertezza</em>.</p>
+
+    <p>Vale la pena precisare che cosa il 5 e il 95 <em>non</em> dicono, perché è la parte
+    che viene fraintesa più spesso. Non dicono che qualunque cosa sia possibile nel cinque
+    per cento dei casi. E non dicono che niente al mondo superi il novantacinque. Dicono
+    che, <strong>dentro il funzionamento ordinario di un gesto</strong>, il modello si tiene
+    lontano dagli estremi. Le situazioni davvero impossibili, pericolose o fuori scala non
+    vanno schiacciate dentro una percentuale elegante. Chiedono altro: che il calcolo si fermi
+    prima di cominciare, cioè un altro pezzo del sistema, il «cancello» di cui si parla più avanti.
+    Il taglio lavora dentro il territorio del modello. Non serve a farci entrare quello che
+    sta fuori.</p>
+
+    <div class="riquadro-attenzione">
+      <p><b>Attenzione, però:</b> il taglio serve a evitare probabilità assurde, non a
+      nascondere errori di taratura. Se il grezzo esce appena sotto zero, il taglio fa il
+      suo lavoro. Se esce molto negativo — meno venti, meno trenta — quasi sempre c’è una
+      variabile scritta due volte: la stanchezza messa in <b>E</b> e di nuovo in
+      <b>STR</b>, la fretta in <b>T</b> e di nuovo in <b>C</b>. Un grezzo schiacciato contro
+      uno dei due estremi va sempre riletto, prima di fidarsene.</p>
+    </div>
+  </section>
+
+  <section class="capitolo">
+    <h2>Le due tabelle che si somigliano e non sono uguali</h2>
+
+    <p>Rileggere un grezzo vuol dire quasi sempre tornare sul carico. E il carico è uno dei
+    due termini della formula che non entrano come numero libero, perché passano per una
+    tabella. L’altro è il debito. Sembrano fatti allo stesso modo, e non lo sono, ed è una
+    distinzione che vale la pena capire bene, perché è matematica pura e si vede a
+    occhio.</p>
+
+    <p>Il <strong>debito</strong> è il caso semplice:</p>
+
+    <div class="formula-libro" data-formula="debito"></div>
+
+    <p>Uno vale cinque, due vale dieci, tre vale quindici. La tabella del libro
+    <em>è</em> questa moltiplicazione, riga per riga, e basta moltiplicare.</p>
+
+    <p>Ma il debito non scatta con facilità, anche se il conto è semplice: è il contrario.
+    Non conta gli errori, e non cresce ogni volta che qualcosa va storto. Perché cresca
+    servono sei cose <em>insieme</em>, non una sola: il carico già alto, l’esito fragile o
+    fallito, la persona che insiste con la stessa mossa che non va, nessun vero recupero, e
+    nessun cambio di rotta. Ecco perché un inciampo da solo non fa debito.</p>
+
+    <p>Un dato lo spiega meglio di qualunque descrizione. Nella mattina da cinquecento gesti
+    del libro, il debito è rimasto a zero per tutti e cinquecento. Eppure dentro quella
+    sequenza ci sono quattro fallimenti tecnici e quarantasette inciampi. Non è scattato
+    nemmeno una volta, perché la persona non batteva sempre sullo stesso chiodo. Il debito
+    deve comportarsi così: raro, e proprio per questo significativo. La differenza che
+    misura non è fra insistere e mollare. È fra una perseveranza che impara e una che ripete
+    più forte.</p>
+
+    <p>Con il <strong>carico</strong> le cose vanno diversamente. Non esiste nessun numero
+    per cui moltiplicare STR e ottenere quello che toglie. Quella penalità non cresce goccia
+    a goccia: cresce a scalini.</p>
+
+    <div class="formula-libro" data-formula="penstr"></div>
+
+    <p>La parentesi grande aperta a sinistra si chiama <b>graffa</b>. Serve a tenere insieme
+    più casi, che valgono uno per volta. Questa si legge così: «vale zero se il carico sta
+    fra zero e trentanove, vale cinque se sta fra quaranta e cinquantanove, e così via». Una
+    funzione fatta così si chiama <strong>funzione a gradini</strong>. Il nome si capisce
+    guardandola.</p>
+
+    <p>La graffa taglia la scala del carico in sei intervalli. Ognuno si chiama
+    «<span data-parola="fascia">fascia</span>». Dentro la stessa fascia la penalità non cambia
+    mai, comunque si muova il numero. Le sei fasce hanno anche una lettura, e messe in fila
+    dicono più della tabella. Sotto quaranta il carico è basso, o comunque governabile
+    dentro il gesto: non toglie niente. Da quaranta a cinquantanove pesa, ma non è ancora
+    rosso. Da sessanta a sessantanove il gesto diventa più fragile. Da settanta comincia il
+    rosso: prima nella forma controllabile, poi in quella severa. Lì il rischio non è più di
+    fallire, ma di riuscire lasciando danno. Da novanta in su si è al limite.</p>
+
+    <p>Vale la pena guardare dove cadono i salti.</p>
+
+    <figure class="figura" data-figura="penstr"></figure>
+
+    <p>La linea tratteggiata è dove passerebbe una curva continua, e serve a vedere la
+    scelta. Una curva continua direbbe una cosa precisa, e cioè che fra un carico di 44 e uno
+    di 47 c’è una differenza reale, misurabile, che il modello sa cogliere. <strong>Non è
+    vero.</strong> Pensa a una persona che si porta addosso una settimana pesante: nessuno
+    può dire se il suo carico vale 44 o 47. Quello che si può dire davvero è
+    se quel carico sia basso, medio, alto o rosso. La funzione a gradini ammette questo
+    limite, mentre una curva continua lo nasconderebbe dietro decimali inventati.</p>
+
+    <p>C’è una seconda ragione, più vicina all’esperienza. Il carico non agisce goccia a
+    goccia: agisce a soglie. Finché il sistema regge, regge. Poi qualcosa si sposta, e la
+    stessa persona, con un carico solo di poco maggiore, comincia a irritarsi prima, a
+    tagliare passaggi, a recuperare peggio. Chi ha attraversato un periodo di sovraccarico
+    riconosce quel salto. Non è un peggioramento graduale: è un cambio di «regime», cioè del modo generale in cui
+    la persona sta funzionando in quel periodo.</p>
+
+    <p>E c’è una terza ragione, la più pratica: i gradini rendono il modello difficile da
+    manipolare. Spostare STR da 62 a 66 non cambia niente. Spostarlo da 68 a 72 cambia la
+    penalità, e quel cambiamento è visibile, discutibile, difendibile. Si può chiedere
+    <em>perché hai messo questa persona in fascia rossa?</em>, ed è una domanda a cui si
+    può rispondere. «Perché ho scritto 71 invece di 69» non lo sarebbe.</p>
+  </section>
+
+  <!-- ====================================================== PARTE SECONDA -->
+  <p class="parte">Parte seconda · Che cosa succede</p>
+
+  <section class="capitolo">
+    <h2>Il dado, e che cosa significa davvero una percentuale</h2>
+
+    <p>A questo punto abbiamo un numero, la probabilità che il gesto riesca, ma non abbiamo
+    ancora un esito. Fra i due c’è quella parte della vita che nessuna analisi, per quanto
+    accurata, riesce a prevedere. Il modello le dà un posto suo, preciso: un dado da cento
+    facce, tirato <em>dopo</em> il calcolo, mai prima.</p>
+
+    <p>La regola è una sola, e non ha eccezioni.</p>
+
+    <div class="formula-libro" data-formula="dado"></div>
+
+    <p>Il simbolo ⟺ si legge «se e solo se», e dice due cose insieme. Ogni tiro sotto la
+    «soglia» (la soglia è Pn: il numero che il dado non deve superare) riesce. Nessun tiro sopra la
+    soglia riesce, e non c’è una terza possibilità. Non esistono colpi che valgono doppio,
+    né numeri che fanno fallire da soli, né un tiro che conti più di un altro.</p>
+
+    <p>Da qui segue un fatto che si dice spesso e si dimostra di rado. Il dado dà ognuno dei
+    cento numeri con la stessa probabilità. I numeri favorevoli sono quelli da 1 a Pn: cioè
+    esattamente Pn numeri su cento. Quindi:</p>
+
+    <div class="formula-libro" data-formula="probabilita"></div>
+
+    <p>Ecco perché Pn = 70 si legge «settanta per cento» e non «di solito riesce». Non è un
+    modo di dire: è una frazione, ed è esatta. Su cento mattine identiche, settanta
+    finiscono bene e trenta no.
+    <strong>Nessuna delle due cose è una sorpresa.</strong> Nemmeno le trenta.</p>
+
+    <p>Questa frase è facile da leggere e difficile da credere davvero, e la figura qui
+    sotto serve proprio a crederla. Tira il dado sulla scena tarata al capitolo 2. Poi
+    guarda salire la quota di riuscite, cioè quante volte su cento è andata bene, mentre i
+    tiri si accumulano.</p>
+
+    <figure class="figura" data-figura="dado"></figure>
+
+    <p>Con un tiro solo non si impara niente. Con dieci si comincia a vedere qualcosa. Con
+    mille la quota si è assestata su Pn e non si muove più. È il motivo per cui il
+    simulatore non chiede mai di credere a un caso singolo — e il motivo per cui esiste
+    tutta la quarta parte di questo libro.</p>
+
+    <p>Da qui viene una regola tecnica che protegge da un difetto molto comune: <b>il tiro non
+    modifica Pn</b>. Se la probabilità era 70 e il dado ha dato 95, la probabilità resta 70.
+    Il risultato è sfavorevole, ma la stima non era per forza sbagliata. Potrebbe esserlo,
+    certo. Per saperlo, però, serve una serie, non un episodio.</p>
+
+    <p>La tentazione di saltare quel passaggio è fortissima, e la conosciamo tutti. Appena
+    sappiamo com’è andata, ricostruiamo il percorso. E lo ricostruiamo come se il finale
+    fosse sempre stato scritto. Se il messaggio è stato accolto bene, diciamo che il tono era
+    giusto. Se ha prodotto una reazione fredda, rileggiamo le stesse identiche parole, e ci
+    troviamo subito l’errore. Aggiustare le variabili perché coincidano con l’esito non è
+    simulare. È raccontare una storia all’indietro, con l’aria di calcolare.</p>
+
+    <p>Resta una domanda pratica. Se il dado è casuale, come si fa a rifare due volte lo stesso
+    conto e ritrovare gli stessi numeri? La risposta si chiama
+    «<span data-parola="seme">seme</span>». Il generatore del simulatore non produce un caso
+    vero. Produce una sequenza decisa da un numero di partenza, e con lo stesso seme i tiri
+    sono sempre gli stessi.</p>
+
+    <p>Il seme serve a tre cose. La prima è controllare: chiunque, un collega oppure
+    l’autore stesso sei mesi dopo, deve poter rifare il conto e ritrovare le stesse cifre.
+    La seconda è confrontare in modo pulito. Si rigioca la stessa mattina cambiando una
+    condizione sola, e i tiri restano identici, quindi tutto quello che cambia negli esiti
+    viene da quella condizione, e da nient’altro. La terza è una disciplina: con il seme
+    fisso nessuno può rilanciare finché non esce il numero comodo. Una cautela, però.
+    Ripetibile non vuol dire vero, e su una scena descritta male una sequenza ripetibile
+    produce sempre lo stesso errore.</p>
+
+    <p>Il dado, alla fine, mette due limiti opposti, ed è forse il contributo più utile che
+    dà al modello. Il primo è un limite al controllo. Chi crede di poter governare ogni
+    conseguenza si carica di una responsabilità impossibile: un messaggio scritto bene, nel
+    momento giusto e con rispetto, può comunque essere letto male. La cura aumenta la
+    probabilità, ma non garantisce l’esito. Il secondo è un limite all’alibi. Chi arriva
+    senza preparazione, con informazioni vaghe, poco tempo e carico alto, non può chiamare
+    sfortuna ogni esito storto, perché lì il dado è stato tirato in una scena già
+    impoverita. La prima correzione, in quel caso, non è sperare in un tiro migliore. È
+    cambiare Pn.</p>
+
+    <div class="riquadro-attenzione">
+      <p><b>Il domicilio del dado:</b> il dado non deve assorbire ciò che era già visibile.
+      Se una persona dorme quattro ore da giorni, quello non è caso: è <b>E</b> e
+      <b>STR</b>. Se non capisce il testo perché è opaco, è <b>I</b>. Chiamare caso ciò che
+      era già nella scena significa nascondere dati. Il dado rappresenta la variabilità
+      <em>minuta e ordinaria</em> che resta dopo una buona analisi, e niente di più.</p>
+    </div>
+  </section>
+
+  <section class="capitolo">
+    <h2>Il margine: non se è riuscita, ma di quanto</h2>
+
+    <p>Il dado, da solo, dà una risposta di due parole, e quel verdetto, riuscito oppure
+    non riuscito, butta via l’informazione più utile. Due azioni possono riuscire tutt’e due
+    e raccontare storie diverse. Una attraversa il nodo con spazio, quasi senza consumare
+    risorse. L’altra passa appena, con il fiato corto, e lascia la persona tesa, e incerta
+    sul passaggio dopo.</p>
+
+    <p>Il «margine» recupera quell’informazione con una sottrazione. Le sottrazioni scritte
+    sono due, ma il margine è uno solo: cambia solo il verso, cioè quale dei due numeri sta
+    sopra e quale sta sotto.</p>
+
+    <div class="formula-libro" data-formula="margini"></div>
+
+    <p>Se il tiro riesce, il margine è la distanza sotto la soglia. Se fallisce, è la distanza
+    sopra. Sono entrambi numeri positivi. Si leggono con tre fasce: <b>0–9 fragile</b>,
+    <b>10–24 normale</b>, <b>25 e oltre forte</b>.</p>
+
+    <p>Un esempio del libro mostra quanto cambi la conversazione. Elena deve accompagnare il
+    figlio a scuola e poi entrare al lavoro. Ci sono lo zaino, le chiavi, la merenda, la
+    giacca, il traffico, un messaggio del collega, e un bambino che procede con il suo passo.
+    Il nodo «uscire entro l’orario utile» esce dalla taratura con probabilità 67. Adesso
+    guardiamo quattro mattine, non quattro Elene. La stessa scena, quattro tiri.</p>
+
+    <p>Con 28 il margine vale 39. La partenza è larga, tanto che una chiave fuori posto o una
+    telefonata vengono assorbite. Con 65 il margine vale 2. Escono lo stesso, in orario, e
+    da fuori non è cambiato niente. Dentro, quella mattina è passata sul filo: chiamarla
+    soltanto «riuscita» sarebbe una lettura falsa, per eccesso di ottimismo. Con 72 il
+    ritardo arriva, ma la soglia è mancata per 5. Basterebbe preparare la merenda la sera
+    prima, o togliere il telefono dalla scena dell’uscita. Con 94 è mancata per 27, e lì non
+    ha inciampato niente: era la scena a essere troppo stretta per reggere. Quattro numeri,
+    quattro discorsi diversi. Fermandosi al verdetto ne resterebbero due, e in metà delle
+    mattine si direbbe la cosa sbagliata.</p>
+
+    <p>Quattro tiri, però, sono pochi per vedere che forma abbiano i margini. Guardiamone
+    duemila.</p>
+
+    <figure class="figura" data-figura="margine"></figure>
+
+    <p>La zona colorata al centro è la fascia fragile. Lì dentro c’è quello che conta capire: <strong>un
+    successo con margine 3 e un fallimento con margine 3 sono la stessa mattina</strong>. Sono
+    passati tutti e due sul filo. La prossima volta potrebbero andare al contrario, senza che
+    sia cambiato niente.</p>
+
+    <p>Ecco perché il libro insiste che il margine conti più dell’esito. Riuscire per un
+    punto e riuscire per quaranta lasciano scritta la stessa parola, ma sono due sistemi
+    diversi. Nel primo caso la persona ha attraversato il ponte strisciando contro il bordo,
+    nel secondo è passata al centro. Da nessuna parte al mondo, in nessun gestionale, in
+    nessuna agenda, in nessuna valutazione di fine anno, resta traccia di quella differenza.
+    Il <span data-parola="margine">margine</span> è l’unica cosa che la vede.</p>
+
+    <p>Da qui nasce una regola pratica, che manda in pensione molti consigli inutili.
+    <strong>La correzione va tenuta in proporzione alla distanza.</strong> Davanti a una
+    soglia mancata per pochi punti, si propongono quasi sempre soluzioni enormi: «devi
+    organizzarti meglio». E invece basterebbe controllare prima gli ingredienti. O scegliere
+    un piatto con meno passaggi. Davanti a un fallimento netto succede il contrario. Si
+    suggeriscono ritocchi. Ma cinque minuti in più non salvano una scena fuori scala. Un
+    elenco di cose da fare non toglie un carico che dura da settimane. E spostare un oggetto
+    non salva una giornata senza recupero.</p>
+
+    <p>C’è poi un uso del margine che va oltre il singolo episodio. Una fila di margini
+    racconta una tendenza. Chi arriva puntuale ogni mattina con due punti di margine vive
+    dentro una puntualità fragile. Chi consegna sempre al limite lavora dentro un’efficienza
+    rischiosa. Il mondo vede che le cose vengono fatte, e non vede quanto spazio è rimasto.
+    Vale anche al contrario, ed è meno ovvio. Alcune persone non riconoscono i propri
+    margini larghi, e trattano ogni riuscita come appena sufficiente. A loro il numero dice
+    una cosa sobria: in quel passaggio lo spazio c’era. Il margine lavora così contro due
+    autoinganni gemelli: fare un dramma di un passaggio riuscito bene, e trovare normale una
+    fila di riuscite quasi rotte.</p>
+
+    <p>Cambia anche il modo di fare le domande, ed è forse la parte che a chi legge resta
+    più impressa. «Sei riuscito?» chiude presto, mentre «quanto margine avevi?» apre. «Hai
+    sbagliato?» mette sulla difensiva, mentre «quanto eri vicino alla soglia?» permette di
+    guardare. Il margine, in fondo, trasforma il giudizio in progetto.</p>
+
+    <p>C’è un dettaglio d’ordine che conta: il margine si può calcolare <b>solo dopo</b> il
+    tiro. Prima del dado esiste Pn, e basta, e questo impedisce di aggiustare la scena a
+    posteriori. Non si può dire «è fallito di molto, quindi Pn era sbagliato». E il margine,
+    una volta calcolato, non è ancora al sicuro, perché c’è qualcosa che può ridurlo
+    dopo.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>Quando il campo risponde</h2>
+
+    <p>Quel qualcosa è una famiglia di ostacoli che non sta né nell’ambiente né nella
+    complessità, perché sono gli ostacoli che <strong>reagiscono al tentativo</strong>. Il
+    cane che tira proprio mentre apri la porta. L’applicazione che rifiuta il codice proprio
+    adesso. La serratura che si inceppa, e l’altra persona che alza il tono quando tu abbassi
+    il tuo.</p>
+
+    <p>Un ambiente difficile ma fermo sta dentro la formula, in <b>M</b>, <b>I</b>, <b>T</b>
+    o <b>C</b>. Un ambiente che risponde sta <em>fuori</em>, e agisce dopo il dado,
+    togliendo margine a un esito già deciso. Il modello lo chiama
+    <span data-parola="campo">campo attivo</span>.</p>
+
+    <p>La distinzione è la più delicata di tutte, e si impara meglio a coppie. Se la cucina è
+    già buia prima che io mi alzi, siamo dentro <b>M</b>. Se durante il gesto la sedia si
+    sposta, siamo nel campo. Se so che la connessione è instabile, deve saperlo <b>M</b>. Se
+    il sito cade proprio nel momento in cui premo invio, il campo ha risposto. Se so di
+    avere poco tempo, siamo dentro <b>T</b>. Se qualcuno mi impone una scadenza nuova mentre
+    sto lavorando, il campo ha risposto.</p>
+
+    <p>Il criterio è doppio, e vanno soddisfatte tutt’e due le metà. La risposta deve
+    arrivare <em>dopo</em> il tentativo, e deve essere davvero una risposta. Non basta dire
+    «era difficile»: bisogna poter dire che cosa ha reagito, in quale momento, e con quale
+    effetto sul margine.</p>
+
+    <div class="formula-libro" data-formula="margine_netto"></div>
+
+    <p>Tutta la questione sta nel punto in cui entra questa sottrazione, e la matematica lo
+    rende evidente. La risposta del campo compare <strong>qui</strong>, dopo il tiro, e non
+    dentro la somma iniziale. Metterla là vorrebbe dire far pagare due volte lo stesso
+    ostacolo. Una volta abbassando la probabilità, e un’altra togliendo margine
+    all’esito.</p>
+
+    <p>Un conto piccolo mostra come lavora la sottrazione. Una persona ha probabilità 68 e tira
+    52. Il margine è 16, e il gesto passa. Se durante il passaggio il campo oppone una
+    resistenza che vale 10, il margine netto scende a 6. Il gesto passa ancora, però adesso
+    è fragile. Se la resistenza vale 20, il margine netto diventa negativo. Quello che
+    sembrava superato viene sporcato, o ribaltato del tutto.</p>
+
+    <p>Da qui si capisce perché scene che sembrano identiche finiscano in modi lontanissimi.
+    Due persone caricano lo stesso modulo sullo stesso sito. La prima è arrivata lì con
+    largo margine: documenti pronti, connessione stabile, tempo abbondante. Il sito chiede
+    una conferma in più, e la scena si complica, ma regge. La seconda era già al limite:
+    fretta, stanchezza, istruzioni lette di corsa. Lo stesso identico intoppo la blocca.
+    L’evento è lo stesso. Lo spazio che c’era per assorbirlo, no. Non è quasi mai
+    l’imprevisto in sé a rovinare una scena. È l’imprevisto che arriva quando non è rimasto
+    più spazio.</p>
+
+    <p>È la regola che il libro applica alla «scheda del cane», cioè all’esempio del cane
+    che tira il guinzaglio, visto qui sopra. Lì il gesto parte da una
+    probabilità di cinquanta: <em>il cinquanta descrive la scena senza il cane che tira; il
+    cane entra dopo</em>. Sembra un cavillo, e non lo è. È la differenza fra un modello che
+    conta una volta e uno che conta due volte. E un modello che conta due volte produce numeri
+    che sembrano precisi, e non lo sono.</p>
+
+    <p>C’è però una conseguenza che protegge dall’abuso opposto. L’abuso è chiamare campo
+    qualunque cosa vada storta. Una porta che si inceppa tutte le mattine non è più una
+    sorpresa. È ambiente conosciuto, e va preparata prima. Un sito che si blocca sempre allo
+    stesso passaggio non è una risposta improvvisa del mondo. È un rischio prevedibile. Una
+    persona che reagisce ogni volta allo stesso argomento non è un imprevisto. Quel modo di
+    rispondere deve entrare nella scena di partenza. Se ogni ostacolo diventasse campo attivo,
+    le cinque condizioni della formula non servirebbero più a niente.</p>
+
+    <p>Resta l’effetto meno visibile, e forse il più importante. Il campo può contestare senza
+    far fallire niente, e costare lo stesso. La pratica si chiude, ma dopo tre tentativi e
+    un’ora di tensione. Si arriva in cucina, ma con la schiena contratta. Si risponde al
+    messaggio, e si resta agitati. In una mattina intera del libro, raccontata in
+    cinquecento passaggi, il campo si è fatto sentire undici volte: cioè nel 2,2 per cento
+    dei gesti, con una forza che è andata da 3 a 17. Nessuno di quegli undici nodi è stato
+    ribaltato. Non perché il campo fosse gentile: perché il margine c’era. È la ragione per
+    cui chi tiene insieme tutto sembra efficiente da fuori. Spesso non attraversa scene
+    facili: assorbe, una dopo l’altra, risposte del campo che gli altri non vedono.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>I nove esiti, e che cosa resta dopo</h2>
+
+    <p>Con la probabilità, il tiro, il margine e l’eventuale risposta del campo si arriva
+    all’esito. Ma «riuscito» e «fallito» sono due caselle, e la vita ne ha di più. Il canone
+    — il testo che il simulatore non può cambiare — ne riconosce <strong>nove</strong>. La
+    ragione sta in una frase: <em>riuscire non significa stare bene</em>.</p>
+
+    <p>Ci sono quattro modi di riuscire: pulito, costoso, danneggiato, tossico. Più uno che il
+    modello tiene separato, perché è il più insidioso: <em>successo tecnico, fallimento
+    umano</em>. Il compito è fatto, la persona no. E ci sono quattro modi di non riuscire,
+    dal fallimento lieve al quasi-collasso.</p>
+
+    <p>I nomi da soli non bastano. Fra due esiti vicini la differenza è spesso una riga sola,
+    ed è quella riga che il modello guarda. Una riuscita è <b>pulita</b> quando lo stato
+    dopo non è peggiore di quello prima. È <b>costosa ma sostenibile</b> quando serve una
+    pausa vera, e quella basta. È <b>danneggiata</b> quando almeno una cosa esce peggiorata,
+    e ci resta. È <b>tossica</b> quando riuscire <em>in quel modo</em> conferma un assetto
+    che consuma: cioè quando la riuscita insegna al sistema una regola sbagliata. Nel quinto
+    caso la prestazione c’è, e chi l’ha fatta ne esce impoverito.</p>
+
+    <p>Dall’altra parte, un fallimento è <b>lieve</b> quando il danno resta contenuto e la
+    ripresa è a portata di mano. È <b>tecnico</b> quando la causa è locale e strumentale, e
+    non è la persona. È <b>sistemico</b> quando ha trascinato più livelli insieme. Allora non
+    è un errore, ma un segnale sulla direzione. Il <b>quasi-collasso</b>, infine, chiede che
+    molti indicatori rossi arrivino insieme. Serve che convergano, non che uno solo sia
+    fortissimo. Per come è costruito, resta raro.</p>
+
+    <p>Quale dei nove esce non dipende solo dal dado. Dipende anche dallo stato con cui si
+    è entrati nel gesto. La figura qui sotto lo mostra tenendo fermo il gesto e cambiando
+    soltanto il carico.</p>
+
+    <figure class="figura" data-figura="esiti"></figure>
+
+    <p>A carico basso, la maggior parte delle riuscite sono pulite. Man mano che il carico
+    sale, la stessa identica azione comincia a produrre riuscite costose. Poi diventano
+    danneggiate. Non è la persona a peggiorare: è diverso il sistema da cui la prestazione
+    viene estratta. Ecco perché il rapporto finale non deve scrivere «vittoria» quando una consegna
+    arriva da un carico a 82. Deve scrivere che una prestazione è stata estratta da un sistema
+    in rosso.</p>
+
+    <p>Ci sono però due automatismi da smontare, e sono quelli su cui sbagliano quasi tutti
+    i sistemi che provano a misurare una giornata. Il primo è credere che ogni gesto
+    impegnativo alzi il carico, e che ogni riuscita lo abbassi. Non è così: conta il modo in
+    cui il gesto è passato. Con margine, con la scena capita e il tempo per correggere, anche
+    un passaggio complicato può lasciare una soddisfazione che tiene. Con fretta, paura e
+    nessun recupero, il carico sale malgrado l’esito positivo. Il secondo automatismo è il
+    rovescio del primo. Una pratica lasciata a metà può lasciare disordine e sfiducia, ma può
+    anche lasciare chiarezza: «ho capito che manca un documento, domani lo recupero». In
+    quel caso il dopo è più ordinato del prima.</p>
+
+    <p>La frase che riassume tutt’e due sta nel libro: <em>non ogni riuscita migliora lo stato,
+    non ogni fallimento lo peggiora</em>. Ci sono anzi gesti piccoli che funzionano da
+    riparazione. Pagare una bolletta. Chiarire un messaggio rimasto ambiguo. Fare una
+    telefonata rimandata da giorni. Non arriva nessun premio. Si libera un po’ di spazio, e
+    il passaggio dopo parte con meno «rumore», cioè con meno attrito da assorbire.</p>
+
+    <p>È anche il motivo per cui «tutto fatto» è una risposta vera e povera insieme, perché
+    dentro quelle due parole ci stanno due mattine diverse. Nella prima le cose sono state
+    attraversate con margine, e gli intoppi sono stati assorbiti. Il corpo è stanco in modo
+    ordinario, e il passo successivo si legge senza sforzo. Nella seconda il risultato
+    esterno è identico, ma ogni passaggio ha chiesto di compensare. La telefonata ha lasciato
+    tensione, una frase è rimasta in sospeso, e il «rientro» (il momento in cui ci si ferma, a fine
+    giornata) non ha prodotto recupero. Anche qui
+    è tutto fatto, e il sistema è più fragile. Distinguere queste due mattine è una delle
+    ragioni per cui il simulatore esiste.</p>
+
+    <p>E c’è l’ultima cosa, quella che apre tutta la seconda metà del libro: un nodo non
+    finisce quando finisce. <strong>Quando è passato, resta uno stato</strong>, e quello stato
+    è il punto di partenza del gesto successivo.</p>
+
+    <figure class="figura" data-figura="statodopo"></figure>
+
+    <p>Lo stesso gesto, giocato con un tiro fortunato e con uno sfortunato: non cambia solo
+    com’è andata. Cambiano il carico, l’<span data-parola="assetto">assetto</span>, il
+    debito e il <span data-parola="costo_nascosto">costo nascosto</span>. E cioè cambia
+    <em>da dove parte il gesto dopo</em>. Il capitolo seguente parla proprio di questo.</p>
+  </section>
+
+  <!-- ======================================================= PARTE TERZA -->
+  <p class="parte">Parte terza · Che cosa si accumula</p>
+
+  <section class="capitolo">
+    <h2>La catena: il carico passa al gesto dopo</h2>
+
+    <p>Un gesto solo dice se una cosa riesce, ma non dice che cosa costa averla fatta. Il
+    costo si vede dopo, nel gesto seguente, che parte da un po’ più in salita.</p>
+
+    <p>Il «livello» della «<span data-parola="catena">catena</span>» (un livello è quanto
+    tempo si guarda per volta: un gesto, una mattina, una settimana, dei mesi) mette i gesti
+    in fila, uno dopo l’altro. Fa passare lo stato dall’uno all’altro. Nient’altro cambia: stessa formula, stesso
+    dado, stessi nove esiti. Cambia una cosa sola. Il carico con cui si affronta il gesto
+    numero diciassette è quello che i sedici gesti prima hanno lasciato.</p>
+
+    <p>Nel libro una catena è un gruppo di scene tenute insieme dalla vicinanza o dal tema:
+    la mattina prima del lavoro, un pomeriggio di commissioni, la sera con la cena, i
+    compiti, la doccia dei bambini e la borsa da preparare per il giorno dopo. Non è un
+    elenco di cose da fare. È un tratto di tempo in cui ogni pezzo lascia qualcosa al pezzo
+    successivo, e il modello serve a guardare proprio quei passaggi. Eccone una per intero,
+    dal primo gesto all’ultimo.</p>
+
+    <figure class="figura" data-figura="catena"></figure>
+
+    <p>Nella <a data-vedi="catena">figura</a> c’è una cosa che salta agli occhi, ed è tutta
+    l’idea del livello. <strong>Nessuno dei trenta gesti, preso da solo, sarebbe degno di
+    nota.</strong> Sentire la sveglia, vestirsi, cercare le chiavi. Eppure la linea sale, e a
+    fine mattina il carico è un altro.</p>
+
+    <p>È il motivo per cui una persona può arrivare alle nove e mezza già consumata, senza
+    riuscire a indicare che cosa sia successo. Non è successo niente: sono successi trenta
+    gesti ordinari. Il modello serve a rendere visibile quella somma, e a nient’altro.</p>
+
+    <p>Vale la pena dire con precisione che cosa passa da un gesto all’altro, e la metà
+    interessante è quella che <em>non</em> passa. Le cose che passano sono quattro. Il carico,
+    la protezione ancora attiva, e il costo che l’esito ha lasciato. E poi l’assetto, cioè
+    quanto la persona si sente ancora orientata dentro quello che sta facendo.</p>
+
+    <p>Non passa l’esito. Il fatto che il terzo gesto sia riuscito non entra nel quarto: entra
+    quello che quella riuscita è costata, non la riuscita in sé. Non passa la difficoltà. Un
+    gesto facile resta facile anche dopo un fallimento, e la sua probabilità di partenza non
+    eredita niente. Non passa il dado. Ogni tiro è indipendente, e la sfortuna non si
+    accumula. E non passa la colpa. Qui non è una nota morale, ma una precisazione tecnica: il
+    carico sale perché è successo qualcosa di faticoso, non perché qualcuno abbia sbagliato.</p>
+
+    <p>C’è invece una cosa che può nascere soltanto a questo livello, e prima no: il <span
+    data-parola="debito">debito</span>. Per esistere ha bisogno di ripetizione. Dentro un
+    gesto isolato non c’è ancora niente da ripetere. Serve la stessa strada tentata di nuovo,
+    con il carico già alto, senza cambiare rotta e senza una pausa vera.</p>
+
+    <p>E c’è l’errore proprio della catena. È l’opposto di quello del gesto singolo. Il gesto
+    singolo lo si sbaglia gonfiandolo: si legge un inciampo come se raccontasse una vita
+    intera. La catena si sbaglia nel verso contrario. Si leggono troppo presto tre scene
+    difficili di fila come se fossero già un modo di vivere. Non lo sono: sono tre scene
+    difficili di fila. Un modello che dichiara un periodo nero al terzo inciampo perde
+    credibilità, tanto quanto quello che non lo dichiara mai. Il livello che risponde
+    davvero a quella domanda arriva fra quattro capitoli.</p>
+
+    <p class="nota">Una catena vera, ricalcolata gesto per gesto, si vede in <a
+    class="rimando" href="CATENA.html">CATENA.html</a>. C’è il controllo anti-repliche, che
+    segnala i gesti copiati senza un’azione vera in più. E c’è l’analisi statistica su
+    migliaia di ripetizioni (la stessa scena rigiocata con dadi diversi).</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>Quanto passa davvero al gesto dopo</h2>
+
+    <p>Prima di arrivarci resta una domanda più vicina: <strong>quanto</strong> dello stato
+    di un «gesto» passa al gesto successivo? Il gesto è la singola azione che il modello
+    valuta, il mattone minimo con cui si costruiscono scene e giornate. La risposta a quella
+    domanda è un numero misurato, non una scelta di comodo.</p>
+
+    <p>La risposta ingenua è «tutto»: se un gesto mi ha stancato, la stanchezza resta. Ed è
+    quello che il modello faceva all’inizio, con un risultato preciso. Una mattina raccontata
+    con qualche decina di gesti arrivava a toccare il «tetto», cioè cento: il valore più alto
+    che il modello sa scrivere. Da lì in poi il modello non distingueva più niente.</p>
+
+    <p>La risposta opposta sbaglia dall’altra parte, e il libro la scarta con la stessa
+    nettezza. Se lo stato si azzerasse al cambio di gesto, che cosa succederebbe? Prendiamo
+    una persona che ha appena sbagliato due volte il codice. Affronterebbe il terzo tentativo
+    con la stessa calma del primo. Nella vita vera questo non succede mai. Le due frasi stanno
+    insieme in una riga sola del canone: <em>se si trasferisce tutto, il modello diventa
+    troppo punitivo; se si azzera tutto, diventa ingenuo</em>. La via di mezzo non è un
+    compromesso fra due pigrizie. È l’unico posto in cui il modello continua a dire qualcosa.</p>
+
+    <p>La misura dice un’altra cosa. È stata fatta sui cinquecento «nodi» (i singoli passaggi
+    in cui si scompone una scena, quando la si racconta un pezzo alla volta) del capitolo 28.
+    Il fattore di trasferimento — lo chiamiamo <b>τ</b>, la lettera greca «tau» — vale
+    circa <b>0,0462</b>. Cioè il <strong>quattro virgola sei per cento</strong>. La figura qui
+    sotto mette quel numero accanto al cento per cento della risposta ingenua.</p>
+
+    <figure class="figura" data-figura="trasferimento"></figure>
+
+    <p>La differenza non è una sfumatura di taratura, ed è quello che la <a
+    data-vedi="trasferimento">figura</a> serve a mostrare. Con il trasferimento pieno la
+    stessa identica mattina arriva al tetto, e da lì in poi il modello dice «cento» a una
+    giornata pesante e «cento» a un quasi-collasso. Ha smesso di misurare.</p>
+
+    <p>Un numero così piccolo sembra un modo elegante di dire zero. Non lo è, per un motivo
+    che vale la pena capire. Il modello non applica <b>τ·Δ</b> e poi arrotonda. <b>Δ</b> è la
+    lettera greca «delta», e sta per la variazione che il gesto ha appena prodotto. Se lo
+    facesse, con τ così piccolo quasi ogni gesto passerebbe zero. Cinquecento gesti non
+    sposterebbero niente. Le frazioni vengono invece <strong>messe da parte</strong> in un
+    accumulatore. Quando maturano un punto intero, quel punto passa. È la differenza fra «ogni
+    goccia evapora» e «le gocce riempiono il bicchiere».</p>
+
+    <p>Resta l’errore di lettura da evitare, ed è quello che viene spontaneo a tutti. Quattro
+    e sei per cento non vuol dire che i passaggi piccolissimi non contino. Vuol dire che
+    contano <strong>poco ciascuno</strong>. La differenza fra le due frasi è enorme. Prendiamo
+    cinquecento passaggi, e ognuno trasmette il quattro e sei per cento del proprio effetto.
+    Insieme non producono il quattro e sei per cento del totale. Producono la somma di
+    cinquecento contributi piccoli. Nella mattina che il libro ha misurato, quella somma ha
+    spostato il «carico» (la pressione accumulata che la persona si porta dietro dai giorni prima) di sedici punti,
+    l’«assetto» (quanto resta orientata dentro la scena, invece di allontanarsene) di undici e
+    il «costo nascosto» (il prezzo che paga anche quando il gesto riesce) di dieci. La
+    direzione l’hanno data i passaggi piccolissimi. E nessuno di loro, da solo, avrebbe potuto
+    imporla.</p>
+
+    <p>Su quel numero va detta un’ultima cosa, perché serve a maneggiarlo bene. Lo
+    0,0462 è una media osservata in una sola lunga sequenza, non una regola fissata nel libro:
+    un’altra sequenza, calcolata con un’altra taratura, potrebbe restituire un numero un po’
+    diverso. E vale soltanto per i frammenti piccolissimi di un gesto: non dice niente su
+    quanto passi fra un gesto pieno e l’altro, fra una «scena» (una fila di gesti raccontati di
+    seguito, come attraversare una stanza) e la seguente, o fra un giorno e il giorno dopo.
+    Quello che il canone afferma davvero è più semplice e più largo, e vale a ogni scala. Più
+    il passaggio è piccolo, meno deve trasferire. Più la scala è lunga, più conta quello che si
+    trasferisce. E il recupero non è mai né pieno né nullo.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>La stessa giornata, raccontata più fine</h2>
+
+    <p>Quanto un passaggio sia piccolo, però, non lo decide il passaggio. Lo decide chi lo
+    racconta: la stessa giornata pesa in modo diverso a seconda che la si racconti a grandi
+    tratti o gesto per gesto. Ed è lì che un modello temporale può fare un errore difficile da
+    vedere, perché somiglia a una virtù.</p>
+
+    <p>Una giornata la si può raccontare con sei gesti o con novantasei. Nel primo caso si
+    dice «mi sono alzato, ho fatto colazione, sono uscito». Nel secondo si aprono i
+    passaggi: il piede fuori dal letto, la mano sull’interruttore, il bollitore, la tazza.
+    È lo stesso giorno, guardato da più vicino.</p>
+
+    <p>A un certo punto della sua storia, il modello dava questi risultati. Con sei nodi, carico finale
+    sessantatré. Con novantasei nodi, carico finale cento. <strong>Chi raccontava meglio la
+    propria giornata veniva punito per averlo fatto.</strong> E non era una sfumatura: era la
+    differenza fra «giornata pesante» e «quasi-collasso».</p>
+
+    <p>La correzione è semplice, una volta detta. Se una giornata è una giornata, deve pesare
+    come una giornata, comunque la si racconti. Quindi non si fa pesare ogni nodo per sé. Si
+    decide quanto pesa il giorno intero, e quel peso si chiama <b>k</b>. Poi lo si divide per
+    quanti nodi lo descrivono, cioè per un numero che si chiama <b>g</b>.</p>
+
+    <div class="formula-libro" data-formula="granularita"></div>
+
+    <p>Tutta l’idea sta nella frazione <b>k/g</b>. Se i nodi raddoppiano, ciascuno pesa la metà, e
+    il giorno pesa uguale. Il <b>min</b> con uno — cioè il minore fra uno e quella frazione —
+    serve al caso opposto, quando i nodi sono pochissimi. Senza quel min, una giornata
+    raccontata con un gesto solo peserebbe <em>più</em> di un giorno intero. E questo non ha
+    senso.</p>
+
+    <p>Lo stesso tratto di tempo, raccontato cinque volte, ogni volta con più nodi per
+    giorno:</p>
+
+    <figure class="figura" data-figura="granularita"></figure>
+
+    <p>A sinistra il modello com’era; a destra com’è. E il valore di k non è stato scelto a
+    occhio. Prima sono stati scritti <b>sette criteri</b>, e ognuno chiede al modello una cosa
+    precisa. Che non saturi, cioè che non finisca schiacciato contro il tetto, dove tutte le
+    giornate si somigliano. Che tenga raro il quasi-collasso. Che continui a distinguere una
+    giornata dall’altra. Che sia monotono, cioè che a una giornata più pesante corrisponda
+    sempre un numero più alto, senza tornare indietro. Che sia reversibile, cioè che dopo il
+    riposo quel numero possa davvero scendere. Che regga la <span
+    data-parola="granularita">granularità</span>, cioè il grado di dettaglio con cui la
+    giornata viene raccontata. Sei nodi o novantasei devono pesare uguale. E che resti
+    informativo, cioè che alla fine il numero abbia ancora qualcosa da dire. Solo dopo si è
+    cercato il valore che li soddisfa tutti insieme. I valori che ci riescono stanno in una
+    banda stretta, fra 2,5 e 3,0. Il centro è <b>2,75</b>.</p>
+
+    <p>Un criterio scritto dopo aver visto il risultato non è un criterio, è una
+    giustificazione. Per questo sono stati scritti prima, e ognuno viene da una fonte del
+    progetto che esisteva già.</p>
+
+    <p>C’è però un rovescio della medaglia, e va detto qui. Altrimenti il fattore k sembra un
+    permesso di spezzare all’infinito. Aprire un gesto in pezzi serve finché i pezzi sono
+    davvero diversi l’uno dall’altro. Quando non lo sono, nasce quello che il libro chiama
+    <em>nodo a vuoto</em>. È un’unità che non aggiunge comprensione, e che produce comunque
+    numeri. La seconda metà della frase è la parte pericolosa. Il modello, davanti a un nodo,
+    fa sempre il suo mestiere. Calcola la probabilità, tira il dado, misura il «margine»
+    (quanto lontano dalla soglia il risultato è caduto), classifica l’«esito» (il risultato
+    finale, uno dei nove possibili). Produce dati impeccabili per un momento che non è mai
+    esistito.</p>
+
+    <p>L’esempio che lo mostra meglio è costruito apposta. Una persona attraversa il salotto
+    per andare in cucina: sei metri. Un programma che spezza i gesti in automatico trasforma
+    quel gesto in duecento «fotogrammi»: istantanee minuscole del gesto, come i fermo-immagine
+    di un film. Tutti hanno la stessa fattibilità di partenza, lo stesso corpo, lo stesso
+    ambiente. Poi ogni fotogramma tira il dado. E il dado ogni tanto fa venti. Su duecento tiri
+    con probabilità novantacinque, una decina va male. Il rapporto finale dirà una cosa
+    precisa: durante l’attraversamento del salotto si registrano dieci inciampi. Sarà scritto
+    in italiano corretto, sarà appoggiato ai dati, e sarà comunque falso. Il modello ha
+    calcolato benissimo dieci volte una cosa che non era successa nemmeno una.</p>
+
+    <p>La differenza non sta nei sei metri, ma in quello che succede dentro quei sei metri.
+    Prendiamo la stessa persona, che attraversa lo stesso salotto con le stampelle. Adesso
+    scomporre diventa legittimo. L’appoggio, il trasferimento del peso, il tappeto e il
+    cambio di direzione hanno funzioni diverse, e rischi diversi.</p>
+
+    <p>E cambia anche il conto. Prendiamo dieci passaggi al novantacinque per cento. Trattati
+    come dieci occasioni separate di sbagliare, riescono tutti insieme soltanto in sei casi su
+    dieci, circa. Trattati come un passaggio solo, con un tiro solo, riescono nel
+    novantacinque per cento. Nessuna delle due risposte è sbagliata in assoluto. Rispondono a
+    domande diverse. Dieci codici da digitare sono davvero dieci occasioni di sbagliare.
+    Attraversare una stanza, invece, non è dieci volte il rischio di inciampare. È una volta
+    il rischio di attraversare una stanza.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>La settimana, e la notte in mezzo</h2>
+
+    <p>Una giornata, comunque la si racconti, finisce dove comincia il buio: nessuna
+    catena ha la notte dentro. Il «livello» della settimana sì — un livello, per il modello, è
+    uno dei gradini con cui si legge il tempo, dal gesto singolo fino a molte settimane di fila
+    — ed esiste per questo: perché a quella distanza la domanda cambia. <em>Un gesto dice se
+    una cosa riesce. Una giornata dice quanto costa. Una settimana dice se il recupero
+    regge.</em></p>
+
+    <p>È la scala della ripetizione. Serve a vedere una cosa che le persone intuiscono quasi
+    sempre, senza riuscire a dirla: non è stato un giorno, è il ritmo che si è ripetuto. Una
+    mattina compressa si recupera. Tre mattine compresse di fila costruiscono un’altra cosa,
+    con il sonno corto, la partenza in ritardo e un aiuto che c’è solo a parole. Nessuno di
+    quei gesti, preso da solo, sembra grave. È la forma che produce la fatica (qui non
+    un’impressione: il costo che i gesti lasciano addosso, e che il giorno dopo si ritrova).</p>
+
+    <p>Qui sotto ci sono sette giorni di fila, con le sei notti in mezzo.</p>
+
+    <figure class="figura" data-figura="settimana"></figure>
+
+    <p>Il livello serve a vedere il rapporto fra i giorni e le notti. Finché la notte riporta
+    giù quanto il giorno ha messo su, il sistema è in pari. Poi la notte comincia a restituire
+    meno di quanto il giorno accumula. Da lì la linea sale. Lentamente, e senza che nessuna
+    singola giornata sia stata drammatica.</p>
+
+    <p>È la forma con cui il sovraccarico arriva davvero nella vita delle persone. Non con
+    un evento, ma con un saldo che si sposta di poco, ogni giorno, per settimane.</p>
+
+    <p>L’errore proprio di questo livello è il più insidioso di tutti. Sta in mezzo, e si può
+    sbagliare in due versi opposti. Se il modello lascia che una notte di sonno riazzeri
+    tutto, mente. Se non lascia rientrare niente, diventa una macchina che dopo dieci giorni
+    dichiara chiunque in crisi. Il libro non sceglie fra queste due strade. Le vieta tutt’e
+    due, e chiede al recupero di esserci senza essere completo.</p>
+
+    <p>C’è poi una «soglia» — cioè un valore limite oltre il quale il comportamento del
+    modello cambia bruscamente — sotto la quale il «rientro» (cioè il recupero) smette di
+    essere immediato. Il libro la chiama <span data-parola="pavimento">pavimento</span>: è la
+    protezione che il modello accende da solo quando il carico è salito troppo, e da cui un
+    riposo ordinario restituisce solo una parte. Gli esempi che ne dà sono volutamente
+    concreti, e li riconosce chiunque. Una tensione arrivata a novanta non rientra con dieci
+    minuti di pausa. Un debito alto non si azzera con una promessa. Chi accudisce qualcuno da
+    mesi non si rimette in pari con un «riposati un po’». Il pavimento non dice che il
+    recupero sia impossibile. Dice che chiede altro: più tempo, più leve insieme, un aiuto vero
+    e non simbolico, meno carico da portare. La differenza è pratica, e cambia a chi si dà la
+    colpa. Se una pausa dovesse bastare e non basta, sembra che la persona non sappia nemmeno
+    riposare. Riconoscere il pavimento sposta la lettura. Non è la persona che recupera male: è
+    la soglia che chiede più di una «leva», cioè più di una cosa da cambiare.</p>
+
+    <p>Vale anche la pena distinguere il recupero dal sollievo. Si somigliano, e non sono la
+    stessa cosa. Il sollievo cerca di far stare meglio adesso. Il recupero cerca di far
+    ripartire meglio il sistema. Qualche volta coincidono: dormire quando si è esausti dà
+    sollievo e riporta indietro qualcosa. Qualche volta si separano. Una distrazione veloce è
+    piacevole e non riduce niente. Un chiarimento scomodo pesa sul momento, e toglie un carico
+    che durava da settimane. E un modello che misurasse soltanto quello che fa stare meglio
+    per qualche minuto scambierebbe l’anestesia per la cura.</p>
+
+    <div class="riquadro-attenzione">
+      <p><b>Una cosa che il modello dichiara di non sapere.</b> Quanto si recuperi in una
+      notte non è scritto in nessuna fonte del progetto. Il canone dice soltanto che «una
+      parte del costo passa avanti, ma non tutta» e che «una notte di riposo non azzera
+      automaticamente uno stress molto alto». Sono due vincoli detti a parole, non una regola
+      che si possa calcolare. I numeri che il software usa sono una <em>sua</em> scelta.
+      Stanno tutti in un file solo, dichiarato e versionato, che ogni pagina cita in fondo.</p>
+    </div>
+
+    <p class="nota">Sette giorni con le sei notti in mezzo si vedono in <a class="rimando"
+    href="SETTIMANA.html">SETTIMANA.html</a>. Le due soglie del pavimento sono ricalcolate
+    nel browser, ogni volta che la pagina si apre.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>La traiettoria, e la spirale</h2>
+
+    <p>Una settimana difficile non dice niente. Dodici settimane nella stessa direzione
+    dicono tutto. Il livello più lungo non chiede «com’è andata questa settimana»: chiede
+    <strong>se sta cambiando il modo di vivere</strong>.</p>
+
+    <p>Le domande che fa sono quattro, e riguardano tutte la direzione, non il punto. La
+    persona sta recuperando margine, oppure lo sta perdendo? I successi che costano stanno
+    diventando la regola invece dell’eccezione? Le pause sono vere, o servono soltanto a non
+    sentire? Il carico rientra dopo i picchi, oppure resta lì e il picco dopo riparte più in
+    alto?</p>
+
+    <p>Il modello dà un nome a quel modo di vivere, e lo chiama «<span
+    data-parola="regime">regime</span>». Non è un giudizio sulla persona. È una descrizione
+    dello stato del sistema, e cambia quando quello stato attraversa certe soglie. I nomi sono
+    sei, e stanno in scala dal più leggero al più difficile da rompere: episodio isolato,
+    catena breve, mini-settimana leggera, ripetizione pesante ma ancora recuperabile, «spirale»
+    in formazione, spirale stabilizzata (una spirale è un giro che si stringe: la stanchezza
+    peggiora le condizioni, e le condizioni peggiori aumentano la stanchezza). Il passaggio
+    che conta è quello dal quarto al quinto. È lì che il recupero smette di bastare. Ecco dodici settimane in fila. Guardandole, la
+    domanda da farsi non è quale sia la peggiore.</p>
+
+    <figure class="figura" data-figura="traiettoria"></figure>
+
+    <p>La domanda a cui il livello risponde non è <em>a che punto sono</em>, ma <strong>da
+    quanto va avanti così</strong>. E l’errore da cui difende è preciso: si può perdere la
+    «<span data-parola="traiettoria">traiettoria</span>» (la direzione che prendono molte
+    settimane di fila) vincendo. Una persona può riuscire in
+    moltissimi gesti. Può chiudere le scene, reggere le mattine e salvare le giornate una dopo
+    l’altra. E intanto scendere. È il rischio che il libro assegna proprio a questo livello, e
+    lo scrive in una riga: <em>ignorare una spirale che si sta formando mentre tutti i singoli
+    esiti sono positivi</em>. Un modello che guardasse solo gli esiti, lì, direbbe che va
+    tutto bene.</p>
+
+    <p>La <span data-parola="spirale">spirale</span>, poi, non è un brutto periodo. È un
+    regime che si tiene in piedi da solo. Il giro si riconosce facilmente, una volta detto: si
+    dorme poco, quindi il giorno dopo è più duro, quindi si dorme ancora peggio. Ognuno dei
+    due pezzi alimenta l’altro. Per questo spingere più forte non la rompe: la stringe. Se ne
+    esce togliendo una delle due condizioni, non aggiungendo volontà.</p>
+
+    <p>Il rischio di lettura, quassù, ha un nome semplice: scambiare il funzionamento esterno
+    per salute. Una traiettoria sana non è una fila infinita di prestazioni riuscite. È anche
+    il livello in cui il modello smette di essere uno strumento di calcolo. Diventa uno
+    strumento di lettura. Il numero, lassù, conta meno della direzione.</p>
+
+    <p class="nota">Molte settimane in fila si vedono in <a class="rimando"
+    href="TRAIETTORIA.html">TRAIETTORIA.html</a>. Il regime che tiene, migliora o peggiora
+    settimana dopo settimana. Dove una sequenza cede per prima lo mostra <a class="rimando"
+    href="INDAGINE.html">INDAGINE.html</a>. Lì c’è la curva di sopravvivenza, cioè quante
+    «giocate» (le prove ripetute della stessa scena, con dadi diversi) arrivano intere a ogni
+    passaggio.</p>
+  </section>
+
+  <!-- ====================================================== PARTE QUARTA -->
+  <p class="parte">Parte quarta · Che cosa si può sapere</p>
+
+  <section class="capitolo">
+    <h2>Un caso non basta</h2>
+
+    <p>Tutto quello che abbiamo visto fin qui produce <em>un</em> risultato: una mattina, un
+    esito, un numero finale. Ma quella mattina conteneva un dado. E il dado poteva uscire
+    diversamente. Quel numero è uno dei tanti possibili. Da solo non dice quanto sia tipico.</p>
+
+    <p>Davanti a una mattina finita male, la domanda che viene spontanea è «perché è finita
+    così», ed è la domanda sbagliata. Quella giusta è <strong>quante volte finisce
+    così</strong>. Se la risposta è tre volte su mille, quella mattina era il dado, e non
+    c’è niente da correggere. Se è novecento su mille, era la scena, e c’è tutto da
+    correggere. Sono due situazioni che chiedono comportamenti opposti, e una sola
+    esecuzione non permette in nessun modo di distinguerle.</p>
+
+    <p>La risposta è vecchia di ottant’anni, e si chiama <span
+    data-parola="monte_carlo">metodo Monte Carlo</span>. Il nome viene dal casinò, perché il
+    metodo è fatto tutto di tiri ripetuti. Non serve sapere altro per usarlo. <strong>Si
+    rigioca la stessa scena molte volte con dadi diversi, e si guarda la forma di quello che
+    esce.</strong> Ognuna di quelle partite si chiama <span
+    data-parola="giocata">giocata</span>. È la parola che questo libro userà da qui in avanti.
+    Mille giocate della stessa mattina danno la figura qui sotto.</p>
+
+    <figure class="figura" data-figura="distribuzione"></figure>
+
+    <p>Quella figura è una «<span data-parola="distribuzione">distribuzione</span>». Non è un
+    numero: è il disegno di quante volte ogni risultato è uscito su mille giocate. Ed è la
+    cosa che una giocata sola non può mostrare. Non dice «la mattina finisce a 52». Dice che
+    la mattina finisce quasi sempre in una «fascia» stretta, cioè in un intervallo di valori
+    vicini fra loro, e nel novanta per cento delle volte fra due valori che si possono dire.</p>
+
+    <p>Della forma si guardano tre cose, e la media è la meno interessante di tutte. La prima
+    sono i «percentili»: dicono dove cade una certa quota delle giocate, e quello a metà è la
+    mediana. La distanza fra il decimo e il novantesimo dice quanto la scena è stabile. Se è
+    corta, la mattina si comporta quasi sempre allo stesso modo. Se è lunga, l’esito dipende
+    molto da come gira. La seconda è la «coda», cioè le poche volte in cui va molto peggio del
+    solito: conta più di tutto il resto, perché chi deve decidere se anticipare la sveglia di
+    dieci minuti, o chiedere un aiuto, ha bisogno di sapere quanto è brutta la versione
+    peggiore, non quanto è tipica quella media. La terza, una giocata sola non la può mostrare,
+    perché lì il gesto o riesce o no: è quante volte è riuscito <em>per poco</em>. Un
+    nodo che riesce sempre, ma che nel quaranta per cento delle giocate riesce con due punti
+    di margine, non è un nodo solido. È un nodo che finora ha avuto fortuna.</p>
+
+    <p>E attenzione a un punto che si confonde sempre. Un <em>riassunto</em> non è una
+    distribuzione. Prendiamo media 71 e «deviazione» 9: la deviazione dice di quanto, di
+    solito, i risultati si allontanano dalla media. È il modo più corto di dire se una scena è
+    stabile o ballerina. Con quei due numeri soli non si distingue una gobba sola da due gobbe
+    lontane. E sono due situazioni molto diverse: la seconda dice che la stessa scena ha due
+    destini, non un destino incerto. Per questo la figura mostra la forma, e non solo i numeri
+    che la riassumono.</p>
+
+    <p>Per chiudere, c’è un confine che il libro scrive senza ammorbidirlo. Chi rigioca cento
+    volte una propria scena ottiene un’esplorazione interna al modello. Non ottiene una prova
+    su come vanno le cose nella vita: nessun dato del mondo è mai entrato in quel calcolo. È
+    la riga da leggere due volte. Il risultato somiglia moltissimo a una probabilità vera.
+    Stessa forma, stessa unità di misura, stessa fascia intorno. E non lo è. È la frequenza
+    con cui un modello, dentro le proprie regole, classifica un esito in un certo modo. Non è
+    la frequenza con cui quella cosa succede nel mondo.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>I due assi, che non si sommano mai</h2>
+
+    <p>Rigiocare costa poco, e così il conto delle giocate si confonde presto con il conto
+    delle osservazioni. Qui c’è un errore che il progetto ha davvero commesso. Vale la pena
+    raccontarlo, perché è il tipo di errore che non si vede nel risultato.</p>
+
+    <p>Un rapporto dichiarava «cinquecento nodi». Dentro c’erano quaranta gesti minimi,
+    ripetuti tredici volte ciascuno. Le copie erano distinte soltanto dal lancio del dado. E
+    nessuna passava alla successiva il proprio stato. Non erano cinquecento osservazioni.
+    Erano quaranta gesti, rigiocati.</p>
+
+    <p>Il meccanismo che li aveva moltiplicati era banale. Vale la pena guardarlo, perché
+    nessuno lo aveva costruito apposta. La scena era divisa in tredici blocchi grandi. Ogni
+    blocco applicava gli stessi quaranta gesti. Tredici per quaranta fa cinquecentoventi. Le
+    tredici copie differivano soltanto per l’etichetta messa davanti alla descrizione. Una
+    diceva «orientamento: la persona sente arrivare la telefonata». Un’altra diceva «chiusura:
+    la persona sente arrivare la telefonata». Stessa frase, stessa persona, stessa telefonata.
+    Stesso ingresso in ogni variabile della formula.</p>
+
+    <p>Ci sono due «assi»: due modi diversi di contare. Vanno tenuti separati, perché
+    rispondono a domande diverse, e non si sommano mai. La <strong>granularità</strong> è
+    quanti nodi distinti ha la scena, e la decide la descrizione: per avere più nodi bisogna
+    descrivere di più. Le <strong>ripetizioni</strong> sono quante giocate si fanno della
+    stessa catena, con dadi diversi. Non cambiano il numero di nodi, cambiano quanto possiamo
+    fidarci del risultato.</p>
+
+    <p>Il conto sta in una riga. Una scena con <b>g</b> nodi, rigiocata <b>r</b> volte,
+    richiede <b>g·r</b> calcoli in tutto. È la quantità di lavoro che fa il motore. Ma non è il numero giusto
+    quando si chiede quanto fidarsi del risultato. Prendiamo lo stato alla fine della scena:
+    per esempio il carico dopo l’ultimo gesto. Ogni giocata intera dà un solo valore di quel
+    tipo. Le <b>r</b> giocate danno allora <b>r</b> repliche di quella misura, non g·r. Una
+    replica è una ripetizione fatta da capo, con un dado diverso. I quaranta gesti dentro una
+    giocata restano legati fra loro. Non contano come quaranta misure a sé. Per stimare altro
+    bisogna ripartire da capo, e dire di nuovo che cosa si guarda, e da che cosa dipende.</p>
+
+    <figure class="figura" data-figura="assi"></figure>
+
+    <p>Torniamo al rapporto sbagliato di prima. Cinquecento diviso quaranta fa 12,5. Sembra un
+    fattore comodo: basterebbe moltiplicare ogni «intervallo» (la fascia di incertezza intorno
+    a un risultato) per la sua radice quadrata. Non basta. L’ampiezza dipende anche da altro:
+    da quanto la scena è varia, da come i gesti
+    dipendono l’uno dall’altro, dal metodo usato per costruire l’intervallo. Contare le righe
+    di un rapporto dice quanto lavoro è stato fatto, e non dice quanto fidarsi del risultato.
+    Sono due cose diverse.</p>
+
+    <p>C’è un altro motivo per guardare con cura righe che si somigliano troppo. A volte due
+    righe della tabella hanno esattamente gli stessi nove valori. Quella coincidenza si chiama
+    «firma numerica»: è l’insieme dei numeri che le descrivono. Una firma uguale è un segnale
+    da controllare, non ancora una prova. Può voler dire che una riga è stata aggiunta senza
+    una vera azione in più, come nell’esempio di prima. Ma può anche darsi che due passaggi
+    reali, e diversi, abbiano ricevuto per caso lo stesso punteggio. Succede quando la
+    taratura li descrive allo stesso modo. Verificare la granularità vuol dire distinguere
+    i due casi, senza fermarsi al numero uguale.</p>
+
+    <p>Le repliche restano indipendenti l’una dall’altra nei tiri del dado, cioè nelle
+    estrazioni casuali. E lo restano anche se partono tutte dagli stessi dati di scena. Per questo
+    esplorano bene la variabilità che il simulatore stesso introduce, giocata dopo giocata.
+    Ma non aggiungono niente di nuovo sulla persona vera. Non sono osservazioni raccolte nel
+    mondo. E non riducono di una virgola l’incertezza che c’era già nei dati scritti in
+    partenza.</p>
+
+    <p>Da qui viene la regola per chi scrive un rapporto, ed è corta. Si dichiarano quattro cose,
+    tenute separate: quanti nodi distinti, quante ripetizioni, quante valutazioni in tutto, e
+    l’esito del controllo. Accanto a ogni numero si dice su quale dei due assi è stato
+    calcolato. Sembra pedanteria, ed è invece la differenza fra un modello che sa quanto sa e
+    uno che si convince di sapere di più.</p>
+
+    <p>Resta da dire perché un errore così semplice sia tanto comune. La ragione non è
+    tecnica: un numero grande fa impressione, e cinquecento nodi ne fanno parecchia. Nessuno
+    legge un rapporto da quaranta nodi pensando «che analisi accurata». Ma la profondità non
+    si misura in righe. Si misura in quante domande diverse quelle righe riescono a
+    risolvere. Cinquecento righe che ne contengono quaranta risolvono quaranta domande, e in
+    più fanno credere di averne risolte cinquecento.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>Quante giocate bastano</h2>
+
+    <p>Chiarito su quale dei due assi si sta contando, la domanda si fa sempre nello
+    stesso modo — «quante volte devo rigiocare?» — e la risposta giusta non è un numero.
+    Prima di darla, però, serve capire perché.</p>
+
+    <p>Una stima ottenuta rigiocando non è un numero: è un numero con una fascia intorno.
+    Quella fascia si restringe aumentando le giocate, ma non in proporzione. Si restringe
+    con la <strong>radice quadrata</strong>.</p>
+
+    <div class="formula-libro" data-formula="intervallo"></div>
+
+    <p>Il pezzo che spiega tutto è <b>√n</b> al denominatore, cioè sotto la linea di frazione.
+    Più grande è quel numero, più piccolo è il risultato. E lì sotto non c’è n: c’è la sua
+    radice. Quadruplicare le giocate raddoppia la radice, e quindi <em>dimezza</em> la fascia.
+    Per ridurla a un decimo ne servono cento volte tante.</p>
+
+    <p>La formula si può anche rovesciare. Allora dice la cosa più utile di tutte: quante
+    giocate servono per arrivare alla precisione che si vuole.</p>
+
+    <div class="formula-libro" data-formula="quante_ripetizioni"></div>
+
+    <p>E qui si vede perché la regola del progetto non è un numero di giocate. Il numero che
+    serve <strong>dipende da s</strong>, cioè da quanto la scena è variabile. E cambia da
+    scena a scena. La regola operativa è questa, e va presa alla lettera.</p>
+
+    <blockquote class="citazione-lettura">
+      Si guarda l’ampiezza dell’intervallo, non il numero di iterazioni. Se l’intervallo è
+      stretto abbastanza per la domanda che si sta facendo, le ripetizioni bastano. Se è
+      largo, non bastano, e non importa quante siano.
+    </blockquote>
+
+    <p>Due parole di quella regola vanno tradotte, perché il libro usa quelle della
+    statistica. Le <em>iterazioni</em> sono le giocate di cui si è parlato fin qui. Sono la
+    stessa identica cosa. L’<em>intervallo</em> è la fascia intorno al numero. Dire che è
+    stretto vuol dire che il valore vero non può stare molto lontano da quello stampato.</p>
+
+    <p>Detto questo, una pratica esiste, ed è ragionevole. Cento giocate servono a farsi
+    un’idea. Distinguono un esito che viene dalla scena da un colpo di fortuna, e dicono se la
+    distribuzione è stretta o larga. Però non bastano a confrontare due scene che differiscono
+    di pochi punti. Mille danno un quadro stabile. Le percentuali smettono di ballare fra un
+    lancio e l’altro. I percentili diventano affidabili. La coda comincia a comparire con una
+    frequenza sensata. Da tremila a diecimila si sale quando la situazione è delicata, e le
+    situazioni delicate sono tre. Quando una percentuale sta vicino a una soglia che cambia la
+    lettura. Quando due varianti differiscono di poco, e serve sapere se la differenza è vera.
+    E quando interessa un evento raro: su mille giocate compare tre volte, e potrebbe anche
+    non comparire affatto.</p>
+
+    <p>La fascia si stringe sotto gli occhi, giocata dopo giocata.</p>
+
+    <figure class="figura" data-figura="convergenza"></figure>
+
+    <p>Quello che la <a data-vedi="convergenza">figura</a> mostra si chiama «<span
+    data-parola="convergenza">convergenza</span>»: è la stima che smette pian piano di ballare
+    e si assesta su un valore. La banda disegnata non è una previsione. Sono le stesse mille
+    giocate del capitolo precedente, lette a fette. Per ogni n crescente si ricalcola la media
+    sui primi n valori, con la fascia che le sta intorno. La banda che si stringe è quello che
+    è successo davvero, man mano.</p>
+
+    <p>Il simulatore accompagna quella banda con un semaforo. Il semaforo non giudica la
+    scena: giudica la stabilità della lettura. Il verde dice che l’intervallo è stretto
+    abbastanza per una prima lettura. Il giallo dice che è utile, ma non definitivo.
+    L’arancione dice che il rumore del dado può spostare la lettura. Il rosso dice che è
+    troppo largo perché il risultato regga qualunque conclusione. E il consiglio che
+    accompagna il rosso non è soltanto «aumenta le giocate». È anche, e prima di tutto:
+    <em>semplifica la scena</em>. C’è infatti un punto oltre il quale rigiocare smette di
+    convenire. Passare da cento a mille giocate taglia la fascia di circa tre volte, ed è un
+    affare. Passare da diecimila a centomila la taglia di altre tre. Ma costa dieci volte il
+    tempo, per un guadagno che quasi mai cambia una decisione.</p>
+
+    <div class="riquadro-attenzione">
+      <p><b>La cosa più importante di questo capitolo.</b> La radice riguarda soltanto il
+      rumore del dado. C’è un’altra incertezza, e nasce da una taratura discutibile, da una
+      scena descritta male, da una soglia scelta a mano. Quella <strong>non si riduce
+      affatto</strong>. Resta identica con diecimila giocate come con dieci. La fascia
+      stampata in un rapporto è sempre più stretta dell’incertezza vera. Misura solo la parte
+      che sa misurare, e di solito è la parte più piccola.</p>
+    </div>
+  </section>
+
+  <section class="capitolo">
+    <h2>Che cosa il modello non contiene</h2>
+
+    <p>Quella parte dell’incertezza che nessuna giocata riduce ha un elenco. Ed è ora di
+    leggerlo. Un libro di matematica applicata dovrebbe finire dichiarando i propri buchi. Chi
+    legge un formulario, infatti, si aspetta che sia completo, e conclude che ciò che manca
+    non conti. Qui è il contrario: le cose che mancano sono quattro, e cambiano tutte gli
+    esiti.</p>
+
+    <ol class="elenco-mancante">
+      <li><b>I coefficienti di recupero.</b> Il modello descrive il recupero in tanti modi diversi, e ha due
+      grandezze che lo governano. Ma in nessuna fonte esiste un numero:
+        non c’è una percentuale di stress che rientra dopo una notte, non c’è un
+        coefficiente per esito, non c’è una curva.</li>
+      <li><b>La conversione della risposta del «campo» in punti.</b> Il campo è l’ostacolo
+        che reagisce al tentativo mentre è ancora in corso, come una porta che si blocca o una
+        persona che si oppone. Le fonti distinguono con cura una contestazione lieve, una
+        media e una forte, e definiscono la sottrazione. Ma non è scritto da nessuna parte
+        quanti punti valga «lieve».</li>
+      <li><b>L’unità del cooldown.</b> Il cooldown — in inglese vuol dire
+        «raffreddamento» — è il conto alla rovescia che il modello fa partire dopo certi
+        passaggi, per dire quanto manca prima che il sistema sia di nuovo pronto. È un numero
+        intero e scende di uno per volta, ma non è mai dichiarato se conti nodi, scene, ore o
+        giorni — e la stessa cifra, letta come nodi o come giorni, produce due modelli
+        completamente diversi del recupero.</li>
+      <li><b>I tetti su assetto, debito e costo nascosto.</b> La tabella del debito si ferma
+        a «4 o oltre», scala aperta. Il costo nascosto non ha né soglia né decadimento
+        dichiarati — eppure nel programma, così com’è costruito, una soglia esiste, e ha
+        effetti visibili sugli esiti.</li>
+    </ol>
+
+    <p>C’è poi un limite che non è un buco, ma una qualità di quello che c’è. Il libro lo
+    dichiara per primo: <b>le soglie non sono state verificate su nessuno</b>. I confini della
+    penalità da carico non escono da una misura fatta su persone vere. Sono quaranta,
+    sessanta, settanta, ottanta, novanta. Nessuno studio ha osservato un gruppo. Nessuno ha
+    trovato che a quarantuno di carico le prestazioni cadono, e a trentanove no. Sono numeri
+    scelti perché il modello si comportasse in modo ragionevole, cioè con una progressione
+    leggibile, un peggioramento che accelera e un tetto che non arriva troppo presto. Lo stesso
+    vale per la soglia sotto la quale un margine si chiama fragile, e per i confini che
+    separano i nove esiti. Questo non le rende arbitrarie. Sono coerenti fra loro, e sono
+    state provate su molti casi. Ma «sembrano giuste a chi le ha scritte» resta un criterio
+    interno. E il libro chiede di chiamarlo con il suo nome.</p>
+
+    <p>La conseguenza pratica è precisa, e vale per chiunque legga un risultato. <strong>Una
+    differenza che dipende tutta da una soglia va guardata con sospetto.</strong> Prendiamo
+    una scena che finisce in «successo costoso» invece che in «successo pulito». Il motivo è
+    che il costo vale tredici, e la soglia sta a dodici. La lettura giusta non è che siano due
+    esiti diversi. È che siamo davanti a un caso di confine, e il rapporto deve dirlo. Si
+    scrive un intervallo invece di una cifra sola. Si dichiara la qualità del dato. E si
+    mostra come cambia il responso se quel dato sale o scende di una fascia.</p>
+
+    <p>Chiunque realizzi il modello dovrà scegliere i quattro valori dell’elenco. Senza di
+    loro il motore non gira. Ma dovrà scriverli in un posto separato dal canone, con un numero
+    di versione accanto. E dovrà poterli cambiare senza toccare la formula. <strong>Il modello
+    distingue ciò che ha ricevuto da ciò che ha deciso.</strong></p>
+
+    <p>È quello che questo simulatore fa. I numeri fuori canone stanno tutti in un file solo.
+    Ognuno ha accanto la spiegazione di che cosa fa, e l’indicazione di dove è stato misurato.
+    E ogni pagina dichiara in fondo con quale calibrazione ha prodotto quello che mostra.
+    Compresa questa.</p>
+  </section>
+
+  <section class="capitolo">
+    <h2>Dove andare adesso</h2>
+
+    <p>Fin qui il modello è stato letto. Adesso si può usare, e le pagine servono a questo:
+    ognuna prende uno dei livelli che abbiamo attraversato, e lo mette nelle mani di chi
+    legge.</p>
+
+    <p>Se una sola se ne dovesse indicare per cominciare, sarebbe la prima qui sotto: quella
+    della scena raccontata a parole. Chiede meno lavoro a chi legge. Si scrive la scena come
+    la si racconterebbe a voce. Tutto quello che questo libro ha descritto succede allora
+    sotto gli occhi, un passaggio alla volta. C’è la divisione in nodi, i nove valori, la
+    formula. C’è il «taglio», che tiene ogni numero dentro i suoi bordi validi. C’è il dado,
+    il margine, l’esito, lo stato che passa al gesto dopo. E accanto, per ogni numero, c’è la
+    parola che lo ha prodotto.</p>
+
+    <div class="due-strade">
+      <a class="strada" href="LA-SCENA.html">
+        <span class="strada-n">✎</span>
+        <span class="strada-t"><b>Racconta una scena</b>
+        <small>La scrivi in prosa. Il simulatore la divide nei gesti che contiene, e calcola
+          tutto nodo per nodo. Ti dice anche quale parola ha prodotto ogni numero.</small></span>
+      </a>
+      <a class="strada" href="IL-GESTO.html">
+        <span class="strada-n">1</span>
+        <span class="strada-t"><b>Il gesto singolo</b>
+        <small>i nove cursori, il dado, il racconto dell’esito su tre livelli di lettura</small></span>
+      </a>
+      <a class="strada" href="QUESTIONARIO.html">
+        <span class="strada-n">?</span>
+        <span class="strada-t"><b>Non so che numeri mettere</b>
+        <small>si risponde a qualche domanda e il nodo lo costruisce il simulatore</small></span>
+      </a>
+      <a class="strada" href="ESEMPI.html">
+        <span class="strada-n">▤</span>
+        <span class="strada-t"><b>I casi del libro</b>
+        <small>Le dodici schede del capitolo 39, ricalcolate mentre le leggi. Accanto, i numeri
+          che il libro stampa.</small></span>
+      </a>
+      <a class="strada" href="MONTECARLO.html">
+        <span class="strada-n">▓</span>
+        <span class="strada-t"><b>Mille volte la stessa scena</b>
+        <small>La distribuzione. La convergenza. Il confronto fra due varianti.</small></span>
+      </a>
+    </div>
+
+    <p>Restano sei pagine: tre riprendono un livello ciascuna, e tre valgono per tutti i
+    livelli.</p>
+
+    <div class="due-strade">
+      <a class="strada" href="CATENA.html">
+        <span class="strada-n">⛓</span>
+        <span class="strada-t"><b>Più gesti in fila</b>
+        <small>il carico che si accumula lungo una mattina, con il controllo anti-repliche.</small></span>
+      </a>
+      <a class="strada" href="SETTIMANA.html">
+        <span class="strada-n">▦</span>
+        <span class="strada-t"><b>Sette giorni, con le notti in mezzo</b>
+        <small>si vede se il recupero regge ancora, e dov’è il pavimento.</small></span>
+      </a>
+      <a class="strada" href="TRAIETTORIA.html">
+        <span class="strada-n">↗</span>
+        <span class="strada-t"><b>Molte settimane di fila</b>
+        <small>se il modo di vivere sta cambiando. Il regime che tiene, migliora o peggiora.</small></span>
+      </a>
+      <a class="strada" href="LA-FORMULA.html">
+        <span class="strada-n">∑</span>
+        <span class="strada-t"><b>La matematica da zero</b>
+        <small>la formula scritta come nel libro. Aperta pezzo per pezzo, accanto al codice
+          vero.</small></span>
+      </a>
+      <a class="strada" href="INDAGINE.html">
+        <span class="strada-n">⌕</span>
+        <span class="strada-t"><b>Dove una scena si rompe</b>
+        <small>la mappa dei punti delicati. La classifica delle modifiche che convengono
+          davvero.</small></span>
+      </a>
+      <a class="strada" href="APRI-QUI.html">
+        <span class="strada-n">⌂</span>
+        <span class="strada-t"><b>La porta d’ingresso</b>
+        <small>la mappa delle dodici pagine. Il ponte con il libro, capitolo per capitolo.</small></span>
+      </a>
+    </div>
+
+    <p>C’è un’ultima cosa da sapere, prima di aprire il libro per intero. Il Canone tiene
+    alcune parole in inglese, e sono nomi propri del modello, non vezzi. Tre le ha già usate
+    questa lettura, anche senza scriverle sempre per esteso. La prima è il «<span
+    data-parola="clamp">clamp</span>»: il taglio che tiene un numero dentro i suoi confini
+    validi, senza lasciarlo sforare. Compare nel capitolo sul taglio ai bordi. La seconda è il
+    <span data-parola="cooldown">cooldown</span> dei buchi dichiarati. La terza è il <span
+    data-parola="SafetyStop">SafetyStop</span>, cioè il «cancello» di sicurezza: se è chiuso,
+    la formula non si esegue, perché in quel momento non è la domanda giusta. Quest’ultimo,
+    qui, non è mai entrato in scena. Nessuna delle sue condizioni si è mai verificata.</p>
+
+    <p>Le altre parole inglesi non compaiono in nessuna di queste pagine. Alcune riguardano la metà del progetto che sta
+    fuori dalle dodici pagine: le simulazioni molto lunghe, fatte da laboratorio. Hanno un
+    <span data-parola="runner">runner</span> e i suoi <span
+    data-parola="checkpoint">checkpoint</span>, e i loro <span data-parola="audit">audit</span>.
+    Altre sono un livello di dettaglio interno. Il libro le descrive, ma qui non si vedono a
+    schermo: il <span data-parola="payload">payload</span>, il <span
+    data-parola="blueprint">blueprint</span>, l’<span data-parola="overlay">overlay</span>, il
+    <span data-parola="cluster">cluster</span>, il <span
+    data-parola="micro_frame">micro-frame</span>. Restano comunque spiegate qui sotto.</p>
+
+    <p class="chiusura-lettura">Una riga sola, per finire. <strong>Il simulatore non sa che cosa devi fare.
+    Sa dirti quanto ti sta costando farlo.</strong></p>
+  </section>
+
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="parole-spiegate" style="border-top:1px solid var(--bordo);padding-top:var(--s5)">
+    <h3 style="font-family:inherit;font-size:22px;font-weight:700;margin:0 0 var(--s3)">Le parole, spiegate</h3>
+    <p>Questa lettura ha spiegato ogni parola nel punto in cui serviva, e le parole del
+    simulatore sono poche apposta. Qui stanno tutte, raccolte in dieci argomenti. Scegli
+    quello che ti serve e trovi le sue parole, una per una, con accanto un esempio che la
+    mette al lavoro. Il primo argomento sono le nove condizioni che imposti tu guardando la
+    scena. Gli altri sono quello che ti ritrovi scritto nel risultato senza averlo mai
+    chiesto, ed è per quelli che questa raccolta esiste.</p>
+    <div data-glossario></div>
+  </section>
+
+  <footer class="piede">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, le soglie, il dado e i nove esiti
+      sono quelli del libro.</p>
+  </footer>
+
+</article>
+</div>
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/microsemantica.js"></script>
+<script src="app/motore/tempo.js"></script>
+<script src="app/motore/settimana-tipo.js"></script>
+<script src="app/motore/analisi.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/dati/formule.js"></script>
+<script src="app/interfaccia/formule-vista.js"></script>
+<script src="app/interfaccia/disegno.js"></script>
+<script src="app/interfaccia/figure.js"></script>
+<script src="app/interfaccia/figure-lunghe.js"></script>
+<script src="app/interfaccia/lettura.js"></script>
+<script src="app/interfaccia/lettura-avvio.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

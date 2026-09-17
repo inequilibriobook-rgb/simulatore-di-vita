@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Il questionario — Simulatore di vita 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · dalle domande al numero</p>
+    <h1>Rispondi, e guarda da dove viene il numero</h1>
+    <p class="sottotitolo">
+      Nelle altre pagine i cursori li muovevi tu. Qui invece rispondi a qualche domanda,
+      come le farebbe una persona che ti sta davanti. Il «nodo» lo costruisce il simulatore
+      al posto tuo. Un nodo è un «gesto» solo, con un inizio e una fine che si riconoscono:
+      bere un bicchiere d’acqua, non «fare la spesa». È l’unità più piccola che questo
+      modello sappia calcolare.
+    </p>
+    <p class="sottotitolo">
+      Ogni numero del risultato dice da quale risposta viene. Se un valore cambia, sai
+      sempre quale domanda lo ha fatto cambiare. E puoi sempre rifare la strada al
+      contrario, dal numero fino alla domanda che lo ha prodotto.
+    </p>
+  </header>
+
+  <!-- ============ 1 · IL CANCELLO ============ -->
+  <section class="riquadro no-stampa">
+    <h2>1 · Prima di calcolare qualsiasi cosa</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Ci sono situazioni in cui dare una percentuale è sbagliato e basta. Queste cinque
+      domande servono a riconoscerle prima di partire. Se anche a una sola rispondi sì, il
+      simulatore si ferma e non calcola niente. Non perché si sia rotto, ma perché in un
+      momento così un numero non aiuterebbe nessuno.
+    </p>
+    <div id="sicurezza"></div>
+    <div id="esitoSicurezza"></div>
+  </section>
+
+  <!-- ============ 2 · LA SCENA ============ -->
+  <section class="riquadro no-stampa" id="bloccoScena" style="display:none">
+    <h2>2 · La scena e la sua difficoltà di partenza</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      La «scena» è il gesto che stai per fare, con quello che gli sta intorno: scrivila in una
+      frase, come la diresti a voce. Il simulatore la usa per riconoscere di che cosa si
+      tratta e per scegliere le domande giuste.
+    </p>
+    <label for="descrizione" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+      Che cosa stai per fare
+    </label>
+    <input id="descrizione" type="text" value="Uscire di casa in orario per un appuntamento"
+           style="width:100%;font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;
+                  border:1px solid var(--bordo);background:var(--piano);color:var(--inchiostro)">
+    <p class="nota" style="margin-top:14px">
+      Il punto di partenza <strong>P0</strong> lo scegli tu, qui sotto, e non lo decidono le
+      domande. Il motivo è che P0 non parla di come stai oggi, ma del gesto e delle capacità
+      che hai stabilmente. Dice quanto quel passaggio è alla tua portata <em>a condizioni
+      «neutre»</em>, cioè in un giorno normale, senza niente di raro a favore o contro. Le
+      domande che seguono, invece, descrivono la
+      giornata di oggi e non il compito.
+    </p>
+    <div class="scelta-livello" id="scalaP0" style="margin-top:10px"></div>
+
+    <div id="famiglie" style="margin-top:20px"></div>
+  </section>
+
+  <!-- ============ 3 · IL LIVELLO ============ -->
+  <section class="riquadro no-stampa" id="bloccoLivello" style="display:none">
+    <h2>3 · Quante domande vuoi che ti faccia</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Fare più domande non vuol dire ottenere più precisione. Vuol dire soltanto guardare
+      la scena da più lati. Per bere un bicchiere d’acqua bastano sei domande, e anzi
+      avanzano. Per una giornata di lavoro, figli e pratiche arretrate, sei sarebbero poche.
+    </p>
+    <div class="scelta-livello" id="livelli"></div>
+  </section>
+
+  <!-- ============ 4 · LE DOMANDE ============ -->
+  <section class="riquadro no-stampa" id="bloccoDomande" style="display:none">
+    <h2>4 · Le domande</h2>
+    <p class="nota" style="margin-top:0">
+      <span id="contaRisposte"></span>
+      <span class="avanzamento" style="display:block;max-width:320px"><i id="barraAvanzamento" style="width:0"></i></span>
+    </p>
+    <div id="selezione"></div>
+    <div id="domande"></div>
+    <div class="barra-azioni">
+      <button class="primario" id="calcola">Costruisci il nodo e calcola</button>
+      <button id="azzera">Ricomincia</button>
+      <span class="nota" id="statoCalcolo" style="margin:0"></span>
+    </div>
+  </section>
+
+  <!-- ============ 5 · IL RISULTATO ============ -->
+  <section class="riquadro" id="bloccoRisultato" style="display:none">
+    <h2>5 · Il nodo che ne esce</h2>
+
+    <div class="esito-principale">
+      <div>
+        <div class="numero-eroe" id="numeroPn">—</div>
+        <div class="eroe-etichetta" id="notaPn"></div>
+      </div>
+      <div><span class="pillola" id="pillolaFiducia"></span></div>
+    </div>
+
+    <div class="scala" id="scala" role="img" aria-label="La parte piena è la probabilità di riuscita"></div>
+    <div class="scala-assi"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+
+    <div class="avviso" id="avvisoRisoluzione" style="display:none"></div>
+
+    <h3 style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--inchiostro-3);
+               margin:28px 0 12px;font-weight:600">Che cosa aiuta e che cosa ostacola</h3>
+    <div class="riga-contributo riga-base" id="basePartenza"></div>
+    <div class="contributi" id="contributi"></div>
+    <div class="riga-contributo riga-somma" id="sommaSpostamenti"></div>
+
+    <div class="livelli" style="margin-top:26px">
+      <details class="livello" open>
+        <summary><span class="grado">1</span> Quale risposta ha spostato che cosa</summary>
+        <div class="corpo" id="traccia"></div>
+      </details>
+      <details class="livello">
+        <summary><span class="grado">2</span> Perché le risposte non si sommano e basta</summary>
+        <div class="corpo" id="aggregazioni"></div>
+      </details>
+      <details class="livello">
+        <summary><span class="grado">3</span> Il nodo in forma tecnica</summary>
+        <div class="corpo" id="nodoTecnico"></div>
+      </details>
+    </div>
+
+    <div class="barra-azioni">
+      <button class="primario" id="tira">Tira il dado e vedi com’è andata</button>
+      <span class="campo-seme">
+        <label for="seme">seme</label>
+        <input id="seme" type="number" value="424242">
+      </span>
+      <span class="nota" style="margin:0">Il «seme» è il numero da cui parte il dado. Con lo
+        stesso seme esce lo stesso tiro, e la prova si può rifare identica quando
+        vuoi.</span>
+    </div>
+    <div id="esitoTiro"></div>
+    <div id="racconto" class="racconto"></div>
+  </section>
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <details>
+      <summary style="cursor:pointer;font-weight:600;font-size:16px">
+        Le parole, spiegate
+      </summary>
+      <p style="color:var(--inchiostro-2);font-size:15px">
+        Ogni parola che il simulatore usa vuol dire una cosa precisa. Qui ci sono tutte,
+        raccolte in dieci argomenti, e scegli tu quello che ti serve.
+      </p>
+      <div data-glossario></div>
+    </details>
+  </section>
+
+
+  <footer class="piede">
+    <p><strong>Da dove vengono le domande.</strong> Sotto ognuna trovi scritto da dove arriva:
+      alcune sono prese dal libro così come sono scritte lì. Altre vengono dalla prova dei
+      cinquecento gesti raccontata nel capitolo 28. Altre ancora sono state scritte apposta,
+      per coprire un pezzo del modello che il libro descrive a parole ma senza farne una
+      domanda vera e propria. Il questionario costruisce il nodo; poi è la formula del libro
+      a calcolarlo davvero.</p>
+  </footer>
+</div>
+
+
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/racconto.js"></script>
+<script src="app/interfaccia/racconto-vista.js"></script>
+<script src="app/dati/questionario.js"></script>
+<script src="app/dati/famiglie.js"></script>
+<script src="app/dati/condizioni-ambientali.js"></script>
+<script src="app/motore/selezione.js"></script>
+<script src="app/motore/composizione.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/dati/formule.js"></script>
+<script src="app/interfaccia/formule-vista.js"></script>
+<script src="app/interfaccia/questionario-ui.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+SIMULATORE DI VITA 3.0
+======================
+
+COME SI APRE
+  Doppio clic su   APRI-QUI.html
+  Si apre nel browser, cioè il programma con cui apri le pagine di internet.
+  Non serve installare nulla. Non serve internet.
+  Se non parte: clic destro sul file → «Apri con» → Chrome, Edge, Firefox
+  o Safari.
+
+SUL TELEFONO E SUL TABLET
+  Questa stessa cartella, messa a un indirizzo web, diventa un'app che si
+  installa: si apre l'indirizzo, si sceglie «Aggiungi alla schermata Home»
+  (su iPhone e iPad dal tasto di condivisione di Safari, su Android dal
+  menu del browser), compare l'icona con il dado, e da lì il simulatore si
+  apre a schermo intero e funziona anche senza rete. Lo permettono tre
+  file: manifest.webmanifest (nome, icona, colori), sw.js (la copia dei
+  file che il dispositivo si tiene; è generato da scripts/genera_sw.py e
+  non si tocca a mano) e app/interfaccia/installa.js, che li attiva solo
+  quando il simulatore arriva da un indirizzo web. Aperto dal disco con il
+  doppio clic non cambia niente. index.html serve solo all'indirizzo web:
+  manda subito ad APRI-QUI.html. Le icone stanno in app/icone/.
+
+LE DODICI PAGINE
+  Quattro sono i gradini della scala del tempo: il gesto, la catena, la
+  settimana, la traiettoria. Le altre otto non stanno su un gradino. Nella
+  barra in alto stanno in un menu a parte.
+  Su ogni pagina, sempre nella barra in alto, c’è il tasto «Glossario».
+  Apre tutte le parole del modello, spiegate, con una casella per cercarle.
+  L’elenco qui sotto comincia dalle due pagine più grandi, LA-SCENA e
+  IL-MODELLO. Poi viene la porta, APRI-QUI. Poi i quattro gradini, con il
+  questionario fra il primo e il secondo. In fondo, le quattro pagine che
+  valgono per tutti i livelli.
+
+  LA-SCENA.html      SCRIVI LA SCENA IN PROSA, E IL SIMULATORE LA APRE IN NODI.
+                     È la pagina che mancava. Non chiede un gesto per riga:
+                     chiede il racconto. «Non ho dormito, mi alzo, cerco le
+                     chiavi e non le trovo, esco di corsa.»
+                     Fa tre cose in fila.
+                     1. Apre il racconto nei gesti che contiene, e MOSTRA DOVE
+                        HA TAGLIATO. Ogni pezzo è marcato come gesto o come
+                        contesto. Se un taglio è sbagliato, lo correggi con
+                        un clic. Il capitolo 24 si intitola «segmentare è già
+                        interpretare»: un taglio che non si può discutere
+                        sarebbe un’analisi fatta di nascosto.
+                     2. Propone i nove valori di ogni nodo. Per ognuno dice
+                        QUALE PAROLA lo ha prodotto, e perché. Il vocabolario
+                        sta in app/dati/lessico.js: è una tabella fissa, non
+                        ha bisogno di internet, e si può verificare. Nessuna
+                        intelligenza artificiale. E propone soltanto: appena
+                        cambi un numero, vince il tuo.
+                     3. CALCOLA TUTTO, NODO PER NODO. La somma termine per
+                        termine, il taglio ai bordi, il dado, il margine con
+                        la sua fascia, l’esito fra i nove. E una tabella a
+                        quattro colonne: prima / quanto il gesto produrrebbe
+                        da solo / quanto ne passa davvero / dopo. La
+                        differenza fra le due colonne di mezzo è il
+                        trasferimento misurato del capitolo 28. Il tasto
+                        «Apri tutti i calcoli» apre i conti di tutti i gesti
+                        in un colpo solo.
+                     Poi due cose che nessun’altra pagina fa sulla scena che
+                     hai scritto tu. IL RACCONTO della sequenza: che storia è
+                     stata, dove ha cambiato pendenza, quale gesto è costato
+                     di più. E la DIAGNOSI DI SATURAZIONE del capitolo 29,
+                     cioè se il modello sta ancora distinguendo qualcosa o ha
+                     smesso.
+                     La scena si può RIGIOCARE MILLE VOLTE con dadi diversi.
+                     Non un caso solo: la forma di tutti i casi possibili,
+                     con le due n tenute separate.
+                     Dichiara anche i PEZZI CHE NON HANNO PRODOTTO NIENTE. Se
+                     una frase non contiene né un gesto né una condizione
+                     riconosciuta, resta fuori dal calcolo. La pagina te lo
+                     dice, invece di lasciartelo credere.
+                     Due cose che difende per conto tuo. Il DOMICILIO UNICO:
+                     se la scena dice «in ritardo» e il gesto dice «di
+                     corsa», conta una volta sola, e lascia l’altra scritta
+                     come scartata. Il CAMPO ATTIVO: il cane che tira viene
+                     segnalato, ma non tocca nessun numero. Agisce dopo il
+                     dado, e quanti punti valga il canone non lo dice.
+
+  IL-MODELLO.html    NON è uno strumento: è un testo, e si legge dall’inizio
+                     alla fine. Diciannove capitoli in quattro parti rifanno
+                     tutto il modello, dal primo gesto alle mille ripetizioni.
+                     La matematica è scritta per esteso, e ci sono SEDICI
+                     FIGURE CHE CALCOLANO DAVVERO.
+                     Al secondo capitolo si tara una scena con nove cursori.
+                     Da lì in avanti quella scena segue il lettore. La formula
+                     smontata, il grafico del taglio, la funzione a gradini,
+                     il dado e i margini si ricalcolano su di essa.
+                     Al capitolo del dado c’è un bottone che tira: una volta,
+                     dieci, cento, mille. La quota di riuscite si vede
+                     appoggiarsi su Pn mentre i tiri si accumulano.
+                     Ha l’apparato di un testo lungo, non di
+                     un’applicazione. Indice a lato con il capitolo corrente
+                     acceso. Capitoli e figure numerati. Rimandi che si
+                     aggiornano da soli. Riga di avanzamento. E un carattere
+                     con le grazie per il corpo. Si stampa come un documento.
+
+  APRI-QUI.html      la pagina di apertura, ed è quella da aprire per prima.
+                     Non calcola niente: è la porta. In cinque minuti dice che
+                     cos’è questo modello. Il nodo, la formula, il taglio ai
+                     bordi, il dado, i nove esiti, il costo nascosto, i
+                     quattro livelli del tempo, e che cosa il modello NON è.
+                     Poi la mappa delle dodici pagine, con la domanda a cui
+                     ognuna risponde. Poi il ponte con il libro, capitolo per
+                     capitolo. E la prova di parità fra i due motori, quello
+                     in Python e quello in JavaScript: fanno gli stessi conti.
+  IL-GESTO.html      un gesto singolo: la formula, il dado, l’esito su tre
+                     livelli di lettura. I cursori li muovi tu.
+  QUESTIONARIO.html  non muovi niente: rispondi a delle domande, e il
+                     simulatore costruisce il nodo. Prima le cinque domande
+                     di sicurezza, che precedono il calcolo. Poi la
+                     scena, il numero di domande, le risposte. Alla fine si
+                     vede quale risposta ha spostato che cosa, punto per
+                     punto.
+                     Le domande dipendono dalla scena. Un’ora al supermercato
+                     non chiede dell’ufficio. Una mattina di lavoro non
+                     chiede della casa. Le domande non fatte sono elencate,
+                     con il motivo.
+                     Quattro domande sulle condizioni ambientali estreme
+                     valgono per qualunque scena: temperatura, distanza
+                     dall’aiuto vero, infrastrutture di base, terreno o
+                     quota. Il testo libero può nominare condizioni
+                     particolari: un igloo, la foresta amazzonica, un
+                     deserto, l’alta quota, un isolamento marcato. Allora le
+                     quattro domande propongono già un valore di partenza
+                     coerente. Si vede, si conferma o si cambia.
+                     Nessuna intelligenza artificiale. È una tabella di
+                     parole chiave: non ha bisogno di internet, ed è sempre
+                     uguale a se stessa.
+  CATENA.html        più gesti di seguito, con il carico che si accumula. Ci
+                     sono il controllo anti-repliche, la diagnosi di
+                     saturazione e l’analisi statistica su migliaia di
+                     ripetizioni.
+  SETTIMANA.html     più giorni, con la notte in mezzo. È il livello dove si
+                     vede una cosa che il gesto e la giornata non possono
+                     dire. Il recupero sta ancora funzionando? E dov’è il
+                     punto oltre il quale smette?
+                     Le due soglie misurate — carico 50/60 e costo nascosto
+                     50 — non sono scritte a mano. La pagina le rimisura nel
+                     browser ogni volta che si apre. Il tasto «Rifai la
+                     misura adesso» le rifà davanti a te. Se il codice
+                     cambia, la tabella cambia con lui.
+  TRAIETTORIA.html   più settimane di seguito. Qui si vede se il modo di
+                     vivere sta cambiando, non come è andata una settimana.
+                     Il regime può peggiorare da una settimana all’altra (una
+                     spirale in formazione), tenere, o migliorare.
+                     L’errore proprio di questo livello, secondo la guida, è
+                     guardare solo l’ultima settimana. Le precedenti dicevano
+                     già qualcosa.
+
+  --- e le quattro che stanno sotto la scala, e valgono per tutti i livelli ---
+
+  LA-FORMULA.html    la matematica da zero. La formula canonica è composta
+                     come nel libro. Non in caratteri da macchina da
+                     scrivere: con i pedici, le frazioni e il sistema a
+                     graffa, dove servono. Non è ricopiata. La genera un
+                     programma che legge il Canone. Un controllo confronta le
+                     due copie riga per riga. Poi la formula viene aperta
+                     pezzo per pezzo, con i numeri veri sotto ogni simbolo.
+                     Poi le due tabelle a gradini, con evidenziata la fascia
+                     in cui ci si trova, e il taglio ai bordi. Poi il codice
+                     VERO di app/motore/nucleo.js, non una parafrasi. Anche
+                     qui un controllo automatico confronta le due copie. In
+                     fondo, che cosa la formula NON contiene.
+  ESEMPI.html        i casi già fatti, con i numeri del libro. Le dodici
+                     schede di calcolo del capitolo 39, i due calcoli guidati
+                     del capitolo 5, i sei margini del capitolo 9.
+                     Ogni scheda mostra due numeri accanto. Uno è quello
+                     stampato nel libro; l’altro lo calcola il motore in
+                     quell’istante. La scheda dice se coincidono. Poi tira il
+                     dado cinquecento volte sulla stessa scheda, per far
+                     vedere che cosa significa davvero una probabilità.
+                     Le due schede senza calcolo restano senza calcolo.
+  MONTECARLO.html    la stessa scena rigiocata centinaia o migliaia di volte.
+                     L’istogramma del carico finale, dell’assetto e del
+                     costo nascosto. I nove esiti della scena e, separati e
+                     con la loro n, quelli dei singoli nodi. I due assi del
+                     capitolo 27 tenuti distinti a ogni riquadro. La
+                     convergenza, che risponde a «quante ripetizioni bastano»
+                     con la regola del capitolo 47. Si guarda l’ampiezza
+                     dell’intervallo, non il numero di iterazioni. E due
+                     strumenti. Il confronto fra due varianti a parità di seme.
+                     E la classifica delle leve, per quota di gesti riusciti.
+  INDAGINE.html      dove una scena si rompe, e per colpa di che cosa. È la
+                     pagina per chi non racconta una scena ma la esamina.
+                     Medici, infermieri, chi ricostruisce una sequenza di
+                     gesti, chi studia il modello.
+                     Sette figure, ciascuna con la sua spiegazione accanto.
+                     La mappa dei punti delicati, con gli intervalli di
+                     Wilson. Quanto ogni gesto dipende da com’è andata prima.
+                     La cascata della formula, che è aritmetica esatta e non
+                     salta un passaggio. Dove la sequenza cede per prima, e
+                     la curva di sopravvivenza. La classifica delle
+                     modifiche, misurata con gli stessi tiri di dado. E la
+                     curva del carico di partenza.
+                     I confronti fra gesti usano la prova di McNemar, che è
+                     quella giusta per dati appaiati. La soglia è alzata con
+                     Bonferroni per il numero di confronti.
+                     L’ultima sezione non ha figure. Dice che cosa la pagina
+                     NON è: non una previsione, non una diagnosi, non un
+                     elemento di prova.
+
+LA CARTELLA avanzato/
+  Contiene il motore Python (cartella core-python), il lanciatore delle
+  sequenze lunghe (cartella runner) e gli esempi. È la cartella che il libro
+  promette a pagina 5. Non serve per usare il simulatore. Serve a chi vuole
+  leggere il codice. O a chi vuole lanciare sequenze molto lunghe, con
+  archivio e punti di salvataggio da cui ripartire.
+
+CHE COSA È GIÀ VERIFICATO
+  Le suite di prova e i banchi di misura stanno nei sorgenti di sviluppo, in
+  _test/ e _taratura/. Non fanno parte di questo pacchetto. Lo prescrive il
+  libro, al capitolo 48. Sono elencati qui per un motivo: chi legge deve
+  sapere che cosa è stato verificato, e con quali numeri.
+  34 controlli sugli esempi numerici pubblicati, dal libro e dal Mega Canvas.
+     Tutti superati. Compreso il caso limite del taglio in basso, dove la
+     probabilità si ferma a 5.
+  1197 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
+     sotto è quello che le suite stampano quando girano.
+  164 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
+     formula, le fasce di PenSTR, le quattro scogliere, le tre porte del
+     pavimento. La calibrazione, i nove esiti, le dodici pagine, il vincolo
+     del doppio clic. Quattordici di questi controlli sono ad accordo. Legano
+     insieme le due cose. Pretendono che il codice abbia quel valore. E
+     pretendono che la frase corrispondente sia ancora nel libro, com’è
+     citata. Se cambia uno solo dei due, la suite fallisce. Gli altri
+     guardano un lato solo. Che una pagina esista. Che non ci sia una
+     chiamata di rete. Che il glossario copra le parole del libro.
+     È `_test/libro.js`, e ha già trovato un buco. Il peso di una giornata
+     (k = 2,75) era misurato, ma non era scritto da nessuna parte nel Canone.
+  LA CATENA DELLA PARITÀ È VERIFICATA PER INTERO, non contro un file
+     congelato. Il riferimento si rigenera dal motore Python vero, con
+       python3 _test/genera_riferimento.py avanzato/core-python/simulatore_v31_core_finale.py
+     Il 02/09/2026 il file rigenerato è risultato IDENTICO byte per byte a
+     quello in uso. Quindi tutta la catena regge, oggi: motore Python →
+     riferimento → motore JavaScript.
+  204.042 confronti fra il motore Python e questo motore JavaScript. Zero
+     differenze. 10.000 nodi su 20 grandezze, 300 catene, 200 recuperi fra
+     scene. E dal 18/8 anche i livelli temporali: 120 giornate, 60
+     mini-settimane, 25 traiettorie, 300 recuperi fra giorni, 300 notti di
+     sonno e 400 regimi. Prima il livello settimana era verificato solo
+     contro se stesso.
+  36 controlli sull’app installabile. Il manifesto è valido ed entra da
+     APRI-QUI; le icone esistono e sono PNG veri; l’elenco della cache in
+     sw.js è quello vero (ogni file elencato esiste, ogni file che serve è
+     elencato); ogni pagina porta manifesto, icona e script; dal disco e
+     sul server locale la cache non si attiva.
+  84 controlli sul questionario. Nessuna domanda ripetuta. Nessun valore
+     fuori dai limiti del libro, su 12.000 compilazioni. Un solo domicilio
+     per fatto.
+  64 controlli sulle condizioni ambientali estreme. Le quattro domande
+     valgono per qualunque scena. La tabella di parole chiave non ha bisogno
+     di internet, ed è sempre uguale a se stessa. Nessuna condizione tocca
+     la formula.
+  84 controlli sul lettore della scena. È il pezzo più delicato del
+     pacchetto, perché è l’unico che PROPONE dei numeri leggendo del testo.
+     I controlli guardano tre cose. Che non inventi mai un numero senza dire
+     da dove viene. Che non conti due volte lo stesso fatto. Che la
+     segmentazione sia quella che dice di essere. Hanno già trovato tre
+     difetti veri. Un valore che arrivava al nodo senza traccia. Il campo
+     attivo cercato solo dentro i gesti. E la stessa parola ripetuta, che
+     gonfiava il debito.
+  50 controlli sulla lettura lunga. OGNI FIGURA VIENE DISEGNATA DAVVERO dal
+     controllo, con i motori veri. Si guarda che non torni vuota, che non
+     contenga NaN, e che ogni elemento del disegno sia chiuso. Più i rimandi
+     del testo, che devono puntare a figure esistenti. E le figure definite,
+     che devono essere tutte usate. È il controllo che sarebbe servito la
+     prima volta che la pagina è girata. Una figura sollevava un errore, e
+     le cinque dopo restavano vuote. Niente lo diceva.
+  51 controlli sul racconto. Su 400 situazioni diverse, nessun racconto
+     colpevolizzante, produttivista, catastrofico o generico. E la regola
+     della lunghezza è verificata su una sequenza che peggiora.
+  75 controlli sulla selezione. La scena toglie le domande fuori tema. Non
+     toglie mai il minimo del libro. Non tocca nessun numero.
+  57 controlli sui livelli temporali. Le soglie del regime, il recupero
+     notturno. E una regola: la stessa giornata, descritta più finemente,
+     non deve costare di più.
+  48 controlli sul livello settimana. Le due soglie misurate. Il fatto che
+     85 sia la soglia del PAVIMENTO, e non il punto di non ritorno. Il fatto
+     che il collasso sia bimodale, invece che graduale. E che nessun
+     racconto sfori il proprio limite di parole, su 588 settimane.
+  59 controlli sui casi pubblicati. Il motore riproduce oggi tutte e dodici
+     le schede del capitolo 39, i due calcoli del capitolo 5 e i sei margini
+     del capitolo 9. E i valori mostrati a schermo sono gli stessi che usa
+     il controllo di riferimento, _test/golden.js. Non una seconda copia,
+     che potrebbe scollarsi.
+  67 controlli sull’indagine. Gli intervalli di Wilson contro valori
+     calcolati a mano. La prova di McNemar per i confronti appaiati. La
+     correzione di Bonferroni. E la verifica più importante: il rischio
+     misurato di ogni gesto deve coincidere con (100 meno Pn) diviso 100,
+     com’è giusto con un dado onesto. Se quei due numeri divergessero, o è
+     rotto il dado o è rotta l’indagine.
+  110 controlli sul Monte Carlo. I campioni grezzi sono davvero le giocate
+     che le statistiche riassumono. L’istogramma copre tutto una volta sola.
+     La convergenza legge le stesse giocate a fette. E le due unità
+     statistiche — la giocata della scena e la valutazione del nodo — non si
+     sommano mai.
+  29 controlli sul livello traiettoria. Lo stesso generatore della
+     settimana. La durezza che può cambiare settimana per settimana. Lo
+     stato di partenza passato intero. La spirale che compare nel racconto
+     quando il regime peggiora. E nessun racconto fuori dal proprio limite
+     di parole, su 540 traiettorie.
+
+LE FORMULE VENGONO DAL LIBRO, NON SONO RICOPIATE
+  Le formule che le pagine mostrano stanno in app/dati/formule.js, che è un
+  file GENERATO. Lo scrive
+     python3 scripts/genera_formule.py
+  leggendo il Canone. Il programma verifica che ogni formula richiesta stia
+  nel libro esattamente com’è attesa. Se una non si trova, si rifiuta di
+  generare qualunque cosa. Poi traduce ogni formula in MathML. Il libro la
+  scrive in LaTeX, il linguaggio della matematica stampata. MathML è
+  matematica scritta dentro la pagina, e i browser la disegnano da soli.
+  Niente librerie, niente caratteri da scaricare. Il vincolo del doppio clic
+  resta intatto.
+  Se il libro cambia una formula e il file non viene rigenerato,
+  _test/libro.js se ne accorge. Confronta il LaTeX del file con quello del
+  Canone.
+  Vale anche per i dieci calcoli del capitolo 39. La riga sotto ogni scheda
+  della pagina ESEMPI è la riga stampata nel libro.
+
+LE PAROLE SI APRONO DOVE SI LEGGONO
+  Ogni parola del vocabolario del modello porta un punto interrogativo. Ci
+  si clicca sopra, e la spiegazione si apre lì dove sta. Dice che cosa
+  significa, e dà un esempio concreto. E soprattutto dice IL CONFINE, cioè
+  che cosa NON va messo lì. È la parte che serve di più. Quasi tutti gli
+  errori di taratura nascono da una cosa sola: lo stesso fatto messo nella
+  variabile sbagliata.
+  Il tasto «Glossario» della barra in alto apre le stesse voci tutte
+  insieme, in un pannello sopra la pagina. Serve a chi vuole leggerle di
+  seguito, o cercarne una. Si chiude con Esc, con il tasto «Chiudi», o
+  cliccando fuori.
+  Il riquadro della singola parola si apre FUORI dalla griglia in cui sta la
+  parola. Sembra un dettaglio, e non lo è. Prendi una parola che vive dentro
+  un riquadrino di una griglia: i nove valori di un nodo, o i nove cursori.
+  Infilare la spiegazione subito dopo la rendeva a sua volta una cella. Una
+  cella larga settantasei pixel, con dentro tre righe incolonnate, una
+  parola per riga.
+
+LA CALIBRAZIONE È DICHIARATA
+  Alcuni numeri di questo simulatore non vengono dal libro, perché nel libro
+  non ci sono. Quanto si recupera fra una scena e l’altra, fra un giorno e
+  l’altro, e in una notte di sonno. Quanto pesa una giornata. A che punto si
+  accende il pavimento di protezione. Le fonti descrivono il recupero solo a
+  parole. Chi costruisce il programma deve scegliere dei numeri.
+  Il libro chiede che quelle scelte stiano in un posto solo, con una
+  versione accanto (Apparato F, voce 7). Quel posto è
+  app/dati/calibrazione.js. Ogni voce dice che cosa fa, quanto vale e da
+  dove viene. E ogni pagina stampa in fondo con quale calibrazione ha
+  prodotto quello che mostra.
+  Cambiare un numero lì cambia gli esiti di tutto. Si fa rilanciando i
+  banchi di _taratura/, e verificando che i sette criteri restino
+  soddisfatti.
+
+IL TRASFERIMENTO DI STATO
+  Nella pagina CATENA e nella pagina MONTECARLO si può scegliere fra due
+  calibrazioni. Sulla prima sono due tasti, sulla seconda un menu a tendina.
+  Le etichette sono le stesse.
+    3.2 (4,6 %)  è quella misurata sulla simulazione ufficiale. Ogni
+                 micronodo passa allo stato persistente una frazione del
+                 proprio effetto. A schermo si chiama «misurato · 4,6 %».
+    storica      passa tutto. È il comportamento che faceva saturare il
+                 carico a 100 dopo pochi nodi. È lì per confronto. A schermo
+                 si chiama «storico · passa tutto».
+
+  La formula canonica, i pesi, i tagli ai bordi, il dado e i nove esiti sono
+  identici in entrambe. Il trasferimento è un livello esterno al motore.
+
+IL RACCONTO
+  Ogni esito viene raccontato, non solo calcolato. Il racconto dice che cosa
+  è successo. Come è riuscito, o come non è riuscito. Che cosa è costato, e
+  che cosa ha pesato. Chi c’era, e che cosa toglieva davvero. E una sola
+  cosa da provare a cambiare.
+
+  Sulla catena il racconto è diverso. Non dice com’è andato un gesto: dice
+  che storia è stata la sequenza. Dove ha cambiato pendenza, quale gesto è
+  costato di più, quale ha restituito qualcosa.
+
+  Più il sistema è compromesso, più il racconto si accorcia. Non è una
+  scelta di stile: è una regola del modello. A chi è in rosso non serve un
+  ragionamento lungo. Servono poche priorità.
+
+SI STAMPA
+  Da qualunque pagina si stampa con il tasto «Stampa» in alto, o con il
+  comando del browser (Ctrl+P o Cmd+P). Viene fuori un documento pulito.
+  Spariscono cursori, pulsanti e domande. Restano il risultato e il
+  racconto, con i dettagli già aperti. Dalla stessa finestra si può salvare
+  in PDF.
+
+LE QUARANTA FAMIGLIE DI VITA
+  La descrizione della scena attiva una o più famiglie fra le quaranta del
+  libro (V001-V040). Ognuna dichiara le proprie leve sensibili. Servono a
+  scegliere le domande, e basta. Non cambiano nessun numero.
+
+I LIVELLI TEMPORALI
+  Nodo, scena, giornata, mini-settimana, traiettoria, spirale. Il motore li
+  calcola tutti. Il recupero fra le scene. Il recupero fra i giorni. Il
+  sonno, con ore, qualità e continuità. E il regime che cambia settimana
+  dopo settimana, fino a riconoscere una spirale che si sta formando.
+
+  Il libro lo dice così. «La formula calcola il nodo. Il tempo
+  calcola accumulo, recupero, costo residuo e rischio di spirale.» Motore,
+  interfaccia e racconto ci sono su tutti i livelli. Spirale compresa.
+
+  Quanto pesa una giornata non è stato scelto. È stato misurato. Sette
+  criteri, ognuno preso dal libro o dalla guida. Quattrocento settimane
+  simulate per ogni condizione. Tutti e sette sono soddisfatti insieme in
+  una banda stretta. Il valore usato è il centro di quella banda.
+
+IL PUNTO DI NON RITORNO
+  Non è una soglia sola. È una frontiera su due variabili: il carico e il
+  costo nascosto. Il carico si ferma a 50 in condizioni ordinarie, e a 60
+  con le condizioni migliori. Sono dieci punti che il recupero può comprare.
+  Il costo nascosto si ferma a 50 in OGNI condizione misurata. Quaranta
+  giorni consecutivi con le giornate più leggere, il sonno migliore e un rientro
+  vero ogni giorno: non se ne esce lo stesso. È l’unica delle due soglie che nessuna condizione
+  sposta. Ed è quella che nell’esito non si vede: le cose possono essere
+  andate a buon fine tutte quante.
+  La misura si rifà da riga di comando con `_taratura/frontiera.js`. Ed è
+  la stessa che la pagina SETTIMANA rifà da sola nel browser.
+
+  85 NON è il punto di non ritorno. È il valore a cui si accende il
+  pavimento di protezione, che è un’altra cosa. E il pavimento ha tre porte,
+  non una sola: carico 85, assetto 25, costo nascosto 70.
+
+  Il collasso è bimodale, non graduale. Misurato a trenta giorni, il carico
+  finisce o attorno a 52 o a 99, quasi niente in mezzo. Non si scivola giù:
+  si sta, e poi si cade.
+
+  Quello che tira fuori presto non tira fuori tardi. Da poco dentro,
+  alleggerire le giornate porta fuori nella grande maggioranza dei casi. Un
+  rientro vero senza alleggerire, mai. Da più dentro non basta più niente
+  in modo affidabile, nemmeno tutto insieme.
+
+LE QUATTRO SCOGLIERE
+  Alcune cose nel modello si comportano come una discesa: un punto in meno,
+  un po’ meglio. Altre come una scogliera. Non cambia niente, non cambia
+  niente, e poi di colpo cambia tutto. Sono state cercate una per una,
+  spazzando ogni variabile su tutto il suo intervallo. Ne sono venute fuori
+  quattro.
+
+    il debito da 0 a 1        gli esiti buoni passano dal 44 % allo 0 %.
+    l’assetto a 36            dallo 0 % al 44 %.
+    il carico a 70            dal 34 % allo 0 %.
+    il costo nascosto a 50    dal 44 % allo 0 %, e la probabilità di
+                              riuscita non cambia di un punto.
+
+  Sono invisibili nella formula. Il simulatore adesso dice quando ne hai
+  superata una, e quando sei a pochi punti.
+
+  È anche il motivo per cui certi consigli non servono. Ridurre il debito da
+  tre a uno alza la probabilità. Ma lascia ogni riuscita danneggiata. Il
+  debito non va ridotto: va chiuso.
+
+LE LEVE SONO MISURATE, NON SCELTE
+  Quale consiglio dare non lo decide una soglia scritta a mano. Si prova
+  ogni leva su quel gesto, su tutti e cento i tiri del dado. Si propone
+  quella che rende di più.
+
+  Mettiamo che una leva guadagni dieci punti di probabilità. Se agisce sulla
+  formula, vale quanto le altre della formula. Se agisce sullo stato, vale
+  da quattro a otto volte tanto. E la più forte di tutte, un rientro vero,
+  non sposta la probabilità di un solo punto.
+
+IL DOMICILIO UNICO DEL FATTO
+  Una risposta sposta una cosa sola dentro la formula. La stessa stanchezza
+  non può togliere punti due volte. Non può contare come corpo, e poi di
+  nuovo come carico accumulato. Se una risposta tocca anche altro, il
+  racconto lo scrive, e non lo conta.
+
+  Questo non è uno strumento clinico. Non fa diagnosi.
+
+REVISIONE DEI METODI STATISTICI — 14/09/2026
+
+La calibrazione resta 3.2-serra. I metodi statistici hanno una versione
+separata, conservata nel campo metodo_statistico delle tracce di analisi.
+Il confronto delle leve usa i discordi appaiati e fasce Wilson-Bonferroni.
+Il confronto di STR usa le differenze per replica e varianza campionaria.
+La versione del metodo distingue questi risultati dagli intervalli precedenti.
+I limiti e le prove sono descritti in VERIFICA_2026-09-14.md.

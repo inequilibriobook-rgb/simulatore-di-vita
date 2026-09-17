@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Racconta la scena — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · dalla scena ai nodi</p>
+    <h1>Racconta la scena, e guardala aprirsi</h1>
+    <p class="sottotitolo">
+      Scrivi una mattina come la racconteresti a voce a un amico: mi sono alzato tardi, ho
+      bevuto il caffè in piedi, poi ho cercato le chiavi per dieci minuti. Il simulatore la
+      <strong>scompone nei «gesti» che contiene</strong>, cioè le singole azioni che la
+      formano: un gesto è un’azione sola, con un inizio e una fine, come bere il caffè, non
+      «fare colazione». Per ogni gesto propone i nove valori, e per ognuno ti dice da quale
+      parola del tuo racconto viene. Poi
+      <strong>calcola tutto, un gesto per volta</strong>. Fa la somma dei nove valori e
+      applica il «taglio» ai bordi, cioè non lascia che il risultato scenda sotto 5 o salga
+      sopra 95. Tira il dado, cioè un numero estratto a caso da 1 a 100, e misura il
+      «margine», cioè di quanto il dado è rimasto sotto la «soglia», la probabilità
+      calcolata, o l’ha superata. Infine dà un nome all’«esito», uno dei
+      nove modi in cui un gesto può finire. E ti dice con quale «carico» si arriva al gesto
+      dopo, cioè con quanta pressione accumulata addosso.
+    </p>
+    <ol class="come-si-usa">
+      <li><strong>Scrivi la scena.</strong> In prosa, con le virgole e i punti, come viene.
+        Non serve andare a capo a ogni gesto.</li>
+      <li><strong>Controlla dove ho tagliato.</strong> Segmentare, cioè dividere il racconto
+        in pezzi, è già interpretare. Se ho sbagliato, si corregge con un clic.</li>
+      <li><strong>Guarda i numeri, e cambiali pure.</strong> Ogni valore è solo una proposta,
+        e accanto c’è scritta la parola da cui viene. Appena ne cambi uno, da quel momento
+        in poi vale il tuo e non più quello proposto.</li>
+    </ol>
+    <p class="sottotitolo" style="font-size:14px">
+      Qui dentro non c’è nessuna intelligenza artificiale, e non serve nemmeno la
+      connessione. Quello che legge la tua scena è una tabella di parole, scritta a mano. Per
+      questo la stessa scena dà sempre la stessa lettura, oggi come fra dieci anni, anche
+      senza internet.
+    </p>
+  </header>
+
+  <!-- ====================== LA SCENA ====================== -->
+  <section class="riquadro no-stampa">
+    <h2>1 · La scena</h2>
+    <label for="scena" style="display:block;font-size:14px;font-weight:550;margin-bottom:6px">
+      Che cosa è successo, raccontato come lo diresti
+    </label>
+    <p class="nota" style="margin:0 0 8px">
+      <b>Qui sotto c’è già un esempio, e più in basso trovi la sua analisi completa.</b>
+      Cancellalo e scrivi la tua scena, oppure premi <em>Svuota</em>. Poi premi
+      <em>Apri e calcola</em>.
+    </p>
+    <textarea id="scena" rows="6" spellcheck="false"
+      style="width:100%;font:inherit;font-size:15px;line-height:1.6;padding:12px 14px;
+             border-radius:9px;border:1px solid var(--bordo);background:var(--piano);
+             color:var(--inchiostro);resize:vertical"></textarea>
+    <div class="comandi" style="margin-top:14px">
+      <label class="comando"><span>Carico di partenza</span>
+        <input type="number" id="caricoBase" min="0" max="100" value="40"></label>
+      <label class="comando"><span>Trasferimento di stato</span>
+        <select id="trasferimento">
+          <option value="misurato">misurato · 4,6 %</option>
+          <option value="storico">storico · passa tutto</option>
+        </select></label>
+      <label class="comando"><span>Seme del dado</span>
+        <span class="valore-seme">
+          <b id="semeOra">424242</b>
+          <button type="button" class="fantasma" id="nuovoSeme">cambia</button></span></label>
+    </div>
+    <p class="nota" style="margin:12px 0 0">
+      Il <b data-parola="trasferimento_di_stato">trasferimento di stato</b> è quanto di ogni
+      gesto arriva davvero al gesto dopo. Con <em>misurato</em> ne passa il 4,6 %, che è il
+      valore misurato sui cinquecento gesti del capitolo 28. Con <em>storico</em>
+      passa tutto, come faceva il modello all’inizio. Provali tutti e due sulla stessa
+      scena, e guarda che cosa succede. Il secondo va a sbattere contro il «tetto», cioè il
+      100 del carico, oltre cui non si sale. Da lì in poi non distingue più una scena
+      dall’altra, ed è per questo che è stato abbandonato. Il <b>seme del dado</b>, infine,
+      è il numero da cui partono i tiri. Con lo stesso seme escono sempre gli stessi dadi, e
+      una scena si può rifare identica.
+    </p>
+    <div class="barra-azioni">
+      <button class="primario" id="apri">Apri e calcola</button>
+      <button id="svuota">Svuota</button>
+      <button id="calcolaScena">Ricalcola</button>
+      <button id="rigioca">Rigioca la scena</button>
+      <label class="comando comando-corto"><span>quante giocate</span>
+        <select id="ripetizioni">
+          <option value="200">200</option>
+          <option value="1000" selected>1.000</option>
+          <option value="3000">3.000</option>
+        </select></label>
+    </div>
+    <p class="stato-lettura" id="statoLettura"></p>
+    <div id="avvisi"></div>
+    <div id="muti"></div>
+  </section>
+
+  <!-- ====================== CHE COSA HO LETTO ====================== -->
+  <section class="riquadro">
+    <h2>2 · Che cosa ho letto</h2>
+    <p style="margin-top:0">
+      Ogni pezzo del tuo racconto può essere un gesto oppure un contesto. Se è un
+      <strong>gesto</strong>, cioè un «nodo» nella catena della scena, verrà calcolato. Se è <strong>contesto</strong>,
+      descrive la scena intorno e vale per tutti i gesti insieme: la pioggia, il rumore, la
+      fretta. Il capitolo 24 del libro si intitola <em>«segmentare è già
+      interpretare»</em>, e vuol dire che già nel tagliare il racconto in pezzi si prende
+      una decisione. Per questo il taglio si vede, e si corregge con un clic.
+    </p>
+    <div id="lettura"></div>
+  </section>
+
+  <!-- ====================== I NODI ====================== -->
+  <section class="riquadro">
+    <h2>3 · I nodi, uno per uno, con tutti i valori</h2>
+    <p style="margin-top:0">
+      Per ogni gesto trovi i nove valori, e il <strong>perché</strong> di ognuno. Poi c’è
+      il calcolo completo: la somma termine per termine, il taglio ai bordi, il dado. Poi il
+      <span data-parola="margine">margine</span> con la sua
+      <b data-parola="fascia">«fascia»</b>, l’esito fra i nove, e che cosa passa al gesto
+      dopo. La fascia del margine dice se è andata per un soffio, o se non c’era partita:
+      fino a 9 il margine è «fragile», fino a 24 è normale, da 25 in su è forte.
+    </p>
+    <div id="nodi"></div>
+  </section>
+
+  <!-- ====================== LA CATENA ====================== -->
+  <section class="riquadro">
+    <h2>4 · La scena intera</h2>
+    <p style="margin-top:0">
+      Quello che una persona si porta addosso non resta fermo: passa da un gesto a quello
+      dopo. Il carico che vedi sul gesto numero dieci non è nato lì, gliel’hanno lasciato i
+      nove gesti prima. E l’esito della scena non è la media degli esiti. Lo decide l’anello
+      peggiore, cioè il gesto andato peggio, come in una catena vera, che tiene finché tiene
+      il suo anello più debole.
+    </p>
+    <div id="catena"></div>
+  </section>
+
+  <!-- ====================== IL RACCONTO ====================== -->
+  <section class="riquadro">
+    <h2>5 · Che storia è stata</h2>
+    <p style="margin-top:0">
+      Ogni esito viene raccontato, non solo calcolato. Il racconto è il testo in prosa che
+      il simulatore scrive sotto i numeri, e non dice com’è andato un gesto della sequenza.
+      Dice dove la scena ha cambiato pendenza, cioè dove il carico è salito o sceso più in
+      fretta del solito, quale gesto è costato di più, quale ha
+      restituito qualcosa. E più le cose sono andate male, più il racconto si accorcia. È la
+      regola del capitolo 46: a chi è in difficoltà non serve un ragionamento lungo, servono
+      poche priorità.
+    </p>
+    <div id="saturazione"></div>
+    <div id="racconto"></div>
+  </section>
+
+  <!-- ====================== MILLE VOLTE ====================== -->
+  <section class="riquadro">
+    <h2>6 · La stessa scena, rigiocata molte volte</h2>
+    <p style="margin-top:0">
+      Quello che hai visto fin qui è <em>un</em> caso: quella scena, con quei tiri. Ma i
+      tiri potevano uscire diversi. Se rigiochi la stessa scena con dadi nuovi, non vedi più
+      un caso solo: vedi la forma di tutti i casi possibili. Ogni partita si chiama
+      <strong data-parola="giocata">«giocata»</strong>. Le giocate della scena intera si
+      contano a parte rispetto a quelle dei singoli gesti. Sono due numerosità diverse, cioè
+      due conteggi separati, due <em>n</em> come si dice in statistica. Sommarle sarebbe
+      l’errore del capitolo 27.
+    </p>
+    <div id="montecarlo"></div>
+  </section>
+
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <h2>7 · Le parole, spiegate</h2>
+    <div data-glossario></div>
+  </section>
+
+  <footer class="piede">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, le soglie, il dado e i nove esiti
+      sono quelli del libro.</p>
+  </footer>
+
+</div>
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/microsemantica.js"></script>
+<script src="app/motore/analisi.js"></script>
+<script src="app/motore/racconto.js"></script>
+<script src="app/interfaccia/racconto-vista.js"></script>
+<script src="app/dati/lessico.js"></script>
+<script src="app/motore/scena.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/interfaccia/disegno.js"></script>
+<script src="app/interfaccia/scena-ui.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

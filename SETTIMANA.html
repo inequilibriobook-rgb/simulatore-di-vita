@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La settimana e il punto di non ritorno — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · i livelli temporali</p>
+    <h1>Più giorni di seguito, e la notte in mezzo</h1>
+    <p class="sottotitolo">
+      Immagina di guardare la stessa persona da tre distanze. Da vicino vedi un «gesto»:
+      un’azione sola, con un inizio e una fine riconoscibili, e la domanda è se riesce.
+      Un passo indietro, e vedi una giornata intera: la domanda diventa quanto è costata.
+      Un altro passo, e vedi una settimana. Qui la domanda cambia natura. Non è più se le
+      cose riescono, e nemmeno quanto costano. È <b>se il «recupero» sta ancora
+      funzionando</b>: se le notti e le pause restituiscono davvero quello che dovrebbero
+      restituire.
+    </p>
+    <p class="sottotitolo">
+      Ed è la settimana a far vedere dove sta il punto oltre il quale il recupero smette
+      di funzionare. Uno se lo aspetterebbe sul «carico», perché è il numero che tutti
+      guardano. Il carico è la pressione accumulata, quella che ci si porta dietro dai
+      giorni prima. Invece quel punto si legge su un’altra grandezza. Una che negli «esiti»,
+      i nove modi in cui un gesto può finire, non compare nemmeno. Questa pagina la chiama
+      <b data-parola="costo_nascosto">«costo nascosto»</b>: il prezzo di un gesto che da
+      fuori sembra riuscito. Un prezzo che non si vede subito, ma dopo, quando arriva il
+      gesto successivo.
+    </p>
+  </header>
+
+  <!-- ============ 1 · I SEI LIVELLI ============ -->
+  <section class="riquadro">
+    <h2>1 · I sei livelli del tempo</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Un «livello» è un’ampiezza di tempo: il gesto singolo, la scena, la giornata, e così
+      via fino alla spirale. Il modello ne distingue sei, e qui sotto ci sono tutti e sei.
+      Guardare più in grande, però, non vuol dire vedere lo stesso quadro più da lontano.
+      Vuol dire porre un’altra domanda. Perché ogni livello misura una grandezza diversa.
+      Passa qualcosa al livello che viene dopo, e si presta a un errore di lettura tutto
+      suo. Le pagine del simulatore sono quattro e non sei, e non è una dimenticanza. Sono
+      quattro i livelli in cui c’è davvero qualcosa da muovere con le mani.
+    </p>
+    <div id="livelli"></div>
+  </section>
+
+  <!-- ============ 2 · COSTRUISCI LA SETTIMANA ============ -->
+  <section class="riquadro no-stampa">
+    <h2>2 · Che settimana è</h2>
+
+    <div class="scelta-livello" id="durezze" style="margin-bottom:18px"></div>
+
+    <p style="font-size:14px;font-weight:550;margin:0 0 8px">E come si dorme</p>
+    <div class="scelta-livello" id="sonni" style="margin-bottom:18px"></div>
+
+    <p style="font-size:14px;font-weight:550;margin:0 0 8px">E come ci si ferma
+      <small style="font-weight:400;color:var(--inchiostro-3)">— qui si chiama «rientro»,
+      ed è il modo in cui ci si ferma a fine giornata. Perché ci sono pause che danno solo
+      sollievo, come sedersi un momento con la testa ancora al lavoro. E ci sono pause che
+      tolgono carico davvero. Il libro lo chiama <span data-parola="rip">RIP</span>, cioè
+      recupero e riassetto: fermarsi sul serio, e cambiare qualcosa.</small></p>
+    <div class="scelta-livello" id="rientri" style="margin-bottom:18px"></div>
+
+    <div class="griglia-cursori" id="cursoriSettimana"></div>
+
+    <div class="barra-azioni">
+      <button class="primario" id="esegui">Esegui la settimana</button>
+      <span class="campo-seme">
+        <label for="seme">seme</label>
+        <input id="seme" type="number" value="424242">
+      </span>
+      <button id="sessanta">Sessanta giorni</button>
+      <span class="nota" style="margin:0">Una simulazione più lunga di quella del cursore.
+        Serve a vedere a che valore si ferma il <span data-parola="carico">carico</span>.</span>
+    </div>
+    <p class="nota">Il <span data-parola="seme">«seme»</span> è il numero da cui parte la
+      fila dei tiri di dado. Con lo stesso seme escono sempre gli stessi tiri, nello stesso
+      ordine. Così una prova si può rifare identica domani, o far vedere a qualcun
+      altro.</p>
+    <p class="nota" id="notaK"></p>
+  </section>
+
+  <!-- ============ 3 · IL RISULTATO ============ -->
+  <section class="riquadro" id="bloccoEsito" style="display:none">
+    <h2>3 · Com’è finita</h2>
+    <div id="esito"></div>
+  </section>
+
+  <!-- ============ 4 · GIORNO PER GIORNO ============ -->
+  <section class="riquadro" id="bloccoGiorni" style="display:none">
+    <h2>4 · Giorno per giorno, e la notte in mezzo</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Ogni barra è il carico alla fine di un giorno. Il tratto verde che le sta sopra è
+      quello che la notte ha restituito. La linea gialla è il costo nascosto, e sta nello
+      stesso grafico apposta. Le due grandezze vanno guardate insieme, perché possono
+      muoversi in direzioni opposte. Capita che il carico resti fermo per giorni, mentre
+      il costo nascosto sale piano. E nessuna barra lo fa vedere.
+    </p>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Le due righe rosse tratteggiate sono le soglie misurate al punto 6. Una «soglia» è
+      un valore oltre il quale le cose cambiano di colpo, non un po’ alla volta: come il
+      bordo di un gradino, non come una discesa. Per il carico la soglia sta a 50 quando
+      le giornate sono ordinarie, e sale a 60 quando tutto aiuta. Il costo nascosto ha
+      una soglia sua, che vale 50 comunque vadano le cose. Si può superare una soglia
+      senza l’altra. E passarne una non dice niente su quanto si è vicini all’altra.
+    </p>
+    <div id="grafico"></div>
+  </section>
+
+  <!-- ============ 5 · IL RACCONTO ============ -->
+  <section class="riquadro" id="bloccoRacconto" style="display:none">
+    <h2>5 · Il racconto della settimana</h2>
+    <div id="racconto"></div>
+  </section>
+
+  <!-- ============ 6 · LE DUE SOGLIE ============ -->
+  <section class="riquadro">
+    <h2>6 · Il punto di non ritorno — due soglie, non una</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Il punto di non ritorno è l’affermazione più impegnativa che questo modello possa
+      fare. Dice che esiste una soglia, un valore preciso di carico o di costo nascosto,
+      oltre la quale non si esce più, qualunque cosa si faccia dopo. Non è un’opinione: è
+      una misura, e si fa così. Si prende una persona con un certo carico e un certo costo
+      nascosto addosso. Le si danno le condizioni migliori che il modello conosca, per
+      quaranta giorni di fila, e si guarda se ne viene fuori. Poi si ricomincia con un
+      carico un po’ più alto. E poi ancora, casella per casella. Nella tabella il verde
+      vuol dire che ne esce quasi sempre; il rosso, che non ne esce mai.
+    </p>
+    <div id="grigliaMigliore"></div>
+    <div id="grigliaMedia"></div>
+    <div id="spiegaNonRitorno"></div>
+    <div class="barra-azioni">
+      <button id="rifai">Rifai la misura adesso</button>
+      <span class="nota" style="margin:0">gira nel browser · qualche secondo</span>
+    </div>
+    <div id="misuraLive"></div>
+  </section>
+
+  <!-- ============ 7 · CHE COSA FA USCIRE ============ -->
+  <section class="riquadro">
+    <h2>7 · Quando ci si è già dentro: che cosa serve per uscirne?</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      La domanda di prima era quella dello studioso, che guarda da fuori e chiede da quale
+      carico di partenza non si torna. Questa è la domanda di chi legge, e la fa da dentro:
+      «ci sono già dentro, adesso che cosa mi serve?». Per rispondere si lasciano passare
+      alcuni giorni ordinari, senza un rientro vero, come succede quando si tira avanti.
+      Poi si cambia <b>una cosa sola</b>, e la si tiene ferma per quaranta giorni, per
+      vedere se basta.
+    </p>
+    <div id="uscita"></div>
+    <p class="nota">
+      Il libro, al § 6.6, dice che «RIP deve cambiare qualcosa». La misura qui sopra aggiunge
+      quello che il libro non dice, e cioè <em>quando</em>. Ed è per questo che la domanda
+      utile non è «a che punto sono», ma «da quanto tempo va avanti così».
+    </p>
+  </section>
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <details>
+      <summary style="cursor:pointer;font-weight:600;font-size:16px">
+        Le parole, spiegate
+      </summary>
+      <p style="color:var(--inchiostro-2);font-size:15px">
+        Le parole del simulatore hanno un significato preciso. Qui sotto ci sono quelle
+        che hanno una voce scritta. Le altre sono spiegate nel punto della pagina in cui
+        compaiono.
+      </p>
+      <div data-glossario></div>
+    </details>
+  </section>
+
+
+
+  <footer class="piede">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, le soglie, il dado e i nove esiti
+      sono quelli del libro.</p>
+  </footer>
+
+</div>
+
+
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/microsemantica.js"></script>
+<script src="app/motore/tempo.js"></script>
+<script src="app/motore/settimana-tipo.js"></script>
+<script src="app/motore/analisi.js"></script>
+<script src="app/motore/racconto.js"></script>
+<script src="app/interfaccia/racconto-vista.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/interfaccia/settimana.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

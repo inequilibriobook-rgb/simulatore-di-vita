@@ -1,0 +1,16 @@
+{
+  "name": "Simulatore di vita 3.0",
+  "short_name": "Simulatore",
+  "description": "Ce l’hai fatta, sì o no? E quanto ti è costato? Il simulatore del libro: un gesto, una probabilità, un dado, nove esiti.",
+  "lang": "it",
+  "start_url": "APRI-QUI.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F1F4F5",
+  "theme_color": "#14556E",
+  "icons": [
+    { "src": "app/icone/icona-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "app/icone/icona-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "app/icone/icona-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

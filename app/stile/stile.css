@@ -1,0 +1,2908 @@
+/* =============================================================================
+   SIMULATORE 3.0 — Foglio di stile
+   Funziona da file:// — nessun font esterno, nessuna risorsa remota.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+  /* PROFONDITA'. Prima --piano e --superficie differivano di tre unita'
+     su 255: niente si staccava da niente, e la pagina sembrava un foglio
+     invece di un'applicazione. Adesso --piano e' il FONDO su cui le
+     schede si appoggiano, e --superficie e' la scheda. Gli incavi dentro
+     una scheda usano il fondo, ed e' giusto: e' il piano che si rivede. */
+  --piano:          #eceef2;
+  --superficie:     #ffffff;
+  --inchiostro:     #101418;
+  --inchiostro-2:   #4a4f58;
+  /* AUDIT 19/8 sera: #898781 dava 3.4-3.5:1 contro --piano/--superficie,
+     sotto la soglia 4.5:1 per testo piccolo (11-13px, didascalie e note) —
+     il caso più critico per lettori anziani. #6a6864 tiene la stessa tonalità
+     calda (R>G>B) e sale a 5.27-5.42:1, in linea col tema scuro (4.85-5.41:1,
+     lasciato invariato più sotto: contro sfondi scuri è già calibrato bene). */
+  /* freddo come il fondo nuovo, e con un contrasto un filo migliore di
+     prima: 4.86 sul fondo e 5.65 sulla scheda (era 4.79/5.56). */
+  --inchiostro-3:   #5f6874;
+  --griglia:        #e3e6ec;
+  --linea-base:     #b9bec9;
+  --bordo:          rgba(16,24,40,0.10);
+  --aiuta:          #2a78d6;   /* diverging: polo freddo  */
+  --ostacola:       #d03b3b;   /* diverging: polo caldo   */
+  --neutro:         #dfe3ea;   /* midpoint del diverging  */
+  --buono:          #0ca30c;
+  --attenzione:     #fab219;
+  /* L'INCHIOSTRO CHE SI LEGGE SULL'AMBRA.
+     --attenzione e' un giallo chiaro: il bianco sopra da' 1,8 contro 1,
+     cioe' quasi niente. Le targhette delle soglie nei grafici lo usavano —
+     «il recupero comincia a non bastare», «ripetizione pesante» — ed erano
+     scritte in bianco su giallo, illeggibili in tutti e due i temi.
+     Questo bruno scurissimo era gia' in uso, scritto a mano, dentro
+     «.manca-n»: qui diventa un nome, e vale ovunque serva scrivere
+     sull'ambra. Non si ridefinisce al buio perche' --attenzione non cambia
+     al buio: la coppia resta la stessa. */
+  --su-attenzione:  #2a1d00;
+  --serio:          #ec835a;
+  --critico:        #d03b3b;
+  /* UNA SCALA TIPOGRAFICA, invece di una misura scelta ogni volta.
+     I passi crescono di circa un quarto: 12,5 · 13,5 · 15 · 17 · 19 · 24 ·
+     30 · 44. Il carattere resta quello di sistema — dal libro, capitolo 48:
+     niente risorse dalla rete — ma usato con intenzione invece che ai
+     valori predefiniti. */
+  --t-micro: 11.5px; --t-piccolo: 13px; --t-nota: 13.5px;
+  --t-corpo: 15px;   --t-medio: 17px;   --t-titolo: 19px;
+  --t-grande: 24px;  --t-display: 30px; --t-eroe: clamp(52px, 8vw, 72px);
+  /* la pagina di lettura (IL-MODELLO) ha una scala sua, da libro */
+  --t-lettura: 18px; --t-lettura-sotto: 19px; --t-lettura-h2: 27px; --t-lettura-li: 17px;
+  --corpo: 16px;
+  --raggio: 13px;
+
+  /* L'AZIONE HA UN COLORE SUO.
+     --aiuta e --ostacola dicono che cosa fa un valore alla probabilita':
+     sono significato, e il libro li usa cosi'. Il bottone principale usava
+     --aiuta, e quindi «premi qui» e «questo aggiunge probabilita'» erano
+     dello stesso colore. Un'ardesia profonda non e' ne' l'uno ne' l'altro:
+     legge come comando, e lascia il blu al suo mestiere. */
+  /* L'accento dell'azione e' un petrolio: le sei tinte del significato
+     sono gia' blu, rosso, verde, ambra e arancio, e un comando non deve
+     avere il colore di nessuna di quelle. */
+  --azione:         #0e6b70;
+  --azione-viva:    #12838a;
+  --azione-tenue:   rgba(14,107,112,0.10);
+  --su-azione:      #ffffff;
+
+  /* scala di spaziatura: prima ogni riquadro sceglieva i propri numeri */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 18px; --s5: 26px; --s6: 38px; --s7: 56px;
+  /* la pila di caratteri del sistema, che era scritta a mano dentro body:
+     serve anche alla lettura lunga, dove il testo va in tondo con le grazie
+     ma le etichette e i numeri restano in bastone come nel resto del pacchetto */
+  --carattere: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --raggio-s: 9px; --raggio-l: 18px;
+  --ombra: 0 1px 2px rgba(16,24,40,.05), 0 6px 20px -4px rgba(16,24,40,.10);
+  --ombra-alta: 0 2px 4px rgba(16,24,40,.06), 0 14px 32px -8px rgba(16,24,40,.16);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-tema="chiaro"])) {
+    color-scheme: dark;
+    --piano: #0b0d11; --superficie: #181b22;
+    --inchiostro: #ffffff; --inchiostro-2: #c2c8d2; --inchiostro-3: #8b93a1;
+    --griglia: #262a33; --linea-base: #39404d; --bordo: rgba(255,255,255,0.11);
+    --aiuta: #3987e5; --ostacola: #e66767; --neutro: #2b3039;
+    /* su fondo scuro un'ardesia profonda sparirebbe: si alza e si schiarisce */
+    --azione: #4fc3c9; --azione-viva: #6fd4d9;
+    --azione-tenue: rgba(79,195,201,0.16); --su-azione: #06181a;
+    --ombra: 0 1px 2px rgba(0,0,0,.5), 0 6px 20px -4px rgba(0,0,0,.45);
+    --ombra-alta: 0 2px 4px rgba(0,0,0,.5), 0 14px 32px -8px rgba(0,0,0,.6);
+  }
+}
+:root[data-tema="scuro"] {
+  color-scheme: dark;
+  --piano: #0b0d11; --superficie: #181b22;
+  --inchiostro: #ffffff; --inchiostro-2: #c2c8d2; --inchiostro-3: #8b93a1;
+  --griglia: #262a33; --linea-base: #39404d; --bordo: rgba(255,255,255,0.11);
+  --aiuta: #3987e5; --ostacola: #e66767; --neutro: #2b3039;
+    /* su fondo scuro un'ardesia profonda sparirebbe: si alza e si schiarisce */
+    --azione: #4fc3c9; --azione-viva: #6fd4d9;
+    --azione-tenue: rgba(79,195,201,0.16); --su-azione: #06181a;
+    --ombra: 0 1px 2px rgba(0,0,0,.5), 0 6px 20px -4px rgba(0,0,0,.45);
+    --ombra-alta: 0 2px 4px rgba(0,0,0,.5), 0 14px 32px -8px rgba(0,0,0,.6);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+body {
+  margin: 0;
+  background: var(--piano);
+  color: var(--inchiostro);
+  font: var(--corpo)/1.6 var(--carattere);
+}
+
+/* L'audit aveva rilevato 0 regole :focus su 754 selettori. Qui c'è.
+   Il colore e' quello dell'azione: il fuoco e' interazione, non significato. */
+:focus-visible {
+  outline: 2px solid var(--azione);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.contenitore { max-width: 1080px; margin: 0 auto; padding: 24px 20px 72px; }
+
+/* IL TESTO CHE CORRE E' GIUSTIFICATO, E SILLABATO (17/09/2026).
+   Igor: «il testo perfettamente allineato e formattato, come fosse un'app».
+   Il giustificato da solo, su una colonna stretta, apre buchi bianchi fra le
+   parole; con la sillabazione automatica (lang="it" e' dichiarato su ogni
+   pagina) le righe si chiudono a filo su tutti e due i lati, come in un
+   libro. L'ultima riga resta a sinistra. Vale per i paragrafi e le voci di
+   elenco; titoli, etichette, bottoni, tabelle e note brevissime restano a
+   bandiera, perche' su due parole il giustificato non ha senso. */
+.contenitore :is(p, li, dd, blockquote, figcaption, .imbocco-nota, .nota, .glossa, .glossa-dettaglio,
+  .carta-livello span, .passo-perche, .racconto-sintesi, .sottotitolo, .avviso, .riquadro-attenzione,
+  .figura-conto, .figura-nota, .lettura-nota, .caso-lettura, .wiki-breve, .glossa-esempio, summary + div),
+.contenitore-lettura :is(p, li, dd, blockquote, figcaption),
+.testo-lettura p, .racconto p, .racconto div, .glossa p, .glossa-dettaglio p, .tendina small,
+.strada-t small, .due-strade small, .imbocco-nota {
+  text-align: justify; text-align-last: left;
+  hyphens: auto; -webkit-hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+}
+/* dove il giustificato stona: righe corte, etichette accanto a un numero, legende, tabelle */
+.passo-etichetta, .occhiello, .voce-legenda, .cursore .nome, .cursore label, .opzione,
+.gradino-testo, .voce-testo b, .legenda, .formula-fonte, .riga-contributo, .tassello, .verifica,
+.app-barra, .wiki-tasto, li.indice-voce, .indice-lettura, .ancore, table, td, th, .chiusura,
+.semaforo, .cifra, button, .bottone, label, .imbocco-eti, .imbocco strong, .gruppo-titolo,
+.barra-azioni, .passo-scelte, .commutatore, .scelta-livello, .carta-livello b, .wiki-indice {
+  text-align: left; text-align-last: auto; hyphens: manual; -webkit-hyphens: manual;
+}
+.contenitore table p, .contenitore .app-barra p { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+h1, h2, h3, h4, .occhiello, .gruppo-titolo, .passo-etichetta, .sezione-t { hyphens: none; -webkit-hyphens: none; text-align: left; }
+
+header.testata { padding: 32px 0 8px; }
+.occhiello {
+  font-size: var(--t-piccolo); letter-spacing: .09em; text-transform: uppercase;
+  color: var(--inchiostro-3); margin: 0 0 6px;
+}
+h1 { font-size: var(--t-display); line-height: 1.25; margin: 0 0 8px; font-weight: 650; letter-spacing: -.015em; }
+.sottotitolo { color: var(--inchiostro-2); margin: 0; max-width: 62ch; }
+
+/* LE SCHEDE. Erano riquadri piatti su un fondo dello stesso colore: si
+   distinguevano solo per un bordo da un pixel. Adesso sono superfici
+   sollevate su un fondo piu' profondo, ed e' quello che fa sembrare la
+   pagina un'applicazione invece di un foglio. */
+.riquadro {
+  background: var(--superficie);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio-l);
+  box-shadow: var(--ombra);
+  padding: 26px 28px;
+  margin: 18px 0;
+}
+@media (max-width: 680px) { .riquadro { padding: 20px 18px; border-radius: var(--raggio); } }
+/* Erano 13 px in maiuscoletto grigio: l'ossatura della pagina, e non si
+   vedeva. Per capire a che punto si era bisognava leggerli uno per uno.
+   (La regola e' questa e non una nuova classe: «.riquadro > h2» pesa piu'
+   di «.titolo-sezione», e aggiungerne una accanto avrebbe solo prodotto due
+   regole che litigano — con la vecchia che vince.) */
+.riquadro > h2 {
+  display: flex; align-items: baseline; gap: var(--s3);
+  font-size: var(--t-titolo); font-weight: 640; letter-spacing: -.015em;
+  text-transform: none; color: var(--inchiostro);
+  margin: 0 0 var(--s4); text-wrap: balance;
+}
+
+/* ---------- Cursori ---------- */
+.griglia-cursori { display: grid; grid-template-columns: repeat(auto-fit, minmax(17em, 1fr)); gap: 18px 26px; }
+/* sotto i 640 px due colonne di cursori diventano due colonne di etichette
+   spezzate: una sola colonna, con la pista larga tutto lo schermo */
+@media (max-width: 640px) { .griglia-cursori { grid-template-columns: minmax(0, 1fr); } }
+.cursore label { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.cursore .nome { font-size: var(--t-corpo); font-weight: 550; }
+.cursore .nome small { display: block; font-weight: 400; color: var(--inchiostro-3); font-size: var(--t-piccolo); letter-spacing: 0; }
+.cursore .valore {
+  font-variant-numeric: tabular-nums; font-size: var(--t-corpo); font-weight: 650;
+  text-align: center; min-width: 46px; display: inline-block;
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: 999px; padding: 2px 11px;
+}
+input[type=range] { width: 100%; accent-color: var(--aiuta); margin: 0; }
+
+/* ---------- Numero principale ---------- */
+.esito-principale { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 28px; margin-bottom: 22px; }
+/* IL NUMERO E' IL CUORE DELLA PAGINA: tutto quello che si muove sopra
+   serve a farlo cambiare. Adesso e' grande quanto merita, e cresce con lo
+   schermo invece di restare a una misura fissa. */
+.numero-eroe {
+  font-size: var(--t-eroe); line-height: .92; font-weight: 700;
+  letter-spacing: -.038em; font-variant-numeric: tabular-nums;
+  display: flex; align-items: baseline; gap: 2px;
+}
+.numero-eroe .unita {
+  font-size: var(--t-grande); color: var(--inchiostro-3); font-weight: 500;
+  letter-spacing: -.01em;
+}
+.eroe-etichetta {
+  font-size: var(--t-nota); color: var(--inchiostro-2); margin-top: 8px;
+  max-width: 46ch; line-height: 1.5;
+}
+
+/* ---------- Barra di probabilità 0–100 ---------- */
+/* LA SCALA E' LA VISUALIZZAZIONE PRINCIPALE dell'applicazione: dice in un
+   colpo d'occhio quanto e' probabile e dove e' caduto il dado. Era una
+   barra grigia alta 18 px con un trattino nero sopra.
+   Adesso: pista alta, tutta arrotondata, il pieno con una sfumatura, e il
+   dado su un perno con la sua targhetta. */
+.scala { position: relative; height: 62px; margin: 14px 0 8px; }
+.scala .fondo {
+  position: absolute; inset: 24px 0 auto 0; height: 26px;
+  background: var(--neutro); border-radius: 999px;
+  box-shadow: inset 0 1px 2px rgba(16,24,40,.10);
+}
+.scala .riempita {
+  position: absolute; top: 24px; left: 0; height: 26px; border-radius: 999px;
+  background: linear-gradient(100deg, var(--azione), var(--azione-viva));
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--azione) 45%, transparent);
+  transition: width .28s cubic-bezier(.4,0,.2,1);
+}
+/* il dado: un perno sottile con la testa tonda, cosi' si vede anche
+   quando cade dentro la parte piena */
+.scala .marcatore {
+  position: absolute; top: 18px; width: 3px; height: 38px;
+  background: var(--inchiostro); border-radius: 999px;
+  box-shadow: 0 0 0 3px var(--superficie);
+  transition: left .28s cubic-bezier(.4,0,.2,1);
+}
+.scala .marcatore::after {
+  content: ''; position: absolute; left: 50%; top: -5px;
+  width: 11px; height: 11px; margin-left: -5.5px;
+  border-radius: 50%; background: var(--inchiostro);
+  box-shadow: 0 0 0 3px var(--superficie);
+}
+.scala .etichetta-marcatore {
+  position: absolute; top: -4px; transform: translateX(-50%);
+  font-size: var(--t-micro); font-weight: 650; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  background: var(--inchiostro); color: var(--superficie);
+  padding: 3px 9px; border-radius: 999px;
+  transition: left .28s cubic-bezier(.4,0,.2,1);
+}
+.scala-assi {
+  display: flex; justify-content: space-between;
+  font-size: var(--t-micro); color: var(--inchiostro-3);
+  font-variant-numeric: tabular-nums; padding: 0 2px;
+}
+
+/* ---------- Barre diverging dei contributi ---------- */
+.contributi { display: grid; gap: 2px; }              /* 2px di superficie fra le barre */
+.riga-contributo {
+  display: grid; grid-template-columns: 190px 1fr 66px; align-items: center; gap: 12px;
+  padding: 3px 0; border-radius: 6px;
+}
+.riga-contributo:hover { background: color-mix(in srgb, var(--inchiostro) 4%, transparent); }
+.riga-contributo .etichetta { font-size: var(--t-piccolo); color: var(--inchiostro-2); }
+.riga-contributo .etichetta b { color: var(--inchiostro); font-weight: 600; }
+.pista { position: relative; height: 20px; }
+.pista .zero { z-index: 1; }
+.pista .zero { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--linea-base); }
+/* le barre di «che cosa aiuta e che cosa ostacola»: arrotondate, con una
+   sfumatura leggera, e si allungano invece di comparire di colpo */
+.pista .barra {
+  position: absolute; top: 2px; height: 16px; border-radius: 999px;
+  transition: width .22s cubic-bezier(.4,0,.2,1), left .22s cubic-bezier(.4,0,.2,1);
+}
+.pista .barra.piu  { background: linear-gradient(90deg, color-mix(in srgb, var(--aiuta) 78%, transparent), var(--aiuta)); }
+.pista .barra.meno { background: linear-gradient(270deg, color-mix(in srgb, var(--ostacola) 78%, transparent), var(--ostacola)); }
+.riga-contributo .cifra { font-size: var(--t-piccolo); font-weight: 650; text-align: right; font-variant-numeric: tabular-nums; }
+
+.riga-base, .riga-somma { padding: 7px 0; }
+.riga-base { border-bottom: 1px solid var(--griglia); margin-bottom: 6px; }
+.riga-somma { border-top: 1px solid var(--linea-base); margin-top: 6px; }
+.riga-base .cifra, .riga-somma .cifra { font-size: var(--t-corpo); }
+.pista-base { font-size: var(--t-piccolo); color: var(--inchiostro-3); }
+.riga-base:hover, .riga-somma:hover { background: none; }
+
+/* ---------- Etichetta di esito ---------- */
+.pillola {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 12px; border-radius: 999px; font-size: var(--t-piccolo); font-weight: 600;
+  border: 1px solid var(--bordo); background: var(--superficie);
+}
+.pillola .punto { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.pillola .glifo { font-weight: 700; }
+
+/* ---------- Tre livelli di lettura ---------- */
+.livelli { display: grid; gap: 2px; margin-top: 4px; }
+details.livello { background: var(--piano); border: 1px solid var(--bordo); border-radius: var(--raggio); }
+details.livello + details.livello { margin-top: 10px; }
+details.livello > summary {
+  cursor: pointer; padding: 14px 18px; font-weight: 600; font-size: var(--t-corpo);
+  display: flex; align-items: center; gap: 10px; list-style: none; border-radius: var(--raggio);
+}
+details.livello > summary::-webkit-details-marker { display: none; }
+details.livello > summary .grado {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--neutro); color: var(--inchiostro-2);
+  display: grid; place-items: center; font-size: var(--t-piccolo); font-weight: 700; flex: none;
+}
+details.livello[open] > summary .grado { background: var(--aiuta); color: #fff; }
+details.livello .corpo { padding: 0 18px 18px 50px; color: var(--inchiostro-2); font-size: var(--t-corpo); }
+details.livello .corpo p:first-child { margin-top: 0; }
+details.livello .corpo strong { color: var(--inchiostro); }
+
+.formula-testo {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--t-piccolo); background: var(--piano); border: 1px solid var(--bordo);
+  padding: 12px 14px; border-radius: 8px; overflow-x: auto; color: var(--inchiostro);
+}
+
+/* ---------- Pulsanti ---------- */
+.barra-azioni { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; margin-top: 18px; }
+.barra-azioni > label, .barra-azioni > span, .barra-azioni > .seme, .barra-azioni > .nota { align-self: center; }
+/* =============================================================================
+   I BOTTONI, CON GLI STATI CHE MANCAVANO
+   Prima c'era una regola sola e un hover. Niente :active, niente :disabled,
+   niente :focus-visible — chi si muove con la tastiera non vedeva dove
+   fosse. E il bottone principale usava --aiuta, che in questo simulatore
+   significa «aggiunge probabilita'»: comando e significato dello stesso
+   colore. Adesso l'azione ha --azione, che non vuol dire nient'altro.
+   ========================================================================== */
+button, .bottone {
+  font: inherit; font-size: var(--t-corpo); font-weight: 550; line-height: 1.2;
+  display: inline-flex; align-items: center; gap: var(--s2);
+  padding: 10px 16px; border-radius: var(--raggio-s); cursor: pointer;
+  border: 1px solid var(--bordo); background: var(--superficie); color: var(--inchiostro);
+  text-decoration: none; white-space: nowrap;
+  transition: background-color .13s ease, border-color .13s ease,
+              color .13s ease, transform .06s ease;
+}
+button:hover, .bottone:hover { border-color: var(--inchiostro-3); background: var(--piano); }
+button:active, .bottone:active { transform: translateY(1px); }
+button:focus-visible, .bottone:focus-visible,
+[data-parola]:focus-visible, a:focus-visible, summary:focus-visible,
+input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--azione); outline-offset: 2px; border-radius: var(--raggio-s);
+}
+button:disabled, button[aria-disabled="true"] {
+  opacity: .45; cursor: not-allowed; transform: none;
+}
+button:disabled:hover { border-color: var(--bordo); background: var(--superficie); }
+
+button.primario, .bottone.primario {
+  background: var(--azione); border-color: var(--azione); color: var(--su-azione);
+  font-weight: 600;
+}
+button.primario:hover, .bottone.primario:hover {
+  background: var(--azione-viva); border-color: var(--azione-viva);
+}
+button.fantasma {
+  background: transparent; border-color: transparent; color: var(--inchiostro-2);
+  padding: 7px 10px; font-weight: 500;
+}
+button.fantasma:hover { background: var(--azione-tenue); color: var(--inchiostro); border-color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  button, .bottone { transition: none; }
+  button:active, .bottone:active { transform: none; }
+}
+
+/* IL CAMBIO DI TEMA NON DEVE ESSERE UNA TRANSIZIONE.
+   Trovato misurando: con «transition: background-color» sui bottoni, al
+   cambio di tema il bottone principale restava del colore vecchio. Il
+   valore viene da una variabile (var(--azione)), e la transizione partiva
+   da quella vecchia senza arrivare alla nuova: in tema scuro il bottone
+   restava ardesia chiara, per sempre, finche' non si ricaricava la pagina.
+
+   Le transizioni servono all'interazione — passare il mouse, premere — non
+   al cambio di tema, che deve essere immediato. Si spengono per un istante
+   mentre si cambia, e si riaccendono subito dopo. */
+.cambio-tema, .cambio-tema *, .cambio-tema *::before, .cambio-tema *::after {
+  transition: none !important;
+}
+.campo-seme { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-piccolo); color: var(--inchiostro-2); }
+.campo-seme input {
+  font: inherit; font-size: var(--t-corpo); width: 11ch; padding: 8px 10px; border-radius: 8px;
+  border: 1px solid var(--bordo); background: var(--superficie); color: var(--inchiostro);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Tabella dati (alternativa non visiva ai grafici) ---------- */
+table.dati {
+  width: 100%; font-size: var(--t-piccolo); margin-top: 4px;
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  border-collapse: separate; border-spacing: 0; overflow: hidden;
+}
+table.dati th, table.dati td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--griglia); }
+table.dati th { color: var(--inchiostro-3); font-weight: 600; font-size: var(--t-piccolo); text-transform: uppercase; letter-spacing: .05em; }
+table.dati td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 550; }
+/* anche le tabelle senza la classe «dati» (quelle della lettura lunga): stesse regole */
+table td.num, table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table th, table td { vertical-align: top; }
+/* L'INTESTAZIONE STA SOPRA LA SUA COLONNA.
+   «text-align: right» era solo sulle celle. In ogni tabella con una colonna
+   di numeri il titolo restava appoggiato a sinistra e le cifre a destra, e i
+   due non si incolonnavano: misurate dodici intestazioni cosi' in tutto il
+   pacchetto — «valore» e «sposta» sulla pagina della formula, «toglie» nelle
+   due tabelle a gradini, «prima», «Δ», «dopo» nella figura dello stato,
+   «Pn» nell'elenco dei casi. La classe che marca una colonna di numeri e'
+   la stessa: deve valere anche per la sua testa.
+   Le cifre a larghezza fissa servono anche qui, perche' un'intestazione puo'
+   essere un numero (l'anno, la settimana); il peso invece resta quello delle
+   altre intestazioni, che sono maiuscoletto e non dati. */
+table.dati th.num { text-align: right; font-variant-numeric: tabular-nums; }
+/* Un numero non va mai a capo in mezzo alle cifre: se la colonna e' stretta
+   si accorcia la colonna, non il numero. */
+table.dati td.num, table.dati th.num { white-space: nowrap; }
+
+/* «MENO DI 1» E' UN VALORE, NON UNA CIFRA.
+   Su LA-SCENA la colonna «ne passa» scrive «meno di 1» quando il
+   trasferimento c'e' ma non arriva a un punto intero. E' una frase in mezzo
+   a una colonna di numeri: va scritta piu' piccola e piu' chiara, se no
+   sembra un numero lungo e sfonda la colonna che si e' appena finito di
+   incolonnare. Resta a destra come le cifre, cosi' la colonna tiene. */
+table.dati td.num .sotto-uno {
+  font-size: 0.82em;
+  font-weight: 400;
+  font-variant-numeric: normal;
+  color: var(--inchiostro-3);
+  cursor: help;
+}
+
+/* ---------- Verifica di parità ---------- */
+.verifica { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2px; }
+.tassello { display:flex; flex-direction:column; justify-content:space-between; min-height: 84px; background: var(--piano); border: 1px solid var(--bordo); border-radius: var(--raggio); padding: 16px 18px; }
+.tassello .k { font-size: var(--t-piccolo); color: var(--inchiostro-3); margin-bottom: 4px; }
+.tassello .v { font-size: var(--t-grande); font-weight: 660; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tassello .s { font-size: var(--t-piccolo); color: var(--inchiostro-2); margin-top: 2px; line-height: 1.35; }
+
+.nota { font-size: var(--t-piccolo); color: var(--inchiostro-3); margin-top: 14px; }
+.nota code { font-size: var(--t-piccolo); background: var(--piano); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--bordo); }
+
+.avviso {
+  border-left: 3px solid var(--attenzione);
+  background: color-mix(in srgb, var(--attenzione) 8%, var(--superficie));
+  padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: var(--t-corpo); margin: 20px 0;
+}
+.avviso strong { display: block; margin-bottom: 3px; }
+/* l'avvertenza che accompagna le correlazioni: quattro cose separate, e
+   separate devono restare, perche' si legga anche solo la terza */
+.elenco-avvertenza { margin: 8px 0 0; padding-left: 20px; line-height: 1.62; }
+.elenco-avvertenza li { margin-bottom: 7px; }
+.elenco-avvertenza li:last-child { margin-bottom: 0; }
+
+footer.piede { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--griglia); font-size: var(--t-piccolo); color: var(--inchiostro-3); }
+
+/* AUDIT 19/8 sera: bottone "Stampa" aggiunto accanto al selettore di tema —
+   il CSS di stampa era già curato ma nessun controllo visibile lo richiamava;
+   Ctrl+P/Cmd+P non è scontato per un lettore non esperto. Stesso involucro
+   posizionato, i due bottoni ora vivono dentro .strumenti-alto. */
+.strumenti-alto { position: absolute; top: 22px; right: 20px; display: flex; gap: 8px; }
+
+@media (max-width: 680px) {
+  .riga-contributo { grid-template-columns: 130px 1fr 52px; gap: 8px; }
+  /* su schermo stretto il numero resta il protagonista: la clamp lo fa
+     gia' scendere da sola con la larghezza, non serve schiacciarlo a 30 */
+  .numero-eroe { font-size: clamp(44px, 13vw, 58px); }
+  .contenitore { padding: 16px 14px 56px; }
+}
+
+@media print {
+  /* Il racconto è la parte che si stampa: il resto è strumentazione.
+     Chi stampa vuole portarsi via quello che il simulatore ha detto,
+     non i cursori con cui l'ha detto. */
+  :root {
+    --piano: #fff; --superficie: #fff; --inchiostro: #000; --inchiostro-2: #333;
+    --inchiostro-3: #666; --griglia: #ddd; --bordo: #ccc; --neutro: #f2f2f2;
+  }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .contenitore { max-width: none; padding: 0; }
+
+  /* via tutto ciò che serve solo a interagire */
+  .no-stampa,
+  .barra-azioni, .commutatore, .griglia-cursori, .scelta-livello,
+  .avanzamento, #sicurezza, #esitoSicurezza, .opzioni, .riga-scala, .ancore,
+  /* AUDIT 19/8 sera: mancava .bottone — i link di navigazione del gesto singolo
+     (<a class="bottone">) restavano come riquadri inutili in cima al foglio
+     perché questa regola escludeva l'elemento <button> ma non la classe
+     usata sugli <a> stilizzati come bottoni. */
+  #verifica, #mcTasselli, #mcEsiti, textarea, input, button, .bottone { display: none !important; }
+  a[href]:after { content: ""; }
+
+  /* i dettagli chiusi si aprono: su carta non si clicca */
+  details { display: block; }
+  details > summary { display: none; }
+  details > *:not(summary) { display: block !important; }
+
+  /* un riquadro può essere lungo una pagina intera: obbligarlo a stare
+     tutto insieme lascerebbe pagine mezze bianche. Si tengono uniti solo
+     i blocchi piccoli, dove spezzare sarebbe fastidioso. */
+  .riquadro { border: 0; border-top: 1px solid #ccc; border-radius: 0;
+    padding: 14pt 0 0; margin: 0 0 14pt; }
+  .riquadro h2 { break-after: avoid; }
+  .racconto-titolo, h3, h4 { break-after: avoid; }
+  .riquadro h2 { font-size: 12pt; }
+  h1 { font-size: 18pt; }
+
+  /* il racconto non si spezza a metà di una sezione */
+  .racconto-azione, ul.leve li, .racconto-registro { break-inside: avoid; }
+  .racconto-sintesi { font-size: 13pt; }
+  .racconto-azione { background: #f5f5f5 !important; border: 1px solid #bbb; }
+  .avviso { background: #f7f7f7 !important; border-left: 3px solid #666; }
+
+  /* le barre colorate non si vedono su una stampante in bianco e nero:
+     la tabella equivalente sì, ed è già nel documento */
+  .pista .barra { border: 1px solid #666; }
+  .scala { border: 1px solid #999; }
+
+  table.dati { font-size: 9.5pt; break-inside: avoid; }
+  .piede { border-top: 1px solid #ccc; font-size: 9pt; }
+}
+
+/* ---------- Questionario ---------- */
+.cancello { border-left: 3px solid var(--critico);
+  background: color-mix(in srgb, var(--critico) 7%, var(--superficie));
+  padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 18px 0; }
+.cancello h3 { margin: 0 0 10px; font-size: var(--t-corpo); }
+
+.domanda { padding: 18px 0; border-bottom: 1px solid var(--griglia); }
+.domanda:last-child { border-bottom: 0; }
+.domanda .testo { font-size: var(--t-corpo); font-weight: 550; margin-bottom: 3px; }
+.domanda .aiuto { font-size: var(--t-piccolo); color: var(--inchiostro-3); margin-bottom: 10px; }
+.domanda .targa { display: inline-block; font-size: var(--t-micro); letter-spacing: .05em;
+  text-transform: uppercase; color: var(--inchiostro-3); border: 1px solid var(--bordo);
+  border-radius: 4px; padding: 1px 6px; margin-left: 8px; vertical-align: 2px; font-weight: 600; }
+
+.opzioni { display: grid; gap: 6px; }
+.opzione { display: grid; grid-template-columns: 18px 1fr auto; gap: 10px; align-items: center;
+  padding: 11px 14px; border: 1px solid var(--bordo); border-radius: var(--raggio);
+  background: var(--piano); cursor: pointer; font-size: var(--t-corpo); }
+.opzione:hover { border-color: var(--linea-base); }
+.opzione.scelta { border-color: var(--aiuta); background: color-mix(in srgb, var(--aiuta) 8%, var(--piano)); }
+.opzione .eff { font-size: var(--t-piccolo); color: var(--inchiostro-3); font-variant-numeric: tabular-nums; text-align: right; }
+.opzione input { margin: 0; }
+
+.riga-scala { display: grid; grid-template-columns: 1fr 54px; gap: 14px; align-items: center; }
+.riga-scala input[type=range] { width: 100%; }
+.riga-scala .val { font-size: var(--t-titolo); font-weight: 650; text-align: right; font-variant-numeric: tabular-nums; }
+.ancore { display: flex; justify-content: space-between; font-size: var(--t-piccolo); color: var(--inchiostro-3); margin-top: 2px; }
+
+.avanzamento { height: 6px; background: var(--griglia); border-radius: 3px; overflow: hidden; margin: 6px 0 0; }
+.avanzamento > i { display: block; height: 100%; background: var(--aiuta); transition: width .2s; }
+
+.scelta-livello { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+/* ANCHE QUESTA E' UN BOTTONE, E UN BOTTONE NON MANDA A CAPO DA SOLO.
+   E' lo stesso difetto gia' corretto sulle schede dei casi, che qui era
+   rimasto: «white-space: nowrap» sta sulla regola dei bottoni e si eredita,
+   quindi la riga di spiegazione dentro la carta — «giorni ordinari, niente
+   di straordinario», «8,0 ore per notte, con una qualita' di 0,8» — restava
+   su una riga sola. Misurato a 380 px su SETTIMANA e TRAIETTORIA: le carte
+   arrivavano a 417 px in una colonna da 380, e la pagina scorreva di lato. */
+.carta-livello { text-align: left; padding: 15px 17px; border: 1px solid var(--bordo);
+  border-radius: var(--raggio); background: var(--piano); cursor: pointer;
+  font: inherit; color: inherit;
+  /* «display: block», non il flex ereditato dai bottoni: con il flex il nome
+     («Sonno buono») e la spiegazione finivano fianco a fianco, e su una
+     colonna stretta il nome si spezzava lettera per lettera (misurato a
+     600 px: «Sonn / o / buon / o»). Il nome sta sopra, la spiegazione sotto. */
+  display: block; width: 100%;
+  white-space: normal; overflow-wrap: break-word; }
+.carta-livello:hover { border-color: var(--linea-base); }
+.carta-livello.scelta { border-color: var(--aiuta); background: color-mix(in srgb, var(--aiuta) 8%, var(--piano)); }
+.carta-livello b { display: block; font-size: var(--t-corpo); margin-bottom: 2px; }
+.carta-livello span { font-size: var(--t-piccolo); color: var(--inchiostro-2); line-height: 1.4; }
+
+/* ---------- Il racconto ---------- */
+/* LA FRASE CHE SI LEGGE PER PRIMA. Era un paragrafo appena piu' grande
+   degli altri, con una linea sotto. Adesso e' un vero attacco: piu' grande,
+   piu' arioso, e la linea sotto e' piu' leggera perche' non deve separare
+   ma solo respirare. */
+.racconto-sintesi {
+  font-size: var(--t-grande); font-weight: 600; line-height: 1.38;
+  letter-spacing: -.018em; margin: 0 0 var(--s5);
+  padding-bottom: var(--s4); border-bottom: 1px solid var(--griglia);
+  text-wrap: pretty; max-width: 40ch;
+}
+.racconto-registro {
+  font-size: var(--t-nota); border-left: 3px solid var(--attenzione);
+  background: var(--piano); padding: 13px 17px;
+  border-radius: 0 var(--raggio) var(--raggio) 0; margin: 0 0 var(--s5);
+  color: var(--inchiostro-2);
+}
+/* I titoletti del racconto: restano piccoli e in maiuscoletto — servono a
+   orientarsi, non a essere letti — ma prendono un trattino davanti che li
+   allinea e li rende una serie invece che sei righe sparse. */
+.racconto-titolo {
+  font-size: var(--t-micro); letter-spacing: .09em; text-transform: uppercase;
+  color: var(--inchiostro-3); font-weight: 700;
+  margin: var(--s5) 0 var(--s2);
+  display: flex; align-items: center; gap: var(--s2);
+}
+.racconto-titolo::before {
+  content: ''; width: 14px; height: 2px; flex: none;
+  background: var(--azione); border-radius: 2px;
+}
+.racconto-testo {
+  margin: 0; font-size: var(--t-corpo); line-height: 1.7;
+  max-width: 66ch; text-wrap: pretty;
+}
+ul.leve { margin: 8px 0 0; padding-left: 0; list-style: none; }
+ul.leve li { font-size: var(--t-corpo); line-height: 1.55; padding: 10px 0 10px 16px;
+  border-left: 2px solid var(--aiuta); margin-bottom: 8px; background: var(--piano);
+  border-radius: 0 6px 6px 0; padding-right: 14px; }
+ul.leve.incastri li { border-left-color: var(--inchiostro-3); }
+.racconto-azione { margin-top: 26px; padding: 18px 20px; border-radius: 10px;
+  background: color-mix(in srgb, var(--aiuta) 7%, var(--superficie));
+  border: 1px solid color-mix(in srgb, var(--aiuta) 22%, transparent); }
+ol.priorita { margin: 12px 0 0; padding-left: 20px; font-size: var(--t-corpo); line-height: 1.6; }
+ol.priorita li { margin-bottom: 5px; }
+ul.leve.scogliere li { border-left-color: var(--critico);
+  background: color-mix(in srgb, var(--critico) 6%, var(--piano)); }
+
+/* =============================================================================
+   IL GLOSSARIO
+   Una parola cliccabile e il riquadro che apre. Il segno sotto la parola e'
+   tratteggiato e non pieno: un sottolineato pieno vuol dire «collegamento che
+   porta via», e questo invece resta qui e apre una spiegazione.
+   ========================================================================== */
+/* LA SOTTOLINEATURA SEGUE IL TESTO, NON IL RIQUADRO.
+   Era un «border-bottom», e sul telefono si vedeva un difetto preciso: il
+   bersaglio da toccare e' allargato con 11 px di riempimento sopra e sotto
+   (piu' in basso, alla voce «pointer: coarse»), e il bordo di un elemento
+   in linea si disegna in fondo a QUEL riquadro — cioe' undici pixel piu'
+   giu', sopra la riga di testo successiva. Sembrava che la frase dopo
+   fosse barrata.
+   La decorazione del testo, invece, sta attaccata alle lettere: il
+   bersaglio resta grande e il trattino resta dov'e' la parola. */
+.parola-spiegata {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--inchiostro-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: help;
+}
+.parola-spiegata:hover {
+  text-decoration-color: var(--inchiostro);
+  background: color-mix(in srgb, var(--inchiostro) 6%, transparent);
+}
+/* IL FUOCO SI VEDE, MA NON RIEMPIE LA PAROLA.
+   Con lo sfondo pieno, una parola che occupa da sola tutta l'etichetta di
+   un riquadrino — «P0», «STR» — sembrava selezionata per intero appena la
+   si toccava, e chi la premeva credeva di aver evidenziato del testo invece
+   di aver aperto una spiegazione. Un contorno dice la stessa cosa senza
+   coprire niente. */
+.parola-spiegata:focus-visible {
+  text-decoration-color: var(--inchiostro);
+  outline: 2px solid var(--azione); outline-offset: 2px; border-radius: 3px;
+}
+/* dentro i riquadrini la parola E' il bottone: selezionarla col dito non
+   serve a niente, e la selezione accidentale sembrava un difetto */
+.tassello .parola-spiegata, .cursore .parola-spiegata {
+  -webkit-user-select: none; user-select: none;
+}
+/* la spiegazione aperta: piu' larga della cella da cui e' stata chiamata,
+   e con l'aria per essere letta */
+.glossa { max-width: 62ch; }
+.parola-spiegata::after {
+  content: ' ?';
+  font-size: .8em;
+  vertical-align: super;
+  /* IL PUNTO INTERROGATIVO NON DEVE ALLARGARE LA RIGA.
+     Alzato con «super» il segno sporge sopra il testo, e la riga che lo
+     contiene diventa piu' alta delle altre: in un paragrafo fitto — le
+     schede, le note — le righe finivano a distanze diverse e sembravano
+     accavallarsi. Con altezza di riga zero il segno resta alzato ma non
+     conta nel calcolo dell'altezza, che e' il modo consueto di trattare
+     apici e pedici. */
+  line-height: 0;
+  color: var(--inchiostro-3);
+}
+.parola-spiegata[aria-expanded="true"]::after { content: ' ×'; vertical-align: baseline; }
+
+.glossa {
+  margin: 8px 0 12px;
+  padding: 10px 13px;
+  border-left: 3px solid var(--inchiostro-3);
+  background: var(--piano);
+  border-radius: 0 var(--raggio) var(--raggio) 0;
+  font-size: var(--t-corpo);
+  line-height: 1.55;
+}
+.glossa p { margin: 5px 0 0; }
+.glossa-sigla {
+  font-size: .8em; letter-spacing: .06em; color: var(--inchiostro-3);
+  border: 1px solid var(--bordo); border-radius: 4px; padding: 1px 5px;
+}
+.glossa-esempio { color: var(--inchiostro-2); display: block; margin-top: 5px; }
+
+.glossario-titolo { margin: 22px 0 4px; font-size: var(--t-medio); }
+.glossario-intro { margin: 0 0 12px; color: var(--inchiostro-2); font-size: var(--t-corpo); }
+/* ---------- L'indice dei termini, che si apre con un tasto ----------
+   Stesse voci del glossario in fondo alla pagina, disegnate dallo stesso
+   codice: qui cambia soltanto dove stanno. Il pannello si apre sopra la
+   pagina cosi' chi legge non perde il segno. */
+dialog.indice-termini {
+  width: min(760px, 92vw);
+  max-height: 86vh;
+  padding: 0;
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  background: var(--superficie);
+  color: var(--inchiostro);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+dialog.indice-termini::backdrop { background: rgba(0, 0, 0, 0.42); }
+
+/* la riga in alto resta ferma mentre l'elenco scorre: con sessantotto voci
+   la casella che filtra deve restare a portata di mano */
+.indice-alto {
+  position: sticky; top: 0; z-index: 1;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--piano);
+  border-bottom: 1px solid var(--bordo);
+}
+.indice-alto h2 { margin: 0; font-size: var(--t-grande); flex: 0 0 auto; }
+.indice-filtro {
+  flex: 1 1 180px; min-width: 0;
+  padding: 8px 12px;
+  font: inherit; font-size: var(--t-corpo);
+  color: var(--inchiostro);
+  background: var(--superficie);
+  border: 1px solid var(--bordo);
+  border-radius: 8px;
+}
+.indice-chiudi { flex: 0 0 auto; }
+.indice-corpo { padding: 4px 20px 20px; overflow-y: auto; max-height: calc(86vh - 76px); }
+.indice-vuoto { padding: 0 20px 20px; }
+
+/* sul telefono il pannello prende quasi tutto, se no le voci lunghe
+   diventano una colonna di due parole */
+@media (max-width: 560px) {
+  dialog.indice-termini { width: 96vw; max-height: 92vh; }
+  .indice-corpo { max-height: calc(92vh - 96px); }
+  .indice-alto { padding: 12px 14px; }
+  .indice-corpo, .indice-vuoto { padding-left: 14px; padding-right: 14px; }
+}
+
+/* ---------- La wiki delle parole: un indice di tasti, una categoria per volta ----------
+   Il 16/09/2026 il glossario e' diventato una piccola wiki: dieci categorie,
+   ognuna corta. L'indice e' una griglia di tasti grandi — si deve vedere
+   subito che sono da premere — e dentro una categoria c'e' un tasto solo
+   per tornare indietro. Nessun rimando da una parola all'altra. */
+.wiki-indice {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+  margin: 8px 0 4px;
+}
+.wiki-tasto {
+  display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
+  text-align: left; cursor: pointer;
+  /* un <button> non manda a capo il testo da solo: senza queste due righe
+     la riga di presentazione usciva dal bordo destro del tasto */
+  white-space: normal; width: 100%; min-width: 0;
+  padding: 14px 16px;
+  font: inherit; color: var(--inchiostro);
+  background: var(--piano);
+  border: 1.5px solid var(--bordo);
+  border-left: 4px solid var(--azione);
+  border-radius: var(--raggio);
+  transition: border-color .12s, background .12s, transform .12s;
+}
+.wiki-tasto:hover, .wiki-tasto:focus-visible {
+  background: var(--superficie);
+  border-color: var(--azione);
+  transform: translateY(-1px);
+  outline: none;
+}
+.wiki-tasto:focus-visible { box-shadow: 0 0 0 3px var(--bordo); }
+.wiki-tasto > span { display: block; max-width: 100%; min-width: 0; overflow-wrap: anywhere; }
+.wiki-tasto-titolo { font-weight: 700; font-size: var(--t-corpo); line-height: 1.3; }
+.wiki-tasto-quante {
+  font-size: .8em; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--inchiostro-3);
+}
+.wiki-tasto-breve { color: var(--inchiostro-2); font-size: .93em; line-height: 1.45; }
+
+/* quando si entra in una categoria la pagina scorre fin li': il margine
+   tiene il tasto «torna» sotto la barra fissa in alto, non nascosto da lei */
+.wiki-pagina { scroll-margin-top: 140px; }
+.wiki-torna {
+  display: inline-block; cursor: pointer;
+  margin: 6px 0 2px;
+  padding: 7px 14px;
+  font: inherit; font-size: var(--t-corpo); font-weight: 600;
+  color: var(--inchiostro);
+  background: var(--piano);
+  border: 1.5px solid var(--bordo);
+  border-radius: 999px;
+}
+.wiki-torna:hover, .wiki-torna:focus-visible { border-color: var(--inchiostro); outline: none; }
+
+.glossario-elenco { margin: 0; }
+.voce-glossario {
+  display: grid; grid-template-columns: minmax(150px, 210px) 1fr;
+  gap: 6px 18px; padding: 9px 0; border-top: 1px solid var(--bordo);
+}
+.voce-glossario dt { font-weight: 600; }
+.voce-glossario dd { margin: 0; color: var(--inchiostro-2); line-height: 1.55; }
+.voce-glossario dd p { margin: 0 0 6px; }
+.voce-glossario dd p:last-child { margin-bottom: 0; }
+
+/* l'esempio si apre solo se lo si vuole: cosi' una categoria di sedici
+   voci resta una pagina che si legge, non un muro.
+   La regola generale «details» (piu' sotto) veste ogni pannello con fondo,
+   bordo e freccia: giusto per un sottomenu, troppo per una riga
+   «Un esempio» dentro una voce. Qui si spoglia. */
+details.glossa-dettaglio {
+  margin: 4px 0 0; padding: 0;
+  background: transparent; border: 0; border-radius: 0; overflow: visible;
+}
+details.glossa-dettaglio > summary {
+  display: inline-block; padding: 1px 0; gap: 0;
+  cursor: pointer; color: var(--inchiostro-3); font-size: .92em; font-weight: 500;
+  list-style: none; background: transparent;
+}
+details.glossa-dettaglio > summary::-webkit-details-marker { display: none; }
+details.glossa-dettaglio > summary::after { display: none; }
+details.glossa-dettaglio > summary::before { content: '▸ '; }
+details.glossa-dettaglio[open] > summary::before { content: '▾ '; }
+details.glossa-dettaglio > summary:hover { color: var(--inchiostro); text-decoration: underline; background: transparent; }
+details.glossa-dettaglio > p { margin: 6px 0 0; padding: 0; }
+
+/* in stampa la wiki si stampa tutta: l'indice a tasti non serve sulla
+   carta, e le categorie nascoste tornano visibili. Gli esempi richiusi
+   li apre glossario.js su «beforeprint» — un <details> chiuso non si apre
+   con il CSS, serve l'attributo open. */
+@media print {
+  .wiki-indice, .wiki-torna { display: none !important; }
+  .wiki-pagina[hidden] { display: block !important; }
+  .glossa-dettaglio summary { display: none; }
+}
+
+/* su schermo stretto le due colonne si accavallano: meglio una sotto l'altra */
+@media (max-width: 620px) {
+  .voce-glossario { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* CON IL DITO SERVE PIU' SPAZIO.
+   Misurato su schermo da 375: la parola cliccabile era alta 18 px. Con il
+   mouse va bene, con il dito no — le linee guida chiedono un bersaglio
+   intorno ai 44. Il padding su un elemento in linea allarga l'area
+   sensibile senza spostare il testo: sborda sopra e sotto, e il margine
+   negativo impedisce che allarghi la riga. La regola vale dove il
+   puntatore e' grosso, non dove lo schermo e' stretto: sono due cose
+   diverse, e un tablet con la penna non ha questo problema. */
+@media (pointer: coarse) {
+  .parola-spiegata {
+    /* Solo in verticale: e' li' che il bersaglio era troppo piccolo, 18 px
+       contro i 40 che servono a un dito. In orizzontale il margine negativo
+       faceva sporgere la parola di 3 px oltre il bordo del contenitore —
+       niente di grave, ma tre pixel non aiutano nessuno a centrare un
+       tocco, e sporgere non serve.
+       (Avevo scritto qui che faceva scorrere la pagina di lato: non e'
+       vero. I 16 px che avevo misurato erano la barra di scorrimento —
+       innerWidth 391 contro clientWidth 375 — e la pagina non si muove.) */
+    padding: 11px 0;
+    margin: -11px 0;
+    /* il tocco non deve far comparire la lente di ingrandimento del
+       browser mentre si tiene premuto */
+    -webkit-touch-callout: none;
+  }
+}
+/* in stampa il riquadro chiuso non si vede: chi stampa vuole il glossario
+   intero, non i punti interrogativi */
+@media print {
+  .glossa { display: block !important; }
+  .parola-spiegata::after { content: ''; }
+  .parola-spiegata { border-bottom: none; }
+}
+
+/* i tre passi in apertura: numerati, staccati, e con il numero che si vede.
+   Chi arriva la prima volta deve capire che cosa fare prima di leggere
+   com'e' fatto il programma. */
+/* LA CONVENZIONE DEI DUE PIANI, che avevo sbagliato la prima volta.
+   --piano  e' lo sfondo della PAGINA: in chiaro #f9f9f7, in scuro #0d0d0d.
+   --superficie e' il piano RIALZATO dei riquadri: #fcfcfb e #1a1a19.
+   Un blocco appoggiato sulla pagina va su --superficie, altrimenti ha lo
+   stesso colore di cio' che ha sotto e si vede solo il bordo. Misurato:
+   con --piano lo scarto dal genitore era 0 in tutti e due i temi.
+   (Il riquadro .glossa invece sta DENTRO un riquadro, quindi --piano e'
+   giusto: li' e' un incavo, e si stacca perche' e' piu' scuro del piano.) */
+.come-si-usa {
+  margin: 14px 0 16px; padding: 14px 18px 14px 34px;
+  background: var(--superficie); border-radius: var(--raggio);
+  border: 1px solid var(--bordo); font-size: var(--t-corpo); line-height: 1.65;
+}
+.come-si-usa li { margin: 3px 0; }
+.come-si-usa li::marker { color: var(--inchiostro-3); font-weight: 700; }
+
+
+/* =============================================================================
+   LA BARRA DEL PERCORSO
+   =============================================================================
+   Le cinque pagine erano cinque documenti collegati da una pila di quattro
+   link in mezzo al testo: chi arrivava non capiva ne' dove fosse ne' in che
+   ordine aprirle. Ma un ordine c'e', e lo dice il libro — sono in ordine di
+   quanto tempo guardano. Quindi non e' una barra di schede: e' una scala,
+   con i gradini numerati, e quello dove sei acceso.
+   ========================================================================== */
+.app-barra {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--superficie) 88%, transparent);
+  -webkit-backdrop-filter: saturate(1.6) blur(12px);
+  backdrop-filter: saturate(1.6) blur(12px);
+  border-bottom: 1px solid var(--bordo);
+}
+.app-barra-dentro {
+  /* piu' larga dei 1080 del testo: e' la cornice dell'applicazione, non una
+     riga da leggere, e a 1080 il quarto gradino restava fuori (misurato:
+     672 px di scala in 525 disponibili, 147 nascosti). */
+  max-width: 1280px; margin: 0 auto; padding: 9px 20px;
+  display: flex; align-items: center; gap: var(--s4);
+}
+.marchio {
+  display: flex; align-items: baseline; gap: 6px;
+  text-decoration: none; color: var(--inchiostro); white-space: nowrap;
+}
+.marchio-nome { font-weight: 640; font-size: var(--t-corpo); letter-spacing: -.012em; }
+.marchio-versione {
+  font-size: var(--t-micro); font-weight: 600; letter-spacing: .04em;
+  color: var(--inchiostro-3); border: 1px solid var(--bordo);
+  border-radius: 20px; padding: 1px 6px;
+}
+
+/* la scala: i gradini con la freccia in mezzo, perche' e' una progressione
+   e non un elenco di alternative */
+/* «scala» da solo era gia' la barra 0-100 della probabilita' (piu' sopra):
+   le due regole si sovrascrivevano a vicenda. Nome proprio. */
+.percorso-scala { display: flex; align-items: center; gap: 2px; flex: 1; min-width: 0; overflow-x: auto; }
+.percorso-scala::-webkit-scrollbar { height: 0; }
+.gradino {
+  display: flex; align-items: center; gap: var(--s2);
+  padding: 6px 10px; border-radius: var(--raggio-s);
+  text-decoration: none; color: var(--inchiostro-2); white-space: nowrap;
+  transition: background-color .13s ease, color .13s ease;
+}
+.gradino:hover { background: var(--azione-tenue); color: var(--inchiostro); }
+.gradino-n {
+  display: grid; place-items: center; width: 21px; height: 21px; flex: none;
+  border-radius: 50%; border: 1px solid var(--bordo);
+  font-size: var(--t-micro); font-weight: 650; font-variant-numeric: tabular-nums;
+  color: var(--inchiostro-3);
+}
+.gradino-testo { display: flex; flex-direction: column; line-height: 1.16; }
+.gradino-testo b { font-size: var(--t-piccolo); font-weight: 600; }
+.gradino-testo small { font-size: var(--t-micro); color: var(--inchiostro-3); }
+.gradino.qui { background: var(--azione-tenue); color: var(--inchiostro); }
+.gradino.qui .gradino-n {
+  background: var(--azione); border-color: var(--azione); color: var(--su-azione);
+}
+.gradino.qui .gradino-testo small { color: var(--inchiostro-2); }
+.gradino-freccia { color: var(--linea-base); font-size: var(--t-corpo); flex: none; }
+
+.app-strumenti { display: flex; align-items: center; gap: var(--s1); margin-left: auto; }
+/* il questionario non e' un gradino: e' un'altra porta per lo stesso posto,
+   e si vede che e' un'altra cosa perche' e' un contorno, non un numero */
+.porta {
+  font-size: var(--t-piccolo); font-weight: 550; text-decoration: none;
+  color: var(--inchiostro-2); border: 1px dashed var(--linea-base);
+  border-radius: 20px; padding: 5px 11px; white-space: nowrap;
+  transition: border-color .13s ease, color .13s ease;
+}
+.porta:hover { border-color: var(--azione); color: var(--inchiostro); }
+/* il nome corto del menu esiste solo sul telefono (vedi il blocco in fondo) */
+.porta-corto { display: none; }
+.porta.qui { border-style: solid; border-color: var(--azione); color: var(--inchiostro); }
+
+/* IL MENU DELLE PAGINE CHE NON STANNO SU UN GRADINO
+   Tre pillole affiancate al questionario si leggevano come quattro nomi in
+   fila, e niente diceva perche' fossero insieme. Il nome del menu lo dice.
+   Il bottone e' una porta come le altre — contorno tratteggiato, non un
+   numero — perche' anche queste pagine non sono gradini. */
+.menu-giu { position: relative; }
+.apri-menu {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: inherit; font-size: var(--t-piccolo); font-weight: 550;
+  background: transparent; cursor: pointer; line-height: 1.35;
+}
+.freccia-giu { font-size: 10px; color: var(--inchiostro-3); transition: transform .16s ease; }
+.menu-giu.aperto .apri-menu { border-style: solid; border-color: var(--azione); color: var(--inchiostro); }
+.menu-giu.aperto .freccia-giu { transform: rotate(180deg); }
+/* quando sei DENTRO una delle tre, il bottone lo dice anche da chiuso */
+.menu-giu.dentro .apri-menu { border-style: solid; border-color: var(--azione); color: var(--inchiostro); }
+
+.tendina {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
+  min-width: 268px; padding: var(--s2);
+  background: var(--superficie); border: 1px solid var(--bordo);
+  border-radius: var(--raggio); box-shadow: var(--ombra-alta);
+  animation: entra .14s cubic-bezier(.2,0,.2,1) both;
+}
+.gruppo-menu + .gruppo-menu { margin-top: 6px; padding-top: 7px; border-top: 1px solid var(--bordo); }
+.gruppo-titolo {
+  margin: 5px 9px 5px; font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .045em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.voce-menu {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: 8px 9px; border-radius: var(--raggio-s);
+  text-decoration: none; color: var(--inchiostro);
+  transition: background-color .12s ease;
+}
+.voce-menu:hover, .voce-menu:focus-visible { background: var(--azione-tenue); }
+.voce-icona {
+  display: grid; place-items: center; width: 27px; height: 27px; flex: none;
+  border-radius: 8px; background: var(--piano); border: 1px solid var(--bordo);
+  font-size: var(--t-nota); color: var(--azione);
+}
+.voce-testo { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.voce-testo b { font-size: var(--t-piccolo); font-weight: 600; }
+.voce-testo small { font-size: var(--t-micro); color: var(--inchiostro-3); }
+.voce-menu.qui { background: var(--azione-tenue); }
+.voce-menu.qui .voce-icona { background: var(--azione); border-color: var(--azione); color: var(--su-azione); }
+
+/* le vecchie utilita' e la pila di link: sostituite dalla barra */
+.sostituita { display: none !important; }
+
+/* =============================================================================
+   IL PASSO DOPO
+   In fondo a ogni pagina, che cosa vede il livello successivo che qui non si
+   puo' vedere. E' la ragione per cui esiste, e senza quella un lettore non
+   ha motivo di andare avanti.
+   ========================================================================== */
+.passo-dopo {
+  margin: var(--s6) 0 0; padding: var(--s5);
+  background: var(--superficie); border: 1px solid var(--bordo);
+  border-radius: var(--raggio-l); box-shadow: var(--ombra);
+}
+.passo-etichetta {
+  margin: 0 0 var(--s2); font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.passo-dopo h2 {
+  margin: 0 0 var(--s2); font-size: var(--t-grande); font-weight: 640;
+  letter-spacing: -.018em; text-wrap: balance;
+}
+.passo-perche {
+  margin: 0 0 var(--s4); color: var(--inchiostro-2);
+  font-size: var(--t-corpo); line-height: 1.6; max-width: 62ch;
+}
+/* quando i passi possibili sono piu' di uno — in fondo alla scala, e sulle
+   tre pagine che sotto la scala non hanno un «dopo» */
+.passo-scelte { display: flex; flex-wrap: wrap; gap: var(--s2); align-items: stretch; }
+/* i bottoni di una stessa fila hanno la stessa altezza e il testo centrato,
+   anche quando uno va a capo e l'altro no (17/09/2026: «tasti disallineati») */
+.passo-scelte > .bottone, .barra-azioni > button, .barra-azioni > .bottone { align-items: center; justify-content: center; text-align: center; }
+
+/* la riga sotto il nome del gradino e' la prima cosa che si puo' togliere:
+   il numero e il nome bastano a dire dove sei. Va tolta appena la scala
+   comincia a stringere, non quando lo schermo e' gia' piccolo. */
+@media (max-width: 1300px) {
+  .gradino-testo small { display: none; }
+  .app-barra-dentro { gap: var(--s3); }
+}
+/* Fra 680 e 1100 px (tablet, portatili piccoli) i quattro gradini non stanno
+   sulla stessa riga del nome e degli strumenti: la scala restava una striscia
+   tagliata («2 La cat», «4 La tr», misurato a 768 e a 1024). Da 1100 in giù
+   la scala va a capo su una riga sua, intera, e la barra ha due righe. */
+@media (max-width: 1100px) {
+  .app-barra-dentro { flex-wrap: wrap; row-gap: 2px; }
+  /* «width: 100%» su un elemento flex non fa niente: vince flex-basis, che
+     qui e' 0 per via del «flex: 1» piu' sopra. Risultato misurato: la scala
+     restava larga 41 px schiacciata a destra invece di andare a capo, e la
+     pagina scorreva di lato. Si passa dalla proprieta' giusta. */
+  .percorso-scala { order: 3; flex: 0 0 100%; padding-bottom: 2px; }
+  .app-strumenti { margin-left: auto; }
+  /* la barra e' piu' alta: quello che le sta appiccicato sotto scende con lei */
+  .riga-corrente { top: 88px; }
+  .capitolo { scroll-margin-top: 130px; }
+}
+@media (max-width: 680px) {
+  .app-barra-dentro { padding: 8px 14px; }
+  .marchio-versione { display: none; }
+  .passo-dopo { padding: var(--s4); }
+  /* I bottoni tengono il testo su una riga sola — giusto per «Reimposta» o
+     «Stampa», che sono due parole. Ma i collegamenti in fondo alla pagina
+     sono frasi intere: «Come si accumula il carico lungo una sequenza?»
+     misurava 378 px dentro una colonna da 342, e su IL-GESTO e QUESTIONARIO
+     bastava quello a far scorrere di lato tutta la pagina. Su schermo
+     stretto vanno a capo; il <button> vero resta su una riga. */
+  .bottone { white-space: normal; }
+  /* la tendina si aggancia al bordo destro della barra, non a quello del
+     bottone: su 360 px un menu da 268 px partito dal bottone esce di lato */
+  .tendina { right: -6px; min-width: min(268px, calc(100vw - 28px)); }
+}
+
+
+/* =============================================================================
+   I TITOLI DI SEZIONE
+   Erano 13 px in maiuscoletto grigio: l'ossatura della pagina, invisibile.
+   Il numero e' un segno a se' — quadrato e leggero, per non confonderlo con
+   i cerchi pieni della barra, che sono i livelli del tempo e non le sezioni
+   di una pagina.
+   ========================================================================== */
+.sezione-n {
+  flex: none; display: grid; place-items: center;
+  min-width: 24px; height: 24px; padding: 0 5px;
+  border-radius: 6px; border: 1px solid var(--bordo); background: var(--piano);
+  font-size: var(--t-piccolo); font-weight: 650; font-variant-numeric: tabular-nums;
+  color: var(--inchiostro-3); transform: translateY(-1px);
+}
+.sezione-t { min-width: 0; }
+
+/* =============================================================================
+   I CURSORI, COME QUADRANTI
+   Erano quelli predefiniti del browser, con l'accento su --aiuta — che qui
+   significa «aggiunge probabilita'». Un comando non deve avere il colore di
+   un significato. E ogni browser li disegnava a modo suo.
+
+   Le pseudo-classi di WebKit e di Firefox NON possono stare nello stesso
+   elenco di selettori: se una non e' valida, il browser butta via tutta la
+   regola. Vanno scritte separate, ed e' il motivo per cui qui sotto c'e'
+   quella che sembra una ripetizione.
+   ========================================================================== */
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; margin: 0; padding: 0;
+  background: transparent; cursor: pointer;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--azione); outline-offset: 3px; }
+
+/* la pista */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 5px; border-radius: 3px; border: 1px solid var(--bordo);
+  /* il pieno a sinistra della manopola: WebKit non lo sa fare da solo, e la
+     percentuale arriva da percorso-vista.js. Il passaggio e' netto, non
+     sfumato: e' una misura, non una decorazione. */
+  background:
+    linear-gradient(to right, var(--azione) 0 var(--riempimento, 0%),
+                    var(--neutro) var(--riempimento, 0%) 100%);
+}
+input[type="range"]::-moz-range-track {
+  height: 5px; border-radius: 3px;
+  background: var(--neutro); border: 1px solid var(--bordo);
+}
+/* la parte gia' percorsa, che Firefox sa disegnare da solo */
+input[type="range"]::-moz-range-progress {
+  height: 5px; border-radius: 3px 0 0 3px; background: var(--azione);
+}
+
+/* la manopola */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; margin-top: -7px;
+  border-radius: 50%; background: var(--superficie);
+  border: 2px solid var(--azione);
+  box-shadow: 0 1px 3px rgba(11,11,11,.18);
+  transition: transform .1s ease, box-shadow .1s ease;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px; height: 18px; box-sizing: border-box;
+  border-radius: 50%; background: var(--superficie);
+  border: 2px solid var(--azione);
+  box-shadow: 0 1px 3px rgba(11,11,11,.18);
+}
+input[type="range"]:hover::-webkit-slider-thumb { transform: scale(1.12); }
+input[type="range"]:active::-webkit-slider-thumb {
+  background: var(--azione); box-shadow: 0 0 0 5px var(--azione-tenue);
+}
+input[type="range"]:active::-moz-range-thumb { background: var(--azione); }
+@media (prefers-reduced-motion: reduce) {
+  input[type="range"]::-webkit-slider-thumb { transition: none; }
+  input[type="range"]:hover::-webkit-slider-thumb { transform: none; }
+}
+
+/* i campi di testo e di numero, con lo stesso vocabolario dei bottoni */
+input[type="text"], input[type="number"], textarea, select {
+  font: inherit; color: var(--inchiostro);
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio-s); padding: 10px 12px;
+  transition: border-color .13s ease, background-color .13s ease;
+}
+input[type="text"]:hover, input[type="number"]:hover, textarea:hover {
+  border-color: var(--inchiostro-3);
+}
+input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+  background: var(--superficie); border-color: var(--azione);
+}
+input[type="number"] { font-variant-numeric: tabular-nums; }
+
+
+/* =============================================================================
+   IL DISTINTIVO DELL'ESITO
+   E' la conclusione della pagina — «com'e' andata» — ed era una pillola da
+   13 px identica a quelle che nelle liste di settimana e traiettoria
+   riassumono una giornata. Li' piccola e' giusto, perche' sono decine in
+   fila; qui no, perche' e' una sola ed e' il punto d'arrivo.
+
+   Il colore lo mette il codice (S.colori[e.stato], le quattro gradazioni
+   buono/attenzione/serio/critico): qui si dice solo quanto spazio prende.
+   ========================================================================== */
+.pillola-esito {
+  gap: var(--s3);
+  box-shadow: var(--ombra-alta);
+  padding: 12px 20px 12px 16px;
+  border-radius: var(--raggio-l);
+  font-size: var(--t-medio); font-weight: 640; letter-spacing: -.012em;
+  background: var(--superficie);
+}
+.pillola-esito .punto { width: 12px; height: 12px; }
+.pillola-esito .glifo { font-size: var(--t-titolo); line-height: 1; }
+
+@media (max-width: 680px) {
+  .pillola-esito { font-size: var(--t-corpo); padding: 10px 16px 10px 13px; }
+}
+
+
+/* =============================================================================
+   I SOTTOMENU — ogni <details> della pagina
+   =============================================================================
+   Erano quelli predefiniti del browser: un triangolino nero e una riga di
+   testo. In un'applicazione un pannello che si apre e' un comando, e deve
+   sembrarlo — una riga con il suo fondo, il suo bordo, e un segno che gira
+   quando si apre.
+
+   Il marcatore predefinito va spento in tre modi diversi perche' i browser
+   non sono d'accordo: list-style, ::marker e ::-webkit-details-marker.
+   ========================================================================== */
+details {
+  background: var(--piano);
+  border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  margin: var(--s3) 0;
+  overflow: hidden;
+}
+details > summary {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: 13px 16px; cursor: pointer;
+  font-size: var(--t-corpo); font-weight: 600; color: var(--inchiostro);
+  list-style: none;
+  transition: background-color .13s ease;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::marker { content: ''; }
+details > summary:hover { background: var(--azione-tenue); }
+details > summary:focus-visible { outline: 2px solid var(--azione); outline-offset: -2px; }
+/* il segno che gira: disegnato, cosi' e' uguale su ogni browser */
+details > summary::after {
+  content: ''; margin-left: auto; flex: none;
+  width: 8px; height: 8px;
+  border-right: 2px solid var(--inchiostro-3);
+  border-bottom: 2px solid var(--inchiostro-3);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform .16s ease;
+}
+details[open] > summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+details[open] > summary { border-bottom: 1px solid var(--bordo); }
+/* QUELLO CHE STA DENTRO UN <details> DEVE POTER SCORRERE, NON SPARIRE.
+   Il riquadro ha «overflow: hidden» qui sopra per tenere il fondo del
+   sommario dentro gli angoli tondi. Ma quel taglio vale per tutto, e su
+   schermo stretto tagliava i dati: misurato su LA-SCENA a 380 px, la
+   tabella «prima / il gesto / ne passa / dopo» e' larga 431 px dentro un
+   riquadro da 272, e le ultime tre colonne finivano oltre il bordo — non
+   accorciate, non scorrevoli: proprio non c'erano piu', e nessun segno
+   diceva che mancava qualcosa.
+   Con lo scorrimento sul corpo del riquadro la tabella resta intera e si
+   trascina di lato dentro il suo spazio, che e' la regola del pacchetto:
+   scorre la tabella, non la pagina. */
+details > *:not(summary) { padding: var(--s4) 16px; overflow-x: auto; }
+/* E LA TABELLA HA BISOGNO DI UNA RIGA SUA, per due ragioni misurate e non
+   per gusto.
+   La prima e' di peso: «table.dati» piu' in alto dichiara «overflow: hidden»
+   — le serve per tenere il fondo delle celle dentro gli angoli tondi — e una
+   classe pesa piu' del «> *» qui sopra, quindi la regola generale perde.
+   La seconda e' che su una tabella «overflow» da solo non basta comunque:
+   il riquadro di una tabella non e' un contenitore che scorre, e la misura
+   lo diceva chiaro — con «overflow-x: auto» la tabella restava larga 471 px
+   dentro un riquadro da 272, cioe' sbordava esattamente come prima.
+   Serve anche «display: block»: cosi' il riquadro esterno diventa un blocco
+   largo quanto il riquadro che lo contiene, la tabella vera si ricompone
+   dentro alla sua misura naturale, e quello che avanza si trascina.
+   Misurato dopo: riquadro 270 px, contenuto 469, e le colonne «il gesto»,
+   «ne passa» e «dopo» tornano raggiungibili. */
+details > table.dati { display: block; overflow-x: auto; }
+details.livello > *:not(summary) { padding: var(--s4) 18px; }
+@media (prefers-reduced-motion: reduce) {
+  details > summary, details > summary::after { transition: none; }
+}
+
+/* =============================================================================
+   LE OPZIONI E LE CARTE — quello che si sceglie
+   Lo stato «scelto» usava --aiuta, che qui significa «aggiunge probabilita'».
+   Scegliere una risposta non aggiunge probabilita': e' un'azione, e prende
+   il colore dell'azione.
+   ========================================================================== */
+.opzione, .carta-livello {
+  transition: border-color .13s ease, background-color .13s ease,
+              box-shadow .13s ease, transform .06s ease;
+}
+.opzione:hover, 
+.opzione:active, .carta-livello:active { transform: translateY(1px); }
+.opzione.scelta, .carta-livello.scelta {
+  border-color: var(--azione) !important;
+  background: var(--azione-tenue) !important;
+  box-shadow: inset 0 0 0 1px var(--azione);
+}
+.opzione:focus-within, .carta-livello:focus-visible {
+  outline: 2px solid var(--azione); outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .opzione, .carta-livello { transition: none; }
+  .opzione:active, .carta-livello:active { transform: none; }
+}
+
+/* =============================================================================
+   LE TABELLE
+   Erano nude: nessun fondo, nessun bordo, nessun raggio. In un'applicazione
+   una tabella e' un pannello, e su schermo stretto deve poter scorrere per
+   conto suo invece di allargare la pagina.
+   ========================================================================== */
+table.dati thead th, table.dati th:first-child:not(td ~ th) {
+  background: color-mix(in srgb, var(--inchiostro) 3%, var(--piano));
+}
+table.dati th, table.dati td { padding: 9px 13px; border-bottom: 1px solid var(--griglia); }
+table.dati tr:last-child th, table.dati tr:last-child td { border-bottom: none; }
+table.dati tbody tr:hover td, table.dati tr:hover td { background: var(--azione-tenue); }
+.avvolgi-tabella { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* SUL TELEFONO UNA TABELLA SI TRASCINA, NON SI SCHIACCIA.
+   Il riquadro sapeva gia' scorrere, ma non aveva mai occasione di farlo:
+   una tabella si stringe fin dove puo', e quindi ci stava sempre. Misurato
+   a 380 px sulla pagina della formula: la colonna «che cosa misura» era
+   larga una parola e mezzo, e la riga dell'ambiente diventava undici righe
+   di due parole l'una. Tecnicamente entrava; leggerla era un'altra cosa.
+   Con una misura minima la tabella smette di cedere e si trascina di lato
+   dentro il suo riquadro. Vale solo dove lo schermo e' stretto davvero: su
+   uno schermo largo la misura minima non si raggiunge mai e non cambia
+   niente. */
+@media (max-width: 560px) {
+  .avvolgi-tabella > table.dati { min-width: 420px; }
+  /* con due o tre colonne (voce, sigla, valore) la tabella sta intera senza
+     schiacciarsi: la misura minima nascondeva proprio la colonna dei valori
+     (17/09/2026, misurato a 390: 420 px in 358, il valore fuori schermo) */
+  .avvolgi-tabella > table.dati.colonne-poche { min-width: 0; width: 100%; }
+  table.dati.colonne-poche th, table.dati.colonne-poche td { padding: 7px 8px; }
+  table.dati.colonne-poche td:first-child, table.dati.colonne-poche th:first-child { white-space: normal; }
+  /* RETE DI SICUREZZA per una tabella che nessuno ha avvolto.
+     In tutto il pacchetto ce n'e' una sola — la griglia costo/recupero di
+     settimana.js, che nasce senza classe e senza involucro — e a 380 px
+     misurava 349 in un riquadro da 314: la pagina scorreva di lato di due
+     pixel, che sono pochi ma bastano a spostare la barra in alto.
+     La correzione giusta sta in quel file, che qui non si tocca: un
+     «.avvolgi-tabella» intorno, come hanno tutte le altre. Finche' non
+     arriva, la tabella si fa contenitore di se' stessa e scorre dentro il
+     suo spazio invece di trascinare la pagina. */
+  table:not(.dati) { display: block; overflow-x: auto; }
+  /* e la stessa rete per una tabella di dati lasciata senza involucro:
+     ne resta una, l'elenco dei casi che scrive esempi-ui.js, e a 380 px
+     misurava 358 dentro un riquadro da 314 — la pagina di ESEMPI era
+     l'ultima che scorreva di lato. Anche qui la correzione vera e' un
+     «.avvolgi-tabella» in quel file. */
+  :not(.avvolgi-tabella) > table.dati { display: block; overflow-x: auto; }
+}
+
+
+/* Il secondo livello dei comandi: contorno pieno invece di riempimento.
+   Tredici bottoni non avevano nessuna classe e prendevano solo la regola
+   base: «Reimposta», «Stampa», «Esegui di nuovo» sembravano tutti uguali al
+   comando principale della pagina. */
+button.secondario, .bottone.secondario {
+  background: var(--superficie); color: var(--azione);
+  border-color: color-mix(in srgb, var(--azione) 35%, transparent);
+  font-weight: 600;
+}
+button.secondario:hover, .bottone.secondario:hover {
+  background: var(--azione-tenue); border-color: var(--azione);
+}
+
+
+/* I pallini e le caselle di scelta: erano del blu che qui significa
+   «aggiunge probabilita'». Scegliere una risposta e' un'azione. */
+input[type="radio"], input[type="checkbox"] {
+  accent-color: var(--azione);
+  width: 17px; height: 17px; cursor: pointer;
+}
+
+/* Un collegamento dentro il testo resta un collegamento — sottolineato e
+   nel colore dell'azione — ma non c'e' piu' nessuna navigazione scritta a
+   mano in mezzo ai paragrafi: quella la fa la barra in alto. */
+.contenitore a:not(.bottone):not(.gradino):not(.porta):not(.marchio) {
+  color: var(--azione); text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.contenitore a:not(.bottone):not(.gradino):not(.porta):not(.marchio):hover {
+  color: var(--azione-viva);
+}
+
+
+/* =============================================================================
+   LE RIGHE: I CURSORI E I CONTRIBUTI
+   Erano gli ultimi blocchi senza forma dentro le schede — nove cursori e
+   cinque righe di contributo appoggiati sul bianco, senza niente che li
+   separasse. In un'applicazione una riga che si puo' toccare deve avere un
+   suo spazio e reagire.
+   ========================================================================== */
+.cursore, .riga-contributo {
+  padding: 11px 13px;
+  border-radius: var(--raggio-s);
+  transition: background-color .13s ease;
+}
+.cursore + .cursore, .riga-contributo + .riga-contributo {
+  box-shadow: inset 0 1px 0 var(--griglia);
+}
+.cursore:hover, .riga-contributo:hover { background: var(--piano); }
+.cursore:focus-within { background: var(--azione-tenue); }
+
+/* il valore del cursore diventa una pillola, cosi' si legge come un dato e
+   non come testo qualunque */
+.cursore:focus-within .valore {
+  background: var(--azione); border-color: var(--azione); color: var(--su-azione);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursore, .riga-contributo { transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scala .riempita, .scala .marcatore, .scala .etichetta-marcatore { transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { .pista .barra { transition: none; } }
+
+/* La comparsa del risultato: appare dopo che si e' premuto, e un movimento
+   di un decimo di secondo dice «e' arrivato adesso» senza far aspettare
+   nessuno. Chi ha chiesto meno movimento non lo vede. */
+@media (prefers-reduced-motion: no-preference) {
+  #bloccoEsito[style*="block"], .passo-dopo { animation: entra .22s cubic-bezier(.2,0,.2,1) both; }
+  @keyframes entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}
+
+
+/* =============================================================================
+   I GRAFICI: LEGENDA E COLONNE
+   =============================================================================
+   Le didascalie delle soglie stavano dentro il grafico e occupavano
+   trecento pixel; le altre tre cose che il grafico mostra — il verde della
+   notte, la linea del costo, il tratteggio delle soglie — non erano
+   spiegate affatto. Adesso c'e' una legenda sotto, e il grafico si riprende
+   lo spazio.
+   ========================================================================== */
+.legenda {
+  display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4);
+  margin-top: var(--s4); padding-top: var(--s3);
+  border-top: 1px solid var(--griglia);
+  font-size: var(--t-micro); color: var(--inchiostro-2);
+}
+/* «white-space: nowrap» teneva ogni voce su una riga: una voce lunga («il
+   numero grigio a destra (±): di quanto oscilla in media») misurava 421 px in
+   una colonna da 358, e sul telefono la pagina scorreva di lato. Il quadratino
+   resta sulla prima riga, il testo va a capo dopo. */
+.voce-legenda { display: inline-flex; align-items: flex-start; gap: 6px; min-width: 0; max-width: 100%; }
+.voce-legenda > .segno { margin-top: 3px; }
+.segno { width: 11px; height: 11px; border-radius: 3px; flex: none; display: inline-block; }
+.segno.linea { height: 3px; border-radius: 2px; width: 16px; }
+/* IL SEGNO DELLA LEGENDA DEVE AVERE IL COLORE DELLA LINEA CHE SPIEGA.
+   Il tratteggio era fissato a --critico, cioe' rosso, qualunque cosa
+   descrivesse. Nelle due figure del capitolo sulla formula — «dove
+   finirebbe senza il taglio» e «una curva continua» — la linea nel grafico
+   e' grigia (--inchiostro-3) e il segno accanto al testo era rosso: la
+   legenda indicava una linea che nel disegno non c'era. Adesso il colore lo
+   passa chi costruisce la legenda (disegno.js), e questo e' solo il valore
+   di ripiego per quando non lo passa nessuno. */
+.segno.tratteggio {
+  height: 0; width: 16px; border-radius: 0;
+  border-top: 2px dashed var(--inchiostro-3);
+}
+
+/* la colonna del giorno si accende al passaggio: in un grafico con sessanta
+   barre serve sapere quale si sta guardando */
+.col-giorno { transition: opacity .12s ease; cursor: default; }
+svg:hover .col-giorno { opacity: .55; }
+svg:hover .col-giorno:hover { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .col-giorno { transition: none; }
+  svg:hover .col-giorno { opacity: 1; }
+}
+
+
+/* =============================================================================
+   LA DISTRIBUZIONE DEGLI ESITI (pagina della catena)
+   Usava le righe di «che cosa aiuta e che cosa ostacola», che dicono quanto
+   un valore SPOSTA la probabilita'. Qui non si sposta niente: si dice
+   quante volte su cento e' uscito ognuno dei nove esiti. Due domande
+   diverse, due componenti diversi.
+   ========================================================================== */
+.distribuzione { display: grid; gap: 2px; }
+.riga-distribuzione {
+  display: grid;
+  grid-template-columns: 22px minmax(120px, 1.4fr) 3fr 62px 58px;
+  align-items: center; gap: var(--s3);
+  padding: 9px 11px; border-radius: var(--raggio-s);
+  transition: background-color .12s ease;
+}
+.riga-distribuzione:hover { background: var(--piano); }
+.dist-glifo { font-size: var(--t-medio); color: var(--tinta); text-align: center; line-height: 1; }
+.dist-nome { font-size: var(--t-piccolo); font-weight: 600; }
+.dist-pista {
+  position: relative; height: 15px; border-radius: 999px;
+  background: var(--piano); box-shadow: inset 0 1px 2px rgba(16,24,40,.08);
+}
+.dist-barra {
+  position: absolute; left: 0; top: 0; height: 15px; border-radius: 999px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--tinta) 72%, transparent), var(--tinta));
+  transition: width .25s cubic-bezier(.4,0,.2,1);
+}
+.dist-quota {
+  text-align: right; font-variant-numeric: tabular-nums;
+  font-weight: 680; font-size: var(--t-corpo);
+}
+.dist-quota small { font-size: var(--t-micro); font-weight: 500; color: var(--inchiostro-3); margin-left: 1px; }
+.dist-conta {
+  text-align: right; font-variant-numeric: tabular-nums;
+  font-size: var(--t-micro); color: var(--inchiostro-3);
+}
+@media (max-width: 680px) {
+  .riga-distribuzione { grid-template-columns: 20px 1fr 56px; gap: var(--s2); }
+  .dist-pista, .dist-conta { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .riga-distribuzione, .dist-barra { transition: none; }
+}
+
+/* la nota che compare quando la distribuzione si stringe su un esito solo:
+   e' una spiegazione, non un avviso di errore — quindi il colore
+   dell'azione, non quello del pericolo */
+.nota-distribuzione {
+  margin-top: var(--s4); padding: 13px 17px;
+  border-left: 3px solid var(--azione);
+  background: var(--azione-tenue);
+  border-radius: 0 var(--raggio) var(--raggio) 0;
+  font-size: var(--t-nota); line-height: 1.6; color: var(--inchiostro-2);
+}
+.nota-distribuzione strong { color: var(--inchiostro); }
+
+
+/* =============================================================================
+   LA PAGINA DELLA MATEMATICA
+   ========================================================================== */
+
+/* le due strade per creare un nodo: sono la risposta a «dove devo andare», e
+   devono essere la prima cosa che si vede */
+.due-strade { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s3); }
+.strada {
+  display: flex; gap: var(--s3); align-items: flex-start;
+  padding: 17px 19px; text-decoration: none; color: inherit;
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  transition: border-color .13s ease, background-color .13s ease, box-shadow .13s ease;
+}
+.strada:hover { border-color: var(--azione); background: var(--superficie); box-shadow: var(--ombra-alta); }
+.strada-n {
+  flex: none; display: grid; place-items: center; width: 30px; height: 30px;
+  border-radius: 50%; background: var(--azione); color: var(--su-azione);
+  font-weight: 700; font-size: var(--t-corpo);
+}
+.strada-t { display: flex; flex-direction: column; gap: 3px; }
+.strada-t b { font-size: var(--t-medio); font-weight: 640; letter-spacing: -.012em; }
+.strada-t small { font-size: var(--t-nota); color: var(--inchiostro-2); line-height: 1.5; }
+
+/* la formula madre, con i numeri veri sotto ogni simbolo */
+.formula-madre {
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio); padding: var(--s4) var(--s3);
+  margin: var(--s4) 0;
+}
+.fm-riga {
+  display: flex; flex-wrap: wrap; align-items: flex-end;
+  justify-content: center; gap: 4px 6px;
+}
+.fm-op { font-size: var(--t-medio); color: var(--inchiostro-3); padding-bottom: 14px; }
+.fm-pezzo {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 10px; border-radius: var(--raggio-s); background: var(--superficie);
+  border: 1px solid var(--bordo); min-width: 54px;
+}
+.fm-pezzo.spento { opacity: .42; }
+.fm-sim { font-size: var(--t-micro); color: var(--inchiostro-3); font-weight: 600; letter-spacing: .03em; }
+.fm-val { font-size: var(--t-titolo); font-weight: 680; font-variant-numeric: tabular-nums; }
+.fm-esito {
+  display: flex; align-items: baseline; justify-content: center; gap: var(--s3);
+  margin-top: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--griglia);
+}
+.fm-etichetta { font-size: var(--t-micro); text-transform: uppercase; letter-spacing: .08em; color: var(--inchiostro-3); }
+.fm-pn { font-size: var(--t-display); font-weight: 700; color: var(--azione); font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
+.fm-pn small { font-size: var(--t-corpo); color: var(--inchiostro-3); font-weight: 500; }
+
+/* la fascia in cui ti trovi adesso, dentro le tabelle a gradini */
+.fascia-qui td { background: var(--azione-tenue); font-weight: 600; }
+.qui-ora {
+  font-size: var(--t-micro); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; background: var(--azione); color: var(--su-azione);
+  padding: 1px 7px; border-radius: 999px; margin-left: 6px;
+}
+
+/* il taglio ai bordi */
+.due-numeri { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4); }
+.numero-taglio {
+  display: flex; flex-direction: column; gap: 2px; padding: 14px 20px;
+  background: var(--piano); border: 1px solid var(--bordo); border-radius: var(--raggio);
+}
+.numero-taglio .k { font-size: var(--t-micro); color: var(--inchiostro-3); }
+.numero-taglio .v { font-size: var(--t-grande); font-weight: 700; font-variant-numeric: tabular-nums; }
+.numero-taglio.tagliato { border-color: var(--attenzione); background: color-mix(in srgb, var(--attenzione) 10%, var(--piano)); }
+.freccia-taglio { font-size: var(--t-grande); color: var(--inchiostro-3); }
+
+/* il codice vero */
+pre.codice {
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio); padding: var(--s4) var(--s4);
+  overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--t-piccolo); line-height: 1.6; margin: var(--s3) 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* quello che il canone non contiene */
+.manca { display: grid; gap: var(--s3); }
+.manca-voce {
+  display: flex; gap: var(--s3); align-items: flex-start;
+  padding: 15px 17px; border-left: 3px solid var(--attenzione);
+  background: var(--piano); border-radius: 0 var(--raggio) var(--raggio) 0;
+}
+.manca-n {
+  flex: none; display: grid; place-items: center; width: 24px; height: 24px;
+  border-radius: 50%; background: var(--attenzione); color: var(--su-attenzione);
+  font-weight: 700; font-size: var(--t-piccolo);
+}
+.manca-voce b { font-size: var(--t-corpo); }
+.manca-voce p { margin: 4px 0 0; font-size: var(--t-nota); color: var(--inchiostro-2); line-height: 1.6; }
+
+.sotto-titolo {
+  font-size: var(--t-corpo); font-weight: 650; margin: var(--s5) 0 var(--s2);
+}
+
+
+/* =============================================================================
+   I CASI DEL LIBRO — ESEMPI.html
+   =============================================================================
+   Il simulatore sapeva calcolare qualunque cosa e non mostrava niente di gia'
+   fatto. Chi apriva le pagine trovava dei cursori al centro e nessun esempio.
+
+   Le schede sono BOTTONI, non riquadri decorativi: si clicca e si aprono.
+   Percio' hanno gli stati di un bottone — sollevamento, pressione, fuoco
+   visibile — e non solo un contorno.
+   ========================================================================== */
+.griglia-casi {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr));
+  gap: var(--s3); margin-top: var(--s4);
+}
+.carta-caso {
+  --tinta: var(--azione);
+  display: flex; flex-direction: column; gap: 7px; text-align: left;
+  /* UN BOTTONE NON MANDA A CAPO DA SOLO.
+     Il titolo della scheda usciva dal riquadro e finiva sopra quello
+     accanto: «Bere acqua dopo una giornata pesan|te» addosso a «Pratica
+     online». Il testo di un <button> non va a capo se non glielo si dice,
+     e queste schede sono bottoni. */
+  white-space: normal; overflow-wrap: anywhere;
+  font: inherit; padding: 14px 15px 15px;
+  background: var(--superficie); border: 1px solid var(--bordo);
+  border-radius: var(--raggio); cursor: pointer; color: var(--inchiostro);
+  box-shadow: var(--ombra);
+  transition: transform .13s ease, box-shadow .13s ease, border-color .13s ease;
+}
+.carta-caso:hover { transform: translateY(-2px); box-shadow: var(--ombra-alta); border-color: var(--tinta); }
+.carta-caso:active { transform: translateY(0); }
+.carta-caso:focus-visible { outline: 2px solid var(--azione); outline-offset: 2px; }
+.carta-caso.scelta { border-color: var(--tinta); box-shadow: var(--ombra-alta), inset 0 0 0 1px var(--tinta); }
+.caso-alto { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); }
+.caso-territorio {
+  font-size: var(--t-micro); font-weight: 600; letter-spacing: .045em;
+  text-transform: uppercase; color: var(--inchiostro-3);
+}
+.caso-pn {
+  font-size: var(--t-display); font-weight: 680; line-height: 1;
+  letter-spacing: -.03em; color: var(--tinta); font-variant-numeric: tabular-nums;
+  /* il numero e il suo per cento non si separano: con «anywhere» sul
+     riquadro il segno % finiva su una riga tutta sua */
+  white-space: nowrap;
+}
+.caso-pn small { font-size: var(--t-piccolo); font-weight: 600; margin-left: 1px; }
+.caso-pn.niente { color: var(--inchiostro-3); font-size: var(--t-grande); }
+.caso-titolo { font-size: var(--t-corpo); font-weight: 620; line-height: 1.3; letter-spacing: -.012em; }
+.caso-pista {
+  display: block; position: relative; height: 6px; border-radius: 999px;
+  background: var(--piano); box-shadow: inset 0 1px 2px rgba(16,24,40,.08);
+}
+.caso-barra {
+  position: absolute; left: 0; top: 0; height: 6px; border-radius: 999px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--tinta) 62%, transparent), var(--tinta));
+}
+.caso-decide { font-size: var(--t-micro); color: var(--inchiostro-3); line-height: 1.4; }
+.carta-caso.senza-numero { border-style: dashed; }
+
+.legenda-fasce {
+  display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4);
+  font-size: var(--t-piccolo); color: var(--inchiostro-2); margin-top: var(--s3);
+}
+.legenda-fasce b { color: var(--inchiostro); font-weight: 600; }
+
+/* la scheda aperta */
+.dettaglio-caso {
+  margin-top: var(--s4); padding: var(--s4);
+  background: var(--piano); border: 1px solid var(--bordo); border-radius: var(--raggio-l);
+  animation: entra .18s cubic-bezier(.2,0,.2,1) both;
+}
+.apertura { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s3); }
+.apertura h3 { margin: 0; font-size: var(--t-titolo); font-weight: 660; letter-spacing: -.016em; }
+.caso-scena {
+  margin: 0 0 var(--s4); font-size: var(--t-medio); line-height: 1.55;
+  color: var(--inchiostro); max-width: 68ch;
+}
+.caso-eti {
+  margin: var(--s5) 0 var(--s2); font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.caso-conti, .caso-lettura {
+  margin: 0 0 var(--s3); font-size: var(--t-corpo); line-height: 1.62;
+  color: var(--inchiostro-2); max-width: 70ch;
+}
+.caso-lettura { color: var(--inchiostro); }
+.caso-nota {
+  margin: var(--s3) 0; padding: 12px 14px; font-size: var(--t-nota); line-height: 1.55;
+  background: color-mix(in srgb, var(--attenzione) 12%, var(--superficie));
+  border-left: 3px solid var(--attenzione); border-radius: 0 var(--raggio-s) var(--raggio-s) 0;
+}
+.caso-fonte { margin: var(--s4) 0 0; font-size: var(--t-micro); color: var(--inchiostro-3); }
+.caso-azioni { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s4); }
+/* la griglia dei riquadrini: esisteva il riquadro ma non la griglia che li
+   tiene, e ogni pagina se la ridisegnava per conto proprio — o non se la
+   ridisegnava, e i riquadri uscivano incolonnati a tutta larghezza */
+.tasselli { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: var(--s2); }
+.caso-aperto .tasselli { grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); }
+.caso-aperto .tassello { min-height: 62px; padding: 10px 12px; background: var(--superficie); }
+.caso-aperto .tassello .v { font-size: var(--t-medio); }
+
+/* il confronto fra il numero stampato e quello calcolato adesso */
+.confronto-pn {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  gap: var(--s3); padding: var(--s4); border-radius: var(--raggio);
+  background: var(--superficie); border: 1px solid var(--bordo);
+}
+.confronto-pn.accordo { border-color: color-mix(in srgb, var(--buono) 42%, var(--bordo)); }
+.confronto-pn.disaccordo { border-color: var(--critico); background: color-mix(in srgb, var(--critico) 8%, var(--superficie)); }
+.pn-lato { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.pn-eti { font-size: var(--t-micro); color: var(--inchiostro-3); text-align: center; }
+.pn-num {
+  font-size: var(--t-display); font-weight: 700; line-height: 1;
+  letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+}
+.pn-segno { font-size: var(--t-grande); color: var(--inchiostro-3); font-weight: 400; }
+.confronto-pn.accordo .pn-segno { color: var(--buono); }
+.confronto-pn.disaccordo .pn-segno { color: var(--critico); }
+.pn-verdetto {
+  grid-column: 1 / -1; margin: var(--s3) 0 0; text-align: center;
+  font-size: var(--t-nota); line-height: 1.5; color: var(--inchiostro-2);
+}
+
+/* la formula smontata: una riga per termine, la barra dice quanto pesa */
+.termini { display: grid; gap: 2px; }
+.riga-termine {
+  display: grid; grid-template-columns: 70px minmax(110px, 1.2fr) 3fr 52px;
+  align-items: center; gap: var(--s3); padding: 6px 10px; border-radius: var(--raggio-s);
+}
+.riga-termine:hover { background: var(--superficie); }
+.termine-k { font-size: var(--t-piccolo); font-weight: 700; font-variant-numeric: tabular-nums; }
+.termine-nome { font-size: var(--t-piccolo); color: var(--inchiostro-2); }
+.termine-pista { position: relative; height: 11px; border-radius: 999px; background: var(--piano); }
+.termine-barra { position: absolute; top: 0; height: 11px; border-radius: 999px; }
+/* tutte le barre partono da sinistra: quello che cambia e' il colore, non
+   il lato. Prima le negative crescevano da destra e sembravano staccate
+   dalla riga, e due termini negativi non si potevano confrontare a occhio. */
+.riga-termine .termine-barra { left: 0; }
+.riga-termine.base .termine-barra { background: var(--inchiostro-3); }
+.riga-termine.piu  .termine-barra { background: var(--aiuta); }
+.riga-termine.meno .termine-barra { background: var(--ostacola); }
+.termine-val {
+  text-align: right; font-variant-numeric: tabular-nums;
+  font-weight: 660; font-size: var(--t-nota);
+}
+.riga-termine.piu .termine-val { color: var(--aiuta); }
+.riga-termine.meno .termine-val { color: var(--ostacola); }
+.nota-taglio {
+  margin: var(--s3) 0 0; padding: 10px 13px; font-size: var(--t-nota); line-height: 1.5;
+  background: var(--superficie); border: 1px solid var(--bordo); border-radius: var(--raggio-s);
+}
+.nota-taglio.spento { color: var(--inchiostro-3); }
+
+/* cinquecento tiri sulla stessa scheda */
+.dado-blocco {
+  margin-top: var(--s5); padding: var(--s4);
+  background: var(--superficie); border: 1px solid var(--bordo); border-radius: var(--raggio);
+}
+.dado-titolo {
+  margin: 0 0 var(--s2); font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.dado-riga, .dado-margini {
+  margin: 0 0 var(--s3); font-size: var(--t-nota); line-height: 1.6; color: var(--inchiostro-2);
+}
+.dado-margini { margin: var(--s3) 0 0; }
+.riga-esito {
+  display: grid; grid-template-columns: 20px minmax(140px, 1.3fr) 3fr 44px;
+  align-items: center; gap: var(--s3); padding: 5px 8px; border-radius: var(--raggio-s);
+}
+.esito-glifo { color: var(--tinta); text-align: center; font-size: var(--t-nota); line-height: 1; }
+.esito-nome { font-size: var(--t-piccolo); font-weight: 600; }
+.esito-pista { position: relative; height: 11px; border-radius: 999px; background: var(--piano); }
+.esito-barra {
+  position: absolute; left: 0; top: 0; height: 11px; border-radius: 999px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--tinta) 65%, transparent), var(--tinta));
+}
+.esito-n { text-align: right; font-variant-numeric: tabular-nums; font-weight: 640; font-size: var(--t-piccolo); }
+
+/* stesso nodo, due campi: due colonne che si guardano */
+.due-colonne { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s3); }
+.colonna-caso {
+  --tinta: var(--azione);
+  padding: var(--s4); background: var(--piano);
+  border: 1px solid var(--bordo); border-radius: var(--raggio);
+}
+.colonna-eti { margin: 0 0 var(--s2); font-size: var(--t-corpo); font-weight: 640; letter-spacing: -.012em; }
+.colonna-scena { margin: 0 0 var(--s3); font-size: var(--t-nota); color: var(--inchiostro-2); line-height: 1.5; }
+.colonna-pn {
+  font-size: var(--t-eroe); font-weight: 700; line-height: .95; letter-spacing: -.04em;
+  color: var(--tinta); font-variant-numeric: tabular-nums; margin-bottom: var(--s2);
+}
+.colonna-pn small { font-size: var(--t-medio); font-weight: 600; }
+.colonna-conti { margin: var(--s3) 0 0; font-size: var(--t-nota); line-height: 1.6; color: var(--inchiostro-2); }
+.riga-conclusione {
+  margin: var(--s4) 0 0; padding: var(--s4); font-size: var(--t-corpo); line-height: 1.62;
+  background: var(--superficie); border: 1px solid var(--bordo); border-radius: var(--raggio);
+}
+
+/* la riga del dado da 1 a 100, con i tiri del libro sopra */
+.margine-caso { margin-bottom: var(--s5); }
+.margine-caso:last-child { margin-bottom: 0; }
+.mini-pista {
+  display: block; position: relative; height: 7px; min-width: 70px;
+  border-radius: 999px; background: var(--piano);
+}
+.mini-barra {
+  position: absolute; left: 0; top: 0; height: 7px; border-radius: 999px; background: var(--tinta);
+}
+table.dati tr.riga-senza td { color: var(--inchiostro-3); font-style: italic; }
+
+/* le tre cose che si vedono solo mettendole in fila */
+.tre-osservazioni {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--s3); margin-top: var(--s5);
+}
+.osservazione {
+  padding: var(--s4); background: var(--piano);
+  border: 1px solid var(--bordo); border-radius: var(--raggio);
+}
+.osservazione b { display: block; font-size: var(--t-corpo); font-weight: 640; margin-bottom: 6px; }
+.osservazione p { margin: 0; font-size: var(--t-nota); line-height: 1.58; color: var(--inchiostro-2); }
+
+/* la «strada» che non porta da nessuna parte: e' un riquadro, non un link */
+.strada-ferma { cursor: default; }
+.strada-ferma:hover { border-color: var(--bordo); background: var(--piano); box-shadow: none; }
+.riquadro-fermo {
+  padding: var(--s4); border-radius: var(--raggio);
+  background: color-mix(in srgb, var(--critico) 9%, var(--superficie));
+  border: 1px solid color-mix(in srgb, var(--critico) 34%, var(--bordo));
+  margin-bottom: var(--s4);
+}
+.fermo-titolo { margin: 0; font-size: var(--t-medio); font-weight: 640; color: var(--critico); }
+
+@media (max-width: 680px) {
+  .riga-termine { grid-template-columns: 58px 2fr 46px; }
+  .riga-termine .termine-nome { display: none; }
+  .riga-esito { grid-template-columns: 18px 1fr 40px; }
+  .esito-pista { display: none; }
+  .confronto-pn { grid-template-columns: 1fr auto 1fr; padding: var(--s3); }
+  .pn-num { font-size: var(--t-grande); }
+  .colonna-pn { font-size: var(--t-display); }
+}
+
+/* la riga che compare quando una scena arriva da un'altra pagina */
+.venuto-da-fuori {
+  margin-top: var(--s3); padding: 9px 13px; border-radius: var(--raggio-s);
+  background: var(--azione-tenue); border: 1px solid color-mix(in srgb, var(--azione) 28%, transparent);
+  color: var(--inchiostro-2);
+}
+
+
+/* =============================================================================
+   MILLE VOLTE LA STESSA SCENA — MONTECARLO.html
+   =============================================================================
+   Una pagina di comandi e grafici. I comandi stanno tutti insieme in cima e
+   sono select, non cursori: qui non si cerca il valore giusto muovendo,
+   si sceglie fra alternative dichiarate.
+   ========================================================================== */
+.comandi {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  gap: var(--s3);
+}
+.comando { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.comando > span {
+  font-size: var(--t-micro); font-weight: 600; letter-spacing: .045em;
+  text-transform: uppercase; color: var(--inchiostro-3);
+}
+.comando select, .comando input {
+  font: inherit; font-size: var(--t-nota); padding: 8px 10px;
+  border-radius: var(--raggio-s); border: 1px solid var(--bordo);
+  background: var(--superficie); color: var(--inchiostro);
+  transition: border-color .13s ease, box-shadow .13s ease;
+}
+.comando select:hover, .comando input:hover { border-color: var(--linea-base); }
+.comando select:focus-visible, .comando input:focus-visible {
+  outline: none; border-color: var(--azione);
+  box-shadow: 0 0 0 3px var(--azione-tenue);
+}
+
+/* i due assi, e la cosa che non si somma */
+.assi { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: var(--s3); }
+.asse {
+  padding: var(--s4); background: var(--piano);
+  border: 1px solid var(--bordo); border-radius: var(--raggio);
+}
+.asse-eti {
+  margin: 0 0 var(--s2); font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.asse-num {
+  margin: 0 0 var(--s2); font-size: var(--t-eroe); font-weight: 700;
+  line-height: .92; letter-spacing: -.04em; font-variant-numeric: tabular-nums;
+  color: var(--azione);
+}
+.asse-num.piccolo { font-size: var(--t-display); color: var(--inchiostro-3); }
+.asse-dice { margin: 0; font-size: var(--t-nota); line-height: 1.55; color: var(--inchiostro-2); }
+.asse-avviso {
+  margin: var(--s3) 0 0; padding: 9px 11px; font-size: var(--t-piccolo); line-height: 1.5;
+  background: color-mix(in srgb, var(--attenzione) 14%, var(--superficie));
+  border-radius: var(--raggio-s); color: var(--inchiostro);
+}
+.asse-somma { border-style: dashed; }
+
+/* la citazione dal libro: e' una regola, non un abbellimento */
+.citazione {
+  margin: var(--s4) 0; padding: var(--s4) var(--s4) var(--s4) var(--s5);
+  font-size: var(--t-medio); line-height: 1.6; font-style: italic;
+  color: var(--inchiostro); background: var(--piano);
+  border-left: 3px solid var(--azione); border-radius: 0 var(--raggio) var(--raggio) 0;
+}
+
+/* il verdetto sulla convergenza: e' la risposta alla domanda, e va vista */
+.verdetto-conv {
+  margin: var(--s4) 0 0; padding: 13px 16px; border-radius: var(--raggio);
+  font-size: var(--t-corpo); line-height: 1.55; font-weight: 550;
+}
+.verdetto-conv.basta {
+  background: color-mix(in srgb, var(--buono) 12%, var(--superficie));
+  border: 1px solid color-mix(in srgb, var(--buono) 40%, var(--bordo));
+}
+.verdetto-conv.nonbasta {
+  background: color-mix(in srgb, var(--attenzione) 15%, var(--superficie));
+  border: 1px solid color-mix(in srgb, var(--attenzione) 46%, var(--bordo));
+}
+
+/* le leve: una barra che parte dal centro, in meglio a destra */
+.leve { display: grid; gap: 3px; margin-top: var(--s4); }
+.riga-leva {
+  display: grid; grid-template-columns: 46px minmax(120px, 1.1fr) 52px 3fr 52px;
+  align-items: center; gap: var(--s3); padding: 6px 9px; border-radius: var(--raggio-s);
+}
+.leva-sx {
+  text-align: right; font-variant-numeric: tabular-nums;
+  font-weight: 640; font-size: var(--t-piccolo); color: var(--ostacola);
+}
+.riga-leva:hover { background: var(--piano); }
+.leva-k { font-size: var(--t-piccolo); font-weight: 700; }
+.leva-nome { font-size: var(--t-piccolo); color: var(--inchiostro-2); }
+.leva-nome small { color: var(--inchiostro-3); }
+.leva-pista { position: relative; display: flex; align-items: center; height: 14px; }
+.leva-mezza { position: relative; height: 14px; width: 50%; }
+.leva-mezza.sx { display: flex; justify-content: flex-end; }
+.leva-mezza .leva-barra { height: 14px; border-radius: 3px; display: block; }
+.leva-mezza.sx .leva-barra { background: var(--ostacola); }
+.leva-mezza.dx .leva-barra { background: var(--aiuta); }
+.leva-zero { position: absolute; left: 50%; top: -2px; width: 1px; height: 18px; background: var(--linea-base); }
+.leva-val {
+  text-align: right; font-variant-numeric: tabular-nums;
+  font-weight: 640; font-size: var(--t-piccolo); color: var(--aiuta);
+}
+.nota-leve {
+  margin: var(--s4) 0 0; padding: 12px 14px; font-size: var(--t-nota); line-height: 1.6;
+  background: var(--piano); border-radius: var(--raggio-s); color: var(--inchiostro-2);
+}
+
+@media (max-width: 680px) {
+  .riga-leva { grid-template-columns: 40px 1fr 44px 44px; }
+  .riga-leva .leva-pista { display: none; }
+  .asse-num { font-size: var(--t-display); }
+}
+
+/* quando tutte le run finiscono sullo stesso numero non c'e' una
+   distribuzione: c'e' un valore solo, e va detto invece di disegnare
+   un grafico vuoto */
+.istogramma-piatto {
+  display: flex; flex-direction: column; align-items: center; gap: var(--s2);
+  padding: var(--s5) var(--s4); text-align: center;
+  background: var(--piano); border: 1px dashed var(--linea-base); border-radius: var(--raggio);
+}
+.piatto-num {
+  margin: 0; font-size: var(--t-eroe); font-weight: 700; line-height: .95;
+  letter-spacing: -.04em; color: var(--ostacola); font-variant-numeric: tabular-nums;
+}
+.piatto-dice { margin: 0; max-width: 56ch; font-size: var(--t-nota); line-height: 1.6; color: var(--inchiostro-2); }
+
+/* il livello del nodo, sotto quello della scena */
+.nota-nodo {
+  margin: var(--s3) 0 0; padding: 12px 15px; font-size: var(--t-nota); line-height: 1.6;
+  background: var(--azione-tenue); border-radius: var(--raggio-s); color: var(--inchiostro);
+}
+.fasce-margine { display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr)); gap: var(--s2); }
+.fascia-margine {
+  padding: var(--s3) var(--s4); background: var(--piano);
+  border: 1px solid var(--bordo); border-radius: var(--raggio);
+}
+.fascia-num {
+  margin: 0; font-size: var(--t-display); font-weight: 700; line-height: 1;
+  letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+}
+.fascia-num small { font-size: var(--t-nota); font-weight: 600; color: var(--inchiostro-3); }
+.fascia-nome { margin: 4px 0 3px; font-size: var(--t-piccolo); font-weight: 640; }
+.fascia-dice { margin: 0; font-size: var(--t-micro); line-height: 1.45; color: var(--inchiostro-3); }
+
+
+/* =============================================================================
+   LE FORMULE COMPOSTE
+   =============================================================================
+   Sono MathML, generate dal Canone e inserite da formule-vista.js. Le
+   disegnano i browser da soli: nessuna libreria, nessun font da scaricare,
+   e il vincolo del capitolo 48 resta intatto — la pagina si apre da disco.
+   ========================================================================== */
+/* IL RIQUADRO DELLA FORMULA CENTRA SENZA ALLARGARE LA PAGINA.
+   La prima versione centrava la formula dandole «width: max-content». Su uno
+   schermo stretto quella misura si propagava all'indietro — riquadro,
+   articolo, colonna — e la pagina intera diventava larga quanto la formula
+   piu' lunga: misurato, 483 px di testo dentro una colonna da 351.
+   Un contenitore flessibile centra allo stesso modo senza chiedere spazio, e
+   «overflow-x: auto» tiene lo scorrimento dentro il riquadro, dove serve. */
+.formula-libro {
+  margin: var(--s4) 0; padding: var(--s4) var(--s3);
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio); overflow-x: auto;
+  display: flex; justify-content: flex-start;
+}
+/* il margine automatico centra come «justify-content: center», ma quando la
+   formula e' piu' larga del riquadro non ne nasconde l'inizio a sinistra:
+   misurato sul telefono, «Pn = clamp(» spariva e si vedeva solo «…p(P0 + E». */
+.formula-libro > math { flex: 0 0 auto; display: block; margin: 0 auto; }
+.formula-libro + .formula-fonte {
+  margin: calc(var(--s3) * -1) 0 var(--s4); text-align: center;
+  font-size: var(--t-micro); color: var(--inchiostro-3);
+}
+math { font-size: 1.04em; }
+p math, td math, li math, .caso-conti math { vertical-align: baseline; }
+mtable.casi mtd { padding: 0.15em 0 0.15em 0.9em; }
+mtable.casi mtd:first-child { padding-left: 0.35em; }
+mtable.aligned mtd { padding: 0.18em 0; }
+/* se il file generato manca o e' vecchio, si vede: e' un errore, non un vuoto */
+.formula-manca {
+  display: inline-block; color: var(--critico);
+  border: 1px dashed var(--critico); border-radius: var(--raggio-s);
+  padding: 4px 8px; font-size: var(--t-piccolo);
+}
+/* la riga del calcolo di una scheda, quando il file delle formule non c'e' */
+.caso-praw { margin: 0 0 var(--s3); text-align: center; }
+.caso-praw code { font-size: var(--t-nota); }
+
+
+/* =============================================================================
+   LA LETTURA LUNGA — IL-MODELLO.html
+   =============================================================================
+   Le altre pagine sono strumenti: si aprono, si usa una cosa, si chiudono.
+   Questa e' un testo che si legge dall'inizio alla fine, e un testo lungo
+   chiede altro — una riga piu' corta, un'interlinea piu' larga, un carattere
+   con le grazie, e soprattutto un modo di sapere sempre a che punto si e'.
+
+   PERCHE' LE GRAZIE
+   Non e' nostalgia. Su un testo lungo le grazie aiutano l'occhio a tenere la
+   riga, ed e' la ragione per cui i libri le hanno. Sulle altre pagine —
+   etichette, numeri, comandi — il bastone resta piu' chiaro, e infatti li'
+   non cambia niente: il carattere con le grazie vale solo dentro questa
+   pagina, e solo per il testo che si legge di seguito.
+   ========================================================================== */
+body.lettura { background: var(--piano); }
+
+.contenitore-lettura {
+  max-width: 1180px; margin: 0 auto; padding: 0 var(--s4) var(--s7);
+  display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: var(--s6);
+  align-items: start;
+}
+/* «minmax(0, 1fr)» e non «1fr»: la seconda forma vuol dire «almeno quanto il
+   contenuto piu' largo», e basta una tabella un po' larga o l'indice a
+   striscia perche' la colonna si allarghi oltre lo schermo trascinandosi
+   dietro tutta la pagina. Misurato: su 380 px la colonna diventava 4462. */
+.contenitore-lettura > * { min-width: 0; }
+
+/* --- il testo ------------------------------------------------------------ */
+.testo-lettura {
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+           "Times New Roman", serif;
+  font-family: var(--serif);
+  /* la misura: fra 60 e 70 caratteri e' l'intervallo in cui l'occhio torna a
+     capo senza perdere la riga. Sotto si spezza troppo, sopra ci si perde.
+
+     E MAI PIU' LARGA DELLA COLONNA CHE LA CONTIENE.
+     «min-width: 0» sulla colonna della griglia, qui sopra, non e' bastato:
+     su 380 px la colonna vale 356, ma l'articolo si allargava a 483 —
+     quanto la formula MathML piu' lunga, che dentro un paragrafo non va a
+     capo — e trascinava con se' tutta la pagina, che scorreva di lato di
+     centoquindici pixel. E' il difetto che il capitolo 48 non perdona: su
+     un telefono si perde la barra in alto e non si capisce piu' dove si e'.
+     Con il tetto al 100 per cento l'articolo resta dentro la colonna e le
+     formule troppo lunghe scorrono dentro il loro riquadro, che e' quello
+     che «.formula-libro» sa gia' fare. Misurato dopo: articolo 356,
+     pagina 380, nessuno scorrimento. */
+  max-width: min(68ch, 100%); margin: 0 auto; padding-top: var(--s5);
+}
+.testo-lettura p {
+  font-size: var(--t-lettura); line-height: 1.68; margin: 0 0 var(--s4);
+  color: var(--inchiostro); hyphens: auto;
+}
+.testo-lettura strong, .testo-lettura b { font-weight: 700; }
+.testo-lettura em { font-style: italic; }
+.testo-lettura table.dati { font-family: var(--carattere); font-size: var(--t-nota); }
+.testo-lettura .avvolgi-tabella { margin: var(--s4) 0; }
+
+/* --- la testata ---------------------------------------------------------- */
+.testata-lettura { padding: var(--s6) 0 var(--s5); border-bottom: 1px solid var(--bordo); }
+.testata-lettura h1 {
+  font-family: var(--serif); font-size: clamp(34px, 5vw, 46px); font-weight: 700;
+  line-height: 1.1; letter-spacing: -.02em; margin: 0 0 var(--s3); text-wrap: balance;
+}
+.sottotitolo-lettura {
+  font-size: var(--t-lettura-sotto) !important; line-height: 1.6 !important; color: var(--inchiostro-2) !important;
+}
+.sottotitolo-lettura.piccolo { font-size: var(--t-lettura-li) !important; }
+.avviso-lettura {
+  margin-top: var(--s5); padding: var(--s4);
+  background: var(--azione-tenue); border-radius: var(--raggio);
+}
+.avviso-lettura p { margin: 0; font-size: var(--corpo) !important; line-height: 1.6 !important; }
+
+/* --- le parti e i capitoli ------------------------------------------------ */
+.parte {
+  margin: var(--s7) 0 var(--s5) !important; padding-bottom: var(--s2);
+  border-bottom: 2px solid var(--inchiostro);
+  font-family: var(--carattere) !important;
+  font-size: var(--t-piccolo) !important; font-weight: 650 !important;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--inchiostro) !important;
+}
+.capitolo { margin: 0 0 var(--s7); scroll-margin-top: 92px; }
+.capitolo h2 {
+  display: flex; align-items: baseline; gap: var(--s3);
+  font-family: var(--serif); font-size: var(--t-lettura-h2); font-weight: 700;
+  line-height: 1.24; letter-spacing: -.015em; margin: var(--s6) 0 var(--s4);
+  text-wrap: balance;
+}
+.cap-numero {
+  flex: none; font-family: var(--carattere); font-size: var(--t-nota);
+  font-weight: 700; font-variant-numeric: tabular-nums; color: var(--azione);
+  border: 1.5px solid var(--azione); border-radius: 50%;
+  width: 30px; height: 30px; display: grid; place-items: center;
+  align-self: center;
+}
+
+/* --- i riquadri dentro il testo ------------------------------------------ */
+.riquadro-attenzione {
+  margin: var(--s5) 0; padding: var(--s4) var(--s5);
+  background: color-mix(in srgb, var(--attenzione) 11%, var(--superficie));
+  border-left: 3px solid var(--attenzione);
+  border-radius: 0 var(--raggio) var(--raggio) 0;
+}
+.riquadro-attenzione p { margin: 0; font-size: var(--t-lettura-li) !important; line-height: 1.62 !important; }
+.citazione-lettura {
+  margin: var(--s5) 0; padding: var(--s4) var(--s5);
+  font-size: var(--t-lettura-sotto); line-height: 1.6; font-style: italic;
+  background: var(--superficie); border-left: 3px solid var(--azione);
+  border-radius: 0 var(--raggio) var(--raggio) 0;
+}
+.elenco-mancante { margin: var(--s4) 0; padding-left: 1.3em; }
+.elenco-mancante li { font-size: var(--t-lettura-li); line-height: 1.62; margin-bottom: var(--s3); }
+.chiusura-lettura {
+  margin-top: var(--s6) !important; padding-top: var(--s5);
+  border-top: 1px solid var(--bordo); font-size: var(--t-lettura-sotto) !important;
+}
+.rimando { color: var(--azione); text-decoration: none; border-bottom: 1px solid currentColor; }
+.rimando.rotto { color: var(--critico); }
+.testo-lettura td.bene { color: var(--buono); font-weight: 600; }
+.testo-lettura td.male { color: var(--ostacola); font-weight: 600; }
+
+/* --- le figure ----------------------------------------------------------- */
+.figura {
+  margin: var(--s6) 0; padding: var(--s4);
+  background: var(--superficie); border: 1px solid var(--bordo);
+  border-radius: var(--raggio-l); box-shadow: var(--ombra);
+  /* la figura puo' sconfinare oltre la misura del testo: un grafico stretto
+     a 68 caratteri non si legge */
+  width: calc(100% + var(--s6)); margin-left: calc(var(--s6) / -2);
+}
+.figura-titolo {
+  margin: 0 0 var(--s3) !important; font-family: var(--carattere) !important;
+  font-size: var(--t-medio) !important; font-weight: 640 !important;
+  line-height: 1.3 !important; letter-spacing: -.012em;
+}
+.figura figcaption {
+  margin-top: var(--s3); padding-top: var(--s3); border-top: 1px solid var(--bordo);
+  font-family: var(--carattere); font-size: var(--t-nota); line-height: 1.55;
+  color: var(--inchiostro-2);
+}
+.figura figcaption b { color: var(--inchiostro); }
+.figura-comandi { margin-bottom: var(--s3); }
+.figura-cursori { gap: 14px 22px; }
+.figura-azioni { margin: 0 0 var(--s3); flex-wrap: wrap; }
+.figura-conto {
+  margin: var(--s3) 0 0 !important; padding: 11px 14px;
+  background: var(--piano); border-radius: var(--raggio-s);
+  font-family: var(--carattere) !important; font-size: var(--t-nota) !important;
+  line-height: 1.6 !important; color: var(--inchiostro-2) !important;
+}
+.figura-manca {
+  color: var(--critico); border: 1px dashed var(--critico);
+  border-radius: var(--raggio-s); padding: 10px 12px;
+}
+.figura .legenda { margin-top: var(--s2); }
+
+/* la probabilita' in grande, nella prima figura */
+.pn-grande { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: var(--s3) 0 var(--s2); }
+.pn-grande .eti {
+  font-family: var(--carattere); font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.pn-grande .cifra {
+  font-family: var(--carattere); font-size: var(--t-eroe); font-weight: 700;
+  line-height: 1; letter-spacing: -.04em; color: var(--tinta);
+  font-variant-numeric: tabular-nums;
+}
+.pn-grande .cifra small { font-size: var(--t-grande); font-weight: 600; }
+.pn-grande .pista {
+  width: 100%; max-width: 460px; height: 8px; border-radius: 999px;
+  background: var(--piano); position: relative; overflow: hidden;
+}
+.pn-grande .pista > i { position: absolute; left: 0; top: 0; height: 8px; border-radius: 999px; background: var(--tinta); }
+.pn-grande .nota-pn { font-family: var(--carattere); font-size: var(--t-piccolo); color: var(--inchiostro-3); }
+
+.dado-conta {
+  display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); justify-content: center;
+  font-family: var(--carattere); font-size: var(--t-nota); color: var(--inchiostro-2);
+  margin-bottom: var(--s3);
+}
+.dado-conta b { color: var(--inchiostro); font-variant-numeric: tabular-nums; }
+.dado-atteso { color: var(--ostacola); font-weight: 600; }
+
+.tabella-stato { width: 100%; margin-top: var(--s2); }
+.tabella-stato td.freccia.su { color: var(--ostacola); }
+.tabella-stato td.freccia.giu { color: var(--aiuta); }
+.tabella-stato td.freccia.uguale { color: var(--inchiostro-3); }
+.tabella-stato td.bene { color: var(--buono); }
+.tabella-stato td.male { color: var(--ostacola); }
+.tabella-stato td.pari { color: var(--inchiostro-2); }
+
+/* --- l'indice a lato ----------------------------------------------------- */
+.indice-lettura {
+  position: sticky; top: 78px; align-self: start;
+  max-height: calc(100vh - 96px); display: flex; flex-direction: column;
+  font-family: var(--carattere);
+}
+.indice-titolo {
+  margin: 0 0 var(--s2); font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.indice-voci { overflow-y: auto; padding-right: 4px; }
+.indice-voci::-webkit-scrollbar { width: 6px; }
+.indice-voci::-webkit-scrollbar-thumb { background: var(--bordo); border-radius: 3px; }
+.indice-parte {
+  margin: var(--s4) 0 var(--s2); font-size: var(--t-micro); font-weight: 650;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.indice-parte:first-child { margin-top: 0; }
+.indice-voce {
+  display: flex; gap: 9px; align-items: baseline;
+  padding: 5px 8px; border-radius: var(--raggio-s);
+  font-size: var(--t-piccolo); line-height: 1.35; text-decoration: none;
+  color: var(--inchiostro-2); border-left: 2px solid transparent;
+  transition: background-color .12s ease, color .12s ease;
+}
+.indice-voce:hover { background: var(--azione-tenue); color: var(--inchiostro); }
+.indice-n { flex: none; font-variant-numeric: tabular-nums; color: var(--inchiostro-3); font-weight: 600; }
+.indice-voce.qui {
+  background: var(--azione-tenue); color: var(--inchiostro);
+  border-left-color: var(--azione); font-weight: 600;
+}
+.indice-voce.qui .indice-n { color: var(--azione); }
+
+/* --- l'avanzamento e il titolo corrente ---------------------------------- */
+.avanzamento-lettura {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60;
+  background: transparent; pointer-events: none;
+}
+.avanzamento-lettura > i { display: block; height: 100%; width: 0; background: var(--azione); }
+.riga-corrente {
+  position: sticky; top: 52px; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s3);
+  max-width: 1280px; margin: 0 auto; padding: 5px 20px;
+  background: color-mix(in srgb, var(--piano) 92%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--bordo);
+  font-family: var(--carattere); font-size: var(--t-micro);
+  color: var(--inchiostro-3); min-height: 26px;
+}
+.torna-su { color: var(--inchiostro-3); text-decoration: none; white-space: nowrap; }
+.torna-su:hover { color: var(--azione); }
+
+/* --- schermi stretti ------------------------------------------------------ */
+@media (max-width: 940px) {
+  .contenitore-lettura { grid-template-columns: minmax(0, 1fr); gap: var(--s4); padding: 0 var(--s3) var(--s6); }
+  /* l'indice diventa una striscia che scorre di lato, sopra il testo:
+     su un telefono una colonna fissa mangerebbe meta' schermo */
+  .indice-lettura {
+    position: static; max-height: none; margin-top: var(--s3);
+    border-bottom: 1px solid var(--bordo); padding-bottom: var(--s2);
+  }
+  .indice-voci { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px; }
+  .indice-parte { display: none; }
+  .indice-voce { white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; }
+  .indice-voce.qui { border-left: none; border-bottom-color: var(--azione); }
+  .testo-lettura { padding-top: var(--s3); }
+  .testo-lettura p { font-size: var(--t-lettura-li); }
+  .figura { width: 100%; margin-left: 0; padding: var(--s3); }
+  .capitolo h2 { font-size: 23px; }
+  .riga-corrente { display: none; }
+}
+
+/* --- in stampa esce un documento, non un'applicazione -------------------- */
+@media print {
+  .contenitore-lettura { display: block; max-width: none; padding: 0; }
+  .indice-lettura, .avanzamento-lettura, .riga-corrente { display: none !important; }
+  .testo-lettura { max-width: none; }
+  .capitolo { break-inside: auto; }
+  .capitolo h2 { break-after: avoid; }
+  .parte { break-before: page; }
+  .figura { break-inside: avoid; box-shadow: none; width: 100%; margin-left: 0; }
+  .figura-comandi { display: none; }
+}
+
+
+/* =============================================================================
+   LA SCENA RACCONTATA — LA-SCENA.html
+   =============================================================================
+   Due cose nuove da mostrare: come il racconto e' stato tagliato, e che cosa
+   ha prodotto ogni parola. Tutto il resto riusa i componenti che ci sono.
+   ========================================================================== */
+.frammenti { display: grid; gap: 3px; margin-bottom: var(--s3); }
+.frammento {
+  display: grid; grid-template-columns: 16px 1fr auto auto;
+  align-items: baseline; gap: var(--s3);
+  padding: 8px 10px; border-radius: var(--raggio-s);
+  border-left: 3px solid transparent;
+}
+.frammento.e-nodo { background: var(--azione-tenue); border-left-color: var(--azione); }
+.frammento.e-contesto { background: var(--piano); border-left-color: var(--linea-base); }
+.fr-segno { color: var(--azione); font-size: var(--t-piccolo); }
+.frammento.e-contesto .fr-segno { color: var(--inchiostro-3); }
+.fr-testo { font-size: var(--t-nota); line-height: 1.5; }
+.fr-natura {
+  font-size: var(--t-micro); color: var(--inchiostro-3); white-space: nowrap;
+}
+.fr-comandi { display: flex; gap: 4px; }
+.fr-comandi button { font-size: var(--t-micro); padding: 3px 8px; }
+
+.tracce { margin: var(--s2) 0 0; padding-left: 1.15em; }
+.tracce li { font-size: var(--t-nota); line-height: 1.5; margin-bottom: 7px; }
+.tracce li small { color: var(--inchiostro-3); line-height: 1.45; display: block; margin-top: 2px; }
+.tracce li.scartata { opacity: .62; }
+.tracce li.scartata b { text-decoration: line-through; }
+.tracce li.scartata em { color: var(--attenzione); font-style: normal; font-weight: 600; }
+
+/* la carta di un nodo */
+.carta-nodo {
+  --tinta: var(--azione);
+  margin-bottom: var(--s3); padding: var(--s4);
+  background: var(--superficie); border: 1px solid var(--bordo);
+  border-left: 3px solid var(--tinta); border-radius: var(--raggio);
+}
+.nodo-alto { display: flex; align-items: center; gap: var(--s3); margin-bottom: var(--s3); }
+.nodo-n {
+  flex: none; display: grid; place-items: center; width: 26px; height: 26px;
+  border-radius: 50%; background: var(--piano); border: 1px solid var(--bordo);
+  font-size: var(--t-micro); font-weight: 700; font-variant-numeric: tabular-nums;
+  color: var(--inchiostro-3);
+}
+.nodo-testo { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+.nodo-testo b { font-size: var(--t-corpo); font-weight: 620; line-height: 1.35; }
+.nodo-testo small { font-size: var(--t-micro); color: var(--inchiostro-3); }
+.nodo-pn {
+  flex: none; font-size: var(--t-grande); font-weight: 700; line-height: 1;
+  letter-spacing: -.03em; color: var(--tinta); font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.nodo-pn small { font-size: var(--t-piccolo); font-weight: 600; }
+.nodo-valori { grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)); }
+.nodo-valori .tassello { min-height: 58px; padding: 8px 10px; background: var(--piano); }
+.nodo-valori .tassello .v { font-size: var(--t-medio); }
+.nodo-valori .tassello .s { font-size: var(--t-micro); }
+/* un valore scritto a mano si vede: da quel momento non e' piu' una proposta */
+.nodo-valori .tassello.a-mano {
+  background: var(--azione-tenue); border-color: var(--azione);
+}
+.nodo-campo {
+  margin: var(--s3) 0 0; padding: 9px 12px; font-size: var(--t-nota); line-height: 1.5;
+  background: color-mix(in srgb, var(--attenzione) 13%, var(--superficie));
+  border-radius: var(--raggio-s);
+}
+.campi-valori {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  gap: var(--s2); margin-top: var(--s2);
+}
+.campo-valore { display: flex; flex-direction: column; gap: 3px; }
+.campo-valore > span {
+  font-size: var(--t-micro); font-weight: 700; color: var(--inchiostro-3);
+}
+.campo-valore input {
+  font: inherit; font-size: var(--t-nota); padding: 6px 8px; width: 100%;
+  border-radius: var(--raggio-s); border: 1px solid var(--bordo);
+  background: var(--superficie); color: var(--inchiostro);
+}
+
+/* il passaggio del calcolo */
+.passo-eti {
+  margin: var(--s4) 0 var(--s2); font-size: var(--t-micro); font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--inchiostro-3);
+}
+.riga-dado {
+  display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); align-items: baseline;
+  padding: 11px 14px; background: var(--piano); border-radius: var(--raggio-s);
+  font-size: var(--t-nota);
+}
+.riga-dado b { font-variant-numeric: tabular-nums; }
+.dado-verdetto { font-weight: 700; }
+.dado-verdetto.ok { color: var(--buono); }
+.dado-verdetto.ko { color: var(--ostacola); }
+.esito-riga {
+  margin: 0; padding: 11px 14px; border-radius: var(--raggio-s);
+  background: color-mix(in srgb, var(--tinta) 10%, var(--superficie));
+  border-left: 3px solid var(--tinta); font-size: var(--t-nota); line-height: 1.55;
+}
+.esito-riga small { color: var(--inchiostro-2); }
+
+/* «.avviso» esiste gia' ed e' il riquadro d'avvertenza dentro il testo delle
+   pagine: piu' grande, con margini larghi. Questi sono avvisi di lettura,
+   corti e in fila sotto un comando, e vogliono un peso minore. Nome proprio,
+   invece di litigarsi le stesse proprieta'. */
+.avviso-scena {
+  margin: var(--s3) 0 0; padding: 10px 13px; border-radius: var(--raggio-s);
+  font-size: var(--t-nota); line-height: 1.55;
+  background: color-mix(in srgb, var(--attenzione) 12%, var(--superficie));
+  border-left: 3px solid var(--attenzione);
+}
+.avviso-scena.a-campo { background: var(--azione-tenue); border-left-color: var(--azione); }
+.nota-doppia {
+  margin: var(--s3) 0 0; padding: 10px 13px; border-radius: var(--raggio-s);
+  font-size: var(--t-nota); line-height: 1.55; background: var(--piano);
+}
+.valore-seme { display: flex; align-items: center; gap: var(--s2); }
+.valore-seme b { font-variant-numeric: tabular-nums; font-size: var(--t-nota); }
+
+@media (max-width: 680px) {
+  .frammento { grid-template-columns: 14px 1fr; }
+  .fr-natura, .fr-comandi { grid-column: 2; }
+  .fr-comandi { justify-content: flex-start; margin-top: 4px; }
+}
+/* la diagnosi di saturazione, e i pezzi muti del racconto */
+.riquadro-sat {
+  margin-bottom: var(--s3); padding: var(--s3) var(--s4);
+  border-radius: var(--raggio); border-left: 3px solid var(--buono);
+  background: color-mix(in srgb, var(--buono) 9%, var(--superficie));
+}
+.riquadro-sat.grave {
+  border-left-color: var(--ostacola);
+  background: color-mix(in srgb, var(--ostacola) 10%, var(--superficie));
+}
+.sat-titolo { margin: 0 0 4px; font-weight: 640; font-size: var(--t-nota); }
+.riquadro-sat p { margin: 0; font-size: var(--t-nota); line-height: 1.55; color: var(--inchiostro-2); }
+.muti { margin-top: var(--s3); }
+.muti ul { margin-top: var(--s2); }
+.comando-corto { max-width: 130px; }
+/* la riga che dice che cosa e' stato letto, e il lampo che segnala dove */
+.stato-lettura {
+  margin: var(--s3) 0 0; font-size: var(--t-nota); color: var(--inchiostro-2);
+}
+.stato-lettura b { color: var(--inchiostro); font-variant-numeric: tabular-nums; }
+@keyframes appena {
+  from { box-shadow: 0 0 0 3px var(--azione); }
+  to   { box-shadow: 0 0 0 3px transparent; }
+}
+.riquadro.appena-letta { animation: appena 1.1s ease-out; }
+@media (prefers-reduced-motion: reduce) { .riquadro.appena-letta { animation: none; } }
+
+/* ============================================================================
+   L'INDAGINE — i bottoni delle scene d'esempio
+   ============================================================================
+   Sono scelte alternative, non azioni: percio' non hanno l'aria del pulsante
+   che fa partire qualcosa. Il testo va a capo, perche' i nomi delle scene
+   sono frasi e non etichette, e un nome tagliato a meta' non si riconosce. */
+.scelta-esempio {
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.35;
+  padding: 7px 12px;
+  border: 1px solid var(--bordo);
+  border-radius: 999px;
+  background: var(--piano);
+  color: var(--inchiostro-2);
+  cursor: pointer;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+  transition: border-color .12s, color .12s;
+}
+.scelta-esempio:hover,
+.scelta-esempio:focus-visible {
+  border-color: var(--azione);
+  color: var(--inchiostro);
+}
+
+/* ============================================================================
+   LA PAGINA DI APERTURA
+   ============================================================================
+   Tre vie affiancate, la teoria, il ponte con il libro. I nomi sono nuovi e
+   non riusano .strada, che nel resto del pacchetto e' una riga numerata con il
+   pallino a sinistra: qui servono tre schede da scegliere, ed e' un'altra cosa. */
+.imbocchi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: var(--s3);
+  margin: var(--s4) 0;
+}
+.imbocco {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 16px 18px 18px; text-decoration: none; color: inherit;
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio);
+  transition: border-color .13s ease, background-color .13s ease, box-shadow .13s ease;
+}
+.imbocco:hover, .imbocco:focus-visible {
+  border-color: var(--azione); background: var(--superficie); box-shadow: var(--ombra-alta);
+}
+.imbocco-eti {
+  font-size: 11.5px; font-weight: 620; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--azione);
+}
+.imbocco strong { font-size: var(--t-medio); font-weight: 640; letter-spacing: -.012em; }
+.imbocco-nota { font-size: var(--t-nota); color: var(--inchiostro-2); line-height: 1.55; }
+
+/* i quattro livelli del tempo, numerati */
+.livelli-teoria { margin: var(--s3) 0; padding-left: 22px; line-height: 1.62; }
+.livelli-teoria li { margin-bottom: 7px; }
+
+/* «che cosa non è»: un elenco che va letto, non scorso */
+.cosa-non-e { margin: var(--s3) 0; padding-left: 20px; line-height: 1.62; }
+.cosa-non-e li { margin-bottom: 9px; }
+
+/* il ponte con il libro: due colonne, la cosa e il capitolo che la dice */
+.ponte-libro {
+  display: grid; gap: 1px; margin: var(--s4) 0;
+  background: var(--bordo); border: 1px solid var(--bordo);
+  border-radius: var(--raggio-s); overflow: hidden;
+}
+.ponte-libro > div, .ponte-libro > a {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3);
+  padding: 11px 14px; background: var(--piano);
+}
+/* le righe sono collegamenti (17/09/2026): a sinistra il pezzo del modello,
+   che porta alla pagina del simulatore che lo spiega; a destra il capitolo
+   del libro dove continuare a leggere. La freccia dice che si apre. */
+.ponte-libro > a { text-decoration: none; color: inherit; transition: background-color .12s ease; }
+.ponte-libro > a:hover, .ponte-libro > a:focus-visible { background: var(--azione-tenue); }
+.ponte-libro > a .k::after { content: ' →'; color: var(--azione); font-weight: 600; }
+.ponte-libro > a:hover .k { color: var(--inchiostro); }
+.ponte-libro .k { font-size: var(--t-nota); color: var(--inchiostro-2); }
+.ponte-libro .v {
+  flex: none; font-size: var(--t-nota); font-weight: 620; color: var(--inchiostro);
+  font-variant-numeric: tabular-nums;
+}
+
+/* l'elenco delle pagine, sulla pagina di apertura */
+.elenco-pagine { display: grid; gap: 7px; margin: var(--s3) 0 var(--s4); }
+.riga-pagina {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: 11px 14px; text-decoration: none; color: inherit;
+  background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: var(--raggio-s);
+  transition: border-color .13s ease, background-color .13s ease;
+}
+.riga-pagina:hover, .riga-pagina:focus-visible {
+  border-color: var(--azione); background: var(--superficie);
+}
+.riga-n {
+  flex: none; display: grid; place-items: center; width: 26px; height: 26px;
+  border-radius: 50%; background: var(--azione); color: var(--su-azione);
+  font-weight: 700; font-size: var(--t-nota);
+}
+.riga-icona { background: var(--superficie); color: var(--inchiostro-2); font-weight: 500; }
+.riga-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.riga-t b { font-size: var(--t-corpo); font-weight: 620; }
+.riga-t small { font-size: var(--t-nota); color: var(--inchiostro-2); line-height: 1.5; }
+.riga-durata {
+  flex: none; font-size: var(--t-nota); color: var(--inchiostro-3); text-align: right;
+  max-width: 34%;
+}
+.titolo-gruppo {
+  margin: var(--s4) 0 0; font-size: 11.5px; font-weight: 620; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--inchiostro-3);
+}
+@media (max-width: 560px) { .riga-durata { display: none; } }
+
+/* Due paragrafi di apertura di seguito vogliono respiro fra loro: .sottotitolo
+   nasce senza margini perche' nelle altre pagine e' uno solo, e li' il margine
+   lo mette la testata. Sulla pagina di apertura sono due, e senza questa riga
+   si toccano. */
+.sottotitolo + .sottotitolo { margin-top: var(--s3); }
+
+
+/* ==========================================================================
+   SCHERMI GRANDI E GRANDISSIMI (17/09/2026)
+   Su un monitor da 27" o su un 4K la colonna da 1080 px con il corpo a 16 px
+   diventava una striscia stretta in mezzo al vuoto, con i caratteri piccoli.
+   Qui la scala tipografica e i contenitori crescono a gradini, e con loro
+   le spaziature: la pagina resta la stessa, solo più grande. Sotto i 1500 px
+   (portatili, tablet) non cambia niente.
+   ========================================================================== */
+@media (min-width: 1500px) {
+  :root {
+    --t-micro: 12.5px; --t-piccolo: 14px; --t-nota: 14.5px;
+    --t-corpo: 16.5px; --t-medio: 18.5px; --t-titolo: 21px;
+    --t-grande: 26px;  --t-display: 33px;
+    --t-lettura: 19.5px; --t-lettura-sotto: 20.5px; --t-lettura-h2: 29px; --t-lettura-li: 18.5px;
+    --corpo: 17.5px;
+  }
+  .contenitore { max-width: 1240px; }
+  .app-barra-dentro, .riga-corrente { max-width: 1480px; }
+  .contenitore-lettura { max-width: 1340px; grid-template-columns: 250px minmax(0, 1fr); }
+}
+@media (min-width: 1900px) {
+  :root {
+    --t-micro: 14px; --t-piccolo: 15.5px; --t-nota: 16px;
+    --t-corpo: 18px;  --t-medio: 20.5px; --t-titolo: 23px;
+    --t-grande: 29px; --t-display: 37px;
+    --t-lettura: 21.5px; --t-lettura-sotto: 22.5px; --t-lettura-h2: 32px; --t-lettura-li: 20px;
+    --corpo: 19px;
+    --s1: 5px; --s2: 10px; --s3: 14px; --s4: 21px; --s5: 30px; --s6: 44px; --s7: 64px;
+  }
+  .contenitore { max-width: 1400px; padding: 30px 26px 84px; }
+  .app-barra-dentro, .riga-corrente { max-width: 1660px; }
+  .contenitore-lettura { max-width: 1520px; grid-template-columns: 270px minmax(0, 1fr); }
+  .riquadro { padding: 30px 32px; }
+}
+@media (min-width: 2400px) {
+  :root {
+    --t-micro: 16px; --t-piccolo: 18px; --t-nota: 18.5px;
+    --t-corpo: 21px;  --t-medio: 24px;   --t-titolo: 27px;
+    --t-grande: 34px; --t-display: 43px;
+    --t-lettura: 25px; --t-lettura-sotto: 26px; --t-lettura-h2: 37px; --t-lettura-li: 23px;
+    --corpo: 22px;
+    --s1: 6px; --s2: 12px; --s3: 16px; --s4: 24px; --s5: 34px; --s6: 50px; --s7: 74px;
+  }
+  .contenitore { max-width: 1680px; padding: 36px 32px 96px; }
+  .app-barra-dentro, .riga-corrente { max-width: 1960px; }
+  .contenitore-lettura { max-width: 1800px; grid-template-columns: 310px minmax(0, 1fr); }
+  .riquadro { padding: 36px 40px; }
+  .gradino-n { width: 26px; height: 26px; }
+}
+
+/* ==========================================================================
+   TABLET E DITA (17/09/2026)
+   Un tablet (anche piccolo) non ha il mouse: la manopola del cursore da 18 px
+   e i bottoni da 34 px vanno bene per un puntatore, non per un dito. Qui, e
+   solo quando il puntatore e' «grosso», tutto quello che si tocca cresce a
+   44 px, che e' la misura minima con cui un dito centra il bersaglio.
+   Con la penna o con il mouse (pointer: fine) non cambia niente.
+   ========================================================================== */
+@media (pointer: coarse) {
+  input[type="range"] { height: 36px; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 7px; }
+  input[type="range"]::-moz-range-track, input[type="range"]::-moz-range-progress { height: 7px; }
+  input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+  input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; }
+  input[type="range"]:hover::-webkit-slider-thumb { transform: none; }
+  button, .bottone, select, input[type="text"], input[type="number"], .wiki-tasto, .wiki-torna,
+  .imbocco, .gradino, .indice-voce, summary {
+    min-height: 44px;
+  }
+  select, input[type="text"], input[type="number"] { font-size: max(16px, var(--t-corpo)); }
+  .gradino { padding: 8px 12px; }
+  .app-strumenti .fantasma, .app-strumenti .porta { min-height: 40px; display: inline-flex; align-items: center; }
+  .voce-menu { min-height: 44px; }
+  /* le parole spiegate (il punto interrogativo) e i dettagli si aprono al
+     tocco: niente effetti che dipendono dal passaggio del mouse */
+  .parola-spiegata:hover { background: none; }
+}
+/* tablet in verticale (768 px) e mini tablet (600 px): la riga di strumenti
+   in alto non deve tagliare l'ultima voce, e le schede di ingresso vanno
+   in due colonne, non in quattro strette */
+@media (max-width: 900px) {
+  .imbocchi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .imbocchi { grid-template-columns: minmax(0, 1fr); }
+  .app-strumenti { gap: var(--s2); }
+}
+
+
+/* ==========================================================================
+   TELEFONI (17/09/2026)
+   Sotto i 520 px la pagina deve sembrare un'applicazione, non un sito
+   stretto: una barra bassa su due righe (nome e strumenti sopra, i quattro
+   gradini sotto, con il nome scritto solo su quello in cui sei), un margine
+   uguale dappertutto (16 px), le schede a tutta larghezza con gli angoli
+   piccoli, i bottoni a tutta larghezza uno sotto l'altro, i titoli piu'
+   compatti, le tabelle che scorrono dentro il loro riquadro e mai la pagina.
+   ========================================================================== */
+@media (max-width: 520px) {
+  :root { --t-display: 26px; --t-grande: 21px; --t-titolo: 18px; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { line-height: 1.55; }
+  .contenitore { padding: 12px 16px 56px; }
+  .riquadro { padding: 16px 16px; border-radius: 12px; margin-left: 0; margin-right: 0; }
+  header.testata { padding: 16px 0 4px; }
+  h1 { font-size: var(--t-display); line-height: 1.2; margin-bottom: 6px; }
+  .sottotitolo { font-size: var(--t-corpo); }
+  h2, .riquadro > h2 { font-size: var(--t-grande); }
+  h3 { font-size: var(--t-titolo); }
+  p, li { overflow-wrap: break-word; }
+
+  /* la barra: il nome grande a sinistra, il tasto del menu grande a destra
+     (le regole del panino, sotto i 700 px, stanno più avanti nel foglio) */
+  .app-barra-dentro { padding: 8px 14px; gap: 8px; }
+  .porta-lungo { display: none; }
+  .porta-corto { display: inline; }
+  .menu-giu { position: static; }
+  .tendina { left: 12px; right: 12px; min-width: 0; width: auto; top: calc(100% + 4px); }
+  .riga-corrente { top: 60px; }
+  .capitolo { scroll-margin-top: 90px; }
+
+  /* i bottoni, uno sotto l'altro e a tutta larghezza */
+  .passo-scelte, .barra-azioni { flex-direction: column; align-items: stretch; }
+  .passo-scelte .bottone, .barra-azioni > button, .barra-azioni > .bottone { width: 100%; justify-content: center; text-align: center; }
+  .barra-azioni > label, .barra-azioni > .seme { width: 100%; }
+  /* sul telefono anche i bottoni veri vanno a capo: «Caregiver che compensa
+     tutti · senza numeri» misurava 334 px in una colonna da 328 */
+  .bottone, button { white-space: normal; max-width: 100%; }
+
+  /* le schede di ingresso e le carte: una colonna, angoli piccoli */
+  .imbocchi { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .imbocco { border-radius: 12px; }
+  .carta-livello { padding: 12px 14px; }
+
+  /* il racconto e i numeri grandi */
+  .racconto-sintesi { font-size: var(--t-titolo); }
+  .cifra-grande, .numero-grande { font-size: 40px; }
+
+  /* la formula e le tabelle scorrono dentro il loro riquadro */
+  .formula-libro { padding: 12px 10px; }
+  pre.codice, .codice { box-shadow: inset -28px 0 18px -18px var(--bordo); }
+  /* il rientro di 50 px sotto i tre livelli di lettura mangiava un quinto
+     della colonna: sul telefono il testo dei livelli va a filo del titolo */
+  details.livello .corpo { padding: 0 12px 14px 14px; }
+  .avvolgi-tabella { margin-left: -16px; margin-right: -16px; padding: 0 16px; }
+  table.dati { font-size: var(--t-piccolo); }
+  table.dati td, table.dati th { padding: 6px 8px; }
+
+  /* la wiki delle parole: tasti a tutta larghezza */
+  .wiki-indice { grid-template-columns: minmax(0, 1fr); }
+  /* il ponte al libro: il pezzo sopra, il capitolo sotto, in piccolo */
+  .ponte-libro > a, .ponte-libro > div { flex-direction: column; align-items: flex-start; gap: 3px; padding: 12px 14px; }
+  .ponte-libro .k { font-size: var(--t-corpo); color: var(--inchiostro); }
+  .ponte-libro .v { font-size: var(--t-piccolo); font-weight: 500; color: var(--inchiostro-3); }
+
+  /* la pagina di lettura */
+  .contenitore-lettura { padding: 0 16px 40px; }
+  .testata-lettura h1 { font-size: 30px; }
+  .testata-lettura .occhiello, .occhiello, h1, h2, h3 { hyphens: none; -webkit-hyphens: none; }
+  .testo-lettura p { font-size: 17px; }
+  .capitolo h2 { font-size: 22px; }
+  .figura { padding: 10px; border-radius: 10px; }
+  .indice-voci { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+}
+/* anche sui telefoni la scala non deve sparire sotto il bordo: quando ci
+   sono pochissimi pixel (320-360) i quattro cerchi restano, il nome del
+   gradino corrente si accorcia */
+@media (max-width: 360px) {
+  .gradino.qui .gradino-testo b { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .app-strumenti .fantasma, .app-strumenti .porta { padding: 6px 6px; }
+}
+
+
+/* ==========================================================================
+   IL MENU A PANINO (17/09/2026)
+   Igor: «la pulsantiera da sistemare con uno o più tasti a sandwich quando
+   lo schermo è molto piccolo, tipo mini tablet o cellulare: menu a discesa
+   tipo app». Sotto i 700 px i quattro bottoni della barra (pagine,
+   glossario, stampa, tema) spariscono e resta un tasto solo, con le tre
+   righe; la tendina che scende ha dentro tutto, a tutta larghezza. Sopra i
+   700 px il tasto non si vede e la barra e' quella di sempre.
+   ========================================================================== */
+.menu-sandwich { display: none; }
+.apri-sandwich { display: inline-flex; align-items: center; gap: 8px; }
+.sandwich { display: inline-flex; flex-direction: column; gap: 3px; width: 16px; }
+.sandwich i { display: block; height: 2px; border-radius: 2px; background: currentColor; }
+.sandwich-testo { font-size: var(--t-piccolo); }
+.voce-menu.voce-strumento {
+  width: 100%; text-align: left; border: 0; background: none; font: inherit; color: inherit;
+  padding: 0; cursor: pointer; min-height: 0;
+}
+.voce-numero { font-weight: 650; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) {
+  .menu-sandwich { display: block; }
+  .app-strumenti > .menu-giu:not(.menu-sandwich), #barraGlossario, #barraStampa, #barraTema { display: none; }
+  .menu-sandwich { position: static; }
+  /* Igor, 17/09: «il tasto menu deve essere bello grande, la scritta
+     "Simulatore di vita" più grande, e i tasti 1 2 3 4 sotto li toglierei».
+     La scala sparisce: i quattro livelli stanno dentro il menu, col nome
+     intero e con il segno di dove sei. La barra e' una riga sola, alta 56. */
+  .percorso-scala { display: none; }
+  .app-barra-dentro { flex-wrap: nowrap; min-height: 56px; padding: 6px 14px; }
+  .marchio { gap: 8px; }
+  .marchio-nome { font-size: 19px; font-weight: 700; letter-spacing: -.015em; }
+  .marchio-versione { display: inline-block; }
+  .apri-sandwich {
+    min-height: 44px; padding: 0 16px 0 14px; gap: 10px;
+    font-size: 16px; font-weight: 650;
+    border: 1.5px solid var(--inchiostro-3); border-style: solid; border-radius: 12px;
+    color: var(--inchiostro); background: var(--superficie);
+  }
+  .sandwich { width: 20px; gap: 4px; }
+  .sandwich i { height: 2.5px; }
+  .sandwich-testo { font-size: 16px; }
+  .menu-giu.aperto .apri-sandwich { border-color: var(--azione); background: var(--azione-tenue); }
+  .riga-corrente { top: 58px; }
+  .capitolo { scroll-margin-top: 90px; }
+  .tendina-sandwich {
+    left: 10px; right: 10px; min-width: 0; width: auto; top: calc(100% + 4px);
+    max-height: calc(100vh - 120px); overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  .tendina-sandwich .voce-menu { padding: 9px 10px; }
+  .tendina-sandwich .voce-menu.qui { background: var(--azione-tenue); border-radius: var(--raggio-s); }
+}
+
+/* ==========================================================================
+   LE FORMULE LUNGHE SUGLI SCHERMI STRETTI (17/09/2026)
+   Igor: «attenzione alle formule lunghe: quando lo schermo è piccolo vengono
+   spezzate, troncate o nascoste». Una formula non va a capo: o si rimpicciolisce
+   fino a starci, o scorre. Qui fa la prima cosa (lo decide formule-vista.js,
+   misurando), e solo quando rimpicciolire la renderebbe illeggibile resta
+   lo scorrimento, con un'ombra sul bordo destro che dice che c'e' altro.
+   ========================================================================== */
+.formula-libro.scorre { box-shadow: inset -28px 0 18px -18px var(--bordo); }
+/* niente transizione sul corpo: con «transition: font-size» Chrome lasciava il
+   corpo del riquadro a 16 px qualunque valore gli si scrivesse (misurato) */
+
+/* i titoli di sezione sono collegamenti alla propria sezione (17/09/2026) */
+.sezione-link { display: inline-flex; align-items: baseline; gap: inherit; color: inherit; text-decoration: none; border-radius: 6px; }
+.sezione-link:hover .sezione-t { color: var(--azione); }
+.riquadro { scroll-margin-top: 70px; }
+@media (max-width: 1100px) { .riquadro { scroll-margin-top: 100px; } }
+@media (max-width: 700px) { .riquadro { scroll-margin-top: 66px; } }
+
+/* il riquadro dell'installazione (solo da un indirizzo web, vedi installa.js) */
+.installa { margin-top: var(--s4); padding: var(--s4); border: 1px solid var(--bordo); border-radius: var(--raggio); background: var(--piano); }
+.installa p { margin: 0 0 var(--s3); }
+.installa p:last-child { margin-bottom: 0; }
+.installa .passo-scelte { margin: var(--s3) 0; }

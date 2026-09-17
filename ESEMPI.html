@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I casi del libro — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · i casi già fatti</p>
+    <h1>I casi del libro, con i numeri veri</h1>
+    <p class="sottotitolo">
+      Nelle altre pagine il simulatore calcola quello che gli scrivi tu. In questa, invece,
+      calcola quello che sta <strong>stampato nel libro</strong>. Sono <strong>dodici
+      schede</strong> di calcolo del capitolo 39, <strong>due calcoli guidati</strong> del
+      capitolo 5 e <strong>sei «margini»</strong> del capitolo 9. Il margine dice di quanto il
+      dado è rimasto sotto la «soglia», cioè sotto la probabilità calcolata, o di quanto l’ha
+      superata. Non sono esempi inventati per far
+      bella figura. Sono le «tarature» con cui il modello è stato messo alla prova: una
+      taratura è la scelta ragionata dei numeri, fatta prima di calcolare, non dopo. Su
+      questi casi i numeri del modello sono stati prima decisi, e poi controllati, uno per
+      uno.
+    </p>
+    <ol class="come-si-usa">
+      <li><strong>Scegli una «scheda»</strong> qui sotto, cioè uno dei casi già pronti: si
+        apre con la «scena», cioè la situazione di partenza, i nove valori e i conti.</li>
+      <li><strong>Guarda i due numeri accanto.</strong> Uno è quello che il libro stampa.
+        L’altro lo calcola in questo istante il motore, cioè la parte del programma che fa i
+        conti. Devono coincidere: è la prova che il motore rifà lo stesso conto del
+        libro.</li>
+      <li><strong>Poi portala dove vuoi.</strong> Ai cursori, le levette con cui si cambiano i
+        nove valori, per vedere che cosa succede quando li muovi. Oppure al Monte Carlo, che
+        è il nome del metodo più vecchio del mestiere: si rigioca la stessa scena migliaia di
+        volte e si guarda come va a finire, invece di ragionare su un tiro solo.</li>
+    </ol>
+  </header>
+
+  <!-- ====================== COME SI LEGGE ====================== -->
+  <section class="riquadro">
+    <h2>1 · Come si legge una scheda</h2>
+    <p style="margin-top:0">
+      Ogni scheda è un «gesto» solo, cioè un’azione con un inizio e una fine: bere un
+      bicchiere d’acqua, non «fare la spesa». E ha sempre la stessa forma. Una scena in una
+      riga, nove valori, una riga di calcolo, il risultato e una lettura. Due regole
+      vengono dal libro, e valgono per tutte.
+    </p>
+    <div class="due-strade">
+      <div class="strada strada-ferma">
+        <span class="strada-n">1</span>
+        <span class="strada-t">
+          <b>Tarare prima, calcolare dopo</b>
+          <small>Prima si decidono i valori guardando la scena. Solo dopo si applica la
+            formula, e mai il contrario. Un valore scelto per far tornare il risultato non è
+            una taratura: è una giustificazione.</small>
+        </span>
+      </div>
+      <div class="strada strada-ferma">
+        <span class="strada-n">2</span>
+        <span class="strada-t">
+          <b>La probabilità non è l’esito</b>
+          <small>Dopo il valore finale c’è ancora del lavoro da fare. Si tira il
+            <span data-parola="dado">dado</span>, cioè si estrae un numero a caso da 1 a 100.
+            Si misura il <span data-parola="margine">margine</span>, cioè da che parte è
+            caduto il tiro e a che distanza. Poi si guarda se il
+            <span data-parola="campo">«campo»</span> ha reagito: il campo è qualcosa nella
+            scena che risponde al tentativo, un cane che tira, una serratura che resiste.
+            Infine si aggiornano il «carico», cioè la pressione accumulata che ci si porta
+            dietro, e l’«assetto», cioè quanto si è ancora orientati dentro la scena. Con quei
+            due valori si arriva al gesto dopo. Nessuna delle dodici schede si ferma al
+            numero.</small>
+        </span>
+      </div>
+    </div>
+    <p class="nota" style="margin-bottom:0">
+      In cinque schede su dodici la fonte non dice niente del bonus protettivo, la voce che
+      nella formula si chiama <strong>BP</strong>. È l’aiuto vero che in quel momento toglie
+      peso: una persona accanto, uno strumento giusto. Non è una svista. In quelle scene un
+      aiuto così non c’era, e il calcolo lo conta come zero.
+    </p>
+  </section>
+
+  <!-- ====================== LE DODICI SCHEDE ====================== -->
+  <section class="riquadro">
+    <h2>2 · Le dodici schede del capitolo 39</h2>
+    <p style="margin-top:0">
+      Dieci schede hanno un calcolo. Due non ce l’hanno, e sono proprio le due che insegnano
+      di più. In una il calcolo va sospeso, perché la situazione non ammette un numero.
+      Nell’altra, a quella scala, il numero risponderebbe alla domanda sbagliata.
+      <strong>Clicca una scheda</strong> per aprirla.
+    </p>
+    <div id="legendaFasce"></div>
+    <p class="nota">
+      Le quattro fasce qui sopra sono i quattro scaglioni di colore in cui abbiamo
+      raggruppato i numeri. <strong>Non sono nel canone</strong>, cioè nel testo definitivo
+      del libro. Il libro dà delle fasce per il margine, non per la probabilità di riuscita,
+      quella che nelle sue pagine si scrive Pn. Servono solo a rendere leggibile questa
+      griglia, e non entrano in nessun calcolo.
+    </p>
+    <div class="griglia-casi" id="grigliaCasi"></div>
+    <div id="dettaglioCaso" class="dettaglio-caso" hidden></div>
+  </section>
+
+  <!-- ====================== IL CAPITOLO 5 ====================== -->
+  <section class="riquadro">
+    <h2>3 · Lo stesso nodo, due campi diversi</h2>
+    <p style="margin-top:0">
+      È l’esempio più citato del libro, ed è la dimostrazione più corta di che cosa fa la
+      formula. Il «nodo», cioè il singolo gesto, è lo stesso: «ritirare un documento già pronto
+      allo sportello». La persona pure. Cambia solo il campo, cioè la giornata intorno, e
+      basta quello a cambiare il numero.
+    </p>
+    <div id="confronto5"></div>
+  </section>
+
+  <!-- ====================== I MARGINI ====================== -->
+  <section class="riquadro">
+    <h2>4 · Il margine: non se è riuscita, ma di quanto</h2>
+    <p style="margin-top:0">
+      Il capitolo 9 fa due sottrazioni al posto di un verdetto. Se il tiro riesce, il margine
+      è Pn meno il tiro. Se non riesce, è il tiro meno Pn. Quello che ne esce finisce in uno
+      di tre scaglioni: <strong>da 0 a 9 è «fragile»</strong>, <strong>da 10 a 24 è
+      normale</strong>, <strong>da 25 in su è forte</strong>. Qui sotto c’è la riga del dado
+      da 1 a 100, con Pn segnato e i tiri del libro sopra. Sotto ogni tiro c’è la sigla che
+      usa il libro: <strong>MS</strong> è il margine di successo, <strong>MF</strong> quello
+      di fallimento.
+    </p>
+    <div id="margini10"></div>
+    <p class="nota" style="margin-bottom:0">
+      Il margine conta più dell’«esito», cioè del semplice riuscito o no. Il motivo è che
+      due successi possono essere molto diversi: uno risicato, uno ampio. Ed è il margine,
+      non l’esito, a dire se conviene rifare la stessa cosa domani, o se è meglio cambiare
+      strada.
+    </p>
+  </section>
+
+  <!-- ====================== IN FILA ====================== -->
+  <section class="riquadro">
+    <h2>5 · Che cosa dicono, messe in fila</h2>
+    <p style="margin-top:0">
+      Messe una accanto all’altra, queste schede insegnano qualcosa in più. Prese una per
+      volta, quel qualcosa non si vede.
+    </p>
+    <div id="inFila"></div>
+    <div class="tre-osservazioni">
+      <div class="osservazione">
+        <b>Quanto conta la complessità</b>
+        <p>Ogni pezzo da coordinare in più toglie cinque punti. Quattro schede hanno una
+          complessità di tre: la pratica online, la consegna riuscita e tossica, l’oggetto
+          pesante, la lezione da preparare. Lì se ne vanno quindici punti, prima ancora di
+          guardare il resto. È il termine più brutale di tutta la formula, e proprio per
+          questo va scritto con più cura di ogni altro. La complessità è il numero dei pezzi
+          da tenere insieme davvero, non la fatica che si sente.</p>
+      </div>
+      <div class="osservazione">
+        <b>Quanto conta il carico</b>
+        <p>In otto schede su dieci con calcolo, la penalità da <span data-parola="carico">carico</span>
+          è fra i due pezzi che tolgono di più. È la ragione per cui la stessa scena non
+          costa uguale in giorni diversi. Un carico di 62 toglie dieci punti, un carico di 82
+          ne toglie venti. E sono due mattine con lo stesso identico bicchiere d’acqua.</p>
+      </div>
+      <div class="osservazione">
+        <b>Quanto sono rari i segni positivi</b>
+        <p>In dodici schede, i valori sopra lo zero sono tre. Uno è la chiarezza nella scheda
+          della consegna. Un altro è la chiarezza in quella della lezione. Il terzo è la
+          protezione nel dialogo di coppia. Non è che nella vita non esista niente di
+          favorevole: è che queste schede mostrano scene difficili. Se ogni scena che simuli
+          assomiglia a queste, forse stai scegliendo solo le scene brutte.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <h2>6 · Le parole, spiegate</h2>
+    <div data-glossario></div>
+  </section>
+
+  <footer class="piede">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, le soglie, il dado e i nove esiti
+      sono quelli del libro.</p>
+  </footer>
+
+</div>
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/dati/formule.js"></script>
+<script src="app/interfaccia/formule-vista.js"></script>
+<script src="app/dati/casi.js"></script>
+<script src="app/interfaccia/esempi-ui.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>

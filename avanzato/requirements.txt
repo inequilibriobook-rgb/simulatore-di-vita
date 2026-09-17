@@ -1,0 +1,1 @@
+# Il core non ha dipendenze esterne: solo libreria standard Python 3.8+

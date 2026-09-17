@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La traiettoria — Simulatore 3.0</title>
+<link rel="stylesheet" href="app/stile/stile.css?v=2026-09-17">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14556E">
+<link rel="icon" href="app/icone/icona-192.png">
+<link rel="apple-touch-icon" href="app/icone/icona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Simulatore">
+</head>
+<body>
+<div class="contenitore" style="position:relative">
+
+  <div class="strumenti-alto no-stampa">
+    <button id="stampa" title="Stampa questa pagina">Stampa</button>
+    <button class="commutatore" id="tema">Tema scuro</button>
+  </div>
+
+  <header class="testata">
+    <p class="occhiello">Simulatore di vita 3.0 · il livello lungo</p>
+    <h1>Più settimane di seguito: sta cambiando il modo di vivere?</h1>
+    <p class="sottotitolo">
+      Prova a pensare a una settimana andata male. Da sola dice poco: capita a tutti. Ma
+      se anche quella prima era andata male, e quella prima ancora, la settimana smette di
+      essere un episodio e diventa un segno. La pagina della settimana dice com’è andata
+      quella settimana lì. La traiettoria pone un’altra domanda. Non guarda il
+      <span data-parola="carico">«carico»</span> di oggi, cioè la pressione che ci si porta
+      dietro dai giorni prima. Guarda il <b data-parola="regime">«regime»</b>, che è il modo
+      in cui si vive in questo periodo, e chiede se sta peggiorando, se tiene, o se sta
+      migliorando.
+    </p>
+    <p class="sottotitolo">
+      Il libro dice che qui c’è un errore tipico, ed è
+      <b>ignorare una <span data-parola="spirale">«spirale»</span> che si sta formando</b>.
+      Una spirale è una serie di settimane che peggiorano un po’ alla volta. Ogni
+      settimana andata peggio rende più dura quella dopo. L’errore sta nel guardare
+      soltanto l’ultima settimana, come se fosse la prima. Quelle prima dicevano già
+      qualcosa, e nessuno le ha ascoltate.
+    </p>
+  </header>
+
+  <!-- ============ 1 · COSTRUISCI LA TRAIETTORIA ============ -->
+  <section class="riquadro no-stampa">
+    <h2>1 · Che traiettoria è</h2>
+
+    <div class="scelta-livello" id="durezze" style="margin-bottom:18px"></div>
+
+    <p style="font-size:14px;font-weight:550;margin:0 0 8px">E come si dorme</p>
+    <div class="scelta-livello" id="sonni" style="margin-bottom:18px"></div>
+
+    <p style="font-size:14px;font-weight:550;margin:0 0 8px">E come ci si ferma
+      <small style="font-weight:400;color:var(--inchiostro-3)">— qui si chiama rientro,
+      ed è il modo in cui ci si ferma a fine giornata. Una pausa può dare solo sollievo,
+      oppure togliere carico davvero. È il <span data-parola="rip">RIP</span> del libro,
+      cioè recupero e riassetto. Qui la scelta vale per tutte le settimane
+      insieme.</small></p>
+    <div class="scelta-livello" id="rientri" style="margin-bottom:18px"></div>
+
+    <div class="griglia-cursori" id="cursoriTraiettoria"></div>
+
+    <div class="barra-azioni">
+      <button class="primario" id="esegui">Esegui la traiettoria</button>
+      <span class="campo-seme">
+        <label for="seme">seme</label>
+        <input id="seme" type="number" value="424242">
+      </span>
+    </div>
+  </section>
+
+  <!-- ============ 2 · IL RISULTATO ============ -->
+  <section class="riquadro" id="bloccoEsito" style="display:none">
+    <h2>2 · Com’è finita</h2>
+    <div id="esito"></div>
+  </section>
+
+  <!-- ============ 3 · SETTIMANA PER SETTIMANA ============ -->
+  <section class="riquadro" id="bloccoSettimane" style="display:none">
+    <h2>3 · Settimana per settimana: il regime cambia?</h2>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Ogni barra è il carico alla fine di quella settimana. La linea verde è l’«assetto»,
+      cioè quanto si è ancora orientati e saldi dentro quello che si fa. Si legge al
+      contrario delle barre, perché sale quando si sta meglio. Ed è proprio questo il
+      confronto che va fatto. Prendi una traiettoria in cui il carico tiene, ma l’assetto
+      scende settimana dopo settimana. È peggio di una in cui salgono tutti e due, di
+      poco. Nella prima la persona regge il peso, ma sta perdendo il filo. Nella seconda
+      si stanca, e sa ancora dove sta andando.
+    </p>
+    <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
+      Le righe rosse tratteggiate sono le due «soglie» del livello settimana, a 50 e a 60.
+      Sono i valori di carico oltre i quali, nella pagina della settimana, non si esce
+      più: 50 in condizioni ordinarie, 60 con le migliori. Sotto il grafico trovi il nome
+      del regime, settimana per settimana. È quel nome a dirti se sei davanti a una
+      <b>spirale in formazione</b>. Il colore della barra, da solo, non basta: una barra
+      può restare sotto le due righe rosse mentre il regime sta già cambiando.
+    </p>
+    <div id="grafico"></div>
+    <div id="regimi"></div>
+  </section>
+
+  <!-- ============ 4 · IL RACCONTO ============ -->
+  <section class="riquadro" id="bloccoRacconto" style="display:none">
+    <h2>4 · Il racconto della traiettoria</h2>
+    <div id="racconto"></div>
+  </section>
+  <!-- ====================== LE PAROLE ====================== -->
+  <section class="riquadro">
+    <details>
+      <summary style="cursor:pointer;font-weight:600;font-size:16px">
+        Le parole, spiegate
+      </summary>
+      <p style="color:var(--inchiostro-2);font-size:15px">
+        Le parole del simulatore hanno un significato preciso. Qui sotto ci sono quelle
+        che hanno una voce scritta. Le altre sono spiegate nel punto della pagina in cui
+        compaiono.
+      </p>
+      <div data-glossario></div>
+    </details>
+  </section>
+
+
+
+  <footer class="piede">
+    <p><strong>Simulatore di vita 3.0.</strong> La formula, le soglie, il dado e i nove esiti
+      sono quelli del libro.</p>
+  </footer>
+
+</div>
+
+
+
+<script src="app/dati/calibrazione.js"></script>
+<script src="app/motore/lingua.js"></script>
+<script src="app/motore/casuale-mt.js"></script>
+<script src="app/motore/nucleo.js"></script>
+<script src="app/motore/stato.js"></script>
+<script src="app/motore/microsemantica.js"></script>
+<script src="app/motore/tempo.js"></script>
+<script src="app/motore/settimana-tipo.js"></script>
+<script src="app/motore/analisi.js"></script>
+<script src="app/motore/racconto.js"></script>
+<script src="app/interfaccia/racconto-vista.js"></script>
+<script src="app/dati/percorso.js"></script>
+<script src="app/interfaccia/percorso-vista.js"></script>
+<script src="app/dati/spiegazioni.js"></script>
+<script src="app/interfaccia/glossario.js"></script>
+<script src="app/interfaccia/traiettoria.js"></script>
+<script src="app/interfaccia/installa.js"></script>
+</body>
+</html>
