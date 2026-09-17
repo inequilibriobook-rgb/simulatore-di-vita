@@ -23,6 +23,13 @@
   <header class="testata">
     <p class="occhiello">Simulatore di vita 3.0 · i casi già fatti</p>
     <h1>I casi del libro, con i numeri veri</h1>
+    <p class="sottotitolo">Qui non inserisci numeri tuoi: rivedi i casi già calcolati nel
+      libro, uno per uno, e controlli che il conto del simulatore dia lo stesso risultato
+      stampato sulla pagina.</p>
+  </header>
+
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Che cosa sono queste schede, come si legge ognuna, e i tre modi per continuare da qui.">
+    <h2>Perché questa pagina, e come si usa</h2>
     <p class="sottotitolo">
       Nelle altre pagine il simulatore calcola quello che gli scrivi tu. In questa, invece,
       calcola quello che sta <strong>stampato nel libro</strong>. Sono <strong>dodici
@@ -47,10 +54,10 @@
         è il nome del metodo più vecchio del mestiere: si rigioca la stessa scena migliaia di
         volte e si guarda come va a finire, invece di ragionare su un tiro solo.</li>
     </ol>
-  </header>
+  </section>
 
   <!-- ====================== COME SI LEGGE ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Le due regole che valgono per tutte le schede: i numeri si scelgono prima di calcolare, e il numero non è ancora come è andata.">
     <h2>1 · Come si legge una scheda</h2>
     <p style="margin-top:0">
       Ogni scheda è un «gesto» solo, cioè un’azione con un inizio e una fine: bere un
@@ -115,7 +122,7 @@
   </section>
 
   <!-- ====================== IL CAPITOLO 5 ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Lo stesso identico gesto, calcolato in due giornate diverse: a cambiare il numero basta l’ambiente intorno.">
     <h2>3 · Lo stesso nodo, due campi diversi</h2>
     <p style="margin-top:0">
       È l’esempio più citato del libro, ed è la dimostrazione più corta di che cosa fa la
@@ -127,7 +134,7 @@
   </section>
 
   <!-- ====================== I MARGINI ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Sei tiri di dado del libro, su una riga da uno a cento, per vedere quanto ognuno è passato largo o stretto.">
     <h2>4 · Il margine: non se è riuscita, ma di quanto</h2>
     <p style="margin-top:0">
       Il capitolo 9 fa due sottrazioni al posto di un verdetto. Se il tiro riesce, il margine
@@ -148,7 +155,7 @@
   </section>
 
   <!-- ====================== IN FILA ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Le dodici schede una accanto all’altra: che cosa pesa di più, e quanto raramente le cose vanno per il verso giusto.">
     <h2>5 · Che cosa dicono, messe in fila</h2>
     <p style="margin-top:0">
       Messe una accanto all’altra, queste schede insegnano qualcosa in più. Prese una per
@@ -184,7 +191,7 @@
   </section>
 
   <!-- ====================== LE PAROLE ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Le parole di questa pagina, spiegate una per una, con un esempio.">
     <h2>6 · Le parole, spiegate</h2>
     <div data-glossario></div>
   </section>
@@ -208,6 +215,7 @@
 <script src="app/interfaccia/formule-vista.js"></script>
 <script src="app/dati/casi.js"></script>
 <script src="app/interfaccia/esempi-ui.js"></script>
+<script src="app/interfaccia/schermate.js"></script>
 <script src="app/interfaccia/attesa.js"></script>
 <script src="app/dati/sillabazione-it.js"></script>
 <script src="app/interfaccia/sillaba.js"></script>

@@ -33,26 +33,26 @@
   <nav class="tasti-grandi no-stampa" aria-label="Da dove cominciare">
     <a class="tasto-grande principale" href="#comincia" data-apri="#comincia">
       <span class="tg-icona" aria-hidden="true">▶</span>
-      <span class="tg-testo"><b>Comincia da qui</b><small>Che cos’è questo simulatore, in un minuto e quattro schermate.</small></span>
-      <span class="tg-freccia" aria-hidden="true">→</span></a>
-    <a class="tasto-grande" href="IL-GESTO.html">
-      <span class="tg-icona" aria-hidden="true">1</span>
-      <span class="tg-testo"><b>Prova subito un gesto</b><small>Nove cursori, un dado, e il racconto di com’è andata.</small></span>
-      <span class="tg-freccia" aria-hidden="true">→</span></a>
-    <a class="tasto-grande" href="LA-SCENA.html">
-      <span class="tg-icona" aria-hidden="true">✎</span>
-      <span class="tg-testo"><b>Racconta una scena</b><small>Scrivi una mattina come la diresti a voce: il simulatore la divide nei gesti.</small></span>
+      <span class="tg-testo"><b>Comincia da qui</b><small>Se non hai letto il libro e non sai che cos’è: un minuto, quattro schermate, poi un esempio, poi tocca a te.</small></span>
       <span class="tg-freccia" aria-hidden="true">→</span></a>
     <a class="tasto-grande" href="QUESTIONARIO.html">
       <span class="tg-icona" aria-hidden="true">?</span>
-      <span class="tg-testo"><b>Fammi delle domande</b><small>Non sai che numeri mettere: rispondi, e il nodo lo costruisce il simulatore.</small></span>
+      <span class="tg-testo"><b>Fammi delle domande</b><small>La strada più facile: rispondi a poche domande su come stai, e i numeri li mette il simulatore.</small></span>
+      <span class="tg-freccia" aria-hidden="true">→</span></a>
+    <a class="tasto-grande" href="IL-GESTO.html">
+      <span class="tg-icona" aria-hidden="true">1</span>
+      <span class="tg-testo"><b>Prova subito un gesto</b><small>Nove barrette da trascinare (quanto sei stanco, quanta fretta hai…), un dado, e il racconto di com’è andata.</small></span>
+      <span class="tg-freccia" aria-hidden="true">→</span></a>
+    <a class="tasto-grande" href="LA-SCENA.html">
+      <span class="tg-icona" aria-hidden="true">✎</span>
+      <span class="tg-testo"><b>Racconta una scena</b><small>Scrivi una mattina come la racconteresti a un amico: i gesti li trova il simulatore da solo.</small></span>
       <span class="tg-freccia" aria-hidden="true">→</span></a>
   </nav>
 
   <!-- ====================== CHE COS'È, IN UN MINUTO ====================== -->
   <section class="riquadro" id="comincia" data-apribile data-anteprima="Quattro schermate brevi: il gesto, il dado, il costo, e perché da fuori non si vede.">
     <h2>Che cos’è, in un minuto</h2>
-    <div data-passi data-uscita="IL-GESTO.html" data-uscita-testo="Basta così: portami al simulatore">
+    <div data-passi data-uscita="QUESTIONARIO.html" data-uscita-testo="Salta la spiegazione: voglio provare subito">
     <h3>Un gesto piccolo, in una giornata qualsiasi</h3>
     <p>
       Immagina una giornata qualsiasi, e dentro quella giornata un gesto piccolo (in queste
@@ -83,10 +83,15 @@
       fuori, sembrano quasi la stessa giornata. Chi ti guarda vede che ce l’hai fatta, ma
       non vede che cosa ti è costato. È quel costo che il simulatore prova a misurare.
     </p>
-      <p class="passo-scelte" data-passi-fine>
-        <a class="bottone primario" href="IL-GESTO.html">Prova subito un gesto</a>
-        <a class="bottone secondario" href="#teoria" data-apri="#teoria">Leggi la teoria, in cinque minuti</a>
-      </p>
+      <div data-passi-fine>
+        <p><strong>E adesso?</strong> La cosa migliore è vederlo su un esempio vero, quello con cui
+          comincia anche il libro: una persona sul divano che deve alzarsi a bere. Sette
+          schermate, e poi tocca a te.</p>
+        <p class="passo-scelte">
+          <a class="bottone primario" href="#giro" data-apri="#giro">Vediamolo con un esempio</a>
+          <a class="bottone secondario" href="QUESTIONARIO.html">Salto l’esempio: fammi le domande</a>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -151,7 +156,7 @@
   <!-- ====================== LA TEORIA ====================== -->
   <section class="riquadro" id="teoria" data-apribile data-anteprima="Tutto il modello in otto schermate: il nodo, la formula, il taglio, il dado, i nove esiti, il costo nascosto, il tempo, i limiti.">
     <h2>La teoria, in cinque minuti</h2>
-    <div data-passi data-uscita="IL-GESTO.html" data-uscita-testo="Basta così: portami al simulatore">
+    <div data-passi data-uscita="QUESTIONARIO.html" data-uscita-testo="Basta così: voglio provare">
     <p style="margin-top:0">
       Quello che segue è tutto il modello, e non una versione ridotta per chi comincia. Di
       matematica ce n’è poca, e ce n’è poca apposta: una somma, una tabella, un «taglio ai bordi»
@@ -341,13 +346,19 @@
       vuoi la matematica aperta pezzo per pezzo, c’è <a href="LA-FORMULA.html">la matematica,
       da zero</a>. Lì, accanto a ogni passaggio, sta il codice che lo esegue.
     </p>
+      <div data-passi-fine>
+        <p class="passo-scelte">
+          <a class="bottone primario" href="QUESTIONARIO.html">Adesso provo: fammi le domande</a>
+          <a class="bottone secondario" href="#giro" data-apri="#giro">Prima l’esempio del libro</a>
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- ====================== IL GIRO COMPLETO ====================== -->
   <section class="riquadro" id="giro" data-apribile data-anteprima="L’esempio del libro, passo per passo: la scena, i dati, il calcolo, il tiro, la lettura, la modifica. E i numeri li cambi tu.">
     <h2>Un giro completo, in dieci minuti</h2>
-    <div data-passi data-uscita="IL-GESTO.html" data-uscita-testo="Basta così: portami al simulatore">
+    <div data-passi data-uscita="QUESTIONARIO.html" data-uscita-testo="Basta così: adesso tocca a me">
     <p style="margin-top:0">
       Il libro, prima di qualunque formula, comincia con un esempio solo: una scena, i suoi
       numeri, il calcolo, un tiro di dado, che cosa vuol dire il risultato, e poi una modifica
@@ -456,6 +467,15 @@
       scena</a>. Rigioca una scena come questa quante volte vuoi, e ti mostra la
       distribuzione, cioè quante volte esce ogni risultato su mille giocate.
     </p>
+      <div data-passi-fine>
+        <p><strong>Adesso tocca a te.</strong> Non serve sapere che numeri mettere: la strada
+          più facile è rispondere a poche domande su come stai, e il simulatore fa il resto.
+          Se preferisci mettere i numeri con le tue mani, ci sono le barrette.</p>
+        <p class="passo-scelte">
+          <a class="bottone primario" href="QUESTIONARIO.html">Rispondo a qualche domanda</a>
+          <a class="bottone secondario" href="IL-GESTO.html">Provo con le barrette</a>
+        </p>
+      </div>
     </div>
   </section>
 

@@ -23,6 +23,53 @@
       '. Carica app/motore/lingua.js e app/dati/percorso.js prima di questo file.');
   }
 
+  /* LA MISURA DEL TESTO (17/09/2026).
+     Tre misure — normale, grande, grandissimo — che valgono sugli schermi
+     fino a 1100 px (il foglio di stile ignora l'attributo sopra). Il libro,
+     capitolo 48, promette che il pacchetto non usa la memoria del browser:
+     percio' la scelta non si salva, viaggia nell'indirizzo (?testo=grande)
+     e passa da una pagina all'altra con i collegamenti interni, che la
+     portano con se' quando si cliccano. Si applica qui, prima di disegnare
+     la barra, cosi' la pagina non cambia misura sotto gli occhi. */
+  var MISURE = ['normale', 'grande', 'grandissimo'];
+  function misuraTesto() {
+    return document.documentElement.getAttribute('data-testo') || 'normale';
+  }
+  function applicaMisura(m) {
+    if (MISURE.indexOf(m) < 0) { m = 'normale'; }
+    if (m === 'normale') { document.documentElement.removeAttribute('data-testo'); }
+    else { document.documentElement.setAttribute('data-testo', m); }
+    return m;
+  }
+  function conMisura(url, m) {
+    /* toglie un eventuale ?testo= e, se la misura non e' normale, lo rimette
+       prima del cancelletto */
+    var pezzi = url.split('#');
+    var base = pezzi[0].replace(/([?&])testo=[^&#]*&?/, '$1').replace(/[?&]$/, '');
+    if (m !== 'normale') { base += (base.indexOf('?') >= 0 ? '&' : '?') + 'testo=' + m; }
+    return base + (pezzi.length > 1 ? '#' + pezzi.slice(1).join('#') : '');
+  }
+  function scriviMisuraNellIndirizzo(m) {
+    try {
+      var nuovo = conMisura(globale.location.pathname + globale.location.search, m) + globale.location.hash;
+      globale.history.replaceState(globale.history.state, '', nuovo);
+    } catch (e) { /* su file:// qualche browser non lo permette: pazienza */ }
+  }
+  (function () {
+    var t = /[?&]testo=([a-z]+)/.exec(globale.location.search);
+    if (t) { applicaMisura(t[1]); }
+  }());
+  /* i collegamenti alle altre pagine del pacchetto portano con se' la misura */
+  document.addEventListener('click', function (ev) {
+    var m = misuraTesto();
+    if (m === 'normale') { return; }
+    var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+    if (!a) { return; }
+    var h = a.getAttribute('href') || '';
+    if (/^[a-z]+:|^\/\//i.test(h) || h.charAt(0) === '#' || !/\.html(\?|#|$)/.test(h)) { return; }
+    a.setAttribute('href', conMisura(h, m));
+  }, true);
+
   function esc(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -112,7 +159,12 @@
         '<span class="voce-testo"><b>Stampa</b><small>questa pagina, per intero</small></span></button>' +
       '<button type="button" class="voce-menu voce-strumento" data-strumento="tema" role="menuitem">' +
         '<span class="voce-icona" aria-hidden="true">◐</span>' +
-        '<span class="voce-testo"><b>Tema</b><small>chiaro o scuro</small></span></button>';
+        '<span class="voce-testo"><b>Tema</b><small>chiaro o scuro</small></span></button>' +
+      '<button type="button" class="voce-menu voce-strumento" data-strumento="testo" role="menuitem" id="vocePanTesto">' +
+        '<span class="voce-icona" aria-hidden="true">Aa</span>' +
+        '<span class="voce-testo"><b>Misura del testo</b>' +
+        '<small class="misure-testo" aria-hidden="true"><span data-misura="normale">normale</span>' +
+        '<span data-misura="grande">grande</span><span data-misura="grandissimo">grandissimo</span></small></span></button>';
     var sandwich = '<div class="menu-giu menu-sandwich">' +
       '<button type="button" class="porta apri-menu apri-sandwich" id="barraSandwich" ' +
         'aria-expanded="false" aria-haspopup="true" aria-controls="barraSandwichTendina" ' +
@@ -141,6 +193,13 @@
             'title="Apri l’indice delle parole spiegate">Glossario</button>' +
           '<button type="button" class="fantasma" id="barraStampa" title="Stampa questa pagina">Stampa</button>' +
           '<button type="button" class="fantasma" id="barraTema">Tema</button>' +
+          /* Igor, 17/09: «un tastino tondo a fianco al tasto Menu, sempre
+             visibile, tre T una piu' grande dell'altra, per cambiare al
+             volo la grandezza del testo» — e la stessa voce anche nel menu */
+          '<button type="button" class="tasto-testo" id="barraTesto" ' +
+            'title="Misura del testo: normale, grande, grandissimo">' +
+            '<span class="ttt" aria-hidden="true"><b>T</b><i>T</i><small>T</small></span>' +
+            '<span class="solo-lettori">Cambia la misura del testo</span></button>' +
           sandwich +
         '</div>' +
       '</div></header>';
@@ -409,6 +468,32 @@
         requestAnimationFrame(function () { radice.classList.remove('cambio-tema'); });
       });
     }
+    /* la misura del testo: un giro fra le tre, e la barra e il menu lo dicono */
+    function mostraMisura() {
+      var m = misuraTesto();
+      var bt = document.getElementById('barraTesto');
+      if (bt) {
+        bt.setAttribute('data-misura', m);
+        bt.setAttribute('aria-label', 'Misura del testo: ' + m + '. Premi per cambiarla');
+        bt.setAttribute('title', 'Misura del testo: ' + m + ' (premi per cambiarla)');
+      }
+      Array.prototype.forEach.call(document.querySelectorAll('.misure-testo span'), function (sp) {
+        sp.classList.toggle('scelta', sp.getAttribute('data-misura') === m);
+      });
+    }
+    function cambiaMisura() {
+      var m = MISURE[(MISURE.indexOf(misuraTesto()) + 1) % MISURE.length];
+      applicaMisura(m);
+      scriviMisuraNellIndirizzo(m);
+      mostraMisura();
+      /* le formule si riadattano alla larghezza, e chi ascolta la finestra
+         (le tabelle, le figure) si rimisura */
+      if (globale.FormuleVista && globale.FormuleVista.adatta) { globale.FormuleVista.adatta(); }
+      try { globale.dispatchEvent(new Event('resize')); } catch (e) { /* browser vecchio */ }
+    }
+    mostraMisura();
+    var bTesto = document.getElementById('barraTesto');
+    if (bTesto) { bTesto.addEventListener('click', cambiaMisura); }
     var gl = document.getElementById('barraGlossario');
     if (gl) { gl.addEventListener('click', apriGlossario); }
     var st = document.getElementById('barraStampa');
@@ -422,6 +507,7 @@
         if (quale === 'glossario') { apriGlossario(); }
         else if (quale === 'stampa') { stampa(); }
         else if (quale === 'tema') { cambiaTema(); }
+        else if (quale === 'testo') { cambiaMisura(); return; /* il menu resta aperto: si vede la misura cambiare */ }
         var t = b.closest('.tendina');
         if (t) { t.hidden = true; }
         var m = b.closest('.menu-giu');
@@ -485,7 +571,11 @@
       b.type = 'button';
       b.className = 'torna-in-alto no-stampa';
       b.setAttribute('aria-label', lettura ? 'Torna in alto e apri l’indice dei capitoli' : 'Torna in alto');
-      b.innerHTML = '<span aria-hidden="true">↑</span><small>' + (lettura ? 'Capitoli' : 'In alto') + '</small>';
+      b.innerHTML =
+        /* la freccia e' disegnata dal foglio di stile (punta e asta), cosi'
+           e' grossa e nitida a ogni misura */
+        '<span class="freccia-su" aria-hidden="true"></span>' +
+        '<small>' + (lettura ? 'Capitoli' : 'In alto') + '</small>';
       b.hidden = true;
       document.body.appendChild(b);
       b.addEventListener('click', function () {
@@ -517,7 +607,7 @@
     if (vecchie) { vecchie.classList.add('sostituita'); }
     Array.prototype.forEach.call(document.querySelectorAll('a.bottone'), function (a) {
       var p = a.parentElement;
-      if (p && p.tagName === 'P' && p.querySelectorAll('a.bottone').length >= 3) {
+      if (p && (p.tagName === 'P' || p.tagName === 'DIV') && !p.classList.contains('passo-scelte') && p.querySelectorAll('a.bottone').length >= 3) {
         p.classList.add('sostituita');
       }
     });

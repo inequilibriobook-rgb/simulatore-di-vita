@@ -24,6 +24,17 @@
     <p class="occhiello">Simulatore di vita 3.0 · catena e statistica</p>
     <h1>Più gesti di seguito, e la stessa scena rigiocata molte volte</h1>
     <p class="sottotitolo">
+      Metti più gesti in fila, come in una mattinata vera: il carico di ognuno si porta
+      dietro al successivo. Poi rigioca la stessa sequenza centinaia di volte, con dadi
+      nuovi, per vedere quanto costa davvero e quanto spesso.
+    </p>
+  </header>
+
+  <!-- ====================== PERCHÉ QUESTA PAGINA, E COME SI USA ====================== -->
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Che cos’è una catena di gesti, che cosa costa la sequenza intera, e perché si rigioca più volte.">
+    <h2>Perché questa pagina, e come si usa</h2>
+    <div data-passi>
+    <p>
       Fin qui hai guardato un gesto alla volta. In questa pagina i gesti si mettono uno dopo
       l’altro, a formare una «scena» (cioè una fila di gesti di seguito), ed è qui che tutto
       cambia. Un «gesto» è un’azione sola, con un inizio e una
@@ -34,17 +45,20 @@
       facili, presi a uno a uno, li fai tutti. Messi in fila, invece, diventano tutt’altra
       cosa.
     </p>
-    <p class="sottotitolo">
+    <h3>Quanto costa la sequenza intera</h3>
+    <p>
       Alla fine trovi scritto quanto è costata la sequenza intera. È questa la domanda della
       pagina, e non è la stessa cosa che chiedere se i gesti sono riusciti. Si può riuscire
       in tutto, e arrivare in fondo a pezzi.
     </p>
-    <p class="sottotitolo">
+    <h3>Perché si rigioca più volte</h3>
+    <p>
       Poi la stessa fila si rigioca centinaia o migliaia di volte, e ogni giro ha dadi
       nuovi. Il dado è il numero estratto a caso, da 1 a 100, che decide se un gesto riesce.
       Così non guardi più un caso solo: guardi la forma di tutti i casi possibili.
     </p>
-  </header>
+    </div>
+  </section>
 
   <!-- ============ LA CATENA ============ -->
   <section class="riquadro no-stampa">
@@ -162,18 +176,14 @@
     <div class="avviso" id="mcNota" style="border-left-color:var(--aiuta);background:color-mix(in srgb, var(--aiuta) 7%, var(--superficie))"></div>
   </section>
   <!-- ====================== LE PAROLE ====================== -->
-  <section class="riquadro">
-    <details>
-      <summary style="cursor:pointer;font-weight:600;font-size:16px">
-        Le parole, spiegate
-      </summary>
-      <p style="color:var(--inchiostro-2);font-size:15px">
-        Le parole del simulatore vogliono dire una cosa precisa. Qui sotto ci sono quelle
-        che hanno una voce scritta, e le altre sono spiegate nel punto della pagina in cui
-        compaiono.
-      </p>
-      <div data-glossario></div>
-    </details>
+  <section class="riquadro" data-apribile data-anteprima="Le parole che hanno una voce scritta, spiegate una per una; le altre nel punto della pagina in cui compaiono.">
+    <h2>Le parole, spiegate</h2>
+    <p style="color:var(--inchiostro-2);font-size:15px">
+      Le parole del simulatore vogliono dire una cosa precisa. Qui sotto ci sono quelle
+      che hanno una voce scritta, e le altre sono spiegate nel punto della pagina in cui
+      compaiono.
+    </p>
+    <div data-glossario></div>
   </section>
 
 
@@ -202,6 +212,7 @@
 <script src="app/dati/spiegazioni.js"></script>
 <script src="app/interfaccia/glossario.js"></script>
 <script src="app/interfaccia/catena.js"></script>
+<script src="app/interfaccia/schermate.js"></script>
 <script src="app/interfaccia/attesa.js"></script>
 <script src="app/dati/sillabazione-it.js"></script>
 <script src="app/interfaccia/sillaba.js"></script>

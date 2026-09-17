@@ -25,18 +25,30 @@
     <p class="occhiello">Simulatore di vita 3.0 · il singolo gesto</p>
     <h1>Un gesto alla volta: che probabilità hai di riuscirci</h1>
     <p class="sottotitolo">
+      Descrivi un gesto solo — bere un bicchiere d’acqua, scrivere un messaggio — e scopri che
+      probabilità hai di riuscirci adesso, quanto ti costerà, e come cambia se muovi anche una
+      sola condizione.
+    </p>
+  </header>
+
+  <!-- ====================== PERCHÉ QUESTA PAGINA, E COME SI USA ====================== -->
+  <section class="riquadro no-stampa" data-apribile data-anteprima="A che cosa serve questa pagina, come si legge il risultato, e perché funziona anche senza internet.">
+    <h2>Perché questa pagina, e come si usa</h2>
+    <div data-passi>
+    <p>
       Qui c’è <strong>un solo «gesto»</strong>, cioè un’azione con un
       inizio e una fine, e niente intorno. Per esempio: bere un bicchiere d’acqua, scrivere
       un messaggio difficile, alzarti dal divano. Tu racconti come stanno le cose in questo momento, e il simulatore ti dice
       <em>che probabilità hai di riuscirci</em>. Poi tira un dado, perché una probabilità
       non è ancora un «esito», cioè il risultato vero e proprio, e ti racconta com’è andata.
     </p>
-    <p class="sottotitolo">
+    <h3>Quanto ti costa, non solo se ci riesci</h3>
+    <p>
       E lì non si ferma. Ti dice anche <strong>quanto ti è costato</strong> quel gesto: quanta
       stanchezza in più ti lascia addosso, e quanta di quella stanchezza ti ritroverai davanti
       al gesto dopo. È la parte che un calcolo di probabilità, da solo, non direbbe mai.
     </p>
-
+    <h3>Come si usa, in tre passi</h3>
     <ol class="come-si-usa">
       <li><strong>Scrivi che cosa stai per fare.</strong> Una frase, come la diresti a voce.</li>
       <li><strong>Muovi i cursori</strong>, cioè le barrette da trascinare, una per ogni
@@ -46,31 +58,19 @@
       prosa dal simulatore. Le parole segnate con un punto interrogativo si aprono se ci
       clicchi sopra, e si richiudono allo stesso modo, tutte le volte che vuoi.</li>
     </ol>
-
-    <p class="sottotitolo" style="font-size:14px">
+    <h3>Niente da installare</h3>
+    <p>
       Non devi installare niente, e non serve nemmeno internet. Il conto si fa tutto qui
       dentro, senza nessun server acceso da qualche parte. Quello che scrivi, quindi, non esce
       da questo computer.
     </p>
-  </header>
+    </div>
+  </section>
 
-  <div style="margin:0 0 4px">
-    <a href="QUESTIONARIO.html" class="bottone" style="display:inline-block;text-decoration:none">
-      Preferisci rispondere a domande? &rarr;</a>
-    &nbsp;
-    <a href="CATENA.html" class="bottone" style="display:inline-block;text-decoration:none">
-      Catena di gesti e analisi statistica &rarr;</a>
-    &nbsp;
-    <a href="SETTIMANA.html" class="bottone" style="display:inline-block;text-decoration:none">
-      La settimana, e il punto di non ritorno &rarr;</a>
-    &nbsp;
-    <a href="TRAIETTORIA.html" class="bottone" style="display:inline-block;text-decoration:none">
-      La traiettoria, sui mesi: la spirale &rarr;</a></div>
-
-
-  <!-- ====================== LA SCENA ====================== -->
-  <section class="riquadro no-stampa" style="background:var(--superficie)">
-    <p style="margin:0;font-size:14.5px;line-height:1.6">
+  <!-- ====================== UN GESTO SOLO, O UNA SCENA INTERA? ====================== -->
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Se hai in mente più gesti di seguito, non uno solo, la pagina giusta è un’altra.">
+    <h2>Un gesto solo, o una scena intera?</h2>
+    <p>
       <strong>Questa pagina calcola un gesto solo.</strong> Se invece hai in mente una «scena»
       intera, cioè una fila di gesti uno dopo l’altro, raccontala in prosa in <a
       href="LA-SCENA.html">Racconta la scena</a>. Alzarsi, sparecchiare, andare in bagno,
@@ -175,7 +175,7 @@
 
 
   <!-- ====================== LE PAROLE ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Dieci argomenti, e le parole del simulatore spiegate una per una, con un esempio.">
     <h2>5 · Le parole, spiegate</h2>
     <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
       Il simulatore usa poche parole, e ognuna vuol dire una cosa precisa. Sono raccolte in
@@ -210,6 +210,7 @@
 <script src="app/interfaccia/formule-vista.js"></script>
 <script src="app/dati/verifica.js"></script>
 <script src="app/interfaccia/app.js"></script>
+<script src="app/interfaccia/schermate.js"></script>
 <script src="app/interfaccia/attesa.js"></script>
 <script src="app/dati/sillabazione-it.js"></script>
 <script src="app/interfaccia/sillaba.js"></script>

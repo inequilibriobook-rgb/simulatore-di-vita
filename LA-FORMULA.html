@@ -23,6 +23,13 @@
   <header class="testata">
     <p class="occhiello">Simulatore di vita 3.0 · come è fatto dentro</p>
     <h1>La matematica, da zero</h1>
+    <p class="sottotitolo">Il calcolo che sta dietro ogni numero del simulatore, aperto pezzo
+      per pezzo: che cosa significa ogni lettera, da dove viene ogni valore, e il codice vero
+      che lo esegue.</p>
+  </header>
+
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Perché la matematica è aperta qui, come è organizzata questa pagina, e dove sta la parte che il libro chiama più importante di tutte.">
+    <h2>Perché questa pagina, e come si usa</h2>
     <p class="sottotitolo">
       Tutto quello che il simulatore calcola sta in una riga sola. In questa pagina quella
       riga si apre pezzo per pezzo, come si apre un orologio per guardare gli ingranaggi.
@@ -33,10 +40,10 @@
       la parte del libro dove stanno le formule. È la sezione che dice
       <strong>che cosa la formula non contiene</strong>.
     </p>
-  </header>
+  </section>
 
   <!-- ====================== DOVE SI CREA UN NODO ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Che cos’è un nodo, cioè il gesto più piccolo che si può misurare, e le due strade per costruirne uno.">
     <h2>1 · Dove si crea un nodo</h2>
     <p style="margin-top:0">
       Un <span data-parola="nodo">«nodo»</span> è un «gesto» solo, con un inizio e una fine che
@@ -209,7 +216,7 @@
   </section>
 
   <!-- ====================== IL DADO ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Come il numero finale diventa un sì o un no: si tira un dado da cento facce, e si guarda di quanto ci si è passati vicino.">
     <h2>7 · Il dado, e di quanto ci passa</h2>
     <p style="margin-top:0">
       Il dado, che nel simulatore non è un oggetto ma un numero estratto a caso, dà un numero
@@ -238,7 +245,7 @@
   </section>
 
   <!-- ====================== IL CODICE ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Le righe vere del programma che fanno il calcolo, per chi vuole guardare dentro il motore.">
     <h2>8 · Il codice che lo fa</h2>
     <p style="margin-top:0">
       Quello che vedi qui sotto è il codice vero del motore. Sono le stesse righe che hanno
@@ -249,7 +256,7 @@
   </section>
 
   <!-- ====================== QUELLO CHE MANCA ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Le quattro cose che il libro lascia scoperte, e che però cambiano come va a finire la scena.">
     <h2>9 · Che cosa la formula non contiene</h2>
     <p style="margin-top:0">
       Il libro dedica a questo la sezione che chiama la più importante di tutto l’apparato.
@@ -266,7 +273,7 @@
   </section>
 
   <!-- ====================== LE PAROLE ====================== -->
-  <section class="riquadro">
+  <section class="riquadro" data-apribile data-anteprima="Le parole e le sigle di questa pagina, spiegate una per una, con un esempio.">
     <h2>10 · Le parole, spiegate</h2>
     <p style="margin-top:0;color:var(--inchiostro-2);font-size:15px">
       Questa pagina è piena di sigle, e nessuna va imparata a memoria. Stanno tutte qui
@@ -294,6 +301,7 @@
 <script src="app/dati/formule.js"></script>
 <script src="app/interfaccia/formule-vista.js"></script>
 <script src="app/interfaccia/formula-ui.js"></script>
+<script src="app/interfaccia/schermate.js"></script>
 <script src="app/interfaccia/attesa.js"></script>
 <script src="app/dati/sillabazione-it.js"></script>
 <script src="app/interfaccia/sillaba.js"></script>

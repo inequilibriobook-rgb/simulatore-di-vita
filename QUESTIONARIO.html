@@ -24,18 +24,28 @@
     <p class="occhiello">Simulatore di vita 3.0 · dalle domande al numero</p>
     <h1>Rispondi, e guarda da dove viene il numero</h1>
     <p class="sottotitolo">
+      Rispondi a poche domande, come le farebbe una persona che ti sta davanti: il nodo lo
+      costruisce il simulatore al posto tuo, e ogni numero del risultato dice da quale
+      risposta viene.
+    </p>
+  </header>
+
+  <!-- ====================== PERCHÉ QUESTA PAGINA, E COME SI USA ====================== -->
+  <section class="riquadro no-stampa" data-apribile data-anteprima="Perché rispondere a domande invece di muovere i cursori, e come tornare dal numero alla domanda che lo ha fatto.">
+    <h2>Perché questa pagina, e come si usa</h2>
+    <p>
       Nelle altre pagine i cursori li muovevi tu. Qui invece rispondi a qualche domanda,
       come le farebbe una persona che ti sta davanti. Il «nodo» lo costruisce il simulatore
       al posto tuo. Un nodo è un «gesto» solo, con un inizio e una fine che si riconoscono:
       bere un bicchiere d’acqua, non «fare la spesa». È l’unità più piccola che questo
       modello sappia calcolare.
     </p>
-    <p class="sottotitolo">
+    <p>
       Ogni numero del risultato dice da quale risposta viene. Se un valore cambia, sai
       sempre quale domanda lo ha fatto cambiare. E puoi sempre rifare la strada al
       contrario, dal numero fino alla domanda che lo ha prodotto.
     </p>
-  </header>
+  </section>
 
   <!-- ============ 1 · IL CANCELLO ============ -->
   <section class="riquadro no-stampa">
@@ -156,17 +166,13 @@
     <div id="racconto" class="racconto"></div>
   </section>
   <!-- ====================== LE PAROLE ====================== -->
-  <section class="riquadro">
-    <details>
-      <summary style="cursor:pointer;font-weight:600;font-size:16px">
-        Le parole, spiegate
-      </summary>
-      <p style="color:var(--inchiostro-2);font-size:15px">
-        Ogni parola che il simulatore usa vuol dire una cosa precisa. Qui ci sono tutte,
-        raccolte in dieci argomenti, e scegli tu quello che ti serve.
-      </p>
-      <div data-glossario></div>
-    </details>
+  <section class="riquadro" data-apribile data-anteprima="Dieci argomenti, e le parole del simulatore spiegate una per una, con un esempio.">
+    <h2>Le parole, spiegate</h2>
+    <p style="color:var(--inchiostro-2);font-size:15px">
+      Ogni parola che il simulatore usa vuol dire una cosa precisa. Qui ci sono tutte,
+      raccolte in dieci argomenti, e scegli tu quello che ti serve.
+    </p>
+    <div data-glossario></div>
   </section>
 
 
@@ -201,6 +207,7 @@
 <script src="app/dati/formule.js"></script>
 <script src="app/interfaccia/formule-vista.js"></script>
 <script src="app/interfaccia/questionario-ui.js"></script>
+<script src="app/interfaccia/schermate.js"></script>
 <script src="app/interfaccia/attesa.js"></script>
 <script src="app/dati/sillabazione-it.js"></script>
 <script src="app/interfaccia/sillaba.js"></script>

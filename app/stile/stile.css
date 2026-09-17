@@ -2870,10 +2870,11 @@ body.lettura { background: var(--piano); }
 
   /* la pagina di lettura */
   .contenitore-lettura { padding: 0 16px 40px; }
-  .testata-lettura h1 { font-size: 30px; }
+  /* misure prese dalla scala, non fisse: cosi' seguono «Aa» */
+  .testata-lettura h1 { font-size: var(--t-display); }
   .testata-lettura .occhiello, .occhiello, h1, h2, h3 { hyphens: none; -webkit-hyphens: none; }
-  .testo-lettura p { font-size: 17px; }
-  .capitolo h2 { font-size: 22px; }
+  .testo-lettura p { font-size: var(--t-lettura-li); }
+  .capitolo h2 { font-size: calc(var(--t-lettura-h2) * .82); }
   .figura { padding: 10px; border-radius: 10px; }
   .indice-voci { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
 }
@@ -2992,22 +2993,81 @@ body.lettura { background: var(--piano); }
    ========================================================================== */
 .torna-in-alto { display: none; }
 @media (max-width: 940px) {
+  /* Igor, 17/09: «un tasto in 3D, con delle ombreggiature, tondo, con una
+     cornicetta fine fine attorno che pulsi o luccichi, la freccia piu'
+     grossa e piu' visibile, la scritta che si lega meglio». Il rilievo lo
+     danno una sfumatura dall'alto in basso e due ombre (una dentro, chiara
+     in alto, una fuori, scura sotto). La cornice e' un anello di 2 px,
+     staccato di 3 px dal tasto, con un riflesso che gli gira intorno; un
+     secondo anello si allarga e svanisce, come un battito. */
   .torna-in-alto {
     position: fixed; right: 14px; bottom: 18px; z-index: 150;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
-    width: 58px; height: 58px; padding: 0; border-radius: 50%;
-    background: var(--azione); color: var(--su-azione); border: 0;
-    box-shadow: 0 4px 14px rgba(0,0,0,.22); cursor: pointer; white-space: nowrap;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    width: 64px; height: 64px; padding: 0; border-radius: 50%; border: 0;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--azione) 78%, white) 0%, var(--azione) 48%, color-mix(in srgb, var(--azione) 80%, black) 100%);
+    color: var(--su-azione); cursor: pointer; white-space: nowrap;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.45),
+      inset 0 -2px 0 rgba(0,0,0,.18),
+      0 2px 3px rgba(0,0,0,.18),
+      0 8px 20px rgba(0,0,0,.28);
     animation: entra .18s ease both;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .torna-in-alto::before, .torna-in-alto::after {
+    content: ""; position: absolute; inset: -5px; border-radius: 50%; pointer-events: none;
+  }
+  /* l'anello fine col riflesso che gira */
+  .torna-in-alto::before {
+    padding: 2px;
+    background: conic-gradient(from 0deg, color-mix(in srgb, var(--azione) 55%, transparent) 0 62%, #fff 74%, color-mix(in srgb, var(--azione) 55%, transparent) 86% 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: luccica 2.6s linear infinite;
+  }
+  /* il battito: un anello che si allarga e svanisce */
+  .torna-in-alto::after {
+    border: 1.5px solid color-mix(in srgb, var(--azione) 70%, transparent);
+    animation: batte 2.6s ease-out infinite;
+  }
+  @keyframes luccica { to { transform: rotate(360deg); } }
+  @keyframes batte {
+    0%   { transform: scale(1); opacity: .9; }
+    70%  { transform: scale(1.32); opacity: 0; }
+    100% { transform: scale(1.32); opacity: 0; }
   }
   .torna-in-alto[hidden] { display: none; }
-  .torna-in-alto span { font-size: 20px; line-height: 1; font-weight: 700; }
-  .torna-in-alto small { font-size: 10px; line-height: 1.1; font-weight: 600; letter-spacing: .02em; }
-  .torna-in-alto:hover, .torna-in-alto:focus-visible, .torna-in-alto:active {
-    background: color-mix(in srgb, var(--azione) 84%, black); color: var(--su-azione);
+  .torna-in-alto .freccia-su { position: relative; width: 26px; height: 24px; display: block; filter: drop-shadow(0 1px 1px rgba(0,0,0,.25)); }
+  .torna-in-alto .freccia-su::before {
+    /* la punta: un quadrato con due lati, girato */
+    content: ""; position: absolute; left: 50%; top: 3px; width: 13px; height: 13px;
+    border-top: 3.5px solid currentColor; border-left: 3.5px solid currentColor; border-radius: 2px 0 0 0;
+    transform: translateX(-50%) rotate(45deg);
   }
+  .torna-in-alto .freccia-su::after {
+    /* l'asta */
+    content: ""; position: absolute; left: 50%; top: 4px; width: 3.5px; height: 19px;
+    background: currentColor; border-radius: 2px; transform: translateX(-50%);
+  }
+  .torna-in-alto small {
+    font-size: 10.5px; line-height: 1; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    text-shadow: 0 1px 1px rgba(0,0,0,.25);
+  }
+  .torna-in-alto:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.18), 0 4px 10px rgba(0,0,0,.22);
+  }
+  .torna-in-alto:focus-visible { outline: 3px solid color-mix(in srgb, var(--azione) 45%, white); outline-offset: 6px; }
   /* se in basso c'e' la striscia «versione nuova», il tasto sale sopra di lei */
   body:has(.nuova-versione) .torna-in-alto { bottom: 84px; }
+  @media (prefers-reduced-motion: reduce) {
+    .torna-in-alto::before, .torna-in-alto::after { animation: none; }
+    .torna-in-alto::after { display: none; }
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .torna-in-alto:hover { filter: brightness(1.06); color: var(--su-azione); }
 }
 @media print { .torna-in-alto { display: none !important; } }
 
@@ -3097,3 +3157,73 @@ body.lettura { background: var(--piano); }
 .tasto-grande .tg-freccia { flex: none; font-size: 20px; color: var(--inchiostro-3); }
 .tasto-grande.principale .tg-freccia { color: var(--su-azione); }
 @media (min-width: 700px) { .tasti-grandi { grid-template-columns: 1fr 1fr; } .tasti-grandi .tasto-grande.principale { grid-column: 1 / -1; } }
+
+
+/* ==========================================================================
+   IL TESTO SI INGRANDISCE, SUGLI SCHERMI PICCOLI (17/09/2026)
+   Igor: «man mano che lo schermo si riduce — mini tablet, mini iPad, ma
+   soprattutto il cellulare — diamo la possibilità di usare diversi
+   ingrandimenti del carattere: almeno altri due». Tre misure: normale,
+   grande (+15 %), grandissimo (+30 %). Si scelgono dal tastino tondo con
+   le tre T accanto al menu (sempre visibile fino a 1100 px) e dalla voce
+   «Misura del testo» nel menu a panino; la scelta
+   viaggia nell'indirizzo (?testo=grande), non nella memoria del browser,
+   che il libro promette di non usare (capitolo 48). Si ingrandisce la
+   scala tipografica intera, cosi' le proporzioni fra titoli, corpo e note
+   non cambiano: solo la misura. Sopra i 1100 px l'attributo non fa niente,
+   perche' li' ci sono gia' le misure per schermo grande.
+   ========================================================================== */
+#barraTesto { display: none; }
+@media (max-width: 1100px) {
+  /* IL TASTINO TONDO, sempre visibile accanto al menu: tre T una piu'
+     grande dell'altra. Normale: contorno. Grande: fondo tenue. Grandissimo:
+     pieno, col colore dell'azione. */
+  #barraTesto {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 44px; height: 44px; padding: 0; border-radius: 50%;
+    border: 1.5px solid var(--inchiostro-3); background: var(--superficie); color: var(--inchiostro);
+    font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  }
+  #barraTesto .ttt { display: inline-flex; align-items: baseline; gap: 1px; font-family: Georgia, "Times New Roman", serif; line-height: 1; letter-spacing: -.04em; }
+  #barraTesto .ttt b { font-size: 19px; font-weight: 800; }
+  #barraTesto .ttt i { font-size: 14px; font-style: normal; font-weight: 700; }
+  #barraTesto .ttt small { font-size: 10px; font-weight: 600; }
+  #barraTesto[data-misura="grande"] { border-color: var(--azione); background: var(--azione-tenue); color: var(--azione); }
+  #barraTesto[data-misura="grandissimo"] { border-color: var(--azione); background: var(--azione); color: var(--su-azione); }
+  #barraTesto:active { transform: scale(.94); }
+  html[data-testo="grande"] {
+    --t-micro: 13.2px; --t-piccolo: 15px;   --t-nota: 15.5px;
+    --t-corpo: 17.5px; --t-medio: 19.5px;   --t-titolo: 22px;
+    --t-grande: 27.5px; --t-display: 34.5px;
+    --t-lettura: 20.5px; --t-lettura-sotto: 22px; --t-lettura-h2: 31px; --t-lettura-li: 19.5px;
+    --corpo: 18.5px;
+  }
+  html[data-testo="grandissimo"] {
+    --t-micro: 15px;   --t-piccolo: 17px;   --t-nota: 17.5px;
+    --t-corpo: 19.5px; --t-medio: 22px;     --t-titolo: 24.5px;
+    --t-grande: 31px;  --t-display: 39px;
+    --t-lettura: 23.5px; --t-lettura-sotto: 24.5px; --t-lettura-h2: 35px; --t-lettura-li: 22px;
+    --corpo: 21px;
+  }
+  /* i tasti grandi e le anteprime delle sezioni seguono la scala */
+  html[data-testo="grande"] .tasto-grande .tg-testo b { font-size: var(--t-medio); }
+  html[data-testo="grandissimo"] .tasto-grande .tg-testo b { font-size: var(--t-titolo); }
+}
+@media (max-width: 700px) {
+  /* nella barra stretta il tastino sta fra il nome e il tasto Menu */
+  .app-strumenti { gap: 8px; }
+  #barraTesto { width: 42px; height: 42px; }
+  /* nel menu a panino la voce «Testo» mostra le tre misure in fila:
+     quella scelta e' piena */
+  .voce-strumento[data-strumento="testo"] .voce-icona { font-weight: 800; letter-spacing: -.02em; }
+  .misure-testo { display: inline-flex; gap: 6px; margin-top: 3px; }
+  .misure-testo span {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    border: 1px solid var(--bordo); font-size: var(--t-micro); font-weight: 600; color: var(--inchiostro-3);
+  }
+  .misure-testo span.scelta { background: var(--azione); border-color: var(--azione); color: var(--su-azione); }
+}
+/* testo solo per chi legge con lo schermo (non si vede, si sente) */
+.solo-lettori { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (hover: hover) and (pointer: fine) { #barraTesto:hover { border-color: var(--azione); } }
