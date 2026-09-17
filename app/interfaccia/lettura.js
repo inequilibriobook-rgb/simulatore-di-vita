@@ -119,7 +119,8 @@
          lo mostra solo li'): dice «In questa lettura» e, accanto, il
          capitolo in cui si e' */
       '<button type="button" class="indice-apri no-stampa" aria-expanded="false">' +
-        '<span>In questa lettura</span><small class="indice-dove"></small>' +
+        '<span class="indice-apri-icona" aria-hidden="true">☰</span>' +
+        '<span class="indice-apri-testo">Indice dei capitoli</span>' +
         '<span class="freccia-giu" aria-hidden="true">▾</span></button>' +
       '<div class="indice-voci">' + dentro + '</div>';
     var tasto = nav.querySelector('.indice-apri');
@@ -155,11 +156,7 @@
       Array.prototype.forEach.call(document.querySelectorAll('.indice-voce'), function (a) {
         var suo = a.getAttribute('data-per') === attivo;
         a.classList.toggle('qui', suo);
-        /* il tasto dell'indice (schermi stretti) dice in quale capitolo si e' */
-        if (suo) {
-          var dove = document.querySelector('.indice-dove');
-          if (dove) { dove.textContent = a.textContent.replace(/\u00AD/g, ''); }
-        }
+
         if (suo && a.scrollIntoView) {
           var cont = a.closest('.indice-voci');
           if (cont && (a.offsetTop < cont.scrollTop ||

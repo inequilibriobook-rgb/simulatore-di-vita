@@ -2372,14 +2372,31 @@ body.lettura { background: var(--piano); }
   .indice-voce { white-space: normal; padding: 9px 10px; border-left: 3px solid transparent; border-radius: 6px; }
   .indice-voce.qui { border-left-color: var(--azione); background: var(--azione-tenue); }
   .indice-titolo { display: none; }
+  /* Igor, 17/09: «questo tastone non si legge bene: coloralo in maniera
+     diversa, fallo un po' animato, e togli il testo del capitolo accanto».
+     Il tasto e' pieno, del colore dell'azione, con il testo chiaro e grande,
+     e la freccia che ogni tanto fa un cenno verso il basso (finche' e'
+     chiuso). Niente capitolo accanto: il capitolo in cui si e' lo dice
+     l'elenco, quando si apre, con la voce evidenziata. */
   .indice-apri {
-    display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%;
-    padding: 10px 12px; border: 1px solid var(--bordo); border-radius: 10px; background: var(--superficie);
-    font: inherit; font-size: var(--t-corpo); font-weight: 600; color: var(--inchiostro); cursor: pointer; text-align: left;
+    display: flex; align-items: center; gap: 12px; width: 100%;
+    padding: 13px 16px; border: 0; border-radius: 12px;
+    background: var(--azione); color: var(--su-azione);
+    font: inherit; font-size: 16px; font-weight: 650; letter-spacing: .01em;
+    cursor: pointer; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,.12);
   }
-  .indice-apri small { font-weight: 500; color: var(--inchiostro-3); font-size: var(--t-piccolo); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .indice-apri .freccia-giu { transition: transform .16s ease; }
-  .indice-lettura.aperto .indice-apri .freccia-giu { transform: rotate(180deg); }
+  .indice-apri:active { transform: translateY(1px); }
+  .indice-apri-icona { font-size: 18px; line-height: 1; }
+  .indice-apri-testo { flex: 1; }
+  .indice-apri .freccia-giu { font-size: 18px; line-height: 1; animation: cenno-giu 1.8s ease-in-out infinite; }
+  .indice-lettura.aperto .indice-apri { border-radius: 12px 12px 0 0; }
+  .indice-lettura.aperto .indice-apri .freccia-giu { transform: rotate(180deg); animation: none; }
+  .indice-lettura.aperto .indice-voci {
+    border: 1px solid var(--bordo); border-top: 0; border-radius: 0 0 12px 12px;
+    padding: 8px 8px 10px; background: var(--superficie);
+  }
+  @keyframes cenno-giu { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(4px); } }
+  @media (prefers-reduced-motion: reduce) { .indice-apri .freccia-giu { animation: none; } }
   .testo-lettura { padding-top: var(--s3); }
   .testo-lettura p { font-size: var(--t-lettura-li); }
   .figura { width: 100%; margin-left: 0; padding: var(--s3); }
