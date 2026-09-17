@@ -3306,3 +3306,17 @@ summary.riepilogo-piccolo { cursor: pointer; font-size: var(--t-piccolo); color:
   }
   table.dati.impila tr.fascia-qui { background: var(--azione-tenue); border-radius: 8px; padding-left: 8px; padding-right: 8px; }
 }
+
+/* IL RIQUADRO DELLA SPIEGAZIONE SUBITO SOTTO LA PAROLA (17/09/2026)
+   glossario.js lo mette dopo l'elemento che contiene la parola; qui si
+   fa in modo che, dentro una griglia o una fila, prenda tutta la riga. */
+.glossa-in-griglia { grid-column: 1 / -1; max-width: none; }
+.con-glossa { grid-auto-flow: row dense; }
+.glossa-in-fila { flex-basis: 100%; width: 100%; max-width: none; }
+tr.glossa-riga > td { padding: 0 0 8px !important; border-bottom: 0 !important; text-align: left !important; }
+tr.glossa-riga > td > .glossa { margin-top: 4px; max-width: none; }
+.glossa { cursor: default; }
+@media (max-width: 600px) {
+  table.dati.impila tr.glossa-riga { padding: 0; border-bottom: 0; }
+  table.dati.impila tr.glossa-riga > td { display: block; }
+}

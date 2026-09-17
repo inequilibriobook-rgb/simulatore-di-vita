@@ -135,51 +135,92 @@
        in griglia o in riga — e si esce dalla griglia prima di inserire. Il
        riquadro nasce cosi' largo quanto tutta la griglia, che e' l'unico
        posto in cui una spiegazione si legge. */
-    /* DOVE VA MESSO IL RIQUADRO (riscritto il 17/09/2026).
-       Igor, davanti a una spiegazione compressa in una colonna: «non e'
-       sistemato, controlla tutti i punti interrogativi, su tutte le
-       dimensioni di schermo». Le versioni precedenti elencavano i casi
-       (griglia, fila, tabella…) e ogni volta ne mancava uno. Adesso la
-       regola e' una sola e misura, non indovina: si sale dalla parola
-       finche' non si trova un contenitore in flusso normale (display
-       block) largo almeno quattro quinti del riquadro che contiene la
-       parola, che non sia un pezzo di tabella e che non scorra di lato. Il
-       riquadro va dopo il figlio di quel contenitore che contiene la
-       parola. Cosi' nasce sempre largo quanto il testo che il lettore sta
-       leggendo, qualunque sia la disposizione intorno alla parola. */
+    /* DOVE VA MESSO IL RIQUADRO (riscritto due volte il 17/09/2026).
+       Igor: «il testo deve apparire SUBITO SOTTO la parola, uno alla
+       volta, e sparire con un clic sulla parola o un doppio clic sul
+       riquadro». Quindi il riquadro va il piu' vicino possibile alla
+       parola, ma senza mai restare stretto. La regola misura, non
+       indovina: dalla parola si sale di un passo alla volta, e ci si ferma
+       al primo genitore in cui il riquadro puo' stare largo:
+         · un blocco in flusso normale largo almeno quattro quinti del
+           riquadro della pagina: il riquadro va dopo il figlio che contiene
+           la parola (un paragrafo, una riga di cursore in colonna unica);
+         · una griglia: il riquadro va dopo il figlio e occupa tutte le
+           colonne (grid-column: 1 / -1), e la griglia si compatta
+           (grid-auto-flow: dense) cosi' le celle dopo risalgono nel buco;
+         · una fila che va a capo (flex-wrap): il riquadro prende tutta la
+           riga (flex-basis: 100 %);
+         · una tabella: il riquadro sta in una riga nuova sotto quella
+           della parola, in una cella che copre tutte le colonne.
+       Tutto il resto (celle, etichette strette, file che non vanno a
+       capo, cornici che scorrono) si scavalca. */
     var limite = (el.closest && el.closest('.riquadro, .apribile-corpo, .passo, .capitolo, .glossario-pannello, article, main, .contenitore')) || document.body;
     var largoLimite = limite.getBoundingClientRect().width || 0;
     var dove = el;
     var risalite = 0;
+    var modo = 'blocco';
+    /* dentro una cella si parte dalla cella: il riquadro va nella riga
+       sotto, mai in mezzo al contenuto della cella (anche quando, sul
+       telefono, le celle sono impilate e sembrano blocchi) */
+    var cella = el.closest && el.closest('td, th');
+    if (cella) { dove = cella; }
     while (dove.parentNode && dove.parentNode !== document.body && risalite < 12) {
       var padre = dove.parentNode;
       if (padre === limite) { break; }
       var st = null;
       try { st = G.getComputedStyle(padre); } catch (e) { break; }
       var disp = st.display;
-      var inFlusso = disp === 'block' || disp === 'flow-root' || disp === 'list-item';
-      if (disp === 'grid' || disp === 'inline-grid') {
-        /* una griglia a colonna sola e' come un blocco */
-        inFlusso = !/\s/.test((st.gridTemplateColumns || '').trim());
-      }
-      /* si esce anche dagli elenchi: dentro un punto di un elenco il riquadro
-         erediterebbe il rientro (misurato: 241 px su uno schermo da 360) */
-      var tabellare = /^table|^inline-table/.test(disp) || /^(TR|TBODY|THEAD|TFOOT|TABLE|UL|OL|DL)$/.test(padre.tagName);
       var scorre = /(auto|scroll)/.test(st.overflowX || '');
       var largo = padre.getBoundingClientRect().width >= largoLimite * 0.8;
-      if (inFlusso && !tabellare && !scorre && largo) { break; }
+      if (/^(TR)$/.test(padre.tagName) && /^(TD|TH)$/.test(dove.tagName)) { modo = 'tabella'; break; }
+      if (!scorre && largo) {
+        if (disp === 'block' || disp === 'flow-root' || disp === 'list-item') { modo = 'blocco'; break; }
+        if (disp === 'grid' || disp === 'inline-grid') { modo = 'griglia'; break; }
+        if ((disp === 'flex' || disp === 'inline-flex') && st.flexWrap === 'wrap' && st.flexDirection.indexOf('row') === 0) { modo = 'fila'; break; }
+      }
       dove = padre;
       risalite++;
     }
-    if (dove.parentNode) { dove.parentNode.insertBefore(box, dove.nextSibling); }
+    if (modo === 'tabella') {
+      var riga = dove.parentNode;
+      var nuova = document.createElement('tr');
+      nuova.className = 'glossa-riga';
+      var cella = document.createElement('td');
+      cella.colSpan = riga.cells.length || 1;
+      cella.appendChild(box);
+      nuova.appendChild(cella);
+      riga.parentNode.insertBefore(nuova, riga.nextSibling);
+    } else if (dove.parentNode) {
+      if (modo === 'griglia') { box.classList.add('glossa-in-griglia'); dove.parentNode.classList.add('con-glossa'); }
+      if (modo === 'fila') { box.classList.add('glossa-in-fila'); }
+      /* dentro un elenco il riquadro non prende il rientro dei punti:
+         si sposta a sinistra di quanto l'elenco rientra (misurato: 241 px
+         invece di 261 su uno schermo da 360) */
+      if (/^(UL|OL)$/.test(dove.parentNode.tagName)) {
+        try { box.style.marginLeft = '-' + G.getComputedStyle(dove.parentNode).paddingLeft; } catch (e) { /* niente */ }
+        box.style.listStyle = 'none';
+      }
+      dove.parentNode.insertBefore(box, dove.nextSibling);
+    }
     el.setAttribute('aria-controls', id);
     return box;
   }
 
+  /* UNA SPIEGAZIONE ALLA VOLTA (Igor, 17/09/2026): aprirne una chiude
+     quella aperta, cosi' non si impilano e non c'e' niente da ripulire. */
+  function chiudiTutte(tranne) {
+    Array.prototype.forEach.call(document.querySelectorAll('.glossa:not([hidden])'), function (b) {
+      if (b === tranne) { return; }
+      b.hidden = true;
+      var p = document.querySelector('[aria-controls="' + b.id + '"]');
+      if (p) { p.setAttribute('aria-expanded', 'false'); }
+    });
+  }
   function inverti(el) {
     var box = riquadroDi(el);
     if (!box) { return; }
     var aperto = !box.hidden;
+    if (!aperto) { chiudiTutte(box); }
     box.hidden = aperto;
     el.setAttribute('aria-expanded', String(!aperto));
     /* il riquadro puo' stare sotto una tabella lunga: quando si apre, se
@@ -438,6 +479,15 @@
     document.addEventListener('click', function (e) {
       var el = parolaDa(e.target);
       if (el && el.getAttribute('data-glossa-pronta')) { inverti(el); }
+    });
+    /* il doppio clic sul riquadro lo chiude (Igor, 17/09/2026) */
+    document.addEventListener('dblclick', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('.glossa') : null;
+      if (!b) { return; }
+      b.hidden = true;
+      var p = document.querySelector('[aria-controls="' + b.id + '"]');
+      if (p) { p.setAttribute('aria-expanded', 'false'); }
+      try { G.getSelection().removeAllRanges(); } catch (x) { /* niente */ }
     });
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Enter' && e.key !== ' ') { return; }
