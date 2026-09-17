@@ -120,34 +120,37 @@
      (55, 75, 85).
 
      Questa scala e' fatta con i valori che il libro usa davvero e con i suoi
-     esempi, presi dai dodici casi numerici pubblicati — Capitolo 5 e Mega
-     Canvas alle pagine indicate. Ogni scalino ha una fonte.
+     esempi, presi dai dodici calcoli completi del capitolo 39 e dal capitolo
+     5. Ogni scalino cita la pagina del libro stampato: le pagine le scrive
+     scripts/pagine_libro.py leggendo il PDF, e vanno rifatte quando il
+     libro cambia impaginazione (prima citavano il dossier tecnico, il
+     «Mega Canvas», che chi legge non ha in mano).
      -------------------------------------------------------------------- */
   var SCALA_P0 = [
     { valore: 90, etichetta: 'Gesto automatico',
       esempio: 'bere un bicchiere d’acqua, anche dopo una giornata pesante',
-      fonte: 'Mega Canvas p. 256' },
+      fonte: 'libro, capitolo 39, pagina 371' },
     { valore: 85, etichetta: 'Gesto semplice con un intoppo possibile',
       esempio: 'uscire di casa quando la porta si blocca e si ha fretta',
-      fonte: 'Mega Canvas p. 276' },
+      fonte: 'libro, capitolo 39, pagina 380' },
     { valore: 80, etichetta: 'Gesto ordinario con qualcosa che reagisce',
       esempio: 'uscire con il cane che tira alla porta',
-      fonte: 'Mega Canvas p. 266' },
+      fonte: 'libro, capitolo 39, pagina 375' },
     { valore: 75, etichetta: 'Compito che richiede attenzione',
       esempio: 'la spesa in un supermercato nuovo e affollato, preparare una lezione',
-      fonte: 'Mega Canvas p. 274 e p. 278' },
+      fonte: 'libro, capitolo 39, pagine 379 e 381' },
     { valore: 70, etichetta: 'Compito ordinario',
       esempio: 'scrivere un messaggio che conta, mentre si è sotto pressione',
-      fonte: 'libro Cap. 5 e Mega Canvas p. 272' },
+      fonte: 'libro, capitolo 5 e capitolo 39, pagina 378' },
     { valore: 60, etichetta: 'Compito con un ostacolo tecnico',
       esempio: 'una pratica online con il codice di accesso che non arriva',
-      fonte: 'Mega Canvas p. 258' },
+      fonte: 'libro, capitolo 39, pagina 372' },
     { valore: 55, etichetta: 'Compito relazionale delicato',
       esempio: 'un dialogo di coppia teso',
-      fonte: 'Mega Canvas p. 260' },
+      fonte: 'libro, capitolo 39, pagina 373' },
     { valore: 40, etichetta: 'Compito che richiede condizioni buone',
       esempio: 'spostare un oggetto pesante da soli',
-      fonte: 'Mega Canvas p. 270' }
+      fonte: 'libro, capitolo 39, pagina 376' }
   ];
 
   /* --------------------------------------------------------------------

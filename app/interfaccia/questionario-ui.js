@@ -158,7 +158,7 @@
     q('scalaP0').innerHTML = C.SCALA_P0.map(function (s) {
       return '<button class="carta-livello' + (s.valore === p0 ? ' scelta' : '') + '" data-p0="' + s.valore + '">' +
         '<b>' + s.valore + ' · ' + esc(s.etichetta) + '</b><span>' + esc(s.esempio) +
-        (s.fonte ? '<br><em style="opacity:.7">' + esc(s.fonte) + '</em>' : '') + '</span></button>';
+        (s.fonte ? '<br><em class="carta-fonte">nel ' + esc(s.fonte) + '</em>' : '') + '</span></button>';
     }).join('');
     q('scalaP0').addEventListener('click', function (ev) {
       var b = ev.target.closest('button[data-p0]');

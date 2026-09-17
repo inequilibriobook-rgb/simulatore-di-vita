@@ -3227,3 +3227,5 @@ body.lettura { background: var(--piano); }
 /* testo solo per chi legge con lo schermo (non si vede, si sente) */
 .solo-lettori { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (hover: hover) and (pointer: fine) { #barraTesto:hover { border-color: var(--azione); } }
+/* la riga «nel libro, capitolo 39, pagina 371» sotto ogni esempio pronto */
+.carta-livello .carta-fonte { display: inline-block; margin-top: 4px; font-style: normal; font-size: var(--t-micro); color: var(--inchiostro-3); }

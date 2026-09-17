@@ -272,7 +272,7 @@
         '<p class="caso-scena">' + esc(caso.scena) + '</p>' +
         '<div class="riquadro-fermo"><p class="fermo-titolo">' + esc(caso.senza_calcolo) + '</p></div>' +
         '<p class="caso-lettura">' + esc(caso.lettura) + '</p>' +
-        '<p class="caso-fonte">' + esc(caso.fonte) + '</p></div>';
+        '<p class="caso-fonte">Nel ' + esc(caso.fonte) + '</p></div>';
     }
 
     var r = N.calcolaPn(nodoDa(caso));
@@ -318,7 +318,7 @@
         '<a class="bottone primario" href="' + collegamentoCursori(caso) + '">Aprilo nei cursori e cambia i numeri</a>' +
         '<a class="bottone secondario" href="MONTECARLO.html#caso=' + esc(caso.id) + '">Rigiocalo mille volte</a>' +
       '</div>' +
-      '<p class="caso-fonte">' + esc(caso.fonte) + '</p>' +
+      '<p class="caso-fonte">Nel ' + esc(caso.fonte) + '</p>' +
       '</div>';
   }
 

@@ -26,6 +26,10 @@ SUL TELEFONO E SUL TABLET
   app/dati/sillabazione-it.js, generato da scripts/genera_sillabazione.py,
   e app/interfaccia/sillaba.js mette i trattini morbidi nelle parole
   lunghe, così le righe si chiudono uguali su ogni browser e ogni schermo.
+  Gli esempi pronti (le dodici schede di ESEMPI.html e la scala di P0 del
+  questionario) citano la pagina del libro stampato: le pagine le scrive
+  scripts/pagine_libro.py leggendo il PDF dell'edizione KDP, e si rilancia
+  quando il libro cambia impaginazione.
 
 LE DODICI PAGINE
   Quattro sono i gradini della scala del tempo: il gesto, la catena, la
@@ -219,7 +223,7 @@ CHE COSA È GIÀ VERIFICATO
   _test/ e _taratura/. Non fanno parte di questo pacchetto. Lo prescrive il
   libro, al capitolo 48. Sono elencati qui per un motivo: chi legge deve
   sapere che cosa è stato verificato, e con quali numeri.
-  34 controlli sugli esempi numerici pubblicati, dal libro e dal Mega Canvas.
+  34 controlli sugli esempi numerici pubblicati, dal libro (capitoli 5, 9 e 39).
      Tutti superati. Compreso il caso limite del taglio in basso, dove la
      probabilità si ferma a 5.
   1200 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
