@@ -2,8 +2,8 @@
    Registrato da app/interfaccia/installa.js solo quando il simulatore arriva da un indirizzo web.
    Alla prima apertura scarica tutti i file qui sotto; da allora le pagine si aprono anche senza
    rete. Quando l'elenco o un file cambia, cambia la versione, e i dispositivi si aggiornano da soli.
-   Versione: 46a331e4942d (68 file). */
-var VERSIONE = 'simulatore-46a331e4942d';
+   Versione: a356e87766c2 (68 file). */
+var VERSIONE = 'simulatore-a356e87766c2';
 var FILE = [
   'APRI-QUI.html',
   'CATENA.html',
@@ -76,7 +76,12 @@ var FILE = [
 ];
 
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(VERSIONE).then(function (c) { return c.addAll(FILE); }).then(function () { return self.skipWaiting(); }));
+  /* i file si scaricano saltando la cache del browser (cache: 'reload'):
+     il sito li serve con dieci minuti di cache, e senza questo una versione
+     nuova poteva riempirsi di file vecchi */
+  e.waitUntil(caches.open(VERSIONE).then(function (c) {
+    return c.addAll(FILE.map(function (f) { return new Request(f, { cache: 'reload' }); }));
+  }).then(function () { return self.skipWaiting(); }));
 });
 
 self.addEventListener('activate', function (e) {

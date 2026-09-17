@@ -33,9 +33,33 @@
     if (!conCache || !('serviceWorker' in navigator)) { return; }
     navigator.serviceWorker.register('sw.js').then(function (reg) {
       /* se il sito e' cambiato, il nuovo programma di cache scarica i file
-         nuovi in silenzio; alla prossima apertura sono quelli */
-      if (reg && reg.update) { reg.update(); }
+         nuovi in silenzio; appena e' pronto, una striscia in basso lo dice,
+         e un tocco ricarica la pagina con la versione nuova (17/09/2026:
+         Igor sul telefono non vedeva le modifiche e non sapeva perche') */
+      if (!reg) { return; }
+      function quandoPronto(w) {
+        if (!w) { return; }
+        w.addEventListener('statechange', function () {
+          if (w.state === 'installed' && navigator.serviceWorker.controller) { avvisaNuovaVersione(); }
+        });
+      }
+      reg.addEventListener('updatefound', function () { quandoPronto(reg.installing); });
+      if (reg.waiting && navigator.serviceWorker.controller) { avvisaNuovaVersione(); }
+      if (reg.update) { reg.update(); }
     }).catch(function () { /* niente: si va avanti senza cache */ });
+  }
+
+  var avvisato = false;
+  function avvisaNuovaVersione() {
+    if (avvisato) { return; }
+    avvisato = true;
+    var s = document.createElement('div');
+    s.className = 'nuova-versione';
+    s.setAttribute('role', 'status');
+    s.innerHTML = '<span>C’è una versione nuova del simulatore.</span>' +
+      '<button type="button" class="primario">Aggiorna adesso</button>';
+    s.querySelector('button').addEventListener('click', function () { globale.location.reload(); });
+    document.body.appendChild(s);
   }
 
   /* IL RIQUADRO «SUL TELEFONO, SUL TABLET, SUL COMPUTER».

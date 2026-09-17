@@ -2971,3 +2971,12 @@ body.lettura { background: var(--piano); }
 .attesa-frase { margin: 8px 0 0; font-size: var(--t-nota); color: var(--inchiostro-2); }
 @media (prefers-reduced-motion: reduce) { .attesa-clessidra { animation: none; } }
 .figura-attesa { margin: 0; padding: var(--s4); text-align: center; color: var(--inchiostro-3); font-size: var(--t-nota); min-height: 120px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+/* la striscia «c'è una versione nuova» (installa.js), in basso, sopra tutto */
+.nuova-versione {
+  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 12px 14px; border-radius: 12px; background: var(--inchiostro); color: var(--piano);
+  box-shadow: var(--ombra-alta); font-size: var(--t-corpo);
+}
+.nuova-versione button { flex: none; }
