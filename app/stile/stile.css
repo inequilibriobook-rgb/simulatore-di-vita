@@ -2320,6 +2320,11 @@ body.lettura { background: var(--piano); }
   margin: 0 0 var(--s2); font-size: var(--t-micro); font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase; color: var(--inchiostro-3);
 }
+/* il tasto «Indice dei capitoli» esiste solo sugli schermi stretti (il blocco
+   sotto i 940 px lo mostra): sul computer l'indice e' la colonna a sinistra,
+   sempre visibile, e il tasto non c'e' (17/09/2026: compariva col colore
+   grezzo dei bottoni e al passaggio del mouse diventava grigio) */
+.indice-apri { display: none; }
 .indice-voci { overflow-y: auto; padding-right: 4px; }
 .indice-voci::-webkit-scrollbar { width: 6px; }
 .indice-voci::-webkit-scrollbar-thumb { background: var(--bordo); border-radius: 3px; }
