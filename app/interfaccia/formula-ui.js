@@ -179,6 +179,23 @@
     });
   }
 
+  /* IL TITOLO CHE SI VEDE, NON QUELLO STAMPATO NEL LIBRO.
+     formule.js arriva dal Canone parola per parola, ed e' giusto cosi': serve
+     a ritrovare la scheda nel libro. Ma due di quei titoli portano una sigla
+     inglese che qui non e' mai stata spiegata — «OTP» — o una parola inglese
+     dove l'italiano corrente basta — «Deadline». app/dati/casi.js risolve lo
+     stesso problema con un secondo campo, `titolo` accanto a `titoloLibro`;
+     qui il dato ha un solo campo, quindi il testo piu' chiaro vive in questa
+     mappa. Il valore usato per scegliere la scheda (data-titolo) resta quello
+     del libro: cambia solo la scritta sul bottone. */
+  var ETICHETTA_SCHEDA = {
+    'Pratica online con OTP bloccato': 'Pratica online con il codice bloccato',
+    'Deadline riuscita ma tossica': 'Una consegna riuscita, e tossica'
+  };
+  function etichettaScheda(titolo) {
+    return ETICHETTA_SCHEDA[titolo] || titolo;
+  }
+
   /* le schede del capitolo 39, cosi' come le ha lette dal Canone lo script
      scripts/genera_formule.py — qui non se ne ricopia nemmeno una */
   function schedeDelLibro() {
@@ -210,7 +227,7 @@
     var s = (scelta && scelta.tipo === 'calcolo') ? scelta.scheda : null;
 
     var testa = s
-      ? '<h3 class="sotto-titolo" style="margin-top:0">' + esc(s.titolo) + '</h3>' +
+      ? '<h3 class="sotto-titolo" style="margin-top:0">' + esc(etichettaScheda(s.titolo)) + '</h3>' +
         '<p class="caso-conti">' + esc(s.conti) + '</p>' +
         '<p class="caso-fonte">Sono le parole del libro, non un riassunto, e la riga qui sotto è ' +
         'quella stampata nel capitolo 39.</p>' +
@@ -340,10 +357,10 @@
        scelto che e' scuro, si leggeva appena */
     dove.innerHTML = conCalcolo.map(function (s) {
       return '<button class="fantasma" data-titolo="' + esc(s.titolo) + '" aria-pressed="false">' +
-        esc(s.titolo) + ' <small style="opacity:.72">Pn ' + s.pn + '</small></button>';
+        esc(etichettaScheda(s.titolo)) + ' <small style="opacity:.72">Pn ' + s.pn + '</small></button>';
     }).join('') + senza.map(function (s) {
       return '<button class="fantasma" data-titolo="' + esc(s.titolo) + '" data-ferma="1" ' +
-        'aria-pressed="false">' + esc(s.titolo) +
+        'aria-pressed="false">' + esc(etichettaScheda(s.titolo)) +
         ' <small style="opacity:.72">senza numeri</small></button>';
     }).join('');
 

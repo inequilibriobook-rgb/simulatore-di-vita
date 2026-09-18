@@ -948,8 +948,8 @@
         ? 'Tutte le ripetizioni finiscono sullo stesso numero, e c’è una '
         : 'La distribuzione è larga <b>' + ampiezza + ' punti</b>, e c’è una ') +
       'ragione precisa. Il trasferimento di stato, cioè quanta parte dell’effetto di un ' +
-      'gesto passa al gesto dopo, misurato è il <b>quattro virgola sei per cento</b>, come ' +
-      'dice il capitolo 28. Vuol dire che un gesto sposta il carico finale di una frazione di punto' +
+      'gesto passa al gesto dopo, nella calibrazione misurata è il <b>quattro virgola sei ' +
+      'per cento</b>, come dice il capitolo 28. Vuol dire che un gesto sposta il carico finale di una frazione di punto' +
       (unGestoSolo() ? ', e con un gesto solo quella frazione sparisce nell’arrotondamento.'
                      : '. Anche ' + stato.quantiNodi + ' gesti in fila lo spostano di pochi punti in tutto.') +
       ' Non è un difetto del grafico: è il modello. Vuoi vedere che cosa succedeva prima che ' +
@@ -1009,9 +1009,9 @@
           ' nodi. Le <b>valutazioni</b> sono ' + num(tot, 0) + ': è quante volte, in tutto, ' +
           'è stato calcolato un gesto. Ma <b>n resta ' + num(m.ripetizioni, 0) +
           '</b>. Il <b>campione</b> è quello, non le valutazioni, perché campione vuol ' +
-          'dire quante repliche indipendenti della quantità finale si hanno a ' +
+          'dire quante ripetizioni indipendenti della quantità finale si hanno a ' +
           'disposizione. I nodi interni della stessa ripetizione si passano l’uno all’altro ' +
-          'il carico che lasciano: non sono repliche in più del suo risultato finale. La ' +
+          'il carico che lasciano: non sono ripetizioni in più del suo risultato finale. La ' +
           'precisione va stimata sulle ripetizioni, e non esiste un fattore universale che si ' +
           'possa ricavare dal solo rapporto fra valutazioni e ripetizioni.</p>') +
       '<p class="caso-eti">Come sono andati i singoli nodi</p>' + esitiNodo +
@@ -1389,7 +1389,7 @@
       '</div></div>';
 
     q('esiti').innerHTML = distribuzioneEsiti(m) +
-      '<p class="nota">Su ' + num(m.ripetizioni, 0) + ' ripetizioni della stessa scena. ' +
+      '<p class="nota">Sono ' + num(m.ripetizioni, 0) + ' ripetizioni della stessa scena. ' +
       'Se esce una barra sola, non è un errore. Quando la catena, cioè la scena vista come ' +
       'una fila di anelli, un gesto dopo l’altro, è lunga, l’esito complessivo è quello ' +
       'dell’anello peggiore. E più anelli ci sono, più è probabile che almeno uno vada ' +

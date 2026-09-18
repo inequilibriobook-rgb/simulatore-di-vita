@@ -2033,7 +2033,7 @@
     /* tre frasi, tre soggetti chiari: il gesto, il carico, l'assetto */
     return verso + ', e il modello lo chiama «' + q.etichetta + '». ' +
       costoBreve + (res.delta.STR === 0 ? ' e resta a ' : ' e chiude a ') +
-      res.stato_dopo.stress_str + ', l’assetto è a ' + res.stato_dopo.posizione_pos + '.';
+      res.stato_dopo.stress_str + ', l’assetto (quanto sei ancora orientato dentro la scena) è a ' + res.stato_dopo.posizione_pos + '.';
   }
 
   function elenco(voci) {

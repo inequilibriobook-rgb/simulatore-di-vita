@@ -60,8 +60,9 @@
                 coda: ' Più le condizioni peggiorano, più corto deve essere, perché quando ' +
                       'resta poco da fare dirlo in fretta vale più che spiegarlo a lungo.' },
     soglia:   { titolo: 'Qui il racconto dice una cosa sola.',
-                coda: ' Non è più corto degli altri, è più stretto: tutto lo spazio va a ' +
-                      'quella, perché oltre questa soglia è l’unica che sposti ancora qualcosa.' },
+                coda: ' Non è più corto del solito, è più stretto: tutto lo spazio va a ' +
+                      'quella cosa sola, perché oltre questa soglia è l’unica su cui si può ' +
+                      'ancora intervenire.' },
     stretto:  { titolo: 'Il racconto si stringe.',
                 coda: ' Non è una sintesi frettolosa: a questa distanza contano le cose ' +
                       'che si ripetono, non i singoli giorni, e tutto il resto farebbe ' +

@@ -379,13 +379,13 @@
       arco: r.arco,
       sotto_il_minimo: quante < r.min,
       nota: quante < r.min
-        ? 'La guida 3.2 consiglia ' + r.min + '–' + r.max + ' domande per «' + r.arco.toLowerCase() +
+        ? 'La guida tecnica del modello consiglia ' + r.min + '–' + r.max + ' domande per «' + r.arco.toLowerCase() +
           '». Qui ne vengono fatte ' + quante + ': la banca di domande è più ' +
                                                        'piccola di quella che la guida ' +
                                                        'presuppone. Il risultato resta ' +
                                                        'leggibile. La copertura però è ' +
                                                        'quella di ' + quante + ' domande, non di ' + r.min + '.'
-        : 'In linea con le ' + r.min + '–' + r.max + ' domande che la guida consiglia per «' +
+        : 'In linea con le ' + r.min + '–' + r.max + ' domande che la guida tecnica del modello consiglia per «' +
           r.arco.toLowerCase() + '».'
     };
   }

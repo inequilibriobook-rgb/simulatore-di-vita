@@ -640,8 +640,9 @@
             ? 'L’intervallo è sceso sotto ±' + conLaVirgola(soglia) + ' dopo ' +
               (bastaA === 1 ? 'una ripetizione' : conLeMigliaia(bastaA) + ' ripetizioni') +
               '. È il primo passaggio osservato sotto la soglia. Altre ripetizioni possono ' +
-              'ancora cambiare la media e la fascia. Controllare la soglia a ogni ' +
-              'tappa non garantisce una copertura del 95 per cento quando ci si ferma.'
+              'ancora cambiare la media e la fascia. E c’è una cosa da sapere: se ci si ferma ' +
+              'nel momento esatto in cui la fascia scende sotto la soglia, quel «95 per cento» ' +
+              'vale un po’ meno di quanto promette, perché si è scelto il momento buono per fermarsi.'
             : 'Dopo ' + (tot === 1 ? 'una ripetizione' : conLeMigliaia(tot) + ' ripetizioni') +
               ' l’intervallo è ancora ±' + conLaVirgola(ultima.semiampiezza) +
               '. È più largo della soglia ±' + conLaVirgola(soglia) +

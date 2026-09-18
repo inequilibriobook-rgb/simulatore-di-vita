@@ -108,7 +108,7 @@
       rischio: 'trasformarla in una spirale lunga troppo presto' },
     { id: 'mini_settimana', nome: 'Mini-settimana', ampiezza: 'Più giorni o episodi ripetuti',
       misura: 'l’accumulo breve-medio',
-      trasferisce: 'recupero parziale, costo residuo, ri4 iniziale',
+      trasferisce: 'recupero parziale, costo residuo, il rientro lungo iniziale',
       rischio: 'credere che il recupero sia pieno, oppure che non ci sia affatto' },
     { id: 'traiettoria_lunga', nome: 'Traiettoria', ampiezza: 'Giorni o settimane',
       misura: 'il regime di carico e recupero',
