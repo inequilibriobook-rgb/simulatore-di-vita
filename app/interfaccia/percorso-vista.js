@@ -356,6 +356,56 @@
     Array.prototype.forEach.call(document.querySelectorAll('input[type="range"]'), riempi);
   }
 
+  /* LA PAGINA STA FERMA MENTRE SI MUOVE UN CURSORE (Igor, 18/09/2026, dal
+     Redmi: «ogni volta che muovo un cursore l'app mi sposta lo schermo in
+     alto, e non so piu' da dove sono partito»). Non e' il codice
+     dell'app: e' Chrome per Android, che al termine del tocco da' il fuoco
+     al cursore e lo «porta in vista» sbagliando i conti, di un quarto di
+     schermo. Due rimedi, uno sopra l'altro:
+     1. al primo tocco il cursore riceve il fuoco subito, senza scorrere
+        (focus con preventScroll): il browser non ha piu' niente da
+        portare in vista alla fine;
+     2. finche' il dito trascina il cursore (cioe' dal primo cambio di
+        valore fino a poco dopo che si alza), la pagina e' bloccata: se
+        qualcosa la muove, torna dov'era. Un dito che scorre la pagina
+        partendo sopra un cursore non cambia il valore, quindi non entra
+        qui e scorre come sempre.
+     Un ascoltatore solo sul documento, come per il riempimento. */
+  var presa = null;      /* { el, y } finche' un cursore e' preso col dito */
+  var fermaFino = 0;     /* momento fino al quale la pagina resta ferma */
+  function ancoraFerma() {
+    if (!presa || Date.now() > fermaFino) { presa = null; return; }
+    var y = presa.y;
+    if (Math.abs(globale.pageYOffset - y) < 2) { return; }
+    var radice = document.documentElement, prima = radice.style.scrollBehavior;
+    radice.style.scrollBehavior = 'auto';
+    try { globale.scrollTo({ top: y, left: 0, behavior: 'instant' }); } catch (e) { globale.scrollTo(0, y); }
+    radice.style.scrollBehavior = prima;
+  }
+  function eCursore(t) { return !!(t && t.matches && t.matches('input[type="range"]')); }
+  document.addEventListener('touchstart', function (e) {
+    var t = e.target;
+    if (!eCursore(t)) { return; }
+    if (document.activeElement !== t) {
+      try { t.focus({ preventScroll: true }); } catch (x) { /* browser vecchio: niente fuoco anticipato */ }
+    }
+    presa = { el: t, y: globale.pageYOffset, trascina: false };
+    fermaFino = 0;
+  }, { capture: true, passive: true });
+  document.addEventListener('input', function (e) {
+    if (presa && e.target === presa.el) { presa.trascina = true; fermaFino = Date.now() + 1500; ancoraFerma(); }
+  }, true);
+  document.addEventListener('scroll', function () {
+    if (presa && presa.trascina) { ancoraFerma(); }
+  }, { capture: true, passive: true });
+  function lascia() {
+    if (!presa) { return; }
+    if (presa.trascina) { fermaFino = Date.now() + 600; setTimeout(function () { presa = null; }, 620); }
+    else { presa = null; }
+  }
+  document.addEventListener('touchend', lascia, { capture: true, passive: true });
+  document.addEventListener('touchcancel', lascia, { capture: true, passive: true });
+
   function avvia() {
     var qui = P.qualePagina();
     numeraSezioni();
