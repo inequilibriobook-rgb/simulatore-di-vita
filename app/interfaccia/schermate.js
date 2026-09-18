@@ -252,6 +252,7 @@
         var hN = nuovo.getBoundingClientRect().height;
         scheda.style.minHeight = Math.max(hV, hN) + 'px';
         vecchio.classList.add('esce-' + verso);
+        nuovo.classList.add('entra-' + verso);
         var sb = segnalibro(nuovo);
         sb.textContent = 'Continua da qui · foglio ' + (i + 1) + ' di ' + schermate.length;
         sb.hidden = false;
@@ -261,9 +262,10 @@
         sfogliaInCorso = stato;
         stato.t1 = setTimeout(function () {
           vecchio.classList.remove('qui', 'esce-' + verso);
+          nuovo.classList.remove('entra-' + verso);
           scheda.style.minHeight = '';
           sfogliaInCorso = null;
-        }, 960);
+        }, 980);
         stato.t2 = setTimeout(function () { if (titolo) { titolo.classList.remove("onda"); } }, 2300);
       } else {
         schermate.forEach(function (d, j) { d.classList.toggle('qui', j === i); });
