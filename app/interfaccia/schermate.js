@@ -133,11 +133,22 @@
        schermata; una figura fa foglio da sola, con quello che la precede;
        il titolo del capitolo (h2) resta fuori, sopra tutti i fogli. */
     var perFoglio = parseInt(scheda.getAttribute('data-fogli') || '0', 10);
-    var testa = null;
+    /* IL TITOLO RESTA FUORI DAI FOGLI, sempre (18/09/2026, dal Redmi di
+       Igor). Nel modello letto per intero il titolo del capitolo — l'h2 —
+       finiva dentro il primo foglio e dal secondo in poi spariva: e allora
+       l'ancora «sul titolo» non aveva piu' un titolo. Un occhiello e un h2
+       in testa alla sezione stanno sopra tutti i fogli, in ogni modalita'. */
+    var testa = null, testaNodi = [];
+    while (figli.length && figli[0].nodeType === 1 &&
+           (figli[0].tagName === 'H2' || (figli[0].classList && figli[0].classList.contains('occhiello') && !testa))) {
+      var t = figli.shift();
+      testaNodi.push(t);
+      if (t.tagName === 'H2') { testa = t; break; }
+    }
+    if (!testa) { figli = testaNodi.concat(figli); testaNodi = []; }
     if (perFoglio > 0) {
       figli.forEach(function (n) {
         var el = n.nodeType === 1;
-        if (el && n.tagName === 'H2' && !passi.length && !corrente) { testa = n; return; }
         var figura = el && n.classList && n.classList.contains('figura');
         if (!corrente || corrente.nodi.length >= perFoglio || (figura && corrente.nodi.length >= 2)) {
           corrente = { titolo: null, nodi: [] };
@@ -184,7 +195,7 @@
     if (passi.length < 2) { return; }
 
     scheda.innerHTML = '';
-    if (testa) { scheda.appendChild(testa); }
+    testaNodi.forEach(function (n) { scheda.appendChild(n); });
     scheda.classList.add('passi');
     if (perFoglio > 0) { scheda.classList.add('fogli'); }
     var schermate = passi.map(function (p, i) {
@@ -239,12 +250,55 @@
       }
       return s;
     }
+    /* L'ANCORA, MISURATA DAL VIVO (18/09/2026, dal Redmi Note 9S di Igor:
+       «sul mio Android non funziona come sull'iPhone»). Prima la distanza
+       dalla barra era un numero fisso nel foglio di stile, tarato su uno
+       schermo solo, e lo scorrimento passava per scrollIntoView, che su
+       Chrome per Android eredita lo scorrimento morbido della pagina: il
+       titolo arrivava a posto in ottocento millisecondi, scivolando sotto
+       il foglio che girava. Adesso si misura la barra fissa com'e' su
+       questo schermo (piu' la riga del capitolo corrente e la barra delle
+       schede, quando ci sono), si mette il titolo — o la cima della scheda,
+       se un titolo non c'e' — a 36 px sotto, e lo si fa di colpo,
+       spegnendo per un istante lo scorrimento morbido. L'ancoraggio
+       automatico del browser (che «tiene fermo» il contenuto quando la
+       pagina cambia altezza) e' spento sui fogli, se no rispingeva la
+       pagina da sola. */
+    var SOTTO_LA_BARRA = 36;
+    function spazioFisso() {
+      var sopra = 0;
+      var fissi = [document.querySelector('.app-barra'), document.querySelector('.riga-corrente')];
+      var gruppo = scheda.closest('.con-schede');
+      if (gruppo) { fissi.push(gruppo.querySelector(':scope > .schede-nav')); }
+      fissi.forEach(function (el) {
+        if (!el) { return; }
+        var cs = getComputedStyle(el);
+        var r = el.getBoundingClientRect();
+        if (r.height <= 0 || cs.display === 'none' || cs.visibility === 'hidden') { return; }
+        if (cs.position === 'sticky' || cs.position === 'fixed') { sopra = Math.max(sopra, (parseFloat(cs.top) || 0) + r.height); }
+      });
+      return sopra;
+    }
+    function portaAllAncora() {
+      /* la mira e' il titolo della sezione (quello su cui passa l'onda);
+         se non c'e' o e' nascosto, l'h2 in testa ai fogli; se no la scheda */
+      function visibile(el) { return !!el && el.getBoundingClientRect().height > 0; }
+      var mira = visibile(titolo) ? titolo : (visibile(testa) ? testa : scheda);
+      var y = Math.max(0, window.pageYOffset + mira.getBoundingClientRect().top - spazioFisso() - SOTTO_LA_BARRA);
+      var radice = document.documentElement;
+      var prima = radice.style.scrollBehavior;
+      radice.style.scrollBehavior = 'auto';
+      try { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, y); }
+      if (Math.abs(window.pageYOffset - y) > 1) { window.scrollTo(0, y); }
+      radice.style.scrollBehavior = prima;
+      return y;
+    }
     function mostra(k, sfoglia) {
       var prima = i;
       i = Math.max(0, Math.min(schermate.length - 1, k));
       var verso = i > prima ? 'avanti' : (i < prima ? 'indietro' : '');
       if (sfogliaInCorso) {
-        clearTimeout(sfogliaInCorso.t1); clearTimeout(sfogliaInCorso.t2);
+        clearTimeout(sfogliaInCorso.t1); clearTimeout(sfogliaInCorso.t2); clearTimeout(sfogliaInCorso.t3);
         sfogliaInCorso.vecchio.classList.remove('esce-avanti', 'esce-indietro');
         sfogliaInCorso.nuovo.classList.remove('entra-avanti', 'entra-indietro');
         scheda.style.minHeight = '';
@@ -300,8 +354,16 @@
          cima, di colpo e non con lo scorrimento morbido, cosi' il titolo
          sta esattamente dove stava: lo sfogliare avviene sotto un titolo
          fermo. Lo spazio per la barra fissa lo da' scroll-margin-top. */
-      if (sfoglia && prima !== i) {
-        try { scheda.scrollIntoView({ block: 'start', behavior: 'auto' }); } catch (e) { scheda.scrollIntoView(true); }
+      if (sfoglia && verso && prima !== i) {
+        var yAncora = portaAllAncora();
+        /* a fine sfogliata, se nessuno ha toccato la pagina nel frattempo,
+           si ricontrolla: un carattere arrivato tardi o una riga in piu'
+           sopra possono aver spostato il titolo di qualche pixel */
+        if (sfogliaInCorso) {
+          sfogliaInCorso.t3 = setTimeout(function () {
+            if (Math.abs(window.pageYOffset - yAncora) < 2) { portaAllAncora(); }
+          }, 1000);
+        }
       }
       if (globale.FormuleVista && globale.FormuleVista.adatta) {
         setTimeout(function () { globale.FormuleVista.adatta(schermate[i]); }, 30);

@@ -3118,7 +3118,7 @@ body.lettura { background: var(--piano); }
 @media print { .apribile-corpo { display: block !important; } .apribile-freccia { display: none; } }
 
 /* --- le schede a passi --- */
-.passi { position: relative; perspective: 1800px; }
+.passi { position: relative; perspective: 1800px; overflow-anchor: none; }
 .passi .passo { display: none; }
 .passi .passo.qui { display: block; }
 /* LO SFOGLIARE (18/09/2026, terza versione). Igor: «le due pagine unite,
