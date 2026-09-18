@@ -263,8 +263,8 @@
           vecchio.classList.remove('qui', 'esce-' + verso);
           scheda.style.minHeight = '';
           sfogliaInCorso = null;
-        }, 720);
-        stato.t2 = setTimeout(function () { if (titolo) { titolo.classList.remove('onda'); } }, 1600);
+        }, 960);
+        stato.t2 = setTimeout(function () { if (titolo) { titolo.classList.remove("onda"); } }, 2300);
       } else {
         schermate.forEach(function (d, j) { d.classList.toggle('qui', j === i); });
       }

@@ -619,7 +619,7 @@
         /* la freccia e' disegnata dal foglio di stile (punta e asta), cosi'
            e' grossa e nitida a ogni misura */
         '<span class="freccia-su" aria-hidden="true"></span>' +
-        '<small>' + (lettura ? 'Capitoli' : 'In alto') + '</small>';
+        '<small' + (lettura ? ' class="lunga"' : '') + '>' + (lettura ? 'Capitoli' : 'In alto') + '</small>';
       b.hidden = true;
       document.body.appendChild(b);
       b.addEventListener('click', function () {
