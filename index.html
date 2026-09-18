@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Simulatore di vita 3.0</title>
+<meta name="description" content="Il simulatore che accompagna il libro «Simulatore di vita 3.0»: prende un gesto piccolo in una giornata qualsiasi, dice che probabilità hai di riuscire e quanto ti costerà, poi tira il dado e racconta com’è andata. Funziona sul telefono, sul tablet e sul computer, anche senza rete.">
+<meta property="og:title" content="Simulatore di vita 3.0">
+<meta property="og:description" content="Che probabilità hai di riuscire, e quanto ti costerà. Il simulatore del libro, sul telefono e sul computer.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="app/icone/icona-512.png">
+<meta name="robots" content="index, follow">
 <!-- LA PAGINA DI BENVENUTO (17/09/2026).
      Igor: «siccome è una web app, scriverei una pagina introduttiva: due righe, elegante,
      professionale ma anche un po' simpatica, animata, con il tasto che attiva il
@@ -92,6 +98,32 @@
   @media (prefers-reduced-motion: reduce) {
     .anima .dado, .anima .punto, .anima .occhiello, .anima h1, .anima .righe, .anima .entra, .anima .nota { animation: none; }
   }
+
+  /* LA VETRINA (18/09/2026): sotto il benvenuto, per chi arriva qui senza
+     sapere niente — che cosa fa, come funziona, il libro, come si ottiene.
+     Il benvenuto resta a schermo intero; la vetrina comincia sotto, e ci si
+     arriva scorrendo o con il tasto «Scopri di più». */
+  body { display: block; padding: 0; }
+  .benvenuto { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto; padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .scopri { margin: 18px 0 0; font-size: 13px; color: var(--inchiostro-3); text-decoration: none; letter-spacing: .08em; text-transform: uppercase; }
+  .scopri:hover { color: var(--azione); }
+  .vetrina { max-width: 720px; margin: 0 auto; padding: 8px 20px 60px; text-align: left; }
+  .vetrina h2 { font-size: 22px; letter-spacing: -.01em; margin: 40px 0 12px; }
+  .vetrina p { font-size: 16px; line-height: 1.6; color: var(--inchiostro-2); margin: 0 0 12px; }
+  .vetrina p b { color: var(--inchiostro); }
+  .schede { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 8px; }
+  .scheda { background: var(--superficie); border: 1px solid var(--bordo); border-radius: 16px; padding: 18px 18px 16px; }
+  .scheda .n { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: var(--azione); color: var(--su-azione); font-weight: 800; margin-bottom: 10px; }
+  .scheda h3 { margin: 0 0 6px; font-size: 16px; }
+  .scheda p { font-size: 14px; margin: 0; }
+  .tasti { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .tasto { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 14px; font-weight: 700; text-decoration: none; font-size: 16px; }
+  .tasto.pieno { background: var(--azione); color: var(--su-azione); }
+  .tasto.vuoto { border: 1.5px solid var(--azione); color: var(--azione); background: transparent; }
+  .tasto[hidden] { display: none; }
+  .ottieni { background: var(--superficie); border: 1px solid var(--bordo); border-radius: 18px; padding: 22px 22px 20px; }
+  .piede { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--bordo); font-size: 13px; color: var(--inchiostro-3); }
+  .piede a { color: inherit; }
 </style>
 </head>
 <body>
@@ -111,7 +143,60 @@
   <p class="righe">Prende un gesto piccolo in una giornata qualsiasi. Alzarsi, scrivere un messaggio, uscire in orario, e ti dice <b>che probabilità hai di riuscire</b> e <b>quanto ti costerà</b>. Poi tira il dado e ti racconta com’è andata.</p>
   <a class="entra" href="APRI-QUI.html">Entra nel simulatore <span class="freccia" aria-hidden="true">→</span></a>
   <p class="nota">Niente da installare, niente uscirà da qui: tutto resta sul tuo dispositivo.</p>
+  <a class="scopri" href="#vetrina">Scopri di più ↓</a>
 </main>
+
+<section class="vetrina" id="vetrina">
+  <h2>Che cosa fa</h2>
+  <p>Descrivi un gesto qualsiasi — alzarti, scrivere quel messaggio, uscire in orario — e come stai in quel momento: quanto sei stanco, quanta fretta hai, quanto è chiaro quello che devi fare. Il simulatore ti dice <b>che probabilità hai di riuscirci adesso</b>, non in generale, e <b>quanto ti costerà</b> anche se riesci. Poi tira il dado, e ti racconta com’è andata, in italiano, come farebbe una persona che ti conosce.</p>
+  <h2>Come funziona</h2>
+  <div class="schede">
+    <div class="scheda"><span class="n">1</span><h3>Un gesto</h3><p>Nove cursori, un dado, un racconto. La pagina in cui si vede il legame fra una condizione che cambia e un numero che cambia.</p></div>
+    <div class="scheda"><span class="n">2</span><h3>Una mattina</h3><p>Più gesti di fila: la fatica di uno passa al successivo, e la stessa mattina si può rifare mille volte con dadi diversi.</p></div>
+    <div class="scheda"><span class="n">3</span><h3>Una settimana</h3><p>Sette giorni con la notte in mezzo: si vede se il recupero regge, e dov’è il punto di non ritorno.</p></div>
+    <div class="scheda"><span class="n">4</span><h3>Una traiettoria</h3><p>Più settimane di seguito: si vede se il modo di vivere sta cambiando, un po’ alla volta.</p></div>
+  </div>
+  <p style="margin-top:14px">Non serve sapere niente di matematica o di statistica: ogni parola con il punto interrogativo si spiega da sola, e c’è una strada fatta di domande per chi non sa quali numeri mettere.</p>
+
+  <h2>Il libro</h2>
+  <p id="vetrinaLibro">Il simulatore è la versione che funziona del libro <b>Simulatore di vita 3.0 — Il prezzo nascosto di ogni cosa</b>: le stesse regole, gli stessi esempi, gli stessi numeri. Il libro spiega il modello dall’inizio alla fine; il simulatore lo fa girare. Si possono usare insieme o uno senza l’altro.</p>
+  <div class="tasti" id="tastiLibro"></div>
+
+  <h2>Come si ottiene</h2>
+  <div class="ottieni" id="ottieni"></div>
+
+  <p class="piede" id="piede"></p>
+</section>
+
+<script src="app/dati/vetrina.js"></script>
+<script>
+(function () {
+  /* la vetrina legge app/dati/vetrina.js: cambiare canale di vendita vuol
+     dire cambiare quel file, non questa pagina */
+  var V = window.Vetrina || {};
+  var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var tasti = document.getElementById('tastiLibro');
+  if (V.libro && V.libro.url) {
+    tasti.innerHTML = '<a class="tasto vuoto" href="' + esc(V.libro.url) + '" rel="noopener">Il libro</a>';
+  }
+  var o = document.getElementById('ottieni');
+  var mail = 'mailto:' + (V.contatto || '') + '?subject=' + encodeURIComponent('Simulatore di vita 3.0');
+  if (V.modalita === 'vendita' && V.acquisto && V.acquisto.url) {
+    o.innerHTML = '<p>Il simulatore si acquista qui sotto: dopo il pagamento ricevi l’indirizzo per usarlo sul telefono, sul tablet e sul computer, e il pacchetto da tenere sul tuo disco, che funziona anche senza rete.</p>' +
+      '<div class="tasti"><a class="tasto pieno" href="' + esc(V.acquisto.url) + '" rel="noopener">Acquista' + (V.acquisto.prezzo ? ' · ' + esc(V.acquisto.prezzo) : '') + '</a>' +
+      '<a class="tasto vuoto" href="' + mail + '">Scrivi all’autore</a></div>';
+  } else if (V.modalita === 'aperto') {
+    o.innerHTML = '<p>Il simulatore è aperto a tutti: entra e basta. Sul telefono lo puoi aggiungere alla schermata Home, e da lì funziona anche senza rete.</p>' +
+      '<div class="tasti"><a class="tasto pieno" href="APRI-QUI.html">Entra nel simulatore</a></div>';
+  } else {
+    o.innerHTML = '<p>Il simulatore accompagna il libro. Chi ha il libro scrive all’autore, con il proprio nome e la ricevuta d’acquisto, e riceve l’indirizzo: da lì si usa sul telefono, sul tablet e sul computer, e si può scaricare il pacchetto da tenere sul proprio disco, che funziona anche senza rete.</p>' +
+      '<div class="tasti"><a class="tasto pieno" href="' + mail + '">Scrivi all’autore</a></div>';
+  }
+  document.getElementById('piede').innerHTML =
+    '© ' + esc(V.autore || '') + '. Tutti i diritti riservati; i termini d’uso sono in LICENZA.txt dentro il pacchetto. ' +
+    'Niente esce da questa pagina: nessun tracciamento, nessun dato raccolto. Contatto: <a href="' + mail + '">' + esc(V.contatto || '') + '</a>.';
+}());
+</script>
 <script src="app/interfaccia/installa.js"></script>
 </body>
 </html>

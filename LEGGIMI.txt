@@ -26,6 +26,11 @@ SUL TELEFONO E SUL TABLET
   app/dati/sillabazione-it.js, generato da scripts/genera_sillabazione.py,
   e app/interfaccia/sillaba.js mette i trattini morbidi nelle parole
   lunghe, così le righe si chiudono uguali su ogni browser e ogni schermo.
+  index.html e' anche la vetrina: sotto il benvenuto dice che cosa fa il
+  simulatore, come funziona, il libro, e come si ottiene; quest'ultima parte
+  la legge da app/dati/vetrina.js (modalita' libro / vendita / aperto,
+  indirizzo del libro, pagina di pagamento, contatto). LICENZA.txt sono i
+  termini d'uso, nel pacchetto.
   Nelle pagine-strumento i risultati stanno in schede (app/interfaccia/
   schermate.js, sezioni con data-scheda): se ne vede una alla volta, con
   la barra fissa in cima («‹ · Sezione 3 di 8: titolo ▾ · ›») che apre

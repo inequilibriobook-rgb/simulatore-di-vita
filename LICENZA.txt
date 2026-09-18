@@ -1,0 +1,40 @@
+SIMULATORE DI VITA 3.0 — TERMINI D'USO
+=====================================
+
+© Igor De Guglielmo. Tutti i diritti riservati.
+
+Questo pacchetto (le pagine, il codice, i testi, le figure, i dati di
+taratura) accompagna il libro «Simulatore di vita 3.0 — Il prezzo nascosto
+di ogni cosa», ed è concesso in uso a chi lo ha ricevuto dall'autore o lo
+ha acquistato dai canali che l'autore indica.
+
+CHE COSA SI PUÒ FARE
+  · usarlo, per sé, su tutti i propri dispositivi (telefono, tablet,
+    computer), anche senza rete, per tutto il tempo che si vuole;
+  · tenerne copie per sé (sul disco, su una chiavetta, come salvataggio);
+  · stampare i resoconti e i racconti che produce, e usarli come si vuole,
+    anche in un colloquio con un professionista;
+  · leggerne il codice per capire come funziona: il libro lo spiega apposta.
+
+CHE COSA NON SI PUÒ FARE
+  · darlo, venderlo, pubblicarlo o metterlo a disposizione di altri, in
+    tutto o in parte, per esempio caricandolo su un sito, in un gruppo, in
+    un archivio condiviso;
+  · togliere o cambiare questa nota, il nome dell'autore, i riferimenti al
+    libro;
+  · farne un prodotto derivato da distribuire ad altri (un'altra app, un
+    altro libro, un servizio) senza un accordo scritto con l'autore.
+
+CHE COSA IL SIMULATORE NON È
+  Non è uno strumento medico, psicologico o diagnostico, e non sostituisce
+  il giudizio di una persona competente: produce una lettura, non una
+  sentenza (il libro lo dice al capitolo 38). L'autore non risponde delle
+  decisioni prese sulla base dei numeri che il simulatore mostra.
+
+PRIVACY
+  Il pacchetto non raccoglie e non invia niente: quello che si scrive
+  resta sul dispositivo, e le sessioni si salvano e si ricaricano come
+  file, per scelta (capitolo 48 del libro).
+
+CONTATTO
+  inequilibriobook@gmail.com
