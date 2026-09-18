@@ -3526,3 +3526,56 @@ tr.glossa-riga > td > .glossa { margin-top: 4px; max-width: none; }
 /* l'occhiello (la riga in maiuscoletto sopra il titolo) resta a bandiera:
    giustificato apriva buchi fra le parole (visto il 18/09 sulla catena) */
 .occhiello, .testata .occhiello, .passo-etichetta { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+
+/* IL TITOLO DELL'OPERA, DORATO (Igor, 18/09/2026: «un titolo bello grande,
+   cangiante, una doratura, ma fine ed elegante»). Sulla pagina di apertura
+   il nome del libro sta scritto in grande, nel carattere con le grazie del
+   libro (Palatino), con una doratura vera: non un giallo piatto ma un oro
+   che passa dall'ambra al chiaro e torna al bronzo, come una foglia d'oro
+   che prende luce. La luce si sposta piano, un giro ogni sette secondi con
+   una pausa, cosi' l'occhio la sente senza che il titolo balli. Il «3.0»
+   e' in bastone, piccolo, come un marchio di edizione. Chi ha chiesto meno
+   movimento vede l'oro fermo. */
+.titolo-opera {
+  margin: 0 0 18px; line-height: 1.02; letter-spacing: -.02em;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 7.2vw, 66px); font-weight: 600;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 .28em;
+}
+.titolo-opera .dorato { display: inline-block; position: relative; }
+.titolo-opera .dorato-testo {
+  display: inline-block; padding: .04em .02em 0 0;
+  --oro-fondo: #8a6416; --oro-medio: #c4952a; --oro-chiaro: #edd27f; --oro-bronzo: #a5771d;
+  background-image: linear-gradient(112deg,
+    var(--oro-fondo) 0%, var(--oro-medio) 18%, var(--oro-chiaro) 34%, var(--oro-medio) 46%,
+    var(--oro-bronzo) 58%, var(--oro-medio) 72%, var(--oro-chiaro) 86%, var(--oro-fondo) 100%);
+  background-size: 260% 100%; background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text;
+  color: var(--oro-medio); -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.55)) drop-shadow(0 2px 2px rgba(60,40,0,.16));
+  animation: doratura 9s ease-in-out infinite;
+}
+.titolo-opera-versione {
+  font-family: var(--carattere); font-weight: 650; font-size: .42em; letter-spacing: .02em;
+  color: var(--inchiostro-2); padding: .08em .5em .1em; border: 1.5px solid var(--bordo);
+  border-radius: 999px; line-height: 1; transform: translateY(-.28em);
+}
+:root[data-tema="scuro"] .titolo-opera .dorato-testo {
+  --oro-fondo: #a37a1f; --oro-medio: #d9ad3f; --oro-chiaro: #fff0bd; --oro-bronzo: #b8892a;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 2px 6px rgba(255,214,120,.16));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="chiaro"]) .titolo-opera .dorato-testo {
+    --oro-fondo: #a37a1f; --oro-medio: #d9ad3f; --oro-chiaro: #fff0bd; --oro-bronzo: #b8892a;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 2px 6px rgba(255,214,120,.16));
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* la luce va e torna, senza mai uno scatto: da destra a sinistra e indietro */
+  @keyframes doratura { 0% { background-position: 100% 0; } 50% { background-position: 0% 0; } 100% { background-position: 100% 0; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .titolo-opera .dorato-testo { animation: none; background-position: 40% 0; }
+}
+@media print { .titolo-opera .dorato-testo { animation: none; -webkit-text-fill-color: #6b4f12; color: #6b4f12; background: none; filter: none; } }
+@media (max-width: 700px) { .titolo-opera { margin-bottom: 14px; } }
