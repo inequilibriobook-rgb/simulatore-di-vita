@@ -478,7 +478,10 @@
        nascono dopo, senza che nessuno debba richiamare niente */
     document.addEventListener('click', function (e) {
       var el = parolaDa(e.target);
-      if (el && el.getAttribute('data-glossa-pronta')) { inverti(el); }
+      if (!el || !el.getAttribute('data-glossa-pronta')) { return; }
+      /* una parola dentro un tasto non apre niente: il tocco e' del tasto */
+      if (el.closest('button, a[href], summary')) { return; }
+      inverti(el);
     });
     /* il doppio clic sul riquadro lo chiude (Igor, 17/09/2026) */
     document.addEventListener('dblclick', function (e) {

@@ -38,6 +38,15 @@
   var p0 = 70;
   var ultimo = null;
 
+  /* UNA DOMANDA PER FOGLIO, O TUTTE IN FILA (18/09/2026).
+     Igor: le domande si sfogliano una alla volta, con «← Indietro / Avanti
+     →» e i puntini — lo strumento comune di schermate.js — ma chi preferisce
+     vederle tutte in fila deve poterlo fare, com'e' gia' per i gesti di
+     LA-SCENA (.sfoglia-tutti). Di default si sfoglia: `disegnaDomande()`
+     monta i passi ogni volta che riscrive #domande; il tasto smonta o
+     rimonta, semplicemente ridisegnando. */
+  var unaAllaVolta = true;
+
   /* Le domande T17-T20 (condizioni ambientali estreme) possono ricevere un
      suggerimento di partenza dal testo libero della scena [claude/condizioni-
      estreme-senza-ia.md]. `toccateAMano` ricorda quali la persona ha già
@@ -319,7 +328,7 @@
       ? selezione.scelte.map(function (x) { return x.domanda; })
       : Q.perLivello(livello);
     disegnaSelezione();
-    q('domande').innerHTML = elenco.map(function (d) {
+    q('domande').innerHTML = elenco.map(function (d, i) {
       var corpo;
       if (d.tipo === 'scelta') {
         corpo = '<div class="opzioni">' + d.opzioni.map(function (o, i) {
@@ -346,7 +355,11 @@
         corroborante: 'conferma, sposta poco',
         cornice: 'non entra nel calcolo'
       };
-      return '<div class="domanda"><div class="testo">' + esc(d.testo) +
+      /* Il foglio si divide sull'h3 (Schermate.montaPassi): «Domanda N di
+         TOT» e' l'ancora del foglio, il testo vero della domanda resta
+         dov'era, dentro .domanda, invariato. */
+      return '<h3 class="domanda-titolo">Domanda ' + (i + 1) + ' di ' + elenco.length + '</h3>' +
+        '<div class="domanda"><div class="testo">' + esc(d.testo) +
         '<span class="targa">' + esc(targa(d.fonte)) + '</span>' +
         (RUOLO[d.ruolo] ? '<span class="targa" title="Misurato su 4.000 questionari compilati: ' +
           'questa domanda da sola sposta il risultato di meno di mezzo punto.">' +
@@ -360,7 +373,43 @@
     elenco.forEach(function (d) {
       if (d.tipo === 'scala' && risposte[d.id] !== undefined) { aggiornaEffScala(d, risposte[d.id]); }
     });
+    aggiornaSfogliaDomande(elenco.length);
+    montaDomandePassi();
     aggiornaAvanzamento();
+  }
+
+  /* IL TASTO «TUTTE IN FILA / UNA ALLA VOLTA» (come .sfoglia-tutti in
+     LA-SCENA, scena-ui.js: sfogliaNodi). Con meno di due domande non c'e'
+     niente da sfogliare, e il tasto si nasconde. */
+  function aggiornaSfogliaDomande(totale) {
+    var b = q('tutteInFilaDomande');
+    if (!b) { return; }
+    b.hidden = totale < 2;
+    b.textContent = unaAllaVolta ? 'Tutte in fila' : 'Una alla volta';
+  }
+
+  /* MONTARE (O NON MONTARE) I PASSI.
+     Ogni volta che disegnaDomande() riscrive #domande — cambio di livello,
+     di scena, azzeramento — il contenitore va rimontato da zero: prima si
+     toglie il segno che Schermate ha gia' montato (`el.__passi = false`,
+     tolta la classe `passi`), come dice il commento in testa a
+     schermate.js. Se si preferisce vedere tutte le domande in fila, non si
+     monta affatto: l'HTML resta quello scritto sopra, gia' in fila. */
+  function montaDomandePassi() {
+    var el = q('domande');
+    if (!window.Schermate || !unaAllaVolta) { return; }
+    el.__passi = false;
+    el.classList.remove('passi');
+    window.Schermate.montaPassi(el);
+  }
+
+  function collegaSfogliaDomande() {
+    var b = q('tutteInFilaDomande');
+    if (!b) { return; }
+    b.addEventListener('click', function () {
+      unaAllaVolta = !unaAllaVolta;
+      disegnaDomande();
+    });
   }
 
   function motivoDi(id) {
@@ -810,6 +859,7 @@
   disegnaLivelli();
   disegnaDomande();
   collegaDomande();
+  collegaSfogliaDomande();
   valutaSicurezza();
   tema();
   stampa();

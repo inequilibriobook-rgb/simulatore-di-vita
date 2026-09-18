@@ -297,17 +297,17 @@
 
       (caso.nota ? '<p class="caso-nota">' + esc(caso.nota) + '</p>' : '') +
 
-      '<p class="caso-eti">I nove valori della scheda</p>' +
+      '<h4 class="caso-eti">I nove valori della scheda</h4>' +
       '<div class="tasselli">' +
         tassello('P0', v.P0) + tassello('E', v.E) + tassello('I', v.I) + tassello('T', v.T) +
         tassello('M', v.M) + tassello('BP', v.BP) + tassello('C', v.C) +
         tassello('STR', v.STR) + tassello('DEB', v.DEB) +
       '</div>' +
 
-      '<p class="caso-eti">Che cosa aggiunge e che cosa toglie</p>' +
+      '<h4 class="caso-eti">Che cosa aggiunge e che cosa toglie</h4>' +
       barraTermini(caso) +
 
-      '<p class="caso-eti">Come li legge il libro</p>' +
+      '<h4 class="caso-eti">Come li legge il libro</h4>' +
       '<p class="caso-conti">' + esc(caso.conti) + '</p>' +
       '<p class="caso-lettura"><b>' + esc(f.nome.charAt(0).toUpperCase() + f.nome.slice(1)) +
         ':</b> ' + esc(f.dice) + '. ' + esc(caso.lettura) + '</p>' +
@@ -429,23 +429,48 @@
     }).join('') + '</div>';
   }
 
+  /* UN CASO ALLA VOLTA (18/09/2026). Igor: la sezione 2 mostrava la griglia
+     delle dodici schede e sotto il caso aperto, 4.500 px sul telefono.
+     Adesso si vede un caso per volta, con la barra «‹ Caso 3 di 12: titolo
+     ›» — le stesse classi di .sfoglia-nodi che usa LA-SCENA per i gesti,
+     cosi' e' la stessa cosa vista due volte — e la griglia delle dodici
+     schede resta ma chiusa in un <details>, per chi vuole saltare a una
+     scheda precisa invece di sfogliare. */
+  function indiceCaso(id) {
+    for (var k = 0; k < C.CASI.length; k++) { if (C.CASI[k].id === id) { return k; } }
+    return -1;
+  }
+  function barraCasi(indice) {
+    var caso = C.CASI[indice];
+    return '<div class="sfoglia-nodi no-stampa">' +
+      '<button type="button" class="sfoglia-prima" aria-label="Caso precedente"' +
+        (indice === 0 ? ' disabled' : '') + '>‹</button>' +
+      '<div class="sfoglia-dove"><small>Caso ' + (indice + 1) + ' di ' + C.CASI.length +
+        '</small><b>' + esc(caso.titolo) + '</b></div>' +
+      '<button type="button" class="sfoglia-dopo" aria-label="Caso successivo"' +
+        (indice === C.CASI.length - 1 ? ' disabled' : '') + '>›</button>' +
+      '</div>';
+  }
   function apri(id) {
-    var caso = C.CASI.filter(function (c) { return c.id === id; })[0];
-    if (!caso) { return; }
+    var indice = indiceCaso(id);
+    if (indice < 0) { return; }
+    var caso = C.CASI[indice];
     var dove = q('dettaglioCaso');
-    dove.innerHTML = '<div class="apertura"><h3>' + esc(caso.titolo) + '</h3>' +
-      '<button type="button" class="fantasma" id="chiudiCaso">Chiudi</button></div>' +
-      dettaglio(caso);
-    dove.hidden = false;
+    dove.innerHTML = barraCasi(indice) + dettaglio(caso);
     Array.prototype.forEach.call(document.querySelectorAll('.carta-caso'), function (b) {
       b.classList.toggle('scelta', b.getAttribute('data-caso') === id);
     });
-    q('chiudiCaso').addEventListener('click', function () {
-      dove.hidden = true;
-      Array.prototype.forEach.call(document.querySelectorAll('.carta-caso'), function (b) {
-        b.classList.remove('scelta');
-      });
-    });
+    var prima = dove.querySelector('.sfoglia-prima'), dopo = dove.querySelector('.sfoglia-dopo');
+    if (prima) { prima.addEventListener('click', function () { apri(C.CASI[indice - 1].id); }); }
+    if (dopo) { dopo.addEventListener('click', function () { apri(C.CASI[indice + 1].id); }); }
+    /* la scheda ha piu' parti — scena, valori, conti, lettura — segnate
+       dagli h4 qui sopra: si sfoglia come il racconto (#racconto), un
+       pezzo alla volta, ogni volta che il caso viene ridisegnato. */
+    var box = dove.querySelector('.caso-aperto');
+    if (box && window.Schermate && window.Schermate.montaPassi) {
+      box.setAttribute('data-passi', 'h4');
+      window.Schermate.montaPassi(box);
+    }
     /* le parole appena create prendono il loro punto interrogativo: il
        glossario ha gia' un osservatore sul documento, ma chiamarlo qui
        evita il fotogramma in cui le parole ci sono e i segni no */

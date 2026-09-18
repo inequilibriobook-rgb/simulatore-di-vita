@@ -45,7 +45,20 @@
       }
       reg.addEventListener('updatefound', function () { quandoPronto(reg.installing); });
       if (reg.waiting && navigator.serviceWorker.controller) { avvisaNuovaVersione(); }
-      if (reg.update) { reg.update(); }
+      if (reg.update) {
+        reg.update();
+        /* (18/09/2026) e si ricontrolla ogni volta che l'app torna in primo
+           piano e ogni mezz'ora: cosi' la striscia compare anche senza
+           chiudere e riaprire, che sul telefono nessuno fa */
+        var ultimo = Date.now();
+        function ricontrolla() {
+          if (Date.now() - ultimo < 60000) { return; }
+          ultimo = Date.now();
+          try { reg.update(); } catch (e) { /* offline: pazienza */ }
+        }
+        document.addEventListener('visibilitychange', function () { if (!document.hidden) { ricontrolla(); } });
+        globale.setInterval(ricontrolla, 30 * 60 * 1000);
+      }
     }).catch(function () { /* niente: si va avanti senza cache */ });
   }
 

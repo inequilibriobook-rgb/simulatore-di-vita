@@ -292,12 +292,42 @@
   }
 
   /* ---- azioni ---- */
+  /* IL DADO HA IL SUO MOMENTO (18/09/2026). Prima il numero compariva e
+     basta. Adesso, per sei decimi di secondo, il tasto trema e mostra
+     numeri che corrono (a caso, solo per l'occhio: il tiro vero lo decide
+     il generatore con il seme, come sempre), poi si ferma sul numero
+     uscito, e solo allora la pagina si ridisegna. Chi ha chiesto meno
+     animazioni al telefono salta il momento. */
+  var rotolando = false;
   function tira() {
+    if (rotolando) { return; }
     ultimoTiro = rng.randint(1, 100);
     contatoreTiri++;
     q('statoSeme').textContent = 'Seme ' + seme + ' · ' +
       Lg.plurale(contatoreTiri, 'tiro fatto', 'tiri fatti');
-    disegna(true);
+    var tasto = q('tira');
+    var riduci = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!tasto || riduci) { disegna(true); return; }
+    rotolando = true;
+    var testoPrima = tasto.innerHTML;
+    tasto.classList.add('rotola');
+    tasto.disabled = true;
+    var giri = 0;
+    var corsa = setInterval(function () {
+      giri++;
+      tasto.innerHTML = '<span class="dado-corre">' + (1 + Math.floor(Math.random() * 100)) + '</span>';
+      if (giri >= 9) {
+        clearInterval(corsa);
+        tasto.innerHTML = '<span class="dado-corre fermo">' + ultimoTiro + '</span>';
+        setTimeout(function () {
+          tasto.classList.remove('rotola');
+          tasto.disabled = false;
+          tasto.innerHTML = testoPrima;
+          rotolando = false;
+          disegna(true);
+        }, 420);
+      }
+    }, 65);
   }
 
   function reimpostaSeme() {

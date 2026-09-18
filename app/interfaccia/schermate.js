@@ -165,6 +165,22 @@
       });
     }
     passi = passi.filter(function (p) { return p.titolo || p.nodi.length; });
+    /* data-passi-per="2": due parti per foglio (il racconto in otto parti
+       faceva otto «Avanti»: troppi, ha detto Igor; quattro fogli da due
+       parti si leggono meglio) */
+    var per = parseInt(scheda.getAttribute('data-passi-per') || '1', 10);
+    if (per > 1 && passi.length > 2) {
+      var uniti = [];
+      passi.forEach(function (p, k) {
+        if (k % per === 0 || !uniti.length) { uniti.push({ titolo: p.titolo, nodi: p.nodi.slice() }); }
+        else {
+          var u = uniti[uniti.length - 1];
+          if (p.titolo) { u.nodi.push(p.titolo); }
+          u.nodi = u.nodi.concat(p.nodi);
+        }
+      });
+      passi = uniti;
+    }
     if (passi.length < 2) { return; }
 
     scheda.innerHTML = '';
@@ -293,6 +309,30 @@
     }
     indietro.addEventListener('click', function () { mostra(i - 1, true); });
     avanti.addEventListener('click', function () { mostra(i + 1, true); });
+    /* SI SFOGLIA ANCHE COL DITO E CON LE FRECCE (18/09/2026). Un trascinamento
+       orizzontale di almeno 60 px sul foglio (e non piu' di 40 in verticale,
+       per non confondersi con lo scorrimento) gira il foglio; le frecce
+       sinistra/destra della tastiera fanno lo stesso quando il fuoco e'
+       dentro la scheda. I campi di testo e i cursori sono esclusi. */
+    var t0 = null;
+    scheda.addEventListener('touchstart', function (e) {
+      if (!e.touches || e.touches.length !== 1) { t0 = null; return; }
+      if (e.target.closest && e.target.closest('input, textarea, select, .avvolgi-tabella, .formula-libro')) { t0 = null; return; }
+      t0 = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() };
+    }, { passive: true });
+    scheda.addEventListener('touchend', function (e) {
+      if (!t0 || !e.changedTouches || !e.changedTouches.length) { return; }
+      var dx = e.changedTouches[0].clientX - t0.x, dy = e.changedTouches[0].clientY - t0.y;
+      var veloce = Date.now() - t0.t < 700;
+      t0 = null;
+      if (!veloce || Math.abs(dx) < 60 || Math.abs(dy) > 40) { return; }
+      if (dx < 0) { mostra(i + 1, true); } else { mostra(i - 1, true); }
+    }, { passive: true });
+    scheda.addEventListener('keydown', function (e) {
+      if (e.target.closest && e.target.closest('input, textarea, select')) { return; }
+      if (e.key === 'ArrowRight') { e.preventDefault(); mostra(i + 1, true); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); mostra(i - 1, true); }
+    });
     Array.prototype.forEach.call(punti, function (p) {
       p.addEventListener('click', function () { mostra(parseInt(p.getAttribute('data-a'), 10) - 1, true); });
     });
@@ -455,6 +495,7 @@
     if (!racconti.length || !globale.MutationObserver) { return; }
     Array.prototype.forEach.call(racconti, function (r) {
       if (!r.getAttribute('data-passi')) { r.setAttribute('data-passi', r.getAttribute('data-passi-vivo') || 'h4'); }
+      if (!r.getAttribute('data-passi-per')) { r.setAttribute('data-passi-per', '2'); }
       var attesa = null;
       function rimonta() {
         if (r.querySelector(':scope > .passi-nav')) { return; }

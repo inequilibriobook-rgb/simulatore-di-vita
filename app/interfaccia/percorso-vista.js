@@ -179,6 +179,31 @@
           '<p class="gruppo-titolo">Strumenti</p>' + strumentiMenu + '</div>' +
       '</div></div>';
 
+    /* IL FILO FRA LE PAGINE (18/09/2026). Sul telefono la scala dei quattro
+       livelli sta dentro il menu, e chi passa da una pagina all'altra non
+       ha piu' niente che gli dica «sei al passo 2 di 4». Una riga sottile
+       sotto la barra lo dice: i quattro punti con quello acceso, il nome
+       del livello, e i due tasti per il livello prima e dopo. Nelle pagine
+       che non sono gradini dice dove si va dopo. Sul computer non serve:
+       c'e' la scala. */
+    var filo = '';
+    var gQui = P.gradinoDi(qui);
+    if (gQui) {
+      var k = P.GRADINI.indexOf(gQui);
+      var prev = k > 0 ? P.GRADINI[k - 1] : null, next = k < P.GRADINI.length - 1 ? P.GRADINI[k + 1] : null;
+      filo = '<nav class="filo no-stampa" aria-label="Il percorso dei quattro livelli">' +
+        (prev ? '<a class="filo-prima" href="' + prev.file + '" title="' + esc(prev.nome) + '">‹</a>' : '<span class="filo-prima vuoto"></span>') +
+        '<span class="filo-centro"><span class="filo-punti" aria-hidden="true">' +
+          P.GRADINI.map(function (g) { return '<i' + (g === gQui ? ' class="qui"' : '') + '></i>'; }).join('') + '</span>' +
+          '<span class="filo-testo">Livello ' + gQui.n + ' di ' + P.GRADINI.length + ' · ' + esc(gQui.nome) + '</span></span>' +
+        (next ? '<a class="filo-dopo" href="' + next.file + '" title="' + esc(next.nome) + '">›</a>' : '<span class="filo-dopo vuoto"></span>') +
+        '</nav>';
+    } else if (qui === P.PORTA.file || qui === 'LA-SCENA.html') {
+      filo = '<nav class="filo no-stampa" aria-label="Il passo dopo">' +
+        '<span class="filo-prima vuoto"></span>' +
+        '<span class="filo-centro"><span class="filo-testo">Un’altra strada per il livello 1 · poi la catena</span></span>' +
+        '<a class="filo-dopo" href="' + P.GRADINI[1].file + '" title="' + esc(P.GRADINI[1].nome) + '">›</a></nav>';
+    }
     return '<header class="app-barra no-stampa">' +
       '<div class="app-barra-dentro">' +
         /* il nome nella barra porta alla pagina di benvenuto (17/09/2026): e'
@@ -202,7 +227,7 @@
             '<span class="solo-lettori">Cambia la misura del testo</span></button>' +
           sandwich +
         '</div>' +
-      '</div></header>';
+      '</div></header>' + filo;
   }
 
   function passoDopo(qui) {
@@ -460,7 +485,9 @@
        dell'applicazione, non una parte del testo */
     var involucro = document.createElement('div');
     involucro.innerHTML = barra(qui);
-    document.body.insertBefore(involucro.firstChild, document.body.firstChild);
+    /* prima la barra, poi (se c'e') il filo, nell'ordine in cui sono scritti */
+    var primo = document.body.firstChild;
+    while (involucro.firstChild) { document.body.insertBefore(involucro.firstChild, primo); }
 
     /* il passo dopo va in fondo al contenitore, prima del piede */
     var cont = document.querySelector('.contenitore');

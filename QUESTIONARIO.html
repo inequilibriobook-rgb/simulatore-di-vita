@@ -110,6 +110,7 @@
       <span id="contaRisposte"></span>
       <span class="avanzamento" style="display:block;max-width:320px"><i id="barraAvanzamento" style="width:0"></i></span>
     </p>
+    <button type="button" class="sfoglia-tutti secondario" id="tutteInFilaDomande">Tutte in fila</button>
     <div id="selezione"></div>
     <div id="domande"></div>
     <div class="barra-azioni">
@@ -211,8 +212,11 @@
 <script src="app/interfaccia/glossario.js"></script>
 <script src="app/dati/formule.js"></script>
 <script src="app/interfaccia/formule-vista.js"></script>
-<script src="app/interfaccia/questionario-ui.js"></script>
+<!-- schermate.js prima di questionario-ui.js: quest'ultimo monta i passi delle
+     domande gia' al primo disegno, appena caricato, e a quel momento
+     window.Schermate deve gia' esserci. -->
 <script src="app/interfaccia/schermate.js"></script>
+<script src="app/interfaccia/questionario-ui.js"></script>
 <script src="app/interfaccia/attesa.js"></script>
 <script src="app/dati/sillabazione-it.js"></script>
 <script src="app/interfaccia/sillaba.js"></script>
