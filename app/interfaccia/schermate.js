@@ -151,8 +151,11 @@
         var ultimo = passi.pop(); passi[passi.length - 1].nodi = passi[passi.length - 1].nodi.concat(ultimo.nodi);
       }
     } else {
+      /* il livello del titolo che divide: h3 di norma; data-passi="h4" per
+         i racconti, che i motori scrivono con titoletti h4 */
+      var tagTitolo = (scheda.getAttribute('data-passi') || '').toUpperCase() === 'H4' ? 'H4' : 'H3';
       figli.forEach(function (n) {
-        var titolo = n.nodeType === 1 && n.tagName === 'H3';
+        var titolo = n.nodeType === 1 && n.tagName === tagTitolo;
         if (titolo || !corrente) {
           corrente = { titolo: titolo ? n : null, nodi: [] };
           passi.push(corrente);
@@ -441,8 +444,36 @@
     return false;
   }
 
+  /* I RACCONTI SI SFOGLIANO (18/09/2026). Il racconto in prosa di ogni
+     pagina (#racconto) lo scrive il motore a ogni calcolo, con un titoletto
+     h4 per parte: sintesi, che cosa e' successo, le leve, che cosa fare.
+     Ogni volta che viene riscritto, lo si rimonta a passi, un h4 per
+     foglio, con lo stesso flip card. Si osserva il contenitore: quando
+     cambia e non ha piu' la sua barra, si rimonta. */
+  function sfogliaRacconti() {
+    var racconti = document.querySelectorAll('#racconto, [data-passi-vivo]');
+    if (!racconti.length || !globale.MutationObserver) { return; }
+    Array.prototype.forEach.call(racconti, function (r) {
+      if (!r.getAttribute('data-passi')) { r.setAttribute('data-passi', r.getAttribute('data-passi-vivo') || 'h4'); }
+      var attesa = null;
+      function rimonta() {
+        if (r.querySelector(':scope > .passi-nav')) { return; }
+        if (r.querySelectorAll(':scope > h4, :scope > h3').length < 2) { return; }
+        r.__passi = false;
+        r.classList.remove('passi');
+        montaPassi(r);
+      }
+      new MutationObserver(function () {
+        if (attesa) { return; }
+        attesa = setTimeout(function () { attesa = null; rimonta(); }, 60);
+      }).observe(r, { childList: true });
+      rimonta();
+    });
+  }
+
   function avvia() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-passi], [data-fogli]'), montaPassi);
+    sfogliaRacconti();
     montaTutteLeSchede();
     Array.prototype.forEach.call(document.querySelectorAll('section[data-apribile]'), montaApribile);
     apriPerAncora();
