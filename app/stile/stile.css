@@ -1110,7 +1110,7 @@ details.glossa-dettaglio > p { margin: 6px 0 0; padding: 0; }
   .app-strumenti { margin-left: auto; }
   /* la barra e' piu' alta: quello che le sta appiccicato sotto scende con lei */
   .riga-corrente { top: 88px; }
-  .capitolo { scroll-margin-top: 130px; }
+  .capitolo { scroll-margin-top: 166px; }
 }
 @media (max-width: 680px) {
   .app-barra-dentro { padding: 8px 14px; }
@@ -2201,7 +2201,7 @@ body.lettura { background: var(--piano); }
   font-size: var(--t-piccolo) !important; font-weight: 650 !important;
   letter-spacing: .1em; text-transform: uppercase; color: var(--inchiostro) !important;
 }
-.capitolo { margin: 0 0 var(--s7); scroll-margin-top: 92px; }
+.capitolo { margin: 0 0 var(--s7); scroll-margin-top: 128px; }
 .capitolo h2 {
   display: flex; align-items: baseline; gap: var(--s3);
   font-family: var(--serif); font-size: var(--t-lettura-h2); font-weight: 700;
@@ -2833,7 +2833,7 @@ body.lettura { background: var(--piano); }
   .menu-giu { position: static; }
   .tendina { left: 12px; right: 12px; min-width: 0; width: auto; top: calc(100% + 4px); }
   .riga-corrente { top: 60px; }
-  .capitolo { scroll-margin-top: 90px; }
+  .capitolo { scroll-margin-top: 126px; }
 
   /* i bottoni, uno sotto l'altro e a tutta larghezza */
   .passo-scelte, .barra-azioni { flex-direction: column; align-items: stretch; }
@@ -2931,7 +2931,7 @@ body.lettura { background: var(--piano); }
   .sandwich-testo { font-size: 16px; }
   .menu-giu.aperto .apri-sandwich { border-color: var(--azione); background: var(--azione-tenue); }
   .riga-corrente { top: 58px; }
-  .capitolo { scroll-margin-top: 90px; }
+  .capitolo { scroll-margin-top: 126px; }
   .tendina-sandwich {
     left: 10px; right: 10px; min-width: 0; width: auto; top: calc(100% + 4px);
     max-height: calc(100vh - 120px); overflow-y: auto; -webkit-overflow-scrolling: touch;
@@ -2955,9 +2955,9 @@ body.lettura { background: var(--piano); }
 /* i titoli di sezione sono collegamenti alla propria sezione (17/09/2026) */
 .sezione-link { display: inline-flex; align-items: baseline; gap: inherit; color: inherit; text-decoration: none; border-radius: 6px; }
 .sezione-link:hover .sezione-t { color: var(--azione); }
-.riquadro { scroll-margin-top: 70px; }
-@media (max-width: 1100px) { .riquadro { scroll-margin-top: 100px; } }
-@media (max-width: 700px) { .riquadro { scroll-margin-top: 66px; } }
+.riquadro { scroll-margin-top: 106px; }
+@media (max-width: 1100px) { .riquadro { scroll-margin-top: 136px; } }
+@media (max-width: 700px) { .riquadro { scroll-margin-top: 102px; } }
 
 /* il riquadro dell'installazione (solo da un indirizzo web, vedi installa.js) */
 .installa { margin-top: var(--s4); padding: var(--s4); border: 1px solid var(--bordo); border-radius: var(--raggio); background: var(--piano); }
@@ -3298,6 +3298,10 @@ body.lettura { background: var(--piano); }
 .carta-livello .carta-fonte { display: inline-block; margin-top: 4px; font-style: normal; font-size: var(--t-micro); color: var(--inchiostro-3); }
 
 
+/* Igor, 18/09/2026: «il titolo attaccato alla pulsantiera in alto, no:
+   dagli trenta-quaranta pixel di spazio dal limite». I margini di
+   scorrimento (scroll-margin-top) di capitoli e riquadri portano tutti
+   36 px in piu' della barra fissa. */
 /* ==========================================================================
    COERENZA GRAFICA (17/09/2026): le regole che tolgono gli stili scritti
    a mano dentro le pagine. Igor: «questa non e' una disposizione
