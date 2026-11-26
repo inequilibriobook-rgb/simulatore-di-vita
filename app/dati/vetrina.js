@@ -42,7 +42,11 @@
       url: '',
       prezzo: ''
     },
-    /* l'indirizzo pubblico del simulatore, quello stampato nel libro */
-    indirizzo: 'inequilibriobook-rgb.github.io/simulatore-di-vita'
+    /* l'indirizzo pubblico del simulatore, quello stampato nel libro e nel
+       QR. Dal 26/11/2026 e' il dominio di Igor (un CNAME su Aruba verso
+       GitHub Pages): se un giorno il sito cambia casa, si sposta il CNAME e
+       i libri stampati continuano a funzionare. Il vecchio indirizzo
+       inequilibriobook-rgb.github.io/simulatore-di-vita rimanda qui da solo. */
+    indirizzo: 'simulatore.igordeguglielmo.it'
   };
 }(typeof window !== 'undefined' ? window : this));

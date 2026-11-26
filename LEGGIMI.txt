@@ -252,9 +252,9 @@ CHE COSA È GIÀ VERIFICATO
   34 controlli sugli esempi numerici pubblicati, dal libro (capitoli 5, 9 e 39).
      Tutti superati. Compreso il caso limite del taglio in basso, dove la
      probabilità si ferma a 5.
-  1592 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
+  1594 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
      sotto è quello che le suite stampano quando girano.
-  341 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
+  343 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
      formula, le fasce di PenSTR, le quattro scogliere, le tre porte del
      pavimento. La calibrazione, i nove esiti, le dodici pagine, il vincolo
      del doppio clic. Quattordici di questi controlli sono ad accordo. Legano
