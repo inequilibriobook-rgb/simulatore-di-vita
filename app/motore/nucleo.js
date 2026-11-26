@@ -472,7 +472,7 @@
     ['stato_prima.debito_deb',      'DEB, il debito',                   0, null, 0],
     ['stato_prima.bonus_bp',        'BP di stato, la protezione che resta', 0, 20, 0],
     ['stato_prima.costo_nascosto',  'il costo nascosto',                0, 100,  0],
-    ['stato_prima.cooldown',        'il cooldown, il tempo di raffreddamento', 0, null, 0]
+    ['stato_prima.cooldown',        'il raffreddamento',                0, null, 0]
   ];
 
   /* i campi a scelta chiusa, con l'elenco ammesso e il valore predefinito */

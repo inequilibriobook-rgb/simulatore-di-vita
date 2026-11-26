@@ -55,8 +55,8 @@
     if (!mancanti.length) { return; }
     throw new Error('microsemantica.js non può partire: ' +
       (mancanti.length === 1
-        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per far passare allo stato solo una parte di quello che ogni micronodo produce.'
-        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per far passare allo stato solo una parte di quello che ogni micronodo produce.') +
+        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per far passare allo stato solo una parte di quello che ogni gesto minimo produce.'
+        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per far passare allo stato solo una parte di quello che ogni gesto minimo produce.') +
       ' Ordine di caricamento: nucleo.js, calibrazione.js, casuale-mt.js, stato.js, ' +
       'microsemantica.js, tempo.js, settimana-tipo.js, e i dati prima di chi li usa.');
   }([['Nucleo (nucleo.js)', N], ['Stato (stato.js)', S], ['Calibrazione (app/dati/calibrazione.js)', CAL]]

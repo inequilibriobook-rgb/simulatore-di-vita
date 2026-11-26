@@ -68,12 +68,12 @@
 
     /* ---- il trasferimento di stato ---------------------------------- */
     { chiave: 'trasferimento_micronodo', valore: 0.0462, fonte: 'misurato',
-      titolo: 'Quanto passa allo stato da un micronodo',
+      titolo: 'Quanto passa allo stato da un gesto minimo',
       spiega: 'Un gesto minuscolo non deve lasciare addosso quanto un gesto intero. ' +
-              'Ogni micronodo passa allo stato persistente il 4,6 % del proprio effetto. ' +
-              'Senza questo freno il carico saturava a 100 dopo pochi nodi.',
-      banco: 'simulazione ufficiale Marco Serra, 500 nodi',
-      libro: 'cap. 28, «Il trasferimento dello stato»: la media misurata sui 500 micro-nodi ' +
+              'Ogni gesto minimo passa allo stato persistente il 4,6 % del proprio effetto. ' +
+              'Senza questo freno il carico arrivava al massimo, 100, dopo pochi gesti.',
+      banco: 'simulazione ufficiale Marco Serra, 500 gesti',
+      libro: 'cap. 28, «Il trasferimento dello stato»: la media misurata sui 500 gesti minimi ' +
              'di Marco è il fattore τ, «al quattro virgola sei per cento».' },
 
     /* ---- il recupero ------------------------------------------------- */
@@ -176,20 +176,20 @@
 
     /* ---- quanto pesa una giornata -------------------------------------- */
     { chiave: 'k_granularita', valore: 2.75, fonte: 'misurato',
-      titolo: 'Quanto pesa una giornata, indipendentemente da quanti nodi la descrivono',
+      titolo: 'Quanto pesa una giornata, indipendentemente da quanti gesti la descrivono',
       spiega: 'La stessa giornata raccontata con dieci gesti o con cento non deve costare ' +
               'di più nel secondo caso. Il fattore di trasferimento di una giornata è ' +
-              'k diviso il numero di nodi. Sette criteri presi dal libro sono soddisfatti ' +
+              'k diviso il numero di gesti. Sette criteri presi dal libro sono soddisfatti ' +
               'insieme solo per k fra 2,5 e 3,0: 2,75 è il centro di quella banda.',
       banco: '_taratura/esegui.js — 400 settimane per condizione',
       libro: 'cap. 58, «Quanto pesa una giornata»: «tutti e sette i criteri sono soddisfatti ' +
-             'insieme soltanto per k fra due e cinquanta e tre. […] k uguale a due virgola ' +
+             'insieme soltanto per k fra due e mezzo e tre. […] k uguale a due virgola ' +
              'settantacinque» — il centro della banda, non un bordo.' },
 
     /* ---- le tre porte del pavimento di protezione ----------------------- */
     { chiave: 'porta_pavimento_carico', valore: 85, fonte: 'python',
       titolo: 'A quale carico si accende il pavimento di protezione',
-      spiega: 'Attenzione: NON è il punto di non ritorno. È il valore a cui il sistema ' +
+      spiega: 'Attenzione: non è il punto di non ritorno. È il valore a cui il sistema ' +
               'entra in protezione, e da lì il recupero vale la metà.',
       banco: 'py:1263 pavimentoECooldown',
       libro: 'cap. 54, «Il punto di non ritorno»: «Si accende se il carico supera ' +
@@ -205,8 +205,8 @@
       titolo: 'A quale costo nascosto si accende il pavimento di protezione',
       spiega: 'La seconda porta per frequenza, e quella che nessuno vede arrivare.',
       banco: 'py:1263',
-      libro: 'cap. 54: stessa citazione della voce «porta_pavimento_carico». «Il costo nascosto ' +
-             'nel trentacinque [per cento]» dei 566 blocchi osservati.' }
+      libro: 'cap. 54: la stessa citazione della voce sul carico. «E il costo nascosto ' +
+             'nel trentacinque» per cento dei 566 blocchi osservati.' }
   ];
 
   /* --------------------------------------------------------------------
@@ -258,7 +258,7 @@
                                                                          'soglie del ' +
                                                                          'pavimento non ' +
                                                                          'vengono dal ' +
-                                                                         'canone. Sono ' +
+                                                                         'libro. Sono ' +
                                                                          'scelte ' +
                                                                          'dichiarate di ' +
                                                                          'questo ' +

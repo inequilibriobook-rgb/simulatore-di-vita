@@ -252,9 +252,9 @@ CHE COSA È GIÀ VERIFICATO
   34 controlli sugli esempi numerici pubblicati, dal libro (capitoli 5, 9 e 39).
      Tutti superati. Compreso il caso limite del taglio in basso, dove la
      probabilità si ferma a 5.
-  1594 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
+  1602 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
      sotto è quello che le suite stampano quando girano.
-  343 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
+  344 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
      formula, le fasce di PenSTR, le quattro scogliere, le tre porte del
      pavimento. La calibrazione, i nove esiti, le dodici pagine, il vincolo
      del doppio clic. Quattordici di questi controlli sono ad accordo. Legano
@@ -290,7 +290,7 @@ CHE COSA È GIÀ VERIFICATO
      valgono per qualunque scena. La tabella di parole chiave non ha bisogno
      di internet, ed è sempre uguale a se stessa. Nessuna condizione tocca
      la formula.
-  295 controlli sul lettore della scena. È il pezzo più delicato del
+  297 controlli sul lettore della scena. È il pezzo più delicato del
      pacchetto, perché è l’unico che PROPONE dei numeri leggendo del testo.
      I controlli guardano tre cose. Che non inventi mai un numero senza dire
      da dove viene. Che non conti due volte lo stesso fatto. Che la

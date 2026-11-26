@@ -98,7 +98,7 @@
       misura: 'la probabilità operativa locale',
       trasferisce: 'esito, costo minimo, microvariazione di carico e assetto',
       rischio: 'confondere un errore tecnico con un fallimento sistemico' },
-    { id: 'scena', nome: 'Scena', ampiezza: '3-7 nodi circa',
+    { id: 'scena', nome: 'Scena', ampiezza: '3-7 gesti circa',
       misura: 'una piccola situazione completa',
       trasferisce: 'carico, assetto, protezione, rientro, costo residuo locale',
       rischio: 'vedere solo riuscita o fallimento' },
@@ -220,7 +220,7 @@
       nodi: nNodi,
       k: k,
       nota: 'fattore ' + Math.round(f * 10000) / 10000 + ' = ' + k + ' / ' + nNodi +
-            ': lo stesso giorno descritto con più nodi non costa di più.'
+            ': lo stesso giorno descritto con più gesti non costa di più.'
     };
   }
 

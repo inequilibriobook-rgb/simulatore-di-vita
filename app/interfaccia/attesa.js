@@ -30,9 +30,9 @@
   'use strict';
 
   var FRASI = [
-    'Sto tirando i dadi, tanti dadi.',
+    'Il simulatore sta tirando i dadi, tanti dadi.',
     'Quaranta giorni per volta, una settimana dopo l’altra.',
-    'Il conto lo faccio io, tu intanto leggi.',
+    'Il conto lo fa il simulatore: tu, intanto, leggi.',
     'Sono ripetizioni vere, ognuna con un dado diverso, non numeri ricopiati: ci vuole un momento.',
     'Quasi. Le ultime settimane sono sempre le più lunghe.'
   ];
@@ -41,7 +41,7 @@
     el.innerHTML =
       '<div class="attesa" role="status" aria-live="polite">' +
         '<div class="attesa-testa"><span class="attesa-clessidra" aria-hidden="true">⏳</span>' +
-        '<span class="attesa-titolo">' + (titolo || 'Un momento: sto misurando.') + '</span>' +
+        '<span class="attesa-titolo">' + (titolo || 'Un momento: il simulatore sta misurando.') + '</span>' +
         '<span class="attesa-quota">0 %</span></div>' +
         '<div class="attesa-barra"><i></i></div>' +
         '<p class="attesa-frase">' + FRASI[0] + '</p>' +

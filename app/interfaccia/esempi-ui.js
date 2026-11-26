@@ -77,7 +77,7 @@
     { da: 35, nome: 'incerta',     stato: 'attenzione',
       dice: 'può andare bene come male: a decidere è il dado' },
     { da: 15, nome: 'in salita',   stato: 'serio',
-      dice: 'parte svantaggiata, e la riuscita costerà' },
+      dice: 'la scena è in svantaggio, e la riuscita costerà' },
     { da: 0,  nome: 'quasi persa', stato: 'critico',
       dice: 'non serve insistere: serve cambiare la scena' }
   ];
@@ -292,7 +292,7 @@
         '<p class="pn-verdetto">' + (accordo
           ? 'Coincidono. Questo numero non è scritto nella pagina: è stato calcolato ' +
             'un istante fa da <code>app/motore/nucleo.js</code>, con i valori della scheda.'
-          : 'NON coincidono. È un errore, e va guardato prima di credere a questa pagina.') +
+          : '<strong>Non</strong> coincidono. È un errore, e va guardato prima di credere a questa pagina.') +
         '</p></div>' +
 
       (caso.nota ? '<p class="caso-nota">' + esc(caso.nota) + '</p>' : '') +

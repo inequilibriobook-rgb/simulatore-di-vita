@@ -48,8 +48,8 @@
     if (!mancanti.length) { return; }
     throw new Error('analisi.js non può partire: ' +
       (mancanti.length === 1
-        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per contare i nodi distinti e per ripetere la scena.'
-        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per contare i nodi distinti e per ripetere la scena.') +
+        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per contare i gesti distinti e per ripetere la scena.'
+        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per contare i gesti distinti e per ripetere la scena.') +
       ' Ordine di caricamento: nucleo.js, calibrazione.js, casuale-mt.js, stato.js, ' +
       'microsemantica.js, tempo.js, settimana-tipo.js, e i dati prima di chi li usa.');
   }([['Nucleo (nucleo.js)', N], ['Stato (stato.js)', S]]
@@ -308,7 +308,7 @@
 
       /* il livello del nodo, con la sua unita' dichiarata accanto */
       nodo: {
-        unita_statistica: 'la valutazione di un nodo',
+        unita_statistica: 'la valutazione di un gesto',
         n: d.valutazioni,
         esiti: ordina(d.esitiNodo, d.valutazioni),
         riuscite: d.riuscite,
@@ -494,7 +494,7 @@
   }
   function confrontoAppaiato(prima, dopo) {
     if (prima.length !== dopo.length || prima.length < 2) {
-      throw new Error('Servono almeno due coppie di repliche nello stesso ordine.');
+      throw new Error('Servono almeno due coppie di ripetizioni nello stesso ordine.');
     }
     var r = statistiche(dopo.map(function (x, i) { return x - prima[i]; }));
     r.metodo_statistico = 'differenze_appaiate_media_normale95_2026-09-14';
@@ -695,8 +695,8 @@
         'L’occhio cerca la riga e la trova, anche dentro una nuvola di punti ' +
         'sparsi. Per questo il numero va letto, non guardato.',
       'R² dice quanta parte della variazione è davvero spiegata. È il ' +
-        'quadrato del coefficiente. Serve a non sopravvalutare le ' +
-        'correlazioni. Cioè quelle che sembrano forti solo a occhio.'
+        'quadrato del coefficiente, e serve a non sopravvalutare le ' +
+        'correlazioni che sembrano forti solo a occhio.'
     ]
   };
 
@@ -706,7 +706,7 @@
   function correlazione(x, y) {
     if (!x || !y) { return null; }
     if (x.length !== y.length) {
-      throw new Error('La correlazione confronta due grandezze della STESSA ripetizione, ' +
+      throw new Error('La correlazione confronta due grandezze della stessa ripetizione, ' +
         'quindi le due file devono essere lunghe uguali: qui sono ' + x.length +
         ' e ' + y.length + '.');
     }

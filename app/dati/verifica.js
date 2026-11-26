@@ -5,7 +5,7 @@
    com'e'. Serve a non far comparire una modifica a ogni esecuzione. */
 (function (globale) {
   var V = {
-    data: "2026-09-10",
+    data: "2026-11-26",
     confronti: 204042,
     differenze: 0,
     nodi: 10000,

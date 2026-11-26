@@ -260,7 +260,7 @@
     var f = selezione.famiglie;
     if (!f.length) {
       q('famiglie').innerHTML = '<p class="nota" style="margin:0">' +
-        '<strong>Non ho riconosciuto a quale parte della vita appartiene questa scena.</strong> ' +
+        '<strong>Il simulatore non ha riconosciuto a quale parte della vita appartiene questa scena.</strong> ' +
         esc(selezione.nota) + ' Puoi andare avanti lo stesso, perché le domande le trovi ' +
         'tutte qui sotto. Oppure racconta la scena con qualche parola in più, qui sopra.</p>';
       return;
@@ -509,11 +509,11 @@
     var quante = selezione ? selezione.scelte.length : Q.perLivello(livello).length;
     var date = quante - ultimo.senza_risposta.length;
     q('statoCalcolo').textContent = date === 0
-      ? 'Il nodo è stato costruito senza nessuna risposta: per adesso ogni domanda vale il ' +
+      ? 'Il calcolo è stato fatto senza nessuna risposta: per adesso ogni domanda vale il ' +
         'suo valore di mezzo, quello che non sposta niente.'
       : date === quante
-        ? 'Il nodo è stato costruito su tutte e ' + quante + ' le risposte che questa scena chiede.'
-        : 'Il nodo è stato costruito su ' + (date === 1 ? 'una sola' : date) +
+        ? 'Il calcolo usa tutte e ' + quante + ' le risposte che questa scena chiede.'
+        : 'Il calcolo usa ' + (date === 1 ? 'una sola' : date) +
           ' delle ' + quante + ' risposte che questa scena chiede.';
   }
 
@@ -666,8 +666,8 @@
             Lg.elenco(t.dichiarati.map(function (s) {
               return esc(s.nome) + ' (' + esc(valoreInChiaro(s)) + ')';
             })) + ' — ' +
-            Lg.concorda(t.dichiarati.length, 'lo diciamo, ma non lo contiamo',
-                        'lo diciamo, ma non li contiamo') + '</span>'
+            Lg.concorda(t.dichiarati.length, 'si dice, ma non si conta',
+                        'si dicono, ma non si contano') + '</span>'
           : '';
         var prov = PROVENIENZA_ETICHETTA[t.provenienza]
           ? '<br><span style="color:var(--attenzione);font-size:12.5px" title="' + esc(PROVENIENZA_TITOLO) +
@@ -691,7 +691,7 @@
       (r.secondari_dichiarati.length
         ? '<p class="nota"><strong>Ogni fatto conta una volta sola.</strong> ' +
           'Il capitolo 18 lo chiama <em>domicilio unico</em>. Ogni fatto ha una ' +
-          'casa sola nel calcolo. Se tocca anche altro, lo si scrive, ma non lo si conta una ' +
+          'posto solo nel calcolo. Se tocca anche altro, lo si scrive, ma non lo si conta una ' +
           'seconda volta. ' +
           (r.secondari_dichiarati.length === 1
             ? 'Qui è successo una volta: un effetto in più è stato scritto, non sommato.'

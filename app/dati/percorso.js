@@ -58,7 +58,7 @@
     file: 'QUESTIONARIO.html', nome: 'Fammi delle domande', icona: '?',
     domanda: 'Non so quali numeri mettere.',
     breve: 'i cursori non ci sono',
-    invito: 'Porta allo stesso posto del primo gradino, ma per un’altra strada. Qui i cursori non ci sono: si risponde a una domanda per volta, e il simulatore costruisce il nodo dalle risposte.'
+    invito: 'Porta allo stesso posto del primo gradino, ma per un’altra strada. Qui i cursori non ci sono: si risponde a una domanda per volta, e il simulatore ricava i numeri del gesto dalle risposte.'
   };
 
   /* SOTTO LA SCALA — le pagine che non stanno su nessun gradino.
@@ -103,8 +103,8 @@
         invito: 'Le altre pagine sono strumenti, e questa invece è una lettura, dal primo gesto alle mille ripetizioni. C’è tutta la matematica, e le figure si muovono mentre le guardi.' },
       { file: 'LA-SCENA.html', nome: 'Racconta la scena', icona: '✎',
         domanda: 'Voglio scriverla come la racconterei, non un gesto per riga.',
-        breve: 'la divide in nodi da sola',
-        invito: 'Scrivi la mattina in prosa, come la racconteresti a voce, e il simulatore la divide nei gesti che contiene. Poi propone i nove valori di ogni gesto, e ti dice quale parola li ha prodotti. Infine calcola tutto, nodo per nodo.' },
+        breve: 'la divide in gesti da sola',
+        invito: 'Scrivi la mattina in prosa, come la racconteresti a voce, e il simulatore la divide nei gesti che contiene. Poi propone i nove valori di ogni gesto, e ti dice quale parola li ha prodotti. Infine calcola tutto, gesto per gesto.' },
       { file: 'QUESTIONARIO.html', nome: 'Fammi delle domande', icona: '?',
         domanda: 'Non so quali numeri mettere.',
         breve: 'i cursori non ci sono',
@@ -112,7 +112,7 @@
       { file: 'LA-FORMULA.html', nome: 'La matematica, da zero', icona: '∑',
         domanda: 'Come si calcola, esattamente?',
         breve: 'la formula aperta pezzo per pezzo',
-        invito: 'Qui la formula si apre un pezzo per volta, e accanto a ogni pezzo c’è il codice vero del motore. In fondo ci sono le quattro cose che il canone dichiara di non contenere.' },
+        invito: 'Qui la formula si apre un pezzo per volta, e accanto a ogni pezzo c’è il codice vero del motore. In fondo ci sono le quattro cose che, come dichiara il libro, la formula non contiene.' },
       { file: 'ESEMPI.html', nome: 'I casi del libro', icona: '▤',
         domanda: 'Fammi vedere dei casi già fatti, con i numeri veri.',
         breve: 'i casi già calcolati',

@@ -260,7 +260,7 @@
     } else if (dn.solo_col_meglio) {
       h += '<div class="avviso"><strong>Si esce, ma solo con le condizioni migliori.</strong> ' +
         'Il carico è a ' + dn.carico + ': ' + oltre(dn.carico, dn.soglia_carico) +
-        ' in condizioni ordinarie, e siamo ancora sotto ' + dn.soglia_carico_migliore + '. ' +
+        ' in condizioni ordinarie, ma è ancora sotto ' + dn.soglia_carico_migliore + '. ' +
         'Il costo nascosto è a ' + dn.costo + ', ancora sotto ' + dn.soglia_costo + '.</div>';
     } else if (dn.distanza_costo <= 15) {
       /* Il verbo deve seguire il numero: con un punto solo «Mancano 1 punti»
@@ -663,7 +663,7 @@
     }
     if (window.Attesa) {
       window.Attesa.lavora(dove, passi, passo, fine, {
-        titolo: 'Sto misurando il punto di non ritorno: ' + passi + ' caselle, ' +
+        titolo: 'Il simulatore sta misurando il punto di non ritorno: ' + passi + ' caselle, ' +
           (passi * SEMI_UI) + ' settimane simulate.',
         /* la sentinella e' la sezione intera, che ha un'altezza: una <div>
            vuota, alta zero, puo' passare fuori dallo schermo in un salto

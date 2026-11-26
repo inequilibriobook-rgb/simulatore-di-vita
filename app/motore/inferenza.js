@@ -459,7 +459,7 @@
       nota_conteggio: (K === 1 ? 'Un gesto solo, ripetuto ' : conLeMigliaia(K) + ' gesti, ripetuti ') +
         (ripetizioni === 1 ? 'una volta' : conLeMigliaia(ripetizioni) + ' volte') +
         ': in tutto ' + (K * ripetizioni === 1 ? 'una valutazione' : conLeMigliaia(K * ripetizioni) + ' valutazioni') +
-        '. Le valutazioni NON sono il campione: il campione è ' + conLeMigliaia(ripetizioni) +
+        '. Le valutazioni non sono il campione: il campione è ' + conLeMigliaia(ripetizioni) +
         ', cioè quante volte la scena è stata rifatta da capo.'
     };
   }
@@ -579,7 +579,7 @@
      La correzione riguarda i due termini di UN confronto, non tutte le leve. */
   function differenzaAppaiata(prima, dopo, confronti) {
     if (prima.length !== dopo.length || !prima.length) {
-      throw new Error('Il confronto richiede coppie di repliche in ugual numero.');
+      throw new Error('Il confronto richiede coppie di ripetizioni in ugual numero.');
     }
     var meglio = 0, peggio = 0, n = prima.length;
     for (var i = 0; i < n; i++) {
@@ -762,7 +762,7 @@
     }
     return { punti: punti, passo: passo, ripetizioni: ripetizioni,
              caduta_piu_ripida: salto, discesa: discesa,
-             nota: 'È una misura di QUESTA scena, non una soglia del libro.' };
+             nota: 'È una misura di questa scena, non una soglia del libro.' };
   }
 
   var API = {

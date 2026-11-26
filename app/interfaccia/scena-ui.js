@@ -101,11 +101,11 @@
     if (isNaN(letto)) {
       letto = CARICO_PREDEFINITO;
       avvisoCarico = 'La casella del carico di partenza era vuota, e senza un numero non c’è ' +
-        'niente da calcolare. Così ho rimesso ' + CARICO_PREDEFINITO +
+        'niente da calcolare. Così il simulatore ha rimesso ' + CARICO_PREDEFINITO +
         ', che è il valore con cui la pagina si apre. Scrivine un altro quando vuoi.';
     } else if (letto < 0 || letto > 100) {
       var dentro = Math.min(100, Math.max(0, letto));
-      avvisoCarico = 'Il carico va da 0 a 100, e ' + letto + ' sta fuori, quindi l’ho portato a ' +
+      avvisoCarico = 'Il carico va da 0 a 100, e ' + letto + ' sta fuori, quindi il simulatore l’ha portato a ' +
         dentro + '. Il modello lo avrebbe tagliato lo stesso, ma senza dirtelo, e la ' +
         'pagina avrebbe continuato a dichiarare ' + letto + '.';
       letto = dentro;
@@ -212,7 +212,7 @@
       } else if (x.stato === 'sostituita') {
         righe.push(parola + ' non conta: su questo hai risposto a una domanda, e vale la risposta');
       } else {
-        righe.push(parola + ' era già detto in un altro punto: non l’ho sommato una seconda volta');
+        righe.push(parola + ' era già detto in un altro punto: il simulatore non l’ha sommato una seconda volta');
       }
     });
     if (r.campo.length) {
@@ -273,7 +273,7 @@
       contoDellaRicevuta() +
       '<div class="frammenti">' + f + '</div>' +
       '<p class="nota">◆ è un gesto, cioè un nodo che verrà calcolato. · è contesto: ' +
-      'descrive la scena e vale per tutti i gesti. <strong>Se ho tagliato male, correggi qui</strong>: ' +
+      'descrive la scena e vale per tutti i gesti. <strong>Se il simulatore ha tagliato male, correggi qui</strong>: ' +
       'segmentare è già interpretare, e la scelta è tua.</p>' +
       '<h3 class="sotto-titolo">Quello che vale per tutti i gesti della scena</h3>' +
       '<ul class="tracce">' + tracce + '</ul>';
@@ -383,12 +383,12 @@
       var proposta = (!d.risposta && d.proposta)
         ? d.opzioni.filter(function (o) { return o.id === d.proposta; })[0] : null;
       var sotto = d.risposta
-        ? 'Vale la tua risposta, una volta sola e per tutti i gesti. Va in una casa sola: ' +
+        ? 'Vale la tua risposta, una volta sola e per tutti i gesti. Va in un posto solo del calcolo: ' +
           esc(CASA_DI[d.variabile] || d.variabile) + '.'
         : (proposta
-            ? 'Nel racconto ho letto «' + esc(proposta.etichetta) + '». Se è così, sceglilo tu. ' +
-              'Finché non rispondi, vale quello che ho letto.'
-            : 'La risposta va in una casa sola: ' + esc(CASA_DI[d.variabile] || d.variabile) + '.');
+            ? 'Nel racconto il simulatore ha letto «' + esc(proposta.etichetta) + '». Se è così, sceglilo tu. ' +
+              'Finché non rispondi, vale quello che ha letto.'
+            : 'La risposta va in un posto solo del calcolo: ' + esc(CASA_DI[d.variabile] || d.variabile) + '.');
       return '<div class="domanda-scena' + (d.risposta ? ' risposta-data' : '') + '">' +
         '<label class="comando"><span>' + esc(d.testo) + '</span>' +
         '<select data-domanda="' + esc(d.id) + '">' +
@@ -659,12 +659,12 @@
         var proposta = (!d.risposta && d.proposta)
           ? d.opzioni.filter(function (o) { return o.id === d.proposta; })[0] : null;
         var sotto = d.risposta
-          ? 'Vale la tua risposta, solo per questo gesto. Va in una casa sola: ' +
+          ? 'Vale la tua risposta, solo per questo gesto. Va in un posto solo del calcolo: ' +
             esc(CASA_DEL_GESTO[d.variabile] || d.variabile) + '.'
           : (proposta
-              ? 'Nel racconto ho letto «' + esc(proposta.etichetta) + '». Se è così, sceglilo tu. ' +
-                'Finché non rispondi, vale quello che ho letto.'
-              : 'La risposta va in una casa sola: ' + esc(CASA_DEL_GESTO[d.variabile] || d.variabile) + '.');
+              ? 'Nel racconto il simulatore ha letto «' + esc(proposta.etichetta) + '». Se è così, sceglilo tu. ' +
+                'Finché non rispondi, vale quello che ha letto.'
+              : 'La risposta va in un posto solo del calcolo: ' + esc(CASA_DEL_GESTO[d.variabile] || d.variabile) + '.');
         return '<div class="domanda-scena' + (d.risposta ? ' risposta-data' : '') + '">' +
           '<label class="comando"><span>' + esc(d.testo) + '</span>' +
           '<select data-gesto="' + esc(n.id) + '" data-domanda-gesto="' + esc(d.id) + '">' +
@@ -711,7 +711,7 @@
         ? '<p class="nota">Qui non c’è ancora niente da leggere. Racconta una scena nel ' +
           'riquadro qui sopra, una frase per ogni cosa che succede, e poi premi ' +
           '«Apri e calcola».</p>'
-        : '<p class="nota">In questo racconto non ho riconosciuto nessun gesto: ci sono ' +
+        : '<p class="nota">In questo racconto il simulatore non ha riconosciuto nessun gesto: ci sono ' +
           'solo frasi che descrivono com’è la situazione. Prova ad aggiungere una frase ' +
           'in cui qualcuno <em>fa</em> qualcosa, come «mi alzo», «cerco le chiavi», «esco», ' +
           'e poi premi di nuovo «Apri e calcola».</p>';
@@ -1013,7 +1013,7 @@
       'gesto né una condizione, quindi questi pezzi non sono entrati nel calcolo. Molte ' +
       'frasi di un racconto sono cornice, e va bene così, ma è meglio saperlo prima di ' +
       'leggere i numeri. Se qui compare qualcosa che secondo te doveva contare, non è il ' +
-      'tuo racconto a essere sbagliato: più sotto, in «Che cosa ho letto», ogni frase rimasta ' +
+      'tuo racconto a essere sbagliato: più sotto, in «Che cosa ha letto il simulatore», ogni frase rimasta ' +
       'fuori ha un menu, e decidi tu a che cosa appartiene.</p><ul class="tracce">' +
       lettura.muti.map(function (m) { return '<li>«' + esc(m) + '»</li>'; }).join('') +
       '</ul></details>';
@@ -1056,13 +1056,13 @@
     /* Lo zero non si dice come gli altri numeri: «Ho letto 0 gesti» e' un
        conteggio, non una frase, e in una pagina che si vanta di leggere
        l'italiano e' proprio la riga da non sbagliare. */
-    var coda = (muti ? ', e in più ' + conta(muti, 'pezzo in cui non ho riconosciuto niente',
-                                             'pezzi in cui non ho riconosciuto niente') : '') +
-               '.' + (risultato ? ' Il calcolo l’ho fatto con il seme ' + seme + '.' : '');
+    var coda = (muti ? ', e in più ' + conta(muti, 'pezzo in cui non ha riconosciuto niente',
+                                             'pezzi in cui non ha riconosciuto niente') : '') +
+               '.' + (risultato ? ' Il calcolo è stato fatto con il seme ' + seme + '.' : '');
     el.innerHTML = (gesti === 0
-      ? 'Non ho riconosciuto <b>nessun gesto</b>: solo ' +
+      ? 'Il simulatore non ha riconosciuto <b>nessun gesto</b>: solo ' +
         conta(contesto, 'pezzo di contesto', 'pezzi di contesto')
-      : 'Ho letto ' + conta(gesti, 'gesto', 'gesti') + ' e ' + contesti(contesto)) + coda;
+      : 'Il simulatore ha letto ' + conta(gesti, 'gesto', 'gesti') + ' e ' + contesti(contesto)) + coda;
   }
 
   function disegnaAvvisi() {
@@ -1195,7 +1195,7 @@
     q('rigioca').addEventListener('click', function () {
       var b2 = q('rigioca');
       var prima = b2.textContent;
-      b2.textContent = 'Sto ripetendo la scena…';
+      b2.textContent = 'Il simulatore ripete la scena…';
       /* un fotogramma al browser per mostrarlo, poi si comincia: mille
          ripetizioni su una scena lunga sono qualche secondo di lavoro vero */
       setTimeout(function () { rigioca(); b2.textContent = prima; }, 30);

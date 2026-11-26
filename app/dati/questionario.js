@@ -150,8 +150,9 @@
       'C’è una protezione concreta o solo un incoraggiamento?',
       'Una protezione, qui, è un aiuto concreto che toglie davvero carico. Una frase gentile ' +
       'conforta e basta: dopo averla sentita, il lavoro da fare è ancora tutto tuo. Dal ' +
-      'livello standard in su, nelle scene di relazione, trovi anche T13, che è la stessa ' +
-      'area con più dettaglio, e rispondere a tutte e due non conta doppio nel calcolo.',
+      'livello standard in su, nelle scene di relazione, trovi anche la domanda «Se chiedi ' +
+      'aiuto, che tipo di aiuto arriva?», che guarda la stessa cosa più nel dettaglio: ' +
+      'rispondere a tutte e due non la conta due volte.',
       [{ testo: 'Qualcuno fa davvero una parte del lavoro', effetti: { BP: 8 }, secondari: { initial_BP: 3 } },
        { testo: 'C’è uno strumento o una condizione che aiuta davvero', effetti: { BP: 5 } },
        { testo: 'C’è solo un incoraggiamento a parole', effetti: {}, secondari: { initial_STR: 2 } },
@@ -262,7 +263,7 @@
     scelta('T13', 'standard', 'Supporto', 'relazione',
       'Se chiedi aiuto, che tipo di aiuto arriva?',
       'Il libro insiste su questa distinzione: un aiuto che consola non è un aiuto che ' +
-      'toglie lavoro. È la stessa area di R6, con più sfumature, e qui il tipo di ' +
+      'toglie lavoro. È lo stesso tema della domanda sulla protezione, con più sfumature, e qui il tipo di ' +
       'supporto entra anche nel racconto, cioè nel testo in prosa che il simulatore scrive ' +
       'alla fine sotto i numeri, e non solo nel numero.',
       [{ testo: 'Qualcuno prende in carico una parte davvero', effetti: { supporto: 'pratico', riduzione_carico: 0.4, BP: 6, initial_POS: 3 } },
@@ -359,7 +360,7 @@
        riduzione: nessuna delle quattro è muta. */
     scelta('T17', 'standard', 'Ambiente', 'trasversale',
       'Che condizioni di temperatura, luce o intemperie ci sono?',
-      'Non il disagio di tutti i giorni, che lo chiede un’altra domanda. Qui si parla ' +
+      'Non il disagio di tutti i giorni, di cui si occupa un’altra domanda. Qui si parla ' +
       'di condizioni a cui un vestito o un riparo normali non bastano.',
       [{ testo: 'Normali', effetti: {} },
        { testo: 'Disagio evidente (molto caldo o freddo, pioggia forte, vento forte)', effetti: { E: -4 } },
@@ -560,8 +561,8 @@
 
     scelta('X4', 'professionale', 'Confronto', 'trasversale',
       'C’è un dato osservabile con cui confrontare il risultato?',
-      'Serve qualcosa di esterno con cui confrontare il risultato, perché senza il modello ' +
-      'resta un ragionamento chiuso in sé stesso.',
+      'Serve qualcosa di esterno con cui confrontare il risultato, perché senza un confronto ' +
+      'il modello resta un ragionamento chiuso in sé stesso.',
       [{ testo: 'Sì, misure o osservazioni raccolte', effetti: {} },
        { testo: 'Solo impressioni', effetti: {} },
        { testo: 'No', effetti: {} }], 'libro', 'cornice'),

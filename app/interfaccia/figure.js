@@ -208,7 +208,7 @@
       g.asseX([[-40, '−40'], [0, '0'], [5, '5'], [50, '50'], [95, '95'], [140, '140']],
               'il valore grezzo, prima del taglio');
       g.asseY('la probabilità Pn, dopo il taglio');
-      return g.chiudi('La funzione clamp: piatta sotto 5, diagonale fra 5 e 95, piatta sopra 95') +
+      return g.chiudi('Il taglio ai bordi: piatto sotto 5, in diagonale fra 5 e 95, piatto sopra 95') +
         D.legenda([
           { testo: 'la probabilità dopo il taglio', colore: COLORI.azione, forma: 'linea' },
           { testo: 'dove finirebbe senza il taglio', colore: COLORI.neutro, forma: 'tratteggio' },

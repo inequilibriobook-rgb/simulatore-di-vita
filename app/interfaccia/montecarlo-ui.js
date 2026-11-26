@@ -926,7 +926,7 @@
     if (stato.calibrazione === 'storica') {
       var alTetto = m.stress_finale.minimo >= 100;
       return '<p class="nota-nodo">Stai guardando la <b>calibrazione storica</b>, cioè la ' +
-        'taratura di prima che il 4,6 % venisse misurato. Qui ogni nodo passa tutto il ' +
+        'taratura di prima che il 4,6 % venisse misurato. Qui ogni gesto passa tutto il ' +
         'suo effetto allo stato, e lo stato è il carico e l’assetto che la persona si ' +
         'porta dietro. ' +
         (alTetto
@@ -1006,11 +1006,11 @@
           'è stato calcolato un gesto. Ma <b>n resta ' + num(m.ripetizioni, 0) +
           '</b>. Il <b>campione</b> è quello, non le valutazioni, perché campione vuol ' +
           'dire quante ripetizioni indipendenti della quantità finale si hanno a ' +
-          'disposizione. I nodi interni della stessa ripetizione si passano l’uno all’altro ' +
+          'disposizione. I gesti interni della stessa ripetizione si passano l’uno all’altro ' +
           'il carico che lasciano: non sono ripetizioni in più del suo risultato finale. La ' +
           'precisione va stimata sulle ripetizioni, e non esiste un fattore universale che si ' +
           'possa ricavare dal solo rapporto fra valutazioni e ripetizioni.</p>') +
-      '<p class="caso-eti">Come sono andati i singoli nodi</p>' + esitiNodo +
+      '<p class="caso-eti">Come sono andati i singoli gesti</p>' + esitiNodo +
       '<p class="caso-eti">E con quale margine</p>' +
       '<p class="nota" style="margin-top:0">Il margine è la distanza fra la probabilità ' +
       'del gesto e il numero uscito dal dado. Dice di quanto è riuscito, o di quanto è ' +
@@ -1097,8 +1097,8 @@
     if (!st.incertezza_ignota && st.semiampiezza_95 > 0) {
       var volte = st.deviazione / st.semiampiezza_95;
       frase += 'Qui è <b>' + num(volte) + ' volte più largo</b> del ±, e non è un caso. ' +
-        'Ripetendo di più il ± si stringe. Lo scarto no: lo scarto è la scena, il ± è ' +
-        'quanto la conosciamo.';
+        'Ripetendo di più il ± si stringe, lo scarto invece no: lo scarto descrive la ' +
+        'scena, il ± dice quanto la conosciamo.';
     }
     return frase + '</p>';
   }
@@ -1193,7 +1193,7 @@
     var pieno = q('avanzPieno'), riga = q('avanzRiga');
     if (pieno) { pieno.style.width = (quota * 100).toFixed(1) + '%'; }
     if (riga) {
-      riga.innerHTML = 'Sto ripetendo ' + esc(nome) + '. Fatte <b>' + Lg.intero(fatte) +
+      riga.innerHTML = 'Il simulatore ripete ' + esc(nome) + '. Fatte <b>' + Lg.intero(fatte) +
         '</b> ripetizioni su ' + Lg.intero(totali) + '. La pagina risponde lo stesso, perché il ' +
         'conto è diviso apposta in pezzi piccoli.';
     }
@@ -1304,7 +1304,7 @@
       if (riga && t0 !== null) {
         riga.textContent = 'Ultimo calcolo: ' +
           window.Lingua.numero((performance.now() - t0) / 1000) +
-          ' secondi. Tutto è successo dentro questa pagina: niente è uscito da questo computer.';
+          ' secondi. Tutto è successo dentro questa pagina: niente è uscito dal tuo telefono o dal tuo computer.';
       }
     });
   }
@@ -1511,7 +1511,7 @@
             var s = q('statoCalcolo');
             if (s) {
               s.textContent = 'Quella casella è rimasta vuota, e un seme vuoto non è un ' +
-                'numero. Ho rimesso l’ultimo valore buono, ' + stato[campo] + '. ' +
+                'numero. Il simulatore ha rimesso l’ultimo valore buono, ' + stato[campo] + '. ' +
                 'Scrivine un altro se vuoi cambiare i dadi.';
             }
             return;

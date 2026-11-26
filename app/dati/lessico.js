@@ -67,7 +67,7 @@
     procedura:  { p0: 58, pezzi: 2,
       nota: 'Non è un gesto solo: è una procedura con più passaggi da tenere insieme.' },
     difficile:  { p0: 45, pezzi: 2,
-      nota: 'Gesto che parte già in salita, anche con le condizioni buone.' }
+      nota: 'Gesto difficile in sé, anche con le condizioni buone.' }
   };
 
   /* I verbi si scrivono alla radice: il riconoscimento e' per prefisso, cosi'
@@ -533,7 +533,7 @@
               'sulla testa, spostala sull’energia.' },
     { chiavi: ['notifiche', 'squilla il telefono', 'continuano a scrivermi', 'suona il telefono'],
       variabile: 'M', valore: -2,
-      perche: 'Le interruzioni che arrivano da fuori sono ambiente. Se qualcuno REAGISCE al tentativo, è invece campo attivo.' },
+      perche: 'Le interruzioni che arrivano da fuori sono ambiente. Se invece qualcuno reagisce mentre ci provi, è campo attivo.' },
     { chiavi: ['sotto pressione', 'mi stanno addosso', 'mi aspettano', 'tutti aspettano',
                'mi ha stressat', 'mi stressa', 'mi stressano', 'mi mette fretta',
                'mi mettono fretta', 'mi sollecita', 'mi pressa', 'fiato sul collo',

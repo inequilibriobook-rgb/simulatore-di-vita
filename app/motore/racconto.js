@@ -1269,14 +1269,18 @@
       disponibile: function (n, t) { return ['assente', 'finta', 'debole'].indexOf(n.stato_prima.rip) >= 0; },
       applica: function (n) { var m = clonaNodo(n); m.stato_prima.rip = 'vera'; return m; },
       perche: function (n, t) {
-        return 'è la leva che nelle prove rende più di tutte, eppure non aggiunge un solo ' +
+        /* «vince più spesso», non «rende più di tutte»: il banco ripetibile del
+           capitolo 56 (26/11/2026) dice che in media rende un poco di piu'
+           smettere di riprovare, ma il rientro e' la leva migliore nel 73 % dei
+           nodi */
+        return 'è la leva che nelle prove vince più spesso, eppure non aggiunge un solo ' +
                'punto di probabilità, perché agisce su quello che resta dopo. Fermarsi con ' +
                'la testa che continua a lavorare non è fermarsi davvero.'; },
       /* OGNI LEVA HA ANCHE UNA MOTIVAZIONE BREVE, SCRITTA A MANO.
          La riduzione «motivazione della leva» teneva la prima frase: a frasi
          corte, la prima poteva essere un pezzo solo del ragionamento. */
       breve: function (n, t) {
-        return 'è la leva che nelle prove rende più di tutte. Agisce su quello che resta dopo.'; } },
+        return 'è la leva che nelle prove vince più spesso. Agisce su quello che resta dopo.'; } },
 
     { id: 'debito', azione: 'Chiudere il debito, non ridurlo',
       disponibile: function (n, t) { return n.stato_prima.debito_deb >= 1; },
@@ -3012,7 +3016,7 @@
         : 'Le ' + notte.notti + ' notti hanno restituito, in media, ');
       if (notte.pavimento_attivo) {
         t = quanteNotti + inPunti(notte.restituito_per_notte) + ' di carico' +
-          (notte.notti === 1 ? '' : ' a notte') + '. Ma il «pavimento» di protezione è attivo: è la difesa che il modello accende da solo quando il carico è salito troppo, e da cui in poi il riposo rende circa la metà. ' +
+          (notte.notti === 1 ? '' : ' a notte') + '. Ma il «pavimento» di protezione è attivo: è la difesa che il modello accende da solo quando il carico è salito troppo, e da lì in poi il riposo rende circa la metà. ' +
           'Il recupero è già dimezzato: quello che si vede non è quanto la notte ' +
           'può dare, è quanto le resta da dare.';
       } else if (notte.restituito_per_notte <= 0) {

@@ -21,7 +21,7 @@
   </div>
 
   <header class="testata">
-    <p class="occhiello">Simulatore di vita 3.0 · dalla scena ai nodi</p>
+    <p class="occhiello">Simulatore di vita 3.0 · dalla scena ai gesti</p>
     <h1>Racconta la scena, e guardala gesto per gesto</h1>
     <p class="sottotitolo">
       Scrivi una mattina come la racconteresti a un amico. Il simulatore la divide nei gesti
@@ -43,21 +43,15 @@
       racconto viene.
     </p>
     <p>
-      Poi <strong>calcola tutto, un gesto per volta</strong>. Fa la somma dei nove valori e
-      applica il «taglio» ai bordi, cioè non lascia che il risultato scenda sotto 5 o salga
-      sopra 95. Poi tira il dado, cioè estrae a caso un numero da 1 a 100, e lo confronta con
-      la probabilità calcolata, che fa da «soglia». Di quanto il dado è rimasto sotto la
-      soglia, o l’ha superata, è il «margine». Infine dà un nome all’«esito», uno dei nove
-      modi in cui un gesto può finire, e ti dice con quale «carico», cioè con quanta
-      pressione accumulata, si arriva al gesto dopo.
+      Poi <strong>calcola tutto, un gesto per volta</strong>. Somma i nove valori, e tiene il risultato fra 5 e 95: è il «taglio ai bordi». Poi tira il dado, cioè estrae a caso un numero da 1 a 100: se quel numero non supera la probabilità calcolata, il gesto riesce. La distanza fra i due numeri si chiama «margine», e dice se è andata per un soffio oppure con larghezza. Infine il simulatore dà un nome all’«esito», che è uno dei nove modi in cui un gesto può finire, e ti dice con quanto «carico», cioè con quanta pressione accumulata, si arriva al gesto dopo.
     </p>
     <h3>Come si usa, in tre passi</h3>
     <ol class="come-si-usa">
       <li><strong>Scrivi la scena</strong> così come ti viene, con le virgole e i punti.
         Non serve andare a capo a ogni gesto.</li>
-      <li><strong>Controlla dove ho tagliato il racconto.</strong> Già decidere dove finisce
-        un gesto e dove comincia il successivo vuol dire interpretare. Se ho sbagliato, si
-        corregge con un clic.</li>
+      <li><strong>Controlla dove il simulatore ha tagliato il racconto.</strong> Già
+        decidere dove finisce un gesto e dove comincia il successivo vuol dire interpretare.
+        Se ha sbagliato, si corregge con un tocco.</li>
       <li><strong>Guarda i numeri, e cambiali pure.</strong> Ogni valore è solo una proposta,
         e accanto c’è scritta la parola da cui viene. Appena ne cambi uno, da quel momento
         in poi vale il tuo e non più quello proposto.</li>
@@ -65,7 +59,7 @@
     <h3>Niente intelligenza artificiale, niente connessione</h3>
     <p>
       Qui dentro non c’è nessuna intelligenza artificiale, e non serve nemmeno la
-      connessione. Quello che legge la tua scena è una tabella di parole, scritta a mano. Per
+      connessione. A leggere la tua scena è un vocabolario scritto a mano, parola per parola. Per
       questo la stessa scena dà sempre la stessa lettura, oggi come fra dieci anni, anche
       senza internet.
     </p>
@@ -115,9 +109,7 @@
       del peso di ogni gesto arriva davvero al gesto dopo. Con <em>misurato</em> ne passa il 4,6 %, che è il
       valore misurato sui cinquecento gesti del capitolo 28. Con <em>storico</em>
       passa tutto, come faceva il modello all’inizio. Provali tutti e due sulla stessa
-      scena, e guarda che cosa succede. Il secondo va a sbattere contro il «tetto», cioè il
-      100 del carico, oltre cui non si sale. Da lì in poi non distingue più una scena
-      dall’altra, ed è per questo che è stato abbandonato. Il <b>seme del dado</b>, infine,
+      scena, e guarda che cosa succede. Con il secondo il carico arriva presto al «tetto», cioè a 100, oltre cui non sale. Da lì in poi il modello non distingue più una scena dall’altra, ed è per questo che quel modo è stato abbandonato. Il <b>seme del dado</b>, infine,
       è il numero da cui partono i tiri. Con lo stesso seme escono sempre gli stessi tiri, e
       una scena si può rifare identica.
     </p>
@@ -140,23 +132,23 @@
 
   <!-- ====================== CHE COSA HO LETTO ====================== -->
   <section class="riquadro" data-scheda>
-    <h2>2 · Che cosa ho letto</h2>
+    <h2>2 · Che cosa ha letto il simulatore</h2>
     <p class="senza-sopra">
       Ogni pezzo del tuo racconto può essere un gesto oppure un contesto. Se è un
-      <strong>gesto</strong>, cioè un «nodo» nella catena della scena, verrà calcolato. Se è <strong>contesto</strong>,
+      <strong>gesto</strong>, cioè un anello nella catena della scena, verrà calcolato. Se è <strong>contesto</strong>,
       descrive la scena intorno e vale per tutti i gesti insieme: la pioggia, il rumore, la
       fretta. Il capitolo 24 del libro si chiude con una frase: <em>«segmentare è già
       interpretare»</em>. Vuol dire che già nel tagliare il racconto in pezzi si prende
-      una decisione. Per questo il taglio si vede, e si corregge con un clic.
+      una decisione. Per questo il taglio si vede, e si corregge con un tocco.
     </p>
     <div id="lettura"></div>
-    <h3 class="sotto-titolo">Sette domande, per non sbagliare casella</h3>
+    <h3 class="sotto-titolo">Sette domande, per mettere ogni fatto al posto giusto</h3>
     <p>
-      Le condizioni qui sopra le ho indovinate dalle parole, ed è la parte in cui questa
+      Le condizioni qui sopra il simulatore le ha indovinate dalle parole, ed è la parte in cui questa
       pagina sbaglia di più: su racconti che non ha mai visto ne coglie quattro su dieci.
-      Per questo ti faccio sette domande sulla giornata. Ogni domanda ha già il suo posto
+      Per questo ti fa sette domande sulla giornata. Ogni domanda ha già il suo posto
       fisso nel calcolo: tu dici il fatto, e la pagina sa dove metterlo. Così la stessa stanchezza non può finire
-      in due posti. Quando rispondi, la tua risposta prende il posto di quello che avevo
+      in due posti. Quando rispondi, la tua risposta prende il posto di quello che aveva
       letto, e vale una volta sola per tutti i gesti. Se a una domanda non rispondi, per
       quella resta la lettura del racconto.
     </p>
@@ -165,7 +157,7 @@
 
   <!-- ====================== I NODI ====================== -->
   <section class="riquadro" data-scheda>
-    <h2>3 · I nodi, uno per uno, con tutti i valori</h2>
+    <h2>3 · I gesti, uno per uno, con tutti i valori</h2>
     <p class="senza-sopra">
       Per ogni gesto trovi i nove valori, e il <strong>perché</strong> di ognuno. Poi c’è
       il calcolo completo: la somma termine per termine, il taglio ai bordi, il dado. Poi il

@@ -43,8 +43,8 @@
     if (!mancanti.length) { return; }
     throw new Error('composizione.js non può partire: ' +
       (mancanti.length === 1
-        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per trasformare le risposte del questionario in un nodo da calcolare.'
-        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per trasformare le risposte del questionario in un nodo da calcolare.') +
+        ? 'gli manca il modulo ' + mancanti[0] + ', e gli serve per trasformare le risposte del questionario in un gesto da calcolare.'
+        : 'gli mancano i moduli ' + mancanti.join(' e ') + ', e gli servono per trasformare le risposte del questionario in un gesto da calcolare.') +
       ' Ordine di caricamento: nucleo.js, calibrazione.js, casuale-mt.js, stato.js, ' +
       'microsemantica.js, tempo.js, settimana-tipo.js, e i dati prima di chi li usa.');
   }([['Nucleo (nucleo.js)', N], ['Questionario (app/dati/questionario.js)', Q]]
@@ -655,7 +655,7 @@
   function fiducia(copertura, qualita, nonCerte) {
     nonCerte = nonCerte || 0;
     if (copertura < 0.6) {
-      return { livello: 'bassa', motivo: 'Meno di sei domande su dieci hanno una risposta. Una parte rilevante del nodo usa quindi valori già impostati. Controlla ciò che manca prima di leggere il risultato.' };
+      return { livello: 'bassa', motivo: 'Meno di sei domande su dieci hanno una risposta. Una parte rilevante del gesto usa quindi valori già impostati. Controlla ciò che manca prima di leggere il risultato.' };
     }
     if (qualita === 'bassa') {
       return { livello: 'bassa', motivo: 'Le risposte dichiarano informazioni indirette o soprattutto stimate. Il risultato dipende da queste ipotesi: prima di interpretarlo, controlla i dati più incerti.' };

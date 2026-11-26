@@ -110,10 +110,11 @@
     box.hidden = true;
     /* i testi lunghi sono scritti a paragrafi, separati da una riga vuota:
        stampati in un blocco solo diventerebbero un muro */
+    var propria = el.getAttribute('data-parola');
     function aParagrafi(t, classe) {
       return String(t).split(/\n\s*\n/).map(function (pezzo) {
         return '<p' + (classe ? ' class="' + classe + '"' : '') + '>' +
-               esc(pezzo.trim()) + '</p>';
+               collega(esc(pezzo.trim()), propria) + '</p>';
       }).join('');
     }
     box.innerHTML = '<strong>' + esc(v.nome) +
@@ -279,14 +280,14 @@
     { id: 'stato', titolo: 'Lo stato che resta dopo',
       breve: 'Quello che un gesto lascia addosso, e che il gesto dopo si ritrova: carico, assetto, costo nascosto, recupero.',
       chiavi: ['assetto', 'carico', 'debito', 'costo_nascosto', 'soglia', 'regime', 'spirale',
-               'rip', 'ri4', 'cooldown', 'or1', 'adattamento', 'delega_vera',
+               'rip', 'ri4', 'raffreddamento', 'or1', 'adattamento', 'delega_vera',
                'supporto_reale', 'over_functioning'] },
     { id: 'sicurezza', titolo: 'Le due protezioni',
       breve: 'Il «pavimento», che rallenta il recupero quando il carico è già troppo alto, e il «cancello», che ferma il calcolo quando un numero non sarebbe la risposta giusta. Si accendono da soli.',
-      chiavi: ['pavimento', 'safetystop'] },
+      chiavi: ['pavimento', 'cancello_sicurezza'] },
     { id: 'scena', titolo: 'La scena, la catena, il tempo lungo',
       breve: 'Più gesti di fila, una giornata intera, settimane e mesi: come lo stato passa da un anello all’altro.',
-      chiavi: ['campo', 'catena', 'micro_azione', 'micro_semantica', 'micro_frame',
+      chiavi: ['campo', 'catena', 'micro_azione', 'micro_semantica', 'fotogramma',
                'microvariazione', 'granularita', 'trasferimento_di_stato', 'due_assi',
                'mini_settimana', 'peso_della_giornata', 'traiettoria', 'saturazione'] },
     { id: 'domande', titolo: 'Le domande, le risposte, e quanto fidarsi',
@@ -303,9 +304,9 @@
                'wilson', 'mcnemar', 'bonferroni', 'correlazione', 'variazione',
                'convergenza'] },
     { id: 'macchina', titolo: 'Il simulatore, visto da dentro',
-      breve: 'Com’è fatta la macchina che calcola e come sceglie le parole: il motore, i suoi pezzi, e i loro nomi inglesi.',
-      chiavi: ['motore', 'registro', 'budget', 'runner', 'cluster', 'checkpoint', 'audit',
-               'payload', 'blueprint', 'overlay'] }
+      breve: 'Com’è fatta la macchina che calcola e come sceglie le parole: il motore, i suoi pezzi, e i loro nomi, con quello inglese accanto.',
+      chiavi: ['motore', 'registro', 'budget', 'esecutore', 'grappolo', 'punto_ripresa', 'esame',
+               'pacchetto_dati', 'piano_scena', 'filtro'] }
   ];
 
   /* le voci vere (non le sigle, che sono secondi nomi): quelle che
@@ -337,9 +338,46 @@
     return { nome: e.nome, sigla: '', breve: e.breve, esempio: e.esempio };
   }
 
-  function aParagrafiTesto(t) {
+  /* LE PAROLE DENTRO UNA VOCE APRONO LA LORO VOCE (26/11/2026). Le voci
+     rispiegavano fra parentesi, ogni volta, le parole che hanno una voce
+     loro: «il carico (la pressione accumulata nei giorni prima)» in decine
+     di voci. Igor ha scelto «meno parentesi»: adesso la parentesi se ne va,
+     e la parola si tocca, come nelle pagine. Si collega solo la prima volta
+     che compare in una voce, e mai la voce a se stessa; le parole lunghe
+     prima delle corte, cosi' «costo nascosto» non diventa «costo» e basta.
+     Il testo arriva gia' passato da esc(): qui dentro non ci sono tag. */
+  var LEGAMI = [
+    ['costo nascosto', 'costo_nascosto'], ['campo attivo', 'campo'],
+    ['taglio ai bordi', 'taglio'], ['ripetizioni', 'ripetizione'],
+    ['ripetizione', 'ripetizione'], ['carico', 'carico'], ['assetto', 'assetto'],
+    ['margine', 'margine'], ['debito', 'debito'], ['dado', 'dado'],
+    ['taratura', 'taratura'], ['pavimento', 'pavimento'], ['soglia', 'soglia'],
+    ['regime', 'regime'], ['spirale', 'spirale'], ['catena', 'catena']
+  ];
+  function collega(html, propria) {
+    var usate = {};
+    LEGAMI.forEach(function (l) {
+      var chiave = l[1];
+      var questa = laVoce(chiave);
+      if (!questa || usate[chiave] || chiave === propria ||
+          (propria && questa === laVoce(propria))) { return; }
+      /* l’apostrofo davanti va bene: «l’assetto» */
+      var re = new RegExp('(^|[^\\wàèéìòù-])(' + l[0] + ')(?![\\wàèéìòù])');
+      var m = re.exec(html);
+      if (!m) { return; }
+      /* non dentro un collegamento appena messo */
+      var prima = html.slice(0, m.index + m[1].length);
+      if ((prima.match(/<span/g) || []).length !== (prima.match(/<\/span>/g) || []).length) { return; }
+      usate[chiave] = true;
+      html = prima + '<span data-parola="' + chiave + '">' + m[2] + '</span>' +
+        html.slice(m.index + m[0].length);
+    });
+    return html;
+  }
+
+  function aParagrafiTesto(t, propria) {
     return String(t).split(/\n\s*\n/).map(function (pezzo) {
-      return '<p>' + esc(pezzo.trim()) + '</p>';
+      return '<p>' + collega(esc(pezzo.trim()), propria) + '</p>';
     }).join('');
   }
 
@@ -348,10 +386,10 @@
     if (!v) { return ''; }
     return '<div class="voce-glossario" data-wiki-voce="' + esc(k) + '"><dt>' + esc(v.nome) +
       (v.sigla ? ' <span class="glossa-sigla">' + esc(v.sigla) + '</span>' : '') +
-      '</dt><dd>' + aParagrafiTesto(v.breve) +
+      '</dt><dd>' + aParagrafiTesto(v.breve, k) +
       (v.esempio
         ? '<details class="glossa-dettaglio"><summary>Un esempio</summary>' +
-          aParagrafiTesto(v.esempio) + '</details>'
+          aParagrafiTesto(v.esempio, k) + '</details>'
         : '') +
       '</dd></div>';
   }

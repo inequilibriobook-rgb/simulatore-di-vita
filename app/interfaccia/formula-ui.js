@@ -63,7 +63,7 @@
   function nodo(valori) {
     var x = valori || v;
     return {
-      id: 'formula', descrizione: 'nodo di studio', p0: x.P0,
+      id: 'formula', descrizione: 'gesto di studio', p0: x.P0,
       modificatori: { energia_e: x.E, informazione_i: x.I, tempo_t: x.T,
                       materiale_m: x.M, bonus_bp: x.BP, complessita_c: x.C },
       stato_prima: { stress_str: x.STR, posizione_pos: 60, debito_deb: x.DEB, rip: 'assente' }
@@ -125,7 +125,7 @@
     ['La conversione del campo attivo in punti',
      'Il campo attivo è quello che nella scena risponde al tentativo: un cane che tira, una serratura che resiste. Le fonti distinguono con cura una sua contestazione lieve, media e forte. Ma non è scritto da nessuna parte quanti punti valga «lieve». Il ponte fra la parola e il numero, insomma, non esiste ancora. Va costruito, e va dichiarato.'],
     ['L’unità del cooldown',
-     'Il cooldown è il tempo di raffreddamento. Dopo una fase rossa, cioè un periodo in cui il carico è arrivato in zona di pericolo, il modello impone un’attesa prima che si possa tornare a spingere. È un numero intero, e cala di uno per volta. Di uno ogni quanto, però? A ogni nodo, a ogni scena, a ogni ora, a ogni giorno? Non è dichiarato da nessuna parte. E la stessa cifra, letta come nodi o come giorni, dà due modelli del recupero del tutto diversi.'],
+     'Il raffreddamento è il tempo di attesa dopo una fase rossa: cioè dopo un periodo in cui il carico è arrivato in zona di pericolo, il modello impone un’attesa prima che si possa tornare a spingere. È un numero intero, e cala di uno per volta. Di uno ogni quanto, però? A ogni gesto, a ogni scena, a ogni ora, a ogni giorno? Non è dichiarato da nessuna parte. E la stessa cifra, letta come gesti o come giorni, dà due modelli del recupero del tutto diversi.'],
     ['I tetti su assetto, debito e costo nascosto',
      'La tabella del debito si ferma a «4 o oltre», e da lì in su la scala resta aperta: un tetto, cioè un valore massimo, non c’è. L’assetto una scala dichiarata non ce l’ha proprio. Il costo nascosto, cioè il prezzo di un gesto che da fuori sembra riuscito e che si vede solo dopo, non ha né una soglia né un modo di calare col tempo. Eppure nel programma una soglia c’è, a metà scala, e cambia il modo in cui il simulatore si comporta. Funziona, si vede negli esiti, e non è canone.']
   ];
@@ -286,7 +286,7 @@
           ? 'Coincidono, e coincide anche il grezzo: ' + num(s.praw) + ' nel libro, ' +
             num(grezzo) + ' qui. Il numero di destra non è scritto in questa pagina. Lo ha ' +
             'calcolato un istante fa <code>app/motore/nucleo.js</code>, con i valori della scheda.'
-          : 'NON coincidono. È un errore, e va guardato prima di credere a questa pagina.') +
+          : '<strong>Non</strong> coincidono. È un errore, e va guardato prima di credere a questa pagina.') +
         '</p></div>';
     }
 

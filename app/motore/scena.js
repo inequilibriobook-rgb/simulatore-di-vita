@@ -1378,7 +1378,7 @@
       if (classe.pezzi) {
         v.C += classe.pezzi;
         tracce.push({ variabile: 'C', valore: classe.pezzi, parola: f.azione.parola,
-          perche: 'Coordinamenti che il gesto richiede di suo.' });
+          perche: 'Coordinamenti che il gesto richiede in sé.' });
       }
 
       /* IL PESO CONTATO DUE VOLTE, IMPEDITO QUI.
@@ -1611,13 +1611,13 @@
     if (daGrammatica.length) {
       avvisi.push({ tipo: 'verbo-nuovo',
         testo: (daGrammatica.length === 1
-          ? 'Un gesto l’ho riconosciuto dalla grammatica e non dal vocabolario: «' +
+          ? 'Un gesto il simulatore l’ha riconosciuto dalla grammatica e non dal vocabolario: «' +
             daGrammatica[0].azione.parola + '».'
-          : daGrammatica.length + ' gesti li ho riconosciuti dalla grammatica e non dal ' +
+          : daGrammatica.length + ' gesti il simulatore li ha riconosciuti dalla grammatica e non dal ' +
             'vocabolario: ' + daGrammatica.map(function (f) {
               return '«' + f.azione.parola + '»'; }).join(', ') + '.') +
           ' Vuol dire che lì, con quella desinenza, in italiano c’è un verbo. Ma quale ' +
-          'verbo sia, e quanto sia difficile di suo, il simulatore non lo sa. Allora gli ' +
+          'verbo sia, e quanto sia difficile in sé, il simulatore non lo sa. Allora gli ' +
           'ha dato il punto di partenza dei gesti ordinari: il più neutro dei quattro. ' +
           'Se quel gesto è più facile o più difficile della media, cambialo a mano. ' +
           'Nella tabella c’è scritto che il numero non viene da nessuna parola ' +
@@ -1637,14 +1637,14 @@
           : forseContesto.length + ' pezzi raccontano qualcosa al passato e insieme dicono come ' +
             (TERZA ? 'sta' : 'stai') + ': ' +
             forseContesto.map(function (f) { return '«' + f.testo + '»'; }).join(', ') + '.') +
-          ' L’ho messo nel contesto, non fra i gesti. Mi è sembrato che raccontasse una ' +
+          ' Il simulatore l’ha messo nel contesto, non fra i gesti, perché gli è sembrato che raccontasse una ' +
           'cosa già successa, più la condizione che ne resta. E allora vale per tutta la ' +
           'scena, non per un gesto solo.\n\nLa regola è stretta apposta. Raccontare una ' +
           'scena al passato è normalissimo. ' +
           (TERZA ? '«Ha fatto colazione, ha preso le chiavi, ha chiuso la porta» '
                  : '«Mi sono alzato, ho bevuto, sono uscito» ') +
           'restano tre gesti. Serve che nello stesso pezzo ci siano tutte e due le cose: ' +
-          'il verbo al passato e uno stato dichiarato. Se ho sbagliato lo stesso, premi ' +
+          'il verbo al passato e uno stato dichiarato. Se ha sbagliato lo stesso, premi ' +
           '«è un gesto» qui sotto.' });
     }
 
@@ -1652,14 +1652,17 @@
     frammenti.forEach(function (f) { campoTot = campoTot.concat(campoDi(f.testo)); });
     if (campoTot.length) {
       avvisi.push({ tipo: 'campo',
-        testo: 'La scena nomina qualcosa che RISPONDE al tentativo (' +
-          campoTot.map(function (c) { return c.nome; }).join(', ') +
-          '). Non entra nella formula: agisce dopo il dado, togliendo margine. Il canone ' +
+        /* un nome solo per tipo: «il cane tira il guinzaglio» trovava due volte
+           «un animale che reagisce» (visto il 26/11/2026) */
+        testo: 'La scena nomina qualcosa che risponde mentre ci provi (' +
+          campoTot.map(function (c) { return c.nome; }).filter(function (n, i, a) {
+            return a.indexOf(n) === i; }).join(', ') +
+          '). Non entra nella formula: agisce dopo il dado, togliendo margine. Il libro ' +
           'non dice quanti punti valga. Questo simulatore non se li inventa.' });
     }
     if (!nodi.length) {
       avvisi.push({ tipo: 'vuoto',
-        testo: 'Non ho riconosciuto nessun gesto. Il lessico però conosce i verbi più ' +
+        testo: 'Il simulatore non ha riconosciuto nessun gesto. Il suo vocabolario però conosce i verbi più ' +
                'comuni della vita di ogni giorno. ' +
                (TERZA ? 'Prova a scrivere che cosa fa, non solo come sta.'
                       : 'Prova a scrivere che cosa fai, non solo come stai.') });
@@ -1671,7 +1674,7 @@
     }
     if (nodi.length > 40) {
       avvisi.push({ tipo: 'molti',
-        testo: nodi.length + ' nodi da una descrizione sola. Il capitolo 25 chiama «nodo ' +
+        testo: nodi.length + ' gesti da una descrizione sola. Il capitolo 25 chiama «nodo ' +
                              'a vuoto» un frammento che non cambia niente. Conviene ' +
                              'fondere i gesti che raccontano lo stesso passaggio.' });
     }
@@ -1684,7 +1687,7 @@
         testo: scartate + (scartate === 1
           ? ' condizione era dichiarata due volte: una per la scena e una dentro un gesto. È stata contata una volta sola.'
           : ' condizioni erano dichiarate due volte: una per la scena e una dentro un gesto. Sono state contate una volta sola.') +
-          ' È il domicilio unico del capitolo 18. Nelle tracce dei nodi si vede quale valore ha vinto, e perché.' });
+          ' È il domicilio unico del capitolo 18. Nelle tracce dei gesti si vede quale valore ha vinto, e perché.' });
     }
 
     var senzaCarico = !contesto.tracce.some(function (t) {

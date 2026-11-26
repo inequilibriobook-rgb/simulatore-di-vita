@@ -94,8 +94,8 @@
       chiavi: ['blackout', 'black-out', 'senza corrente da giorni', 'senza elettricità da giorni',
                'manca la luce da giorni', 'salta la corrente'],
       suggerimento: { T19: 2 },
-      nota: 'Quando la corrente manca per giorni, saltano la luce e i modi soliti di ' +
-            'sentirsi. Tutto il resto resta com’era: la temperatura, il terreno, un ' +
+      nota: 'Quando la corrente manca per giorni, saltano la luce e i modi soliti per ' +
+            'mettersi in contatto con gli altri. Tutto il resto resta com’era: la temperatura, il terreno, un ' +
             'aiuto che può arrivare. Fra le condizioni severe è la più vicina alla vita ' +
             'di tutti i giorni. Capita anche in città.' },
 

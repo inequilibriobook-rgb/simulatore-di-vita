@@ -14,7 +14,7 @@
    MathML e non una libreria: le pagine si aprono da disco, senza rete
    (capitolo 48), e MathML lo disegnano i browser da soli.
 
-   Generato il 15/09/2026 dal Canone.
+   Generato il 26/11/2026 dal Canone.
    ========================================================================== */
 (function (globale) {
   'use strict';
@@ -22,7 +22,7 @@
   var FORMULE = {
     "madre": {
       latex: "P_n = \\operatorname{clamp}\\bigl(P_0 + E + I + T + M + \\mathrm{BP} - 5C - \\operatorname{Pen}_{\\mathrm{STR}}(\\mathrm{STR}) - 5\\,\\mathrm{DEB}\\bigr)",
-      spiega: "La formula canonica del nodo, come sta nel capitolo 5.",
+      spiega: "La formula del gesto, come la stampa il libro al capitolo 5.",
       mathml: "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" alttext=\"P_n = \\operatorname{clamp}\\bigl(P_0 + E + I + T + M + \\mathrm{BP} - 5C - \\operatorname{Pen}_{\\mathrm{STR}}(\\mathrm{STR}) - 5\\,\\mathrm{DEB}\\bigr)\"><mrow><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><mi mathvariant=\"normal\">clamp</mi><mo stretchy=\"true\" fence=\"true\">(</mo><msub><mi>P</mi><mn>0</mn></msub><mo>+</mo><mi>E</mi><mo>+</mo><mi>I</mi><mo>+</mo><mi>T</mi><mo>+</mo><mi>M</mi><mo>+</mo><mi mathvariant=\"normal\">BP</mi><mo>\u2212</mo><mn>5</mn><mi>C</mi><mo>\u2212</mo><msub><mi mathvariant=\"normal\">Pen</mi><mrow><mi mathvariant=\"normal\">STR</mi></mrow></msub><mo stretchy=\"true\" fence=\"true\">(</mo><mi mathvariant=\"normal\">STR</mi><mo stretchy=\"true\" fence=\"true\">)</mo><mo>\u2212</mo><mn>5</mn><mspace width=\"0.1667em\"/><mi mathvariant=\"normal\">DEB</mi><mo stretchy=\"true\" fence=\"true\">)</mo></mrow></math>"
     },
     "grezza": {
@@ -82,7 +82,7 @@
     },
     "granularita": {
       latex: "f(g) = \\min\\left(1,\\ \\frac{k}{g}\\right)",
-      spiega: "Il peso di una giornata diviso per quanti nodi la descrivono.",
+      spiega: "Il peso di una giornata diviso per quanti gesti la descrivono.",
       mathml: "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" alttext=\"f(g) = \\min\\left(1,\\ \\frac{k}{g}\\right)\"><mrow><mi>f</mi><mo stretchy=\"true\" fence=\"true\">(</mo><mi>g</mi><mo stretchy=\"true\" fence=\"true\">)</mo><mo>=</mo><mi mathvariant=\"normal\">min</mi><mo stretchy=\"true\" fence=\"true\">(</mo><mn>1</mn><mo separator=\"true\">,</mo><mspace width=\"0.25em\"/><mfrac><mrow><mi>k</mi></mrow><mrow><mi>g</mi></mrow></mfrac><mo stretchy=\"true\" fence=\"true\">)</mo></mrow></math>"
     }
   };
@@ -156,7 +156,7 @@
   /* Le due schede del capitolo 39 in cui il libro NON calcola, con il
      motivo scritto come lo scrive il libro. Fermarsi e' il risultato. */
   var SENZA_CALCOLO = [
-    { titolo: "Guidare con sonnolenza", perche: "Nessun calcolo.\nSafetyStop, e viene prima della formula." },
+    { titolo: "Guidare con sonnolenza", perche: "Nessun calcolo.\nCancello di sicurezza, e viene prima della formula." },
     { titolo: "Caregiver che compensa tutti", perche: "Nessun calcolo: non è un nodo, è una sequenza lunga.\nMACRO-3/4 · carico persistente in salita · posizione interna in calo\nsupporto simbolico" }
   ];
 

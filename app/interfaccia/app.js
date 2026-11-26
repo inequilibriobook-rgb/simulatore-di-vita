@@ -364,7 +364,7 @@
       tassello('Differenze', d.differenze,
                d.differenze === 0 ? 'i due programmi dicono la stessa cosa'
                                   : 'c’è qualcosa da guardare subito') +
-      tassello('Nodi singoli', d.nodi.toLocaleString('it-IT'), 'con lo stato dopo il nodo') +
+      tassello('Nodi singoli', d.nodi.toLocaleString('it-IT'), 'con lo stato dopo il gesto') +
       tassello('Semi del dado', d.semi_generatore_verificati, 'la stessa sequenza di numeri del programma in Python');
     if (vel.nodi_al_secondo_js && vel.nodi_al_secondo_py) {
       righe += tassello('Guadagno di velocità',

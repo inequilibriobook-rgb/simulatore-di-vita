@@ -140,7 +140,7 @@
       g.linea(pMis, { colore: COLORI.azione, spessore: 2.6 });
       g.asseX([[1, '1'], [10, '10'], [20, '20'], [30, '30']], 'i gesti, in ordine');
       g.asseY('il carico, da 0 a 100');
-      return g.chiudi('Le due calibrazioni del trasferimento di stato a confronto') +
+      return g.chiudi('I due modi di trasferire lo stato, a confronto') +
         D.legenda([
           { testo: 'misurato, 4,6 % — arriva a ' + mis.stato_finale.stress_str,
             colore: COLORI.azione, forma: 'linea' },
@@ -172,8 +172,8 @@
       scale.forEach(function (n) {
         var a = STip.eseguiSettimana({ nodiPerScena: n, durezza: 1.15, seme: 707070 });
         var b = STip.eseguiSettimana({ nodiPerScena: n, durezza: 1.15, seme: 707070, k: null });
-        conK.push([n, a.stato_finale.stress_str, n * 4 + ' nodi → carico ' + a.stato_finale.stress_str]);
-        senzaK.push([n, b.stato_finale.stress_str, n * 4 + ' nodi → carico ' + b.stato_finale.stress_str]);
+        conK.push([n, a.stato_finale.stress_str, n * 4 + ' gesti → carico ' + a.stato_finale.stress_str]);
+        senzaK.push([n, b.stato_finale.stress_str, n * 4 + ' gesti → carico ' + b.stato_finale.stress_str]);
       });
 
       function pannello(dati, colore, titolo, nota) {
@@ -184,7 +184,7 @@
         var punti = dati.map(function (d, i) { return [i, d[1], d[2]]; });
         g.linea(punti, { colore: colore, spessore: 2.6 });
         g.punti(punti, { colore: colore, raggio: 4.5 });
-        g.asseX(scale.map(function (n, i) { return [i, String(n * 4)]; }), 'nodi che descrivono un giorno');
+        g.asseX(scale.map(function (n, i) { return [i, String(n * 4)]; }), 'gesti che descrivono un giorno');
         g.asseY('il carico, da 0 a 100');
         return '<div class="colonna-caso" style="--tinta:' + colore + '">' +
           '<p class="colonna-eti">' + esc(titolo) + '</p>' +

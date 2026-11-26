@@ -88,7 +88,7 @@
              'rispondo al campanello, chiamo il collega, compilo la cartella, ' +
              'accompagno il paziente, l’ambiente è rumoroso e non c’è nessuno che aiuti.' },
     { nome: 'La sera in cui si insiste',
-      cosa: 'una sequenza che parte già in rosso',
+      cosa: 'una sequenza che comincia con il carico già altissimo',
       testo: 'Sono esausto e ho male alla schiena. Rileggo il messaggio, scrivo una risposta ' +
              'dura, la cancello, la riscrivo, la rileggo, insisto ancora, non chiedo aiuto a ' +
              'nessuno.' }
@@ -182,7 +182,7 @@
   function indaga() {
     var testo = q('scena').value.trim();
     if (!testo) { dimmi('Scrivi una scena, o scegli un esempio qui sopra.'); return; }
-    dimmi('Primo tempo di tre: sto ripetendo la scena…');
+    dimmi('Primo tempo di tre: il simulatore ripete la scena…');
 
     var mioGiro = ++giroIndagine;
     var t0 = (globale.performance && performance.now) ? performance.now() : Date.now();
@@ -198,7 +198,7 @@
 
       if (!nodi.length) {
         dimmi('');
-        q('lettura').innerHTML = '<strong>Non ho riconosciuto nessun gesto in questa scena.</strong> ' +
+        q('lettura').innerHTML = '<strong>Il simulatore non ha riconosciuto nessun gesto in questa scena.</strong> ' +
           'Il vocabolario cerca dei verbi d’azione. Prova a scrivere che cosa fai, non solo ' +
           'come stai. «Mi alzo», «bevo», «esco» sono gesti. «Sono stanco» è contesto, e da solo ' +
           'non fa una sequenza da indagare.';
@@ -216,7 +216,7 @@
         return;
       }
       disegnaIndagine();
-      dimmi('Secondo tempo di tre: sto provando le modifiche, una per volta…');
+      dimmi('Secondo tempo di tre: il simulatore prova le modifiche, una per volta…');
 
       setTimeout(function () {
         if (mioGiro !== giroIndagine) { return; }
@@ -225,7 +225,7 @@
         leve = I.seCambiassi(nodi, { ripetizioni: Math.min(1000, Math.max(300, Math.round(rip / 3))),
                                      seme: seme, calibrazione: cal });
         disegnaLeve();
-        dimmi('Terzo tempo di tre: sto facendo scorrere il carico di partenza…');
+        dimmi('Terzo tempo di tre: il simulatore fa scorrere il carico di partenza…');
 
         setTimeout(function () {
           if (mioGiro !== giroIndagine) { return; }
@@ -235,7 +235,7 @@
           if (globale.Glossario && globale.Glossario.decoraTutte) { globale.Glossario.decoraTutte(); }
           var t1 = (globale.performance && performance.now) ? performance.now() : Date.now();
           dimmi('Ci sono voluti ' + num((t1 - t0) / 1000, 1) + ' secondi, e tutto è successo ' +
-            'dentro questa pagina: niente è uscito da questo computer.');
+            'dentro questa pagina: niente è uscito dal tuo telefono o dal tuo computer.');
         }, 20);
       }, 20);
     }, 30);
@@ -252,14 +252,14 @@
   function disegnaIndagine() {
     var gesti = ind.nodi.length;
     q('lettura').innerHTML =
-      '<strong>Ho letto ' + Lg.plurale(gesti, 'gesto', 'gesti') + '</strong>' +
+      '<strong>Il simulatore ha letto ' + Lg.plurale(gesti, 'gesto', 'gesti') + '</strong>' +
       (lettura.contesto && lettura.frammenti
         ? ' e ' + Lg.plurale(
             lettura.frammenti.filter(function (f) { return f.tipo === 'contesto'; }).length,
             'pezzo di contesto', 'pezzi di contesto') +
           ', cioè le frasi che dicono come stai, non che cosa fai'
         : '') +
-      ', e ho ripetuto la scena ' + Lg.intero(ind.ripetizioni) + ' volte. ' +
+      ', e ha ripetuto la scena ' + Lg.intero(ind.ripetizioni) + ' volte. ' +
       'Ogni gesto è stato valutato una volta per ripetizione, quindi in tutto le valutazioni ' +
       'sono ' + Lg.intero(ind.valutazioni) + '. Ma il <strong>campione</strong> non è quello. ' +
       'Campione vuol dire su quanti casi davvero indipendenti è calcolato un numero, e qui ' +
@@ -284,7 +284,7 @@
     disegnaPrecisione();
     /* le due figure che ancora non ci sono si annunciano, invece di lasciare
        due buchi bianchi in mezzo alla pagina */
-    q('tornado').innerHTML = '<p class="nota">Sto provando le modifiche, una per volta. ' +
+    q('tornado').innerHTML = '<p class="nota">Il simulatore prova le modifiche, una per volta. ' +
       'Ogni modifica è una scena intera da rifare da capo, e sono sedici.</p>';
     q('letturaLeve').innerHTML = '';
     q('curvaCarico').innerHTML = '<p class="nota">Questa curva arriva per ultima: fa scorrere ' +
@@ -408,7 +408,7 @@
     }
     return '<p class="nota"><strong>Tutte le scatole sono ridotte a una riga, e c’è una ' +
       'ragione precisa.</strong> ' +
-      'Con la calibrazione misurata ogni gesto passa al gesto dopo soltanto il 4,6 % del ' +
+      'Con i valori misurati, quelli che il simulatore usa normalmente, ogni gesto passa al gesto dopo soltanto il 4,6 % del ' +
       'proprio effetto. In tutta questa scena il carico si è mosso da ' + num(primo.minimo, 0) +
       ' a ' + num(ultimo.massimo, 0) + ', cioè ' +
       (corsa < 1 ? 'meno di un punto' : Lg.plurale(Math.round(corsa), 'punto', 'punti')) +
@@ -428,7 +428,7 @@
       '4,6 % queste scatole restano chiuse quasi sempre: non basta allungare la scena, e non ' +
       'basta farla partire carica. Perché una si apra, il carico deve cambiare fra una ripetizione ' +
       'e l’altra proprio di quel tanto che serve a scavalcare un gradino, e sono coincidenze ' +
-      'rare. A spalancarle è la calibrazione storica, quella di prima che il 4,6 % venisse ' +
+      'rare. A spalancarle sono i valori di prima, quelli usati prima che il 4,6 % venisse ' +
       'misurato, e la si può provare in <a href="MONTECARLO.html">Mille volte la stessa ' +
       'scena</a>.</p>';
   }
@@ -463,7 +463,7 @@
       if (s[t] < 0 && (peggio === null || s[t] < s[peggio])) { peggio = t; }
     });
     var h = '<p><strong>Il gesto ' + (k + 1) + ' parte da ' + num(s.P0, 0) + '</strong>, ' +
-      'che è quanto vale di suo, prima che le condizioni dicano la loro. ';
+      'cioè da quanto è facile in sé, prima di guardare le condizioni. ';
     if (peggio) {
       h += 'Poi la voce che toglie di più è <strong>' + esc(I.NOME_TERMINE[peggio]) +
         '</strong>, con ' + num(s[peggio], 1) + ' punti. ';
@@ -540,7 +540,7 @@
 
     q('rottura').innerHTML = G.barreConIntervallo(voci, {
       massimo: Math.min(1, max * 1.1),
-      titoloX: 'quante ripetizioni si sono rotte QUI per la prima volta',
+      titoloX: 'quante ripetizioni si sono rotte proprio qui per la prima volta',
       descrizione: 'Distribuzione del primo gesto andato male'
     }) +
       /* «NELLO 0,0 % DELLE GIOCATE... SONO 0 GIOCATE SU 2.000» E' UNA FRASE CHE
@@ -569,7 +569,7 @@
           num(Math.abs(scarto), 1) + '. I conteggi invece tornano esatti. Le ripetizioni rotte sono ' +
           Lg.intero(ind.rottura.per_nodo.reduce(function (t, r) { return t + r.quante; }, 0)) +
           ', quelle arrivate intatte sono ' + Lg.intero(ind.rottura.mai) + '. Insieme fanno ' +
-          Lg.intero(ind.ripetizioni) + ', senza avanzi. Meglio farti vedere la ' +
+          Lg.intero(ind.ripetizioni) + ', senza avanzi. Meglio mostrarti la ' +
           'percentuale che non torna, e dirti da dove viene, che aggiustarne una di ' +
           'nascosto.</p>'
         : '');

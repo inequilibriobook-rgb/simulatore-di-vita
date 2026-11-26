@@ -476,7 +476,7 @@
   /* ---- Monte Carlo ---- */
   function montecarlo(rip) {
     if (!ultimaCatena) { return; }
-    q('statoMC').textContent = 'Sto ripetendo la scena…';
+    q('statoMC').textContent = 'Il simulatore ripete la scena…';
     setTimeout(function () {
       var seme = semeDa(q('seme').value);
       var t0 = performance.now();
