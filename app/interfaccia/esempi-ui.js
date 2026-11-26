@@ -352,7 +352,7 @@
   }
 
   /* ---------------------------------------------------------------------
-     I MARGINI DEL CAPITOLO 10 — il dado su una riga da 1 a 100
+     I MARGINI DEL CAPITOLO 9 — il dado su una riga da 1 a 100
      --------------------------------------------------------------------- */
   function rigaMargini(caso) {
     var W = 900, H = 108, L = 12, R = 12;

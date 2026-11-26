@@ -3,16 +3,17 @@
    =============================================================================
    Questo file esiste perché il libro lo chiede per nome.
 
-     «Il coefficiente di recupero è la scelta implementativa più importante
-      del progetto e va trattata come tale: dichiarata, versionata, isolata
-      in un file di calibrazione, misurabile nei suoi effetti, modificabile
-      senza toccare il core. Chiunque legga un report deve poter sapere quale
-      calibrazione lo ha prodotto.»
+     «Il coefficiente di recupero è la scelta di implementazione più
+      importante del progetto. Va trattata come tale. Dichiarata.
+      Versionata. Isolata in un file di calibrazione. Misurabile nei suoi
+      effetti. Modificabile senza toccare il motore. Chiunque legga un
+      resoconto deve poter sapere quale calibrazione lo ha prodotto.»
                                         — Canone, Apparato F, voce 7
 
-     «La soglia va esposta, non nascosta. Chi legge un report in cui il tono
-      cambia da un nodo all'altro ha il diritto di sapere che è scattato un
-      parametro, quale, e che quel parametro è una scelta del software.»
+     «La soglia va esposta, non nascosta. Chi legge un racconto in cui il
+      tono cambia da un nodo all'altro ha il diritto di sapere tre fatti.
+      Che è scattato un parametro. Quale. E che quel parametro è una scelta
+      del software.»
                                         — Canone, Apparato F, voce 8
 
    CHE COSA C'E' QUI DENTRO

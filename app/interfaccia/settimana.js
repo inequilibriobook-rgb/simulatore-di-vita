@@ -544,10 +544,11 @@
       '</div>' +
       '<div class="avviso" style="margin-top:12px">' +
       '<strong>Non c’è un declino graduale.</strong> ' +
-      'Misurato su 200 ripetizioni da trenta giorni, il carico finisce o attorno a 52, o a 99, ' +
+      'Misurato su 200 ripetizioni da trenta giorni, il carico finisce o attorno a 50, o a 99, ' +
       'e non c’è quasi niente in mezzo. Non si scivola giù: si sta, e poi si cade. ' +
-      'Su cento ripetizioni, quelle già cadute sono zero dopo cinque giorni, quindici dopo ' +
-      'quindici giorni e sessantatré dopo trenta. ' +
+      'Su cento ripetizioni, quelle già cadute sono zero dopo cinque giorni, venticinque dopo ' +
+      'quindici giorni e sessantasei dopo trenta. E di solito la caduta non si annuncia: ' +
+      'al decimo giorno, chi cadrà e chi no hanno quasi sempre lo stesso carico. ' +
       'Per questo la domanda utile non è «a che punto sono», ma «da quanto va avanti».' +
       '</div>' +
       '<div class="avviso" style="margin-top:12px">' +

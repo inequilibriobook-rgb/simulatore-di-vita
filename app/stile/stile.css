@@ -3579,3 +3579,24 @@ tr.glossa-riga > td > .glossa { margin-top: 4px; max-width: none; }
 }
 @media print { .titolo-opera .dorato-testo { animation: none; -webkit-text-fill-color: #6b4f12; color: #6b4f12; background: none; filter: none; } }
 @media (max-width: 700px) { .titolo-opera { margin-bottom: 14px; } }
+
+/* LE DOMANDE DI SCENA (13/11/2026) — pagina del racconto. Una domanda per
+   riga, il menu a tutta larghezza sul telefono, e un filo a sinistra quando
+   la persona ha risposto: si vede a colpo d'occhio dove vale la risposta e
+   dove vale ancora la lettura delle parole. */
+.domanda-scena { margin: 14px 0; padding-left: 12px; border-left: 3px solid var(--linea-base); }
+.domanda-scena.risposta-data { border-left-color: var(--aiuta); }
+.domanda-scena .comando { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; }
+.domanda-scena .comando span { font-weight: 600; }
+.domanda-scena select { max-width: 100%; }
+@media (max-width: 700px) { .domanda-scena select { width: 100%; } }
+/* le quattro domande sul gesto, dentro la scheda del gesto (25/11/2026) */
+.domande-gesto { margin: 12px 0 4px; }
+.domande-gesto > summary { cursor: pointer; font-weight: 600; }
+.domande-gesto > summary small { font-weight: 400; color: var(--inchiostro-3); }
+/* la ricevuta: sotto ogni pezzo del racconto, che fine ha fatto (25/11/2026) */
+.fr-esito { margin: 2px 0 12px 28px; font-size: .92em; color: var(--inchiostro-3); display: flex; flex-direction: column; gap: 3px; }
+.fr-esito b { color: inherit; font-weight: 600; }
+.fr-esito.fr-fuori { border-left: 3px solid var(--attenzione); padding-left: 10px; margin-left: 15px; }
+.fr-esito select { max-width: 100%; margin-top: 4px; }
+@media (max-width: 700px) { .fr-esito { margin-left: 12px; } .fr-esito select { width: 100%; } }

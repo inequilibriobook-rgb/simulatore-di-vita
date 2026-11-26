@@ -57,6 +57,10 @@
   var corretti = {};        // id nodo → { variabile: valore scritto a mano }
   var uniti = {};           // indice frammento → true, se unito al precedente
   var cambiati = {};        // indice frammento → 'nodo' | 'contesto'
+  var risposte = {};        // id domanda di scena → id della risposta scelta
+  var risposteGesti = {};   // id nodo → { id domanda sul gesto → id della risposta }
+  var gestiAperti = {};     // id nodo → true, se le sue domande sono aperte
+  var assegnate = {};       // testo della frase (appiattito) → id della casa scelta a mano
   var seme = 424242;
   var risultato = null;
   var mc = null;
@@ -126,15 +130,29 @@
   }
 
   function rileggi(daZero) {
-    if (daZero) { uniti = {}; cambiati = {}; corretti = {}; }
+    if (daZero) { uniti = {}; cambiati = {}; corretti = {}; risposte = {}; risposteGesti = {}; gestiAperti = {}; assegnate = {}; }
     /* Le nature cambiate a mano si passano al lettore, che le applica PRIMA
        di costruire contesto e nodi. Prima si applicavano dopo, sui frammenti
        gia' letti, e poi una rilettura le cancellava: il bottone «è contesto /
        è un gesto» sembrava funzionare e non spostava un numero. */
     lettura = Sc.leggi(daZero ? q('scena').value : testoCorretto(),
                        { caricoBase: caricoDiPartenza(),
-                         nature: cambiati });
+                         nature: cambiati,
+                         risposte: risposte,
+                         risposteGesti: risposteGesti,
+                         assegnate: assegnate,
+                         terza: diUnAltro(),
+                         protagonista: diUnAltro() ? q('protagonista').value : '' });
     risultato = null;
+  }
+
+  /* LA GIORNATA DI UN'ALTRA PERSONA (25/11/2026): chi racconta lo dichiara,
+     e dice come chiama quella persona nel racconto. Il lettore non indovina:
+     «il paziente si alza» in prima persona e' una cosa che fa un altro, in
+     terza e' il primo gesto della scena. */
+  function diUnAltro() {
+    var m = q('diChi');
+    return !!(m && m.value === 'altra');
   }
 
   function valoriDi(nodo) {
@@ -161,6 +179,73 @@
   /* --------------------------------------------------------------------
      1 · CHE COSA HO LETTO
      -------------------------------------------------------------------- */
+  /* LA RICEVUTA: SOTTO OGNI PEZZO, CHE FINE HA FATTO  (25/11/2026).
+     Le due paure di chi racconta una giornata sono aver contato una cosa due
+     volte e averne persa una. Tutte e due si vedono qui, pezzo per pezzo: e'
+     diventato un gesto, ha messo un fatto in una casa, era gia' stato detto
+     e non e' stato sommato — oppure e' rimasto fuori. In quel caso la riga
+     non si limita a dirlo: chiede a che cosa appartiene, con un menu. Una
+     frase puo' restare fuori dal calcolo, ma perche' la persona l'ha deciso. */
+  var NOME_CASA = { E: 'il corpo', I: 'la chiarezza', T: 'il tempo', M: 'il posto e gli strumenti',
+                    BP: 'un aiuto', C: 'i pezzi da tenere insieme', STR: 'il carico',
+                    DEB: 'il debito da insistenza' };
+
+  function menuDellaCasa(r) {
+    var case_ = lettura.caseAMano || [];
+    return '<select data-assegna="' + r.indice + '">' +
+      '<option value="">' + (r.assegnata ? 'Tolgo la scelta: torna fra le frasi da decidere' : 'A che cosa appartiene? Scegli') + '</option>' +
+      case_.map(function (c0) {
+        return '<option value="' + esc(c0.id) + '"' + (r.assegnata === c0.id ? ' selected' : '') + '>' +
+          esc(c0.etichetta) + '</option>';
+      }).join('') + '</select>';
+  }
+
+  function esitoDelPezzo(r) {
+    var righe = [];
+    if (r.gesto !== null) { righe.push('è il <b>gesto ' + r.gesto + '</b>, e verrà calcolato'); }
+    r.righe.forEach(function (x) {
+      var casa = esc(NOME_CASA[x.variabile] || x.variabile);
+      var parola = '«' + esc(x.parola) + '»';
+      if (x.stato === 'contata') {
+        righe.push('<b>' + casa + ' ' + conSegno(x.valore) + '</b> per ' + parola +
+          (x.dove === 'scena' ? ', per tutta la scena' : ', solo per questo gesto'));
+      } else if (x.stato === 'sostituita') {
+        righe.push(parola + ' non conta: su questo hai risposto a una domanda, e vale la risposta');
+      } else {
+        righe.push(parola + ' era già detto in un altro punto: non l’ho sommato una seconda volta');
+      }
+    });
+    if (r.campo.length) {
+      righe.push('qui c’è qualcosa che risponde al tentativo (' + esc(L.elenco(r.campo)) +
+        '): non entra nella formula, agisce dopo il dado');
+    }
+    if (r.assegnata) {
+      righe.push('l’hai deciso tu: ' + menuDellaCasa(r));
+    } else if (r.fuori) {
+      righe.push('<b>non l’ho saputa usare</b>, e finora non è entrata in nessun numero. ' + menuDellaCasa(r));
+    }
+    if (!righe.length) { return ''; }
+    return '<div class="fr-esito' + (r.fuori ? ' fr-fuori' : '') + '">' +
+      righe.map(function (x) { return '<span>→ ' + x + '</span>'; }).join('') + '</div>';
+  }
+
+  function contoDellaRicevuta() {
+    var k = lettura.conto;
+    if (!k || !k.frasi) { return ''; }
+    function n(q0, uno, tanti) { return q0 === 1 ? uno : L.intero(q0) + ' ' + tanti; }
+    return '<p class="nota"><strong>Il conto del racconto.</strong> ' +
+      n(k.frasi, 'Un pezzo', 'pezzi') + ': ' + n(k.gesti, 'un gesto', 'gesti') + ', ' +
+      n(k.contati, 'un fatto contato', 'fatti contati') +
+      (k.giaDetti ? ', ' + n(k.giaDetti, 'uno già detto e non sommato', 'già detti e non sommati') : '') +
+      (k.decise ? ', ' + n(k.decise, 'una frase decisa da te', 'frasi decise da te') : '') + '. ' +
+      (k.fuori
+        ? '<b>' + n(k.fuori, 'Una frase è rimasta fuori', 'frasi sono rimaste fuori') + '</b>: ' +
+          (k.fuori === 1 ? 'la trovi qui sotto con un menu, e decidi tu dove va. '
+                         : 'le trovi qui sotto, ognuna con un menu, e decidi tu dove vanno. ') +
+          'Anche «non c’entra» è una decisione.'
+        : 'Nessuna frase è rimasta fuori senza una decisione.') + '</p>';
+  }
+
   function disegnaLettura() {
     var f = lettura.frammenti.map(function (fr, i) {
       var nodo = fr.tipo === 'nodo';
@@ -175,7 +260,8 @@
             (nodo ? 'è contesto' : 'è un gesto') + '</button>' +
           (i > 0 ? '<button type="button" class="fantasma" data-unisci="' + i + '">' +
             (uniti[i] ? 'separa' : 'unisci sopra') + '</button>' : '') +
-        '</span></div>';
+        '</span></div>' +
+        (lettura.ricevuta && lettura.ricevuta[i] ? esitoDelPezzo(lettura.ricevuta[i]) : '');
     }).join('');
 
     var tracce = lettura.contesto.tracce.map(function (t) {
@@ -184,6 +270,7 @@
     }).join('');
 
     q('lettura').innerHTML =
+      contoDellaRicevuta() +
       '<div class="frammenti">' + f + '</div>' +
       '<p class="nota">◆ è un gesto, cioè un nodo che verrà calcolato. · è contesto: ' +
       'descrive la scena e vale per tutti i gesti. <strong>Se ho tagliato male, correggi qui</strong>: ' +
@@ -196,16 +283,159 @@
         var i = parseInt(b.getAttribute('data-natura'), 10);
         var ora = lettura.frammenti[i].tipo;
         cambiati[i] = (ora === 'nodo') ? 'contesto' : 'nodo';
+        /* il taglio e' cambiato, e i gesti hanno cambiato numero: una
+           risposta data «al gesto 3» adesso cadrebbe su un altro gesto */
+        risposteGesti = {}; gestiAperti = {};
         rileggi(false); calcola();
+      });
+    });
+    Array.prototype.forEach.call(q('lettura').querySelectorAll('select[data-assegna]'), function (s) {
+      s.addEventListener('change', function () {
+        var i = parseInt(s.getAttribute('data-assegna'), 10);
+        var chiave = Sc.piatto(lettura.frammenti[i].testo);
+        if (s.value) { assegnate[chiave] = s.value; } else { delete assegnate[chiave]; }
+        var primaY = s.getBoundingClientRect().top;
+        rileggi(false); calcola();
+        tieniFermo(function () { return q('lettura').querySelector('select[data-assegna="' + i + '"]'); }, primaY);
       });
     });
     Array.prototype.forEach.call(q('lettura').querySelectorAll('[data-unisci]'), function (b) {
       b.addEventListener('click', function () {
         var i = parseInt(b.getAttribute('data-unisci'), 10);
         uniti[i] = !uniti[i];
+        risposteGesti = {}; gestiAperti = {};
         rileggi(false); calcola();
       });
     });
+  }
+
+  /* --------------------------------------------------------------------
+     1b · LE DOMANDE DI SCENA
+     --------------------------------------------------------------------
+     LA PERSONA DICE IL FATTO, LA CASELLA LA METTE LA PAGINA  (13/11/2026).
+     Indovinare le condizioni dalle parole e' la parte in cui il lettore
+     sbaglia di piu' [libro, capitolo 60; la strada nuova e' il 61], e lasciare alla persona i nove
+     cursori vuol dire lasciarle la scelta in cui ci si confonde: in quale
+     campo va un fatto. Qui la persona risponde a poche domande chiuse. Ogni
+     domanda ha una casa sola, decisa in app/dati/lessico.js, e la risposta
+     prende il posto di quello che era stato letto nelle parole.
+
+     TRE COSE CHE LA PAGINA DEVE DIRE, E DICE
+       · in quale casa va la risposta: una, col suo nome in italiano;
+       · che cosa aveva letto nel racconto, come PROPOSTA e non come risposta
+         gia' data: finche' la persona non sceglie, vale la lettura;
+       · che la risposta si puo' togliere, e si torna al racconto.
+
+     Un menu a tendina e non dei bottoni: sul telefono il menu lo apre il
+     sistema, a tutta larghezza, e non c'e' niente da mirare con il dito. */
+  /* IL MENU APPENA TOCCATO RESTA DOV'ERA, ANCHE DOPO CHE LA PAGINA HA FINITO
+     DI SISTEMARSI  (25/11/2026).
+     Rispondere ridisegna tutto. La prima versione riportava la pagina al suo
+     posto subito dopo il ridisegno, e sulle domande di scena bastava. Dentro
+     la scheda di un gesto no: misurato a 375 px, il menu si spostava ancora
+     di 325 punti, poi di 66. Dopo il ridisegno la pagina continua a
+     muoversi per qualche fotogramma — le parole ricevono il loro «?», le
+     righe lunghe vengono sillabate, e quello che sta sopra il menu cambia
+     altezza. Quindi si corregge subito, e poi si ricontrolla a ogni
+     fotogramma per mezzo secondo. Se nel frattempo la persona scorre lei,
+     ci si ferma: la pagina e' sua. */
+  function tieniFermo(trova, primaY) {
+    var fermati = false;
+    function basta() { fermati = true; }
+    function correggi() {
+      var el = trova();
+      if (!el || el.offsetParent === null) { return null; }
+      var scarto = el.getBoundingClientRect().top - primaY;
+      if (Math.abs(scarto) >= 1) {
+        try { window.scrollBy({ top: scarto, left: 0, behavior: 'instant' }); }
+        catch (e) { window.scrollBy(0, scarto); }
+      }
+      return el;
+    }
+    var subito = correggi();
+    if (subito) { try { subito.focus({ preventScroll: true }); } catch (e2) { /* niente fuoco, pazienza */ } }
+    window.addEventListener('wheel', basta, { passive: true, once: true });
+    window.addEventListener('touchstart', basta, { passive: true, once: true });
+    var inizio = Date.now();
+    (function giro() {
+      if (fermati || Date.now() - inizio > 500) {
+        window.removeEventListener('wheel', basta);
+        window.removeEventListener('touchstart', basta);
+        return;
+      }
+      correggi();
+      (window.requestAnimationFrame || function (f) { return setTimeout(f, 16); })(giro);
+    }());
+  }
+
+  var CASA_DI = { E: 'il corpo, adesso', T: 'il tempo', M: 'il posto intorno',
+                  STR: 'il carico che ci si porta dietro da prima',
+                  DEB: 'il debito di chi insiste' };
+
+  function disegnaDomande() {
+    var dove = q('domandeScena');
+    if (!dove) { return; }
+    var ds = (lettura && lettura.domande || []).filter(function (d) { return d.visibile; });
+    if (!lettura || !lettura.nodi.length || !ds.length) { dove.innerHTML = ''; return; }
+    var date = ds.filter(function (d) { return d.risposta; }).length;
+
+    dove.innerHTML = ds.map(function (d) {
+      var proposta = (!d.risposta && d.proposta)
+        ? d.opzioni.filter(function (o) { return o.id === d.proposta; })[0] : null;
+      var sotto = d.risposta
+        ? 'Vale la tua risposta, una volta sola e per tutti i gesti. Va in una casa sola: ' +
+          esc(CASA_DI[d.variabile] || d.variabile) + '.'
+        : (proposta
+            ? 'Nel racconto ho letto «' + esc(proposta.etichetta) + '». Se è così, sceglilo tu. ' +
+              'Finché non rispondi, vale quello che ho letto.'
+            : 'La risposta va in una casa sola: ' + esc(CASA_DI[d.variabile] || d.variabile) + '.');
+      return '<div class="domanda-scena' + (d.risposta ? ' risposta-data' : '') + '">' +
+        '<label class="comando"><span>' + esc(d.testo) + '</span>' +
+        '<select data-domanda="' + esc(d.id) + '">' +
+        '<option value="">Non rispondo: resta la lettura del racconto</option>' +
+        d.opzioni.map(function (o) {
+          return '<option value="' + esc(o.id) + '"' + (d.risposta === o.id ? ' selected' : '') + '>' +
+            esc(o.etichetta) + '</option>';
+        }).join('') + '</select></label>' +
+        '<p class="nota senza-margini">' + sotto + '</p></div>';
+    }).join('') +
+      '<p class="nota">' + (date
+        ? 'Hai risposto a ' + (date === 1 ? 'una domanda' : L.intero(date) + ' domande') + ' su ' + L.intero(ds.length) +
+          '. Dove hai risposto, le parole del racconto non contano più: nelle tracce le trovi ' +
+          'segnate come sostituite. <button type="button" class="fantasma" data-togli-risposte>' +
+          'Togli le risposte</button>'
+        : 'Non hai ancora risposto a nessuna domanda: i numeri qui sotto vengono tutti ' +
+          'dalle parole del racconto.') + '</p>' +
+      (lettura.terza
+        ? '<p class="nota"><strong>Stai raccontando la giornata di un’altra persona.</strong> ' +
+          'Da fuori si vedono i gesti; il corpo e la fatica si suppongono. Alle domande ' +
+          'rispondi solo quello che sai, perché te l’ha detto o perché l’hai visto. Quello ' +
+          'che supponi lascialo senza risposta: una supposizione scritta come un fatto è ' +
+          'l’errore che il capitolo 21 del libro chiama «dato stimato presentato come certo».</p>'
+        : '');
+
+    Array.prototype.forEach.call(dove.querySelectorAll('select[data-domanda]'), function (s) {
+      s.addEventListener('change', function () {
+        var id = s.getAttribute('data-domanda');
+        if (s.value) { risposte[id] = s.value; } else { delete risposte[id]; }
+        /* LA DOMANDA A CUI SI E' APPENA RISPOSTO NON DEVE SCAPPARE DA SOTTO
+           IL DITO. Rispondere ridisegna tutto, e l'elenco delle tracce che
+           sta sopra le domande si allunga: provato sul telefono, il menu
+           scendeva di duecento punti e chi stava rispondendo doveva andarlo
+           a ricercare. E' lo stesso difetto dei cursori della pagina del
+           gesto. Si misura dov'era il menu, e dopo il ridisegno si riporta
+           la pagina in modo che sia ancora li'. */
+        var primaY = s.getBoundingClientRect().top;
+        rileggi(false); calcola();
+        tieniFermo(function () {
+          return q('domandeScena').querySelector('select[data-domanda="' + id + '"]');
+        }, primaY);
+      });
+    });
+    var togli = dove.querySelector('[data-togli-risposte]');
+    if (togli) {
+      togli.addEventListener('click', function () { risposte = {}; rileggi(false); calcola(); });
+    }
   }
 
   /* --------------------------------------------------------------------
@@ -404,6 +634,74 @@
       'tetto.</p>';
   }
 
+  /* LE QUATTRO DOMANDE SUL GESTO  (25/11/2026).
+     Stanno dentro la scheda del gesto, chiuse: si aprono solo sul gesto in
+     cui c'e' stato un intoppo. Quattro domande per ognuno di venti gesti
+     sarebbero ottanta, e nessuno le farebbe. Se il racconto ha gia' detto
+     qualcosa di quel gesto, la riga chiusa lo annuncia — «il racconto
+     suggerisce due risposte» — cosi' chi legge sa dove conviene aprire. */
+  var CASA_DEL_GESTO = { I: 'quanto è chiaro', M: 'gli strumenti e il posto',
+                         C: 'i pezzi da tenere insieme', BP: 'quello che protegge' };
+
+  function domandeDelGesto(n) {
+    var ds = n.domande || [];
+    if (!ds.length) { return ''; }
+    var date = ds.filter(function (d) { return d.risposta; }).length;
+    var proposte = ds.filter(function (d) { return !d.risposta && d.proposta; }).length;
+    var annuncio = date
+      ? (date === 1 ? 'hai risposto a una domanda' : 'hai risposto a ' + L.intero(date) + ' domande')
+      : (proposte
+          ? (proposte === 1 ? 'il racconto suggerisce una risposta' : 'il racconto suggerisce ' + L.intero(proposte) + ' risposte')
+          : 'quattro domande');
+    return '<details class="domande-gesto" data-gesto="' + esc(n.id) + '"' + (gestiAperti[n.id] ? ' open' : '') + '>' +
+      '<summary>C’è stato un intoppo in questo gesto? <small>(' + annuncio + ')</small></summary>' +
+      ds.map(function (d) {
+        var proposta = (!d.risposta && d.proposta)
+          ? d.opzioni.filter(function (o) { return o.id === d.proposta; })[0] : null;
+        var sotto = d.risposta
+          ? 'Vale la tua risposta, solo per questo gesto. Va in una casa sola: ' +
+            esc(CASA_DEL_GESTO[d.variabile] || d.variabile) + '.'
+          : (proposta
+              ? 'Nel racconto ho letto «' + esc(proposta.etichetta) + '». Se è così, sceglilo tu. ' +
+                'Finché non rispondi, vale quello che ho letto.'
+              : 'La risposta va in una casa sola: ' + esc(CASA_DEL_GESTO[d.variabile] || d.variabile) + '.');
+        return '<div class="domanda-scena' + (d.risposta ? ' risposta-data' : '') + '">' +
+          '<label class="comando"><span>' + esc(d.testo) + '</span>' +
+          '<select data-gesto="' + esc(n.id) + '" data-domanda-gesto="' + esc(d.id) + '">' +
+          '<option value="">Non rispondo: resta la lettura del racconto</option>' +
+          d.opzioni.map(function (o) {
+            return '<option value="' + esc(o.id) + '"' + (d.risposta === o.id ? ' selected' : '') + '>' +
+              esc(o.etichetta) + '</option>';
+          }).join('') + '</select></label>' +
+          '<p class="nota senza-margini">' + sotto + '</p></div>';
+      }).join('') + '</details>';
+  }
+
+  function ascoltaDomandeDelGesto() {
+    var dove = q('nodi');
+    Array.prototype.forEach.call(dove.querySelectorAll('details.domande-gesto'), function (d) {
+      d.addEventListener('toggle', function () {
+        var id = d.getAttribute('data-gesto');
+        if (d.open) { gestiAperti[id] = true; } else { delete gestiAperti[id]; }
+      });
+    });
+    Array.prototype.forEach.call(dove.querySelectorAll('select[data-domanda-gesto]'), function (s) {
+      s.addEventListener('change', function () {
+        var gesto = s.getAttribute('data-gesto'), id = s.getAttribute('data-domanda-gesto');
+        risposteGesti[gesto] = risposteGesti[gesto] || {};
+        if (s.value) { risposteGesti[gesto][id] = s.value; } else { delete risposteGesti[gesto][id]; }
+        gestiAperti[gesto] = true;
+        /* come per le domande di scena: il menu appena toccato non deve
+           spostarsi sullo schermo quando la pagina si ridisegna */
+        var primaY = s.getBoundingClientRect().top;
+        rileggi(false); calcola();
+        tieniFermo(function () {
+          return q('nodi').querySelector('select[data-gesto="' + gesto + '"][data-domanda-gesto="' + id + '"]');
+        }, primaY);
+      });
+    });
+  }
+
   function disegnaNodi() {
     if (!lettura.nodi.length) {
       /* Racconto vuoto e racconto senza gesti sono due cose diverse: dire
@@ -432,8 +730,8 @@
         '<span class="nota">Il calcolo si apre un gesto per volta, oppure ' +
         'tutto insieme, da qui. Dentro trovi i valori, da dove vengono, la somma, il dado ' +
         'e che cosa passa al gesto dopo. A passare sono quattro grandezze. Il carico, prima ' +
-        'di tutto. Poi l’assetto, cioè quanto sei ancora orientato dentro la scena o quanto ' +
-        'ne sei uscito trascinato. Poi il debito, quello che si accumula insistendo su una ' +
+        'di tutto. Poi l’assetto, cioè quanto si è ancora orientati dentro la scena o quanto ' +
+        'se ne è usciti trascinati. Poi il debito, quello che si accumula insistendo su una ' +
         'strada che non funziona. E infine il costo nascosto, il prezzo di un gesto che da ' +
         'fuori sembra riuscito e che si vede solo dopo.</span>' +
       '</p>' +
@@ -454,6 +752,7 @@
         '<div class="tasselli nodo-valori">' + CAMPI.map(function (c) {
           return tasselloValore(n, c, v[c.k], manoQui[c.k] !== undefined);
         }).join('') + '</div>' +
+        domandeDelGesto(n) +
         (n.campo.length
           ? '<p class="nodo-campo">⚠ Qui c’è qualcosa che <b>risponde</b> al tentativo: ' +
             esc(L.elenco(n.campo.map(function (c) { return c.nome; }))) +
@@ -468,12 +767,15 @@
     }).join('');
 
     sfogliaNodi();
+    ascoltaDomandeDelGesto();
 
     (function () {
       var bottone = q('nodi').querySelector('#apri-tutto');
       if (!bottone) { return; }
       bottone.addEventListener('click', function () {
-        var riquadri = q('nodi').querySelectorAll('details');
+        /* i calcoli e i perche', non le domande sul gesto: quelle le apre chi
+           ha qualcosa da dire su quel gesto, non un comando per tutti */
+        var riquadri = q('nodi').querySelectorAll('details:not(.domande-gesto)');
         /* si guarda quanti sono chiusi: se ne resta anche uno solo, il
            comando apre. Cosi' non capita mai di premere «apri» e vedere
            qualcosa chiudersi. */
@@ -710,8 +1012,9 @@
       '<p class="nota" style="margin-top:8px">Il vocabolario non ci ha riconosciuto né un ' +
       'gesto né una condizione, quindi questi pezzi non sono entrati nel calcolo. Molte ' +
       'frasi di un racconto sono cornice, e va bene così, ma è meglio saperlo prima di ' +
-      'leggere i numeri. Se qui compare qualcosa che secondo te doveva contare, è il ' +
-      'vocabolario che va allargato, non il tuo racconto.</p><ul class="tracce">' +
+      'leggere i numeri. Se qui compare qualcosa che secondo te doveva contare, non è il ' +
+      'tuo racconto a essere sbagliato: più sotto, in «Che cosa ho letto», ogni frase rimasta ' +
+      'fuori ha un menu, e decidi tu a che cosa appartiene.</p><ul class="tracce">' +
       lettura.muti.map(function (m) { return '<li>«' + esc(m) + '»</li>'; }).join('') +
       '</ul></details>';
   }
@@ -775,6 +1078,7 @@
   function disegna() {
     disegnaStato();
     disegnaLettura();
+    disegnaDomande();
     disegnaAvvisi();
     disegnaMuti();
     disegnaNodi();
@@ -831,6 +1135,38 @@
      -------------------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     q('scena').value = ESEMPIO;
+    /* LE GIORNATE GIA' APERTE (25/11/2026): chi non sa da dove cominciare
+       sceglie una giornata scritta gesto per gesto, la vede aperta e
+       calcolata, e la corregge. Il menu torna sulla prima riga dopo la
+       scelta: quello che conta, da li' in poi, e' il testo nella casella,
+       che la persona puo' aver gia' cambiato. */
+    (function () {
+      var menu = q('giornataTipo');
+      var giornate = (globale.Lessico && globale.Lessico.GIORNATE_TIPO) || [];
+      if (!menu || !giornate.length) { return; }
+      giornate.forEach(function (g) {
+        var o = document.createElement('option');
+        o.value = g.id; o.textContent = g.nome;
+        menu.appendChild(o);
+      });
+      menu.addEventListener('change', function () {
+        var scelta = giornate.filter(function (g) { return g.id === menu.value; })[0];
+        if (!scelta) { return; }
+        q('scena').value = scelta.testo;
+        menu.value = '';
+        rileggi(true);
+        calcola();
+      });
+    }());
+    (function () {
+      var chi = q('diChi'), nome = q('protagonista'), riga = q('rigaProtagonista');
+      if (!chi || !nome || !riga) { return; }
+      chi.addEventListener('change', function () {
+        riga.hidden = !diUnAltro();
+        rileggi(true); calcola();
+      });
+      nome.addEventListener('change', function () { rileggi(true); calcola(); });
+    }());
     q('apri').addEventListener('click', function () {
       rileggi(true);
       calcola();

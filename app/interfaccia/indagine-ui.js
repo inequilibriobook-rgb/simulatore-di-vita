@@ -709,11 +709,36 @@
     q('curvaCarico').innerHTML = G.curvaConBanda(punti, {
       x: [0, 100], passoTacche: 10, nomeX: 'carico di partenza',
       titoloX: 'con quanto carico si arriva alla scena',
-      segna: s ? { x: s.a, testo: 'qui la curva piega' } : null,
+      segna: (s && s.si_vede) ? { x: s.a, testo: 'qui la curva piega' } : null,
       descrizione: 'Quante ripetizioni arrivano in fondo intatte, al variare del carico di partenza'
     });
     var h = '';
-    if (s) {
+    /* IL TRATTO PIU' RIPIDO SI DICHIARA SOLO SE SI DISTINGUE DAL CASO.
+       La curva e' misurata su poche ripetizioni per punto, perche' i punti
+       sono ventuno. A quella precisione due tratti vicini differiscono spesso
+       di una o due ripetizioni: scrivere «il più ripido è questo» sarebbe
+       dare per fatto una differenza che la pagina stessa, due sezioni piu'
+       su, insegna a non credere. Quando la fascia del tratto tocca lo zero
+       lo si dice, e si dice che cosa invece si vede: la discesa intera. */
+    if (s && !s.si_vede) {
+      var dsc = curva.discesa;
+      h = '<p><strong>Con queste ripetizioni non si può dire in quale tratto la curva scende di più.</strong> ' +
+        'Il calo più grande misurato è fra ' + s.da + ' e ' + s.a + ' di carico, e vale ' +
+        pct(s.caduta) + ' punti percentuali. Ma la sua fascia va da ' + pct(s.ic.basso) +
+        ' a ' + pct(s.ic.alto) + ', e contiene lo zero: può essere un effetto del dado. ' +
+        'Prendilo come un posto dove guardare, non come una soglia.</p>' +
+        (dsc && dsc.si_vede
+          ? '<p>Quello che si vede davvero è la discesa intera. Con il carico a zero arrivano ' +
+            'in fondo intatte ' + pct(dsc.da) + ' ripetizioni su cento. Con il carico a cento, ' +
+            pct(dsc.a) + '. Questa differenza non è un effetto del dado.</p>'
+          : '') +
+        '<p class="nota">La penalità del carico è una tabella a gradini: la curva scende a ' +
+        'scalini, non in modo continuo. Per sapere quale scalino pesa di più servono più ' +
+        'ripetizioni di quelle che questa figura usa: i valori di carico provati sono ' +
+        curva.punti.length + ', e ripeterli tutti migliaia di volte fermerebbe la pagina. ' +
+        'La fascia qui sopra è già allargata per il numero dei tratti guardati, perché il ' +
+        'più grande fra tanti è grande anche per caso.</p>';
+    } else if (s) {
       h = '<p><strong>Il tratto più ripido è fra ' + s.da + ' e ' + s.a + ' di carico.</strong> ' +
         'Lì cinque punti di carico in più costano ' + pct(s.caduta) + ' punti percentuali di scene ' +
         'arrivate in fondo intatte. Prima di quel tratto il carico si sente meno. Dopo, il ' +

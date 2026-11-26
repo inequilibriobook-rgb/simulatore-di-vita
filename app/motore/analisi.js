@@ -656,7 +656,7 @@
      Il libro la chiede, e la chiede insieme alla sua avvertenza:
 
        «C'è poi un'insidia specifica delle analisi ripetute: la regressione
-        descrittiva. Quando si hanno diecimila giocate, è facile e tentante
+        descrittiva. Quando si hanno diecimila ripetizioni, è facile e tentante
         cercare quali variabili si muovono insieme. Il simulatore lo fa. Ma
         accompagna il risultato con un'avvertenza che non è di stile: non
         prova causalità da sola, suggerisce piste da verificare. Con

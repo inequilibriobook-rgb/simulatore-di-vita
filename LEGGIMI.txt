@@ -208,7 +208,7 @@ LE DODICI PAGINE
                      dado cinquecento volte sulla stessa scheda, per far
                      vedere che cosa significa davvero una probabilità.
                      Le due schede senza calcolo restano senza calcolo.
-  MONTECARLO.html    la stessa scena rigiocata centinaia o migliaia di volte.
+  MONTECARLO.html    la stessa scena ripetuta centinaia o migliaia di volte.
                      L’istogramma del carico finale, dell’assetto e del
                      costo nascosto. I nove esiti della scena e, separati e
                      con la loro n, quelli dei singoli nodi. I due assi del
@@ -252,9 +252,9 @@ CHE COSA È GIÀ VERIFICATO
   34 controlli sugli esempi numerici pubblicati, dal libro (capitoli 5, 9 e 39).
      Tutti superati. Compreso il caso limite del taglio in basso, dove la
      probabilità si ferma a 5.
-  1200 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
+  1592 controlli in tutto, nelle ventiquattro suite di _test/. Il conteggio qui
      sotto è quello che le suite stampano quando girano.
-  164 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
+  341 controlli che il LIBRO e il SIMULATORE dicano gli stessi numeri. La
      formula, le fasce di PenSTR, le quattro scogliere, le tre porte del
      pavimento. La calibrazione, i nove esiti, le dodici pagine, il vincolo
      del doppio clic. Quattordici di questi controlli sono ad accordo. Legano
@@ -290,14 +290,26 @@ CHE COSA È GIÀ VERIFICATO
      valgono per qualunque scena. La tabella di parole chiave non ha bisogno
      di internet, ed è sempre uguale a se stessa. Nessuna condizione tocca
      la formula.
-  84 controlli sul lettore della scena. È il pezzo più delicato del
+  295 controlli sul lettore della scena. È il pezzo più delicato del
      pacchetto, perché è l’unico che PROPONE dei numeri leggendo del testo.
      I controlli guardano tre cose. Che non inventi mai un numero senza dire
      da dove viene. Che non conti due volte lo stesso fatto. Che la
      segmentazione sia quella che dice di essere. Hanno già trovato tre
      difetti veri. Un valore che arrivava al nodo senza traccia. Il campo
      attivo cercato solo dentro i gesti. E la stessa parola ripetuta, che
-     gonfiava il debito.
+     gonfiava il debito. Poi altri quattro, trovati mettendo la pagina
+     davanti a trentadue racconti che non conosceva. Le frasi negate lette
+     alla rovescia. Le parole riconosciute dentro altre parole. La stessa
+     causa contata due volte. I gesti inventati. Il libro li racconta nel
+     capitolo 60, con il limite che resta; le domande, la ricevuta e la giornata
+     di un’altra persona sono nel capitolo 61. Gli ultimi controlli tengono i
+     pesi sulla scala del capitolo 18: ogni voce propone fra due e cinque
+     punti, e la scena di quel capitolo riceve gli stessi quattro pesi
+     della sua tabella. E ventisette controlli provano le sette domande che
+     la pagina fa dopo aver letto il racconto: ogni domanda ha una casa
+     sola, la risposta prende il posto delle parole, e lo stesso fatto non
+     entra due volte. Altri diciannove provano le quattro domande sul
+     gesto in cui c’è stato un intoppo.
   50 controlli sulla lettura lunga. OGNI FIGURA VIENE DISEGNATA DAVVERO dal
      controllo, con i motori veri. Si guarda che non torni vuota, che non
      contenga NaN, e che ogni elemento del disegno sia chiuso. Più i rimandi
@@ -322,16 +334,18 @@ CHE COSA È GIÀ VERIFICATO
      del capitolo 9. E i valori mostrati a schermo sono gli stessi che usa
      il controllo di riferimento, _test/golden.js. Non una seconda copia,
      che potrebbe scollarsi.
-  67 controlli sull’indagine. Gli intervalli di Wilson contro valori
+  71 controlli sull’indagine. Gli intervalli di Wilson contro valori
      calcolati a mano. La prova di McNemar per i confronti appaiati. La
      correzione di Bonferroni. E la verifica più importante: il rischio
      misurato di ogni gesto deve coincidere con (100 meno Pn) diviso 100,
      com’è giusto con un dado onesto. Se quei due numeri divergessero, o è
-     rotto il dado o è rotta l’indagine.
-  110 controlli sul Monte Carlo. I campioni grezzi sono davvero le giocate
+     rotto il dado o è rotta l’indagine. E il tratto più ripido della curva
+     del carico deve dichiarare se si distingue dal caso. Il libro rifà
+     tutti questi conti a mano nel capitolo 59.
+  110 controlli sul Monte Carlo. I campioni grezzi sono davvero le ripetizioni
      che le statistiche riassumono. L’istogramma copre tutto una volta sola.
-     La convergenza legge le stesse giocate a fette. E le due unità
-     statistiche — la giocata della scena e la valutazione del nodo — non si
+     La convergenza legge le stesse ripetizioni a fette. E le due unità
+     statistiche — la ripetizione della scena e la valutazione del nodo — non si
      sommano mai.
   29 controlli sul livello traiettoria. Lo stesso generatore della
      settimana. La durezza che può cambiare settimana per settimana. Lo

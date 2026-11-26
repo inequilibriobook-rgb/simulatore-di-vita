@@ -7,20 +7,28 @@
    posto solo, cosi' cambiare canale di vendita non richiede di toccare la
    pagina. Tre modalita':
 
-     'libro'    — quella di oggi: il simulatore accompagna il libro; chi ha il
-                  libro scrive all'autore con la ricevuta e riceve l'indirizzo.
+     'libro'    — chi ha il libro scrive all'autore con la ricevuta e riceve
+                  l'indirizzo. Era quella fino al 26/11/2026.
      'vendita'  — acquisto diretto: un tasto «Acquista» porta alla pagina di
                   pagamento (Gumroad, Payhip, Stripe: l'indirizzo va in
                   `acquisto.url`), che consegna il pacchetto e l'indirizzo.
-     'aperto'   — nessun vincolo: si entra e basta.
+     'aperto'   — nessun vincolo: si entra e basta. QUELLA DI OGGI.
 
-   Il libro (Apparato I) descrive la modalita' 'libro'. Se si cambia
-   modalita' va aggiornato anche il libro: _test/libro.js lo ricorda.
+   PERCHE' 'aperto' (26/11/2026, Igor: «fai come credi migliore»). La
+   modalita' 'libro' era una barriera di carta: il libro stampa l'indirizzo e
+   il QR, e la pagina di benvenuto ha il tasto «Entra» per tutti. Una
+   password vera su GitHub Pages non si puo' mettere, e una scritta nella
+   pagina si legge nel codice, che e' pubblico. Meglio dire la verita': e'
+   libero.
+
+   Il libro (Apparato I, e la nota in testa) descrive la modalita' 'aperto'.
+   Se si cambia modalita' va aggiornato anche il libro: _test/libro.js
+   controlla che le due cose dicano lo stesso.
    ========================================================================== */
 (function (globale) {
   'use strict';
   globale.Vetrina = {
-    modalita: 'libro',
+    modalita: 'aperto',
     autore: 'Igor De Guglielmo',
     contatto: 'inequilibriobook@gmail.com',
     libro: {

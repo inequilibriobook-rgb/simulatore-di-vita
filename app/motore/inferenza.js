@@ -577,7 +577,7 @@
      fascia prudente nominale al 95% per p(migliora)-p(peggiora). Rimane una
      approssimazione e non collassa a zero se non si osservano discordi.
      La correzione riguarda i due termini di UN confronto, non tutte le leve. */
-  function differenzaAppaiata(prima, dopo) {
+  function differenzaAppaiata(prima, dopo, confronti) {
     if (prima.length !== dopo.length || !prima.length) {
       throw new Error('Il confronto richiede coppie di repliche in ugual numero.');
     }
@@ -586,7 +586,11 @@
       if (dopo[i] > prima[i]) { meglio++; }
       else if (dopo[i] < prima[i]) { peggio++; }
     }
-    var z = zDaCoda(0.0125);
+    /* `confronti` serve a chi ha SCELTO questo confronto fra tanti perche'
+       era il piu' grande (il tratto piu' ripido di una curva di venti
+       tratti): il piu' grande di venti e' grande anche per caso, e la fascia
+       va allargata per venti. Chi fa un confronto solo non lo passa. */
+    var z = zDaCoda(0.0125 / (confronti > 1 ? confronti : 1));
     var p = wilson(meglio, n, z), m = wilson(peggio, n, z);
     return { basso: Math.max(-1, p.basso - m.alto),
       alto: Math.min(1, p.alto - m.basso), n: n,
@@ -699,7 +703,7 @@
     var seme = opzioni.seme === undefined ? 424242 : opzioni.seme;
     var cal = opzioni.calibrazione || (MS ? MS.CALIBRAZIONE : null);
     var passo = opzioni.passo || 5;
-    var punti = [];
+    var punti = [], esiti = [];
     for (var str = 0; str <= 100; str += passo) {
       var variante = copiaProfonda(nodi);
       for (var k = 0; k < variante.length; k++) {
@@ -709,19 +713,55 @@
       var m = misuraSuccesso(variante, ripetizioni, seme, cal);
       punti.push({ carico: str, quota: m.quota, ic: wilson(m.intatte, ripetizioni),
                    pn_media: m.pn_media });
+      esiti.push(m.esiti_appaiati);
     }
-    /* dove la curva piega di piu': il punto in cui dieci punti di carico
+    /* dove la curva piega di piu': il punto in cui cinque punti di carico
        costano il massimo. Non è una soglia del libro, è una misura di questa
-       scena, e va detto. */
-    var salto = null;
+       scena, e va detto.
+
+       E VA DETTO ANCHE SE QUEL TRATTO SI DISTINGUE DAL CASO  (13/11/2026).
+       Fino a ieri la pagina scriveva in grassetto «il tratto più ripido è
+       fra 55 e 60» senza chiedersi se fosse vero. Sulla scena d'esempio del
+       turno, con le 250 ripetizioni per punto che la pagina usa, non lo era:
+       la penalita' del carico e' a gradini, il gradino piu' alto di quella
+       scena sta a 40 (il conto si fa a mano: 7,0 % → 4,3 %), e la pagina
+       indicava quello a 60 perche' li' erano cadute sei ripetizioni invece di
+       cinque. Una differenza di una ripetizione, scritta come un fatto, nella
+       pagina che esiste per dire quando una differenza non e' un fatto.
+
+       Ogni punto della curva usa gli stessi semi, quindi due punti vicini sono
+       dati appaiati, e la loro differenza ha una fascia sua: quella di
+       `differenzaAppaiata`, la stessa delle leve. Il tratto piu' ripido adesso
+       porta la sua fascia e dice se «si vede», cioe' se la fascia sta tutta
+       sopra lo zero. La fascia e' corretta per il numero dei tratti: il
+       primo giro di prova, con sessanta ripetizioni, ha «visto» un gradino
+       che era solo il piu' fortunato di venti. E si misura anche la discesa da un capo all'altro, che di
+       solito si vede anche quando i singoli tratti no. */
+    var salto = null, doveSalto = 0;
     for (var i = 1; i < punti.length; i++) {
       var d = punti[i - 1].quota - punti[i].quota;
       if (salto === null || d > salto.caduta) {
         salto = { da: punti[i - 1].carico, a: punti[i].carico, caduta: d };
+        doveSalto = i;
       }
     }
+    if (salto) {
+      /* il tratto e' stato scelto perche' era il piu' grande fra tutti: la
+         fascia si allarga per il numero dei tratti guardati */
+      var app = differenzaAppaiata(esiti[doveSalto], esiti[doveSalto - 1], punti.length - 1);
+      salto.tratti_guardati = punti.length - 1;
+      salto.ic = { basso: app.basso, alto: app.alto };
+      salto.ripetizioni_cadute = app.migliora - app.peggiora;
+      salto.si_vede = app.basso > 0;
+    }
+    var discesa = null;
+    if (punti.length >= 2) {
+      var capo = differenzaAppaiata(esiti[esiti.length - 1], esiti[0]);
+      discesa = { da: punti[0].quota, a: punti[punti.length - 1].quota,
+                  ic: { basso: capo.basso, alto: capo.alto }, si_vede: capo.basso > 0 };
+    }
     return { punti: punti, passo: passo, ripetizioni: ripetizioni,
-             caduta_piu_ripida: salto,
+             caduta_piu_ripida: salto, discesa: discesa,
              nota: 'È una misura di QUESTA scena, non una soglia del libro.' };
   }
 

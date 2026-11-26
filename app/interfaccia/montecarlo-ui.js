@@ -26,27 +26,23 @@
    sta facendo, le ripetizioni bastano. Se e' largo, non bastano, e non
    importa quante siano.»
 
-   ⚠️ UNA COSA SOLA, UN NOME SOLO: GIOCATA.
+   ⚠️ UNA COSA SOLA, UN NOME SOLO: RIPETIZIONE.
    Il 10/09/2026 una rilettura ha contato, per la stessa identica cosa —
-   una partita completa della scena, rigiocata con dadi diversi — sei nomi
-   diversi a schermo: «run», «giocate», «corse», «giri», «iterazioni»,
-   «prove». Sei nomi non sono sei sfumature: sono sei cose, per chi legge,
-   e chi legge passa il tempo a chiedersi in che cosa differiscono.
+   la scena rifatta da capo con dadi diversi — sei nomi diversi a schermo:
+   «run», «giocate», «corse», «giri», «iterazioni», «prove». Sei nomi non
+   sono sei sfumature: sono sei cose, per chi legge, e chi legge passa il
+   tempo a chiedersi in che cosa differiscono.
 
-   Il nome e' GIOCATA, al singolare e al plurale, e non ne esistono altri.
-   Non e' una preferenza di gusto: e' la parola che MONTECARLO.html
-   definisce per esteso all'inizio — «ogni volta che la scena riparte
-   dall'inizio con dadi nuovi, quella partita si chiama giocata» — e' il
-   titolo della sezione 8 («Quante giocate bastano»), ed e' quella che il
-   motore dichiara da solo in analisi.js e in inferenza.js, nel campo
-   `unita_statistica`: «una giocata intera della scena».
+   Il nome e' RIPETIZIONE, al singolare e al plurale, e non ne esistono
+   altri. Per un po' era stato «giocata»; Igor l'ha tolto, perche' qui
+   dentro non si gioca, e a schermo non deve comparire ne' «gioco» ne'
+   «giocata». E' il titolo della sezione 8 («Quante ripetizioni bastano»),
+   ed e' la parola che il motore dichiara da solo in analisi.js e in
+   inferenza.js, nel campo `unita_statistica`: «una ripetizione intera
+   della scena». Lo stesso vale per il libro (capitoli 47 e 59).
 
-   Il verbo resta «giocare» e «rigiocare»: «la scena e' stata rigiocata
-   500 volte» e' italiano buono, e non fa concorrenza al nome.
-
-   Il comando che sceglie quante farne si chiama «Giocate», come la cosa
-   che conta: prima diceva «Ripetizioni», e il titolo della sezione due
-   centimetri sopra diceva «giocate».
+   Il verbo e' «ripetere» e «rifare»: «la scena e' stata ripetuta 500
+   volte».
    ========================================================================== */
 (function () {
   'use strict';
@@ -388,7 +384,7 @@
      CHE COSA SI MUOVE INSIEME — la regressione descrittiva
      ---------------------------------------------------------------------
      Il capitolo dei limiti lo chiede per nome, e lo chiede insieme alla sua
-     avvertenza: «quando si hanno diecimila giocate, è facile e tentante
+     avvertenza: «quando si hanno diecimila ripetizioni, è facile e tentante
      cercare quali variabili si muovono insieme. Il simulatore lo fa. Ma
      accompagna il risultato con un'avvertenza che non è di stile».
 

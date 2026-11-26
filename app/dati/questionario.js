@@ -28,9 +28,9 @@
    calcolare.»
 
    IL LIBRO AVVERTE
-   «Chiedere trenta domande sarebbe eccessivo» per una scena semplice.
-   «Una persona sotto pressione non ha sempre la disponibilità mentale per
-   rispondere a venti domande.» La taratura si sceglie in base alla scena, non
+   «Chiedere trenta domande per un bicchiere d'acqua sarebbe eccessivo.»
+   «Una persona sotto pressione non ha sempre la lucidità per rispondere a
+   venti domande.» [capitolo 34] La taratura si sceglie in base alla scena, non
    si fa sempre la più lunga.
    ========================================================================== */
 
@@ -279,7 +279,7 @@
     /* T15 e T16 — la mobilità, l'unico ambito completamente scoperto fino al
        19/8: nessuna domanda del questionario toccava M con territorio
        'mobilita', e `selezione.js` lo segnalava già come lacuna [§ 0.2.1].
-       Il capitolo 30 dice che qui M «è quasi sempre dominante: strada,
+       Il capitolo 30 dice che qui M «domina quasi sempre: strada,
        traffico, luce, meteo, marciapiede, scale, parcheggi», e che il campo
        compare «in forma netta»: un'auto che taglia la strada, il cane che
        tira, il mezzo che salta. Sono due leve diverse — l'ambiente che c'era

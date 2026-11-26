@@ -80,7 +80,20 @@
       Cancellalo e scrivi la tua scena, oppure premi <em>Svuota</em>. Poi premi
       <em>Apri e calcola</em>.
     </p>
+    <label class="comando" style="margin:0 0 10px">
+      <span>Non sai da dove cominciare? Parti da una giornata già scritta</span>
+      <select id="giornataTipo"><option value="">Scegli una giornata, e poi correggila</option></select>
+    </label>
     <textarea class="campo-lungo" id="scena" rows="6" spellcheck="false"></textarea>
+    <div class="comandi" style="margin-top:10px">
+      <label class="comando"><span>Di chi è la giornata?</span>
+        <select id="diChi">
+          <option value="mia" selected>Mia: la racconto con «mi alzo», «ho preso»</option>
+          <option value="altra">Di un’altra persona: «si alza», «ha preso»</option>
+        </select></label>
+      <label class="comando" id="rigaProtagonista" hidden><span>Come la chiami nel racconto?</span>
+        <input type="text" id="protagonista" placeholder="il paziente, Maria, lei" autocomplete="off"></label>
+    </div>
     <div class="comandi" style="margin-top:14px">
       <label class="comando"><span>Carico di partenza</span>
         <input type="number" id="caricoBase" min="0" max="100" value="40"></label>
@@ -129,11 +142,22 @@
       Ogni pezzo del tuo racconto può essere un gesto oppure un contesto. Se è un
       <strong>gesto</strong>, cioè un «nodo» nella catena della scena, verrà calcolato. Se è <strong>contesto</strong>,
       descrive la scena intorno e vale per tutti i gesti insieme: la pioggia, il rumore, la
-      fretta. Il capitolo 24 del libro si intitola <em>«segmentare è già
-      interpretare»</em>, e vuol dire che già nel tagliare il racconto in pezzi si prende
+      fretta. Il capitolo 24 del libro si chiude con una frase: <em>«segmentare è già
+      interpretare»</em>. Vuol dire che già nel tagliare il racconto in pezzi si prende
       una decisione. Per questo il taglio si vede, e si corregge con un clic.
     </p>
     <div id="lettura"></div>
+    <h3 class="sotto-titolo">Sette domande, per non sbagliare casella</h3>
+    <p>
+      Le condizioni qui sopra le ho indovinate dalle parole, ed è la parte in cui questa
+      pagina sbaglia di più: su racconti che non ha mai visto ne coglie quattro su dieci.
+      Per questo ti faccio sette domande sulla giornata. Ognuna ha una casa sola, già decisa:
+      tu dici il fatto, e dove va lo sa la pagina. Così la stessa stanchezza non può finire
+      in due posti. Quando rispondi, la tua risposta prende il posto di quello che avevo
+      letto, e vale una volta sola per tutti i gesti. Se a una domanda non rispondi, per
+      quella resta la lettura del racconto.
+    </p>
+    <div id="domandeScena"></div>
   </section>
 
   <!-- ====================== I NODI ====================== -->

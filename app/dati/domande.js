@@ -10,7 +10,7 @@
    regola generale: la scala di risposta e l'interpolazione fra i valori sono
    una scelta di questa implementazione.
 
-   I SETTE TERRITORI vengono dal Capitolo 19 del libro pubblicato. I codici V
+   I SETTE TERRITORI vengono dal capitolo 30 del libro («I sette territori»). I codici V
    restano come dettaglio tecnico e non compaiono nell'interfaccia: il libro
    li nomina una volta sola, e per metterne in guardia.
    ========================================================================== */

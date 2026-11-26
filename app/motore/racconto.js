@@ -1230,24 +1230,29 @@
      ragionevoli — che e' esattamente il modo in cui un modello si riempie
      di numeri che nessuno sa piu' da dove vengano.
 
-     LA MISURA, in `_taratura/leve.js`. Mille nodi generati a caso, ogni leva
-     applicata a ognuno, e ogni nodo giocato su TUTTI E CENTO i tiri del dado:
-     900.000 valutazioni. Per rendere il confronto onesto, ogni leva vale
-     esattamente DIECI PUNTI DI Pn — la prima versione della misura dava al
-     rientro il doppio del budget delle altre, e infatti vinceva sempre.
+     LA MISURA. Le leve stanno in `_taratura/leve.js`; il banco che le
+     confronta, ripetibile, in `_taratura/banco-editoriale-20260911/`: mille
+     nodi generati da un seme fisso, ogni leva applicata a ognuno, e ogni nodo
+     provato su TUTTI E CENTO i tiri del dado — 900.000 valutazioni. Per
+     rendere il confronto onesto, ogni leva vale esattamente DIECI PUNTI DI
+     Pn — la prima versione della misura dava al rientro il doppio del budget
+     delle altre, e infatti vinceva sempre.
 
-     CHE COSA E' VENUTO FUORI
-       Un rientro vero                          14,0     e non da' nessun punto di Pn
-       Smettere di riprovare uguale (DEB)       11,3
-       Arrivarci con meno carico (STR)           7,8
+     CHE COSA E' VENUTO FUORI (rifatto il 25/11/2026: numeri identici)
+                                              guadagno   la migliore da sola
+       Smettere di riprovare uguale (DEB)       14,6          16,8 %
+       Un rientro vero                          14,0          73,3 %   e non da' nessun punto di Pn
+       Arrivarci con meno carico (STR)           7,3           2,1 %
        Informazione, tempo, ambiente, aiuto,
-       corpo — a parita' di dieci punti          1,8     tutte identiche
-       Spezzare il compito                       1,2     (limitato da C >= 0)
+       corpo — a parita' di dieci punti          1,7       mai: prime tutte insieme in 78 nodi
+       Spezzare il compito                       1,3       mai: a pari merito in 56
+     (Fino al 25/11 qui e nel capitolo 56 c'erano i numeri di un banco piu'
+     vecchio, di cui restavano solo i totali: 14,0 / 11,3 / 7,8 / 1,8 / 1,2.)
 
      Le cinque leve che agiscono sulla FORMULA valgono tutte uguale, com'e'
      giusto che sia: dieci punti sono dieci punti. Le leve che agiscono sullo
-     STATO valgono da quattro a otto volte tanto. E la piu' forte di tutte
-     non sposta la probabilita' di un punto.
+     STATO valgono da quattro a otto volte tanto. E quella che vince piu'
+     spesso non sposta la probabilita' di un punto.
 
      COME SI SCEGLIE ADESSO
      Non per soglia: si misura il guadagno di ogni leva SU QUESTO NODO, con
@@ -2683,14 +2688,19 @@
      il costo saliva da 42 a 52 e l'uscita si chiudeva: «il carico non dice
      niente, guarda il costo». Falso, e falso per il motivo di sempre — la
      mediana di una popolazione BIMODALE non descrive nessuno.
-     Su 200 corse da trenta giorni: al giorno 10 un carico >= 60 predice il
-     collasso nel 100 % dei casi, e un costo >= 55 pure. I due predicono
-     ugualmente bene. Quello che e' vero e' un'altra cosa, e piu' semplice:
+     Su 200 corse da trenta giorni (_taratura/cadute.js, CADUTE.txt): fra le
+     corse ancora in piedi al giorno 10, un carico >= 60 o un costo >= 55
+     annunciano la caduta senza sbagliare mai — ma ne annunciano 15 e 24 su
+     113. Le altre arrivano alla caduta con gli stessi numeri di chi non
+     cade. (Fino al 25/11/2026 qui c'era «i due predicono ugualmente bene»,
+     contando come annunciate anche le corse gia' cadute.) Quello che e' vero
+     e' un'altra cosa, e piu' semplice:
 
-     IL MODELLO NON HA UN DECLINO GRADUALE. A trenta giorni il carico e' 52
+     IL MODELLO NON HA UN DECLINO GRADUALE. A trenta giorni il carico e' 50
      oppure 99, e non c'e' quasi niente in mezzo. Non si scivola: si sta, e
-     poi si cade. Percentuale di corse gia' cadute: 0 % a 5 giorni, 5 % a 10,
-     15 % a 15, 30 % a 20, 63 % a 30.
+     poi si cade. Percentuale di corse gia' cadute: 0 % a 5 giorni, 9 % a 10,
+     25 % a 15, 40 % a 20, 66 % a 30. (I numeri di prima — 5, 15, 30, 63 —
+     venivano da un banco mai salvato, e il motore non li rifaceva.)
 
      Il costo nascosto resta importante per un'altra ragione, che il test
      conferma: e' l'unica soglia che nessuna condizione di recupero sposta,
@@ -2755,7 +2765,7 @@
 
      NESSUNA VISTA LA LEGGE OGGI (verificato il 15/09/2026 con grep su tutto
      il progetto) — ma NON e' un campo morto da cancellare: il primo valore,
-     0.80, e' proprio il numero che il libro cita in prosa al capitolo 14
+     0.80, e' proprio il numero che il libro cita in prosa al capitolo 55
      («alleggerire le giornate spegne il pavimento in dodici corse su
      quindici»: 12/15 = 0,80). Questi dati sono la prova che sta dietro
      quella frase. Resta esportato finche' qualcuno non decide di mostrarli
@@ -2936,7 +2946,7 @@
         titolo: 'Il punto di non ritorno è stato superato',
         chiave: 'non_ritorno',
         testo: testoSuperato + ' E non è un pendio, è un salto: misurato su trenta giorni, ' +
-          'il carico finisce o attorno a 52 o a 99, in mezzo non c’è quasi niente. Non si ' +
+          'il carico finisce o attorno a 50 o a 99, in mezzo non c’è quasi niente. Non si ' +
           'scivola giù: si sta, e poi si cade.'
       });
       /* «Che cosa tira fuori», «porta fuori», «da poco dentro», «da più
