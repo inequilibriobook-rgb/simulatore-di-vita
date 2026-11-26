@@ -140,26 +140,26 @@
   </svg>
   <p class="occhiello">Il compagno del libro</p>
   <h1>Simulatore di vita <small>versione 3.0</small></h1>
-  <p class="righe">Prende un gesto piccolo in una giornata qualsiasi. Alzarsi, scrivere un messaggio, uscire in orario, e ti dice <b>che probabilità hai di riuscire</b> e <b>quanto ti costerà</b>. Poi tira il dado e ti racconta com’è andata.</p>
+  <p class="righe">Prendi un gesto piccolo, in una giornata qualsiasi: alzarti, scrivere un messaggio, uscire in orario. Il simulatore ti dice <b>che probabilità hai di riuscirci</b> e <b>quanto ti costerà</b>. Poi tira il dado, e ti racconta com’è andata.</p>
   <a class="entra" href="APRI-QUI.html">Entra nel simulatore <span class="freccia" aria-hidden="true">→</span></a>
-  <p class="nota">Niente da installare, niente uscirà da qui: tutto resta sul tuo dispositivo.</p>
+  <p class="nota">Non c’è niente da installare, e niente di quello che scrivi esce da qui: tutto resta sul tuo telefono o sul tuo computer.</p>
   <a class="scopri" href="#vetrina">Scopri di più ↓</a>
 </main>
 
 <section class="vetrina" id="vetrina">
   <h2>Che cosa fa</h2>
-  <p>Descrivi un gesto qualsiasi — alzarti, scrivere quel messaggio, uscire in orario — e come stai in quel momento: quanto sei stanco, quanta fretta hai, quanto è chiaro quello che devi fare. Il simulatore ti dice <b>che probabilità hai di riuscirci adesso</b>, non in generale, e <b>quanto ti costerà</b> anche se riesci. Poi tira il dado, e ti racconta com’è andata, in italiano, come farebbe una persona che ti conosce.</p>
+  <p>Descrivi un gesto qualsiasi — alzarti, scrivere quel messaggio, uscire in orario — e come stai in quel momento: quanto sei stanco, quanta fretta hai, quanto è chiaro quello che devi fare. Il simulatore ti dice <b>che probabilità hai di riuscirci adesso</b>, non in generale, e <b>quanto ti costerà</b> anche se riesci. Poi tira il dado, e ti racconta com’è andata, con parole semplici, come farebbe una persona che ti conosce.</p>
   <h2>Come funziona</h2>
   <div class="schede">
-    <div class="scheda"><span class="n">1</span><h3>Un gesto</h3><p>Nove cursori, un dado, un racconto. La pagina in cui si vede il legame fra una condizione che cambia e un numero che cambia.</p></div>
-    <div class="scheda"><span class="n">2</span><h3>Una mattina</h3><p>Più gesti di fila: la fatica di uno passa al successivo, e la stessa mattina si può rifare mille volte con dadi diversi.</p></div>
-    <div class="scheda"><span class="n">3</span><h3>Una settimana</h3><p>Sette giorni con la notte in mezzo: si vede se il recupero regge, e dov’è il punto di non ritorno.</p></div>
-    <div class="scheda"><span class="n">4</span><h3>Una traiettoria</h3><p>Più settimane di seguito: si vede se il modo di vivere sta cambiando, un po’ alla volta.</p></div>
+    <div class="scheda"><span class="n">1</span><h3>Un gesto</h3><p>Muovi nove cursori, tiri un dado e leggi il racconto. È la pagina in cui vedi come cambia il numero quando cambia una condizione.</p></div>
+    <div class="scheda"><span class="n">2</span><h3>Una mattina</h3><p>Qui i gesti sono più d’uno, uno dopo l’altro, e la fatica di ognuno passa a quello dopo. La stessa mattina si può rifare mille volte, con dadi diversi.</p></div>
+    <div class="scheda"><span class="n">3</span><h3>Una settimana</h3><p>Sette giorni, con le notti in mezzo: vedi se il riposo basta a recuperare, e dov’è il punto da cui non si torna indietro.</p></div>
+    <div class="scheda"><span class="n">4</span><h3>Una traiettoria</h3><p>Più settimane, una dopo l’altra: vedi se il modo di vivere sta cambiando, un po’ alla volta.</p></div>
   </div>
   <p style="margin-top:14px">Non serve sapere niente di matematica o di statistica: ogni parola con il punto interrogativo si spiega da sola, e c’è una strada fatta di domande per chi non sa quali numeri mettere.</p>
 
   <h2>Il libro</h2>
-  <p id="vetrinaLibro">Il simulatore è la versione che funziona del libro <b>Simulatore di vita 3.0 — Il prezzo nascosto di ogni cosa</b>: le stesse regole, gli stessi esempi, gli stessi numeri. Il libro spiega il modello dall’inizio alla fine; il simulatore lo fa girare. Si possono usare insieme o uno senza l’altro.</p>
+  <p id="vetrinaLibro">Il simulatore è il libro messo in funzione. Il libro si intitola <b>Simulatore di vita 3.0 — Il prezzo nascosto di ogni cosa</b>, e il simulatore ne ha le stesse regole, gli stessi esempi e gli stessi numeri. Il libro spiega il modello dall’inizio alla fine, il simulatore lo mette in moto. Si possono usare insieme o uno senza l’altro.</p>
   <div class="tasti" id="tastiLibro"></div>
 
   <h2>Come si ottiene</h2>
@@ -186,7 +186,7 @@
       '<div class="tasti"><a class="tasto pieno" href="' + esc(V.acquisto.url) + '" rel="noopener">Acquista' + (V.acquisto.prezzo ? ' · ' + esc(V.acquisto.prezzo) : '') + '</a>' +
       '<a class="tasto vuoto" href="' + mail + '">Scrivi all’autore</a></div>';
   } else if (V.modalita === 'aperto') {
-    o.innerHTML = '<p>Il simulatore è libero: niente password, niente conto da aprire, entra e basta. Sul telefono lo puoi aggiungere alla schermata Home, e da lì funziona anche senza rete. Chi vuole i file sul proprio disco trova nella pagina di apertura il tasto per scaricare il pacchetto.</p>' +
+    o.innerHTML = '<p>Il simulatore è libero: non servono password né iscrizioni, basta entrare. Sul telefono lo puoi aggiungere alla schermata Home, e da lì funziona anche senza rete. Chi vuole i file sul proprio disco trova nella pagina di apertura il tasto per scaricare il pacchetto.</p>' +
       '<div class="tasti"><a class="tasto pieno" href="APRI-QUI.html">Entra nel simulatore</a></div>';
   } else {
     o.innerHTML = '<p>Il simulatore accompagna il libro. Chi ha il libro scrive all’autore, con il proprio nome e la ricevuta d’acquisto, e riceve l’indirizzo: da lì si usa sul telefono, sul tablet e sul computer, e si può scaricare il pacchetto da tenere sul proprio disco, che funziona anche senza rete.</p>' +
@@ -194,7 +194,7 @@
   }
   document.getElementById('piede').innerHTML =
     '© ' + esc(V.autore || '') + '. Tutti i diritti riservati; i termini d’uso sono in LICENZA.txt dentro il pacchetto. ' +
-    'Niente esce da questa pagina: nessun tracciamento, nessun dato raccolto. Contatto: <a href="' + mail + '">' + esc(V.contatto || '') + '</a>.';
+    'Da questa pagina non esce niente: nessuno ti segue e nessun dato viene raccolto. Contatto: <a href="' + mail + '">' + esc(V.contatto || '') + '</a>.';
 }());
 </script>
 <script src="app/interfaccia/installa.js"></script>

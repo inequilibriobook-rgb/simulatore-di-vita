@@ -22,7 +22,7 @@
 
   <header class="testata">
     <p class="occhiello">Simulatore di vita 3.0 · dalla scena ai nodi</p>
-    <h1>Racconta la scena, e guardala aprirsi</h1>
+    <h1>Racconta la scena, e guardala gesto per gesto</h1>
     <p class="sottotitolo">
       Scrivi una mattina come la racconteresti a un amico. Il simulatore la divide nei gesti
       che contiene e propone i nove valori di ciascuno. Poi calcola tutto, un gesto alla
@@ -37,24 +37,27 @@
     <p>
       Scrivi una mattina come la racconteresti a voce a un amico: mi sono alzato tardi, ho
       bevuto il caffè in piedi, poi ho cercato le chiavi per dieci minuti. Il simulatore la
-      <strong>scompone nei «gesti» che contiene</strong>, cioè le singole azioni che la
-      formano: un gesto è un’azione sola, con un inizio e una fine, come bere il caffè, non
-      «fare colazione». Per ogni gesto propone i nove valori, e per ognuno ti dice da quale
-      parola del tuo racconto viene. Poi
-      <strong>calcola tutto, un gesto per volta</strong>. Fa la somma dei nove valori e
+      <strong>divide nei «gesti» che contiene</strong>. Un gesto è un’azione sola, con un
+      inizio e una fine: bere il caffè è un gesto, «fare colazione» no. Per ogni gesto il
+      simulatore propone i nove valori, e per ognuno ti dice da quale parola del tuo
+      racconto viene.
+    </p>
+    <p>
+      Poi <strong>calcola tutto, un gesto per volta</strong>. Fa la somma dei nove valori e
       applica il «taglio» ai bordi, cioè non lascia che il risultato scenda sotto 5 o salga
-      sopra 95. Tira il dado, cioè un numero estratto a caso da 1 a 100, e misura il
-      «margine», cioè di quanto il dado è rimasto sotto la «soglia», la probabilità
-      calcolata, o l’ha superata. Infine dà un nome all’«esito», uno dei
-      nove modi in cui un gesto può finire. E ti dice con quale «carico» si arriva al gesto
-      dopo, cioè con quanta pressione accumulata addosso.
+      sopra 95. Poi tira il dado, cioè estrae a caso un numero da 1 a 100, e lo confronta con
+      la probabilità calcolata, che fa da «soglia». Di quanto il dado è rimasto sotto la
+      soglia, o l’ha superata, è il «margine». Infine dà un nome all’«esito», uno dei nove
+      modi in cui un gesto può finire, e ti dice con quale «carico», cioè con quanta
+      pressione accumulata, si arriva al gesto dopo.
     </p>
     <h3>Come si usa, in tre passi</h3>
     <ol class="come-si-usa">
-      <li><strong>Scrivi la scena.</strong> In prosa, con le virgole e i punti, come viene.
+      <li><strong>Scrivi la scena</strong> così come ti viene, con le virgole e i punti.
         Non serve andare a capo a ogni gesto.</li>
-      <li><strong>Controlla dove ho tagliato.</strong> Segmentare, cioè dividere il racconto
-        in pezzi, è già interpretare. Se ho sbagliato, si corregge con un clic.</li>
+      <li><strong>Controlla dove ho tagliato il racconto.</strong> Già decidere dove finisce
+        un gesto e dove comincia il successivo vuol dire interpretare. Se ho sbagliato, si
+        corregge con un clic.</li>
       <li><strong>Guarda i numeri, e cambiali pure.</strong> Ogni valore è solo una proposta,
         e accanto c’è scritta la parola da cui viene. Appena ne cambi uno, da quel momento
         in poi vale il tuo e non più quello proposto.</li>
@@ -108,14 +111,14 @@
           <button type="button" class="fantasma" id="nuovoSeme">cambia</button></span></label>
     </div>
     <p class="nota" style="margin:12px 0 0">
-      Il <b data-parola="trasferimento_di_stato">trasferimento di stato</b> è quanto di ogni
-      gesto arriva davvero al gesto dopo. Con <em>misurato</em> ne passa il 4,6 %, che è il
+      Il <b data-parola="trasferimento_di_stato">trasferimento di stato</b> dice quanta parte
+      del peso di ogni gesto arriva davvero al gesto dopo. Con <em>misurato</em> ne passa il 4,6 %, che è il
       valore misurato sui cinquecento gesti del capitolo 28. Con <em>storico</em>
       passa tutto, come faceva il modello all’inizio. Provali tutti e due sulla stessa
       scena, e guarda che cosa succede. Il secondo va a sbattere contro il «tetto», cioè il
       100 del carico, oltre cui non si sale. Da lì in poi non distingue più una scena
       dall’altra, ed è per questo che è stato abbandonato. Il <b>seme del dado</b>, infine,
-      è il numero da cui partono i tiri. Con lo stesso seme escono sempre gli stessi dadi, e
+      è il numero da cui partono i tiri. Con lo stesso seme escono sempre gli stessi tiri, e
       una scena si può rifare identica.
     </p>
     <div class="barra-azioni">
@@ -151,8 +154,8 @@
     <p>
       Le condizioni qui sopra le ho indovinate dalle parole, ed è la parte in cui questa
       pagina sbaglia di più: su racconti che non ha mai visto ne coglie quattro su dieci.
-      Per questo ti faccio sette domande sulla giornata. Ognuna ha una casa sola, già decisa:
-      tu dici il fatto, e dove va lo sa la pagina. Così la stessa stanchezza non può finire
+      Per questo ti faccio sette domande sulla giornata. Ogni domanda ha già il suo posto
+      fisso nel calcolo: tu dici il fatto, e la pagina sa dove metterlo. Così la stessa stanchezza non può finire
       in due posti. Quando rispondi, la tua risposta prende il posto di quello che avevo
       letto, e vale una volta sola per tutti i gesti. Se a una domanda non rispondi, per
       quella resta la lettura del racconto.
@@ -192,8 +195,8 @@
     <h2>5 · Che storia è stata</h2>
     <p class="senza-sopra">
       Ogni esito viene raccontato, non solo calcolato. Il racconto è il testo in prosa che
-      il simulatore scrive sotto i numeri, e non dice com’è andato un gesto della sequenza.
-      Dice dove la scena ha cambiato pendenza, cioè dove il carico è salito o sceso più in
+      il simulatore scrive sotto i numeri, e non racconta i gesti uno per uno. Racconta
+      dove la scena ha cambiato pendenza, cioè dove il carico è salito o sceso più in
       fretta del solito, quale gesto è costato di più, quale ha
       restituito qualcosa. E più le cose sono andate male, più il racconto si accorcia. È la
       regola del capitolo 46: a chi è in difficoltà non serve un ragionamento lungo, servono
@@ -212,9 +215,8 @@
       un caso solo: vedi la forma di tutti i casi possibili. Ogni prova si chiama
       <strong data-parola="ripetizione">«ripetizione»</strong>, cioè la stessa scena rifatta da
       capo con un dado diverso. Le ripetizioni della scena intera si contano a parte
-      rispetto a quelle dei singoli gesti. Sono due numerosità diverse, cioè due conteggi
-      separati, due <em>n</em> come si dice in statistica. Sommarle sarebbe l’errore del
-      capitolo 27.
+      rispetto a quelle dei singoli gesti: sono due conteggi separati, e sommarli sarebbe
+      l’errore di cui parla il capitolo 27.
     </p>
     <div id="montecarlo"></div>
   </section>

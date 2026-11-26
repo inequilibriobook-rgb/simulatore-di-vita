@@ -3100,10 +3100,26 @@ body.lettura { background: var(--piano); }
 .apribile-tasto:hover, .apribile-tasto:focus-visible { background: var(--azione-tenue); outline: none; }
 .apribile-titolo { grid-area: titolo; display: flex; align-items: baseline; gap: 10px; font-size: var(--t-grande); font-weight: 650; letter-spacing: -.01em; line-height: 1.25; }
 .apribile-anteprima { grid-area: anteprima; font-size: var(--t-nota); font-weight: 400; letter-spacing: 0; color: var(--inchiostro-2); line-height: 1.45; text-align: left; hyphens: manual; }
+/* IL TASTO TONDO VERDE (26/11/2026, Igor dal telefono: «un triangolino
+   bianco troppo piccolo, non si capisce: fai un triangolino perfettamente
+   centrato verso il basso o verso l'alto»). Prima era il carattere «▾»: la
+   sua misura e la sua posizione cambiavano da un telefono all'altro, e sul
+   suo Redmi veniva piccolo e spostato. Adesso il triangolo e' disegnato:
+   16 per 10 pixel, bianco pieno, e spostato giu' di un pixel e mezzo perche'
+   l'occhio vede centrato un triangolo quando e' centrato il suo baricentro,
+   che sta a un terzo dell'altezza, non a meta'. Il carattere resta nella
+   pagina ma non si vede (font-size 0). A sezione chiusa punta in basso; a
+   sezione aperta il tondo gira di mezzo giro e il triangolo punta in alto,
+   e lo spostamento gira con lui, quindi resta centrato anche li'. */
 .apribile-freccia {
-  grid-area: freccia; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
-  background: var(--azione); color: var(--su-azione); font-size: 18px; font-weight: 700;
+  grid-area: freccia; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--azione); color: var(--su-azione); font-size: 0; line-height: 0;
   transition: transform .18s ease;
+}
+.apribile-freccia::before {
+  content: ""; width: 16px; height: 10px; background: currentColor;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform: translateY(1.5px);
 }
 .apribile.aperta .apribile-freccia { transform: rotate(180deg); }
 .apribile.aperta .apribile-anteprima { display: none; }
@@ -3168,11 +3184,12 @@ body.lettura { background: var(--piano); }
 /* L'ONDA: le lettere restano del loro colore (var(--inchiostro), non
    «currentColor»: con il colore reso trasparente per il ritaglio,
    currentColor diventava trasparente anche lui e il titolo spariva) e una
-   banda dorata, stretta, le attraversa una volta. Sul tema scuro le
-   lettere sono bianche e la banda resta dorata. */
+   banda di luce argentata, stretta, le attraversa una volta (era dorata
+   fino al 26/11/2026: e' diventata argento con il titolo). Sul tema scuro
+   le lettere sono bianche e la banda resta d'argento. */
 .onda {
   --onda-base: var(--inchiostro);
-  background-image: linear-gradient(105deg, var(--onda-base) 0%, var(--onda-base) 34%, #c9992a 42%, #f3d27a 50%, #c9992a 58%, var(--onda-base) 66%, var(--onda-base) 100%);
+  background-image: linear-gradient(105deg, var(--onda-base) 0%, var(--onda-base) 34%, #9aa3ac 42%, #eef2f6 50%, #9aa3ac 58%, var(--onda-base) 66%, var(--onda-base) 100%);
   background-size: 300% 100%; background-position: 120% 0;
   -webkit-background-clip: text; background-clip: text; color: var(--onda-base); -webkit-text-fill-color: transparent;
   animation: onda-luce 2.2s cubic-bezier(.45,0,.35,1) both;
@@ -3527,15 +3544,16 @@ tr.glossa-riga > td > .glossa { margin-top: 4px; max-width: none; }
    giustificato apriva buchi fra le parole (visto il 18/09 sulla catena) */
 .occhiello, .testata .occhiello, .passo-etichetta { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
 
-/* IL TITOLO DELL'OPERA, DORATO (Igor, 18/09/2026: «un titolo bello grande,
-   cangiante, una doratura, ma fine ed elegante»). Sulla pagina di apertura
-   il nome del libro sta scritto in grande, nel carattere con le grazie del
-   libro (Palatino), con una doratura vera: non un giallo piatto ma un oro
-   che passa dall'ambra al chiaro e torna al bronzo, come una foglia d'oro
-   che prende luce. La luce si sposta piano, un giro ogni sette secondi con
-   una pausa, cosi' l'occhio la sente senza che il titolo balli. Il «3.0»
-   e' in bastone, piccolo, come un marchio di edizione. Chi ha chiesto meno
-   movimento vede l'oro fermo. */
+/* IL TITOLO DELL'OPERA, ARGENTATO. Il 18/09/2026 era dorato («un titolo
+   bello grande, cangiante, una doratura, ma fine ed elegante»); il
+   26/11/2026, guardandolo sul telefono, Igor: «la scritta così dorata non mi
+   piace, al limite la fai argentata [...] che luccica sempre». Adesso e'
+   argento: un grigio freddo che passa dall'acciaio al bianco, e una banda di
+   luce stretta che lo attraversa di continuo, da sinistra a destra, come un
+   riflesso su una lastra. Il nome della classe e' rimasto «dorato» per non
+   toccare la pagina: dice dove sta il titolo, non di che colore e'. Il «3.0»
+   e' in bastone, piccolo, come un marchio di edizione. Chi ha chiesto al
+   telefono meno movimento vede l'argento fermo. */
 .titolo-opera {
   margin: 0 0 18px; line-height: 1.02; letter-spacing: -.02em;
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
@@ -3545,15 +3563,23 @@ tr.glossa-riga > td > .glossa { margin-top: 4px; max-width: none; }
 .titolo-opera .dorato { display: inline-block; position: relative; }
 .titolo-opera .dorato-testo {
   display: inline-block; padding: .04em .02em 0 0;
-  --oro-fondo: #8a6416; --oro-medio: #c4952a; --oro-chiaro: #edd27f; --oro-bronzo: #a5771d;
-  background-image: linear-gradient(112deg,
-    var(--oro-fondo) 0%, var(--oro-medio) 18%, var(--oro-chiaro) 34%, var(--oro-medio) 46%,
-    var(--oro-bronzo) 58%, var(--oro-medio) 72%, var(--oro-chiaro) 86%, var(--oro-fondo) 100%);
-  background-size: 260% 100%; background-position: 100% 0;
+  --ag-scuro: #3f464e; --ag-medio: #6f7882; --ag-chiaro: #a9b1ba; --ag-luce: #ffffff;
+  /* due strati: sopra la banda di luce che scorre, sotto l'argento fermo */
+  background-image:
+    linear-gradient(105deg, transparent 0%, transparent 40%, rgba(255,255,255,.0) 42%,
+      var(--ag-luce) 50%, rgba(255,255,255,.0) 58%, transparent 60%, transparent 100%),
+    linear-gradient(180deg, var(--ag-chiaro) 0%, var(--ag-medio) 38%, var(--ag-scuro) 52%,
+      var(--ag-medio) 70%, var(--ag-chiaro) 100%);
+  background-size: 250% 100%, 100% 100%; background-position: 130% 0, 0 0;
+  background-repeat: no-repeat;
   -webkit-background-clip: text; background-clip: text;
-  color: var(--oro-medio); -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 0 rgba(255,255,255,.55)) drop-shadow(0 2px 2px rgba(60,40,0,.16));
-  animation: doratura 9s ease-in-out infinite;
+  color: var(--ag-medio); -webkit-text-fill-color: transparent;
+  /* un filo d'argento scuro attorno alle lettere: sullo sfondo chiaro, quando
+     passa la banda bianca, senza il filo le lettere sparivano (visto il
+     26/11 sul telefono: «di v» quasi invisibile a meta' passaggio) */
+  -webkit-text-stroke: .7px rgba(63,70,78,.5);
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.6)) drop-shadow(0 2px 2px rgba(20,30,40,.18));
+  animation: argentatura 4.5s cubic-bezier(.45,0,.35,1) infinite;
 }
 .titolo-opera-versione {
   font-family: var(--carattere); font-weight: 650; font-size: .42em; letter-spacing: .02em;
@@ -3561,23 +3587,27 @@ tr.glossa-riga > td > .glossa { margin-top: 4px; max-width: none; }
   border-radius: 999px; line-height: 1; transform: translateY(-.28em);
 }
 :root[data-tema="scuro"] .titolo-opera .dorato-testo {
-  --oro-fondo: #a37a1f; --oro-medio: #d9ad3f; --oro-chiaro: #fff0bd; --oro-bronzo: #b8892a;
-  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 2px 6px rgba(255,214,120,.16));
+  --ag-scuro: #9aa2ab; --ag-medio: #c3c9cf; --ag-chiaro: #eef1f4; --ag-luce: #ffffff;
+  -webkit-text-stroke: 0 transparent;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.4)) drop-shadow(0 2px 6px rgba(220,230,240,.18));
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-tema="chiaro"]) .titolo-opera .dorato-testo {
-    --oro-fondo: #a37a1f; --oro-medio: #d9ad3f; --oro-chiaro: #fff0bd; --oro-bronzo: #b8892a;
-    filter: drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 2px 6px rgba(255,214,120,.16));
+    --ag-scuro: #9aa2ab; --ag-medio: #c3c9cf; --ag-chiaro: #eef1f4; --ag-luce: #ffffff;
+    -webkit-text-stroke: 0 transparent;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,.4)) drop-shadow(0 2px 6px rgba(220,230,240,.18));
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  /* la luce va e torna, senza mai uno scatto: da destra a sinistra e indietro */
-  @keyframes doratura { 0% { background-position: 100% 0; } 50% { background-position: 0% 0; } 100% { background-position: 100% 0; } }
+  /* la luce entra da sinistra, attraversa il titolo e riparte: sempre, un
+     passaggio ogni quattro secondi e mezzo, con un attimo di argento fermo
+     fra un passaggio e l'altro */
+  @keyframes argentatura { 0% { background-position: 130% 0, 0 0; } 70%, 100% { background-position: -30% 0, 0 0; } }
 }
 @media (prefers-reduced-motion: reduce) {
-  .titolo-opera .dorato-testo { animation: none; background-position: 40% 0; }
+  .titolo-opera .dorato-testo { animation: none; background-position: 130% 0, 0 0; }
 }
-@media print { .titolo-opera .dorato-testo { animation: none; -webkit-text-fill-color: #6b4f12; color: #6b4f12; background: none; filter: none; } }
+@media print { .titolo-opera .dorato-testo { animation: none; -webkit-text-fill-color: #4a5058; color: #4a5058; background: none; filter: none; } }
 @media (max-width: 700px) { .titolo-opera { margin-bottom: 14px; } }
 
 /* LE DOMANDE DI SCENA (13/11/2026) — pagina del racconto. Una domanda per
