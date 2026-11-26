@@ -2842,7 +2842,7 @@ body.lettura { background: var(--piano); }
   .passo-scelte .bottone, .barra-azioni > button, .barra-azioni > .bottone { width: 100%; justify-content: center; text-align: center; }
   .barra-azioni > label, .barra-azioni > .seme { width: 100%; }
   /* sul telefono anche i bottoni veri vanno a capo: «Caregiver che compensa
-     tutti · senza numeri» misurava 334 px in una colonna da 328 */
+     tutti · senza numeri» (oggi «Chi assiste e compensa tutti») misurava 334 px in una colonna da 328 */
   .bottone, button { white-space: normal; max-width: 100%; }
 
   /* le schede di ingresso e le carte: una colonna, angoli piccoli */

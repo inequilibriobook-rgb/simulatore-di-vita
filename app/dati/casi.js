@@ -29,8 +29,8 @@
    E' il titolo con cui il capitolo 39 intitola quella scheda, e serve a una
    cosa sola: ritrovare nel libro la formula gia' composta di quel calcolo
    (app/dati/formule.js, generato dal Canone). Il titolo che la pagina mostra
-   puo' essere piu' chiaro di quello del libro — «Pratica online con il codice
-   bloccato» invece di «Pratica online con OTP bloccato» — ma il collegamento
+   puo' essere piu' chiaro di quello del libro — «Una consegna riuscita, e
+   tossica» invece di «Consegna riuscita ma tossica» — ma il collegamento
    con la fonte non si deve perdere. _test/casi.js verifica che ognuno di
    questi titoli sia davvero un titolo del capitolo 39.
 
@@ -61,7 +61,7 @@
     },
     {
       id: 'otp',
-      titoloLibro: 'Pratica online con OTP bloccato',
+      titoloLibro: 'Pratica online con il codice bloccato',
       titolo: 'Pratica online con il codice bloccato',
       territorio: 'Digitale e burocrazia',
       scena: 'Una pratica da fare online, e a un certo punto lo schermo chiede un codice di verifica. Il codice non arriva. Oppure arriva, lo si scrive, e l’applicazione lo rifiuta.',
@@ -89,7 +89,7 @@
     },
     {
       id: 'deadline',
-      titoloLibro: 'Deadline riuscita ma tossica',
+      titoloLibro: 'Consegna riuscita ma tossica',
       titolo: 'Una consegna riuscita, e tossica',
       territorio: 'Il lavoro e lo studio',
       scena: 'Una consegna importante, di quelle con una data segnata sul calendario. La porta a termine una persona che arriva a quel giorno già molto carica.',
@@ -129,8 +129,8 @@
     },
     {
       id: 'caregiver',
-      titoloLibro: 'Caregiver che compensa tutti',
-      titolo: 'Caregiver che compensa tutti',
+      titoloLibro: 'Chi assiste e compensa tutti',
+      titolo: 'Chi assiste e compensa tutti',
       territorio: 'La cura e la fragilità',
       scena: 'Una persona tiene in piedi tutto un sistema da sola: i genitori anziani, i figli, la casa, il lavoro, gli appuntamenti, le telefonate. E gesto dopo gesto ci riesce.',
       senza_calcolo: 'Nessun calcolo: non è un gesto solo, è una sequenza lunga.',

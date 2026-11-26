@@ -97,7 +97,7 @@
       conti: "Novanta di base, perché il gesto è notissimo. Meno cinque per il corpo. Meno cinque per la complessità, che vale uno. Meno dieci per il carico persistente a 62, che cade nella fascia dei dieci punti.",
       latex: "P_{\\mathrm{raw}} = 90 - 5 - 5 - 10 = 70 \\qquad\\qquad P_n = 70",
       mathml: "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" alttext=\"P_{\\mathrm{raw}} = 90 - 5 - 5 - 10 = 70 \\qquad\\qquad P_n = 70\"><mrow><msub><mi>P</mi><mrow><mi mathvariant=\"normal\">raw</mi></mrow></msub><mo>=</mo><mn>90</mn><mo>\u2212</mo><mn>5</mn><mo>\u2212</mo><mn>5</mn><mo>\u2212</mo><mn>10</mn><mo>=</mo><mn>70</mn><mspace width=\"2em\"/><mspace width=\"2em\"/><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><mn>70</mn></mrow></math>" },
-    { titolo: "Pratica online con OTP bloccato",
+    { titolo: "Pratica online con il codice bloccato",
       valori: { P0: 60, E: 0, I: -10, T: -5, M: -5, BP: 0, C: 3, STR: 55, DEB: 0 },
       praw: 20, pn: 20,
       conti: "Base sessanta, perché la procedura non è un gesto automatico. Meno dieci di chiarezza, perché le istruzioni non spiegano. Meno cinque di tempo e cinque di ambiente. Meno quindici di complessità, che vale tre: sono tre coordinamenti veri, credenziale, codice, caricamento. Meno cinque per il carico a 55.",
@@ -109,7 +109,7 @@
       conti: "Base cinquantacinque: un dialogo teso non è un gesto tecnico ad alta riuscita. Meno cinque di chiarezza. Più cinque di protezione, l'unico segno positivo della scheda. Meno dieci di complessità, che vale due. Meno dieci per il carico a 60, appena dentro la fascia.",
       latex: "P_{\\mathrm{raw}} = 55 - 5 + 5 - 10 - 10 = 35 \\qquad\\qquad P_n = 35",
       mathml: "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" alttext=\"P_{\\mathrm{raw}} = 55 - 5 + 5 - 10 - 10 = 35 \\qquad\\qquad P_n = 35\"><mrow><msub><mi>P</mi><mrow><mi mathvariant=\"normal\">raw</mi></mrow></msub><mo>=</mo><mn>55</mn><mo>\u2212</mo><mn>5</mn><mo>+</mo><mn>5</mn><mo>\u2212</mo><mn>10</mn><mo>\u2212</mo><mn>10</mn><mo>=</mo><mn>35</mn><mspace width=\"2em\"/><mspace width=\"2em\"/><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><mn>35</mn></mrow></math>" },
-    { titolo: "Deadline riuscita ma tossica",
+    { titolo: "Consegna riuscita ma tossica",
       valori: { P0: 75, E: -10, I: 5, T: -15, M: 0, BP: 0, C: 3, STR: 82, DEB: 1 },
       praw: 15, pn: 15,
       conti: "Base settantacinque: la persona è competente. Più cinque di chiarezza: sa esattamente che cosa deve consegnare. Poi tutto il resto scende. Meno dieci di corpo. Meno quindici di tempo, compresso. Meno quindici di complessità. Meno venti di carico persistente, che a 82 è nella penultima fascia. Meno cinque di debito, che vale uno.",
@@ -157,7 +157,7 @@
      motivo scritto come lo scrive il libro. Fermarsi e' il risultato. */
   var SENZA_CALCOLO = [
     { titolo: "Guidare con sonnolenza", perche: "Nessun calcolo.\nCancello di sicurezza, e viene prima della formula." },
-    { titolo: "Caregiver che compensa tutti", perche: "Nessun calcolo: non è un nodo, è una sequenza lunga.\nMACRO-3/4 · carico persistente in salita · posizione interna in calo\nsupporto simbolico" }
+    { titolo: "Chi assiste e compensa tutti", perche: "Nessun calcolo: non è un nodo, è una sequenza lunga.\nMACRO-3/4 · carico persistente in salita · posizione interna in calo\nsupporto simbolico" }
   ];
 
   /* Restituisce il MathML di una formula. Se la chiave non c'e' non si

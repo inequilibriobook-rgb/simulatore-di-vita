@@ -181,17 +181,13 @@
 
   /* IL TITOLO CHE SI VEDE, NON QUELLO STAMPATO NEL LIBRO.
      formule.js arriva dal Canone parola per parola, ed e' giusto cosi': serve
-     a ritrovare la scheda nel libro. Ma due di quei titoli portano una sigla
-     inglese che qui non e' mai stata spiegata — «OTP» — o una parola inglese
-     dove l'italiano corrente basta — «Deadline». app/dati/casi.js risolve lo
-     stesso problema con un secondo campo, `titolo` accanto a `titoloLibro`;
-     qui il dato ha un solo campo, quindi il testo piu' chiaro vive in questa
-     mappa. Il valore usato per scegliere la scheda (data-titolo) resta quello
-     del libro: cambia solo la scritta sul bottone. */
-  var ETICHETTA_SCHEDA = {
-    'Pratica online con OTP bloccato': 'Pratica online con il codice bloccato',
-    'Deadline riuscita ma tossica': 'Una consegna riuscita, e tossica'
-  };
+     a ritrovare la scheda nel libro. Fino al 26/11/2026 due di quei titoli
+     portavano parole inglesi («OTP», «Deadline») e questa mappa ne dava una
+     scritta piu' chiara sul bottone. Da allora il libro li ha tradotti
+     (decisione di Igor), e la mappa e' vuota; resta pronta, nel caso un
+     titolo del libro torni a non essere chiaro a schermo. Il valore usato per
+     scegliere la scheda (data-titolo) resta sempre quello del libro. */
+  var ETICHETTA_SCHEDA = {};
   function etichettaScheda(titolo) {
     return ETICHETTA_SCHEDA[titolo] || titolo;
   }
