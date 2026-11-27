@@ -14,7 +14,7 @@
    MathML e non una libreria: le pagine si aprono da disco, senza rete
    (capitolo 48), e MathML lo disegnano i browser da soli.
 
-   Generato il 26/11/2026 dal Canone.
+   Generato il 27/11/2026 dal Canone.
    ========================================================================== */
 (function (globale) {
   'use strict';

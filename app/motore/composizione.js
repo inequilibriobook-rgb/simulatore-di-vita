@@ -129,28 +129,28 @@
   var SCALA_P0 = [
     { valore: 90, etichetta: 'Gesto automatico',
       esempio: 'bere un bicchiere d’acqua, anche dopo una giornata pesante',
-      fonte: 'libro, capitolo 39, pagina 366' },
+      fonte: 'libro, capitolo 39, pagina 369' },
     { valore: 85, etichetta: 'Gesto semplice con un intoppo possibile',
       esempio: 'uscire di casa quando la porta si blocca e si ha fretta',
-      fonte: 'libro, capitolo 39, pagina 375' },
+      fonte: 'libro, capitolo 39, pagina 378' },
     { valore: 80, etichetta: 'Gesto ordinario con qualcosa che reagisce',
       esempio: 'uscire con il cane che tira alla porta',
-      fonte: 'libro, capitolo 39, pagina 370' },
+      fonte: 'libro, capitolo 39, pagina 373' },
     { valore: 75, etichetta: 'Compito che richiede attenzione',
       esempio: 'la spesa in un supermercato nuovo e affollato, preparare una lezione',
-      fonte: 'libro, capitolo 39, pagine 374 e 375' },
+      fonte: 'libro, capitolo 39, pagine 377 e 379' },
     { valore: 70, etichetta: 'Compito ordinario',
       esempio: 'scrivere un messaggio che conta, mentre si è sotto pressione',
-      fonte: 'libro, capitolo 5 e capitolo 39, pagina 373' },
+      fonte: 'libro, capitolo 5 e capitolo 39, pagina 376' },
     { valore: 60, etichetta: 'Compito con un ostacolo tecnico',
       esempio: 'una pratica online con il codice di accesso che non arriva',
-      fonte: 'libro, capitolo 39, pagina 367' },
+      fonte: 'libro, capitolo 39, pagina 370' },
     { valore: 55, etichetta: 'Compito relazionale delicato',
       esempio: 'un dialogo di coppia teso',
-      fonte: 'libro, capitolo 39, pagina 368' },
+      fonte: 'libro, capitolo 39, pagina 371' },
     { valore: 40, etichetta: 'Compito che richiede condizioni buone',
       esempio: 'spostare un oggetto pesante da soli',
-      fonte: 'libro, capitolo 39, pagina 371' }
+      fonte: 'libro, capitolo 39, pagina 374' }
   ];
 
   /* --------------------------------------------------------------------
@@ -374,7 +374,7 @@
       var provenienza = provenienzaData[d.id] || 'certo';
       if (PROVENIENZE.indexOf(provenienza) < 0) {
         avvisi.push('La domanda ' + d.id + ' porta una provenienza «' + provenienza + '» che il ' +
-          'modello non riconosce: il capitolo 21 ne dichiara quattro — certo, stimato, proxy, ' +
+          'modello non riconosce: il capitolo 21 ne dichiara quattro — certo, stimato, indiretto, ' +
           'incompleto. Trattata come «certo». È un difetto del programma, non una risposta sbagliata.');
         provenienza = 'certo';
       }
