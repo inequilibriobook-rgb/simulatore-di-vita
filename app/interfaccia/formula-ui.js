@@ -47,9 +47,9 @@
     { k: 'E',   min: -30, max: 30, nome: 'Il corpo adesso',        sotto: 'energia, sonno, dolore (E)' },
     { k: 'I',   min: -30, max: 30, nome: 'Quanto è chiaro',   sotto: 'informazione e istruzioni (I)' },
     { k: 'T',   min: -30, max: 30, nome: 'La pressione del tempo', sotto: 'fretta di questo momento (T)' },
-    { k: 'M',   min: -30, max: 30, nome: 'L’ambiente intorno', sotto: 'spazio, oggetti, rumore (M)' },
+    { k: 'M',   min: -30, max: 30, nome: 'L’ambiente', sotto: 'spazio, oggetti, rumore (M)' },
     { k: 'BP',  min: 0,   max: 20, nome: 'Ciò che ti protegge', sotto: 'aiuto concreto temporaneo (BP)' },
-    { k: 'C',   min: 0,   max: 10, nome: 'Quanti pezzi ha',        sotto: 'complessità, −5 punti ciascuno (C)' },
+    { k: 'C',   min: 0,   max: 10, nome: 'I pezzi da coordinare',        sotto: 'complessità, −5 punti ciascuno (C)' },
     { k: 'STR', min: 0,   max: 100, nome: 'Il carico accumulato',  sotto: 'stress che ti porti dietro (STR)' },
     /* Il massimo e' 5, come in app.js e in scena-ui.js. Qui era 20, e siccome
        il debito toglie cinque punti per unita' avrebbe voluto dire −100: la
@@ -124,10 +124,10 @@
      'Il modello distingue con cura molti tipi di recupero: vero, finto, debole, tardivo, pieno. Un recupero è una pausa che toglie carico davvero, non una che dà soltanto un po’ di sollievo. Ma in nessuna fonte c’è un numero. Non è scritto da nessuna parte quanto stress rientra dopo una notte di sonno. Quei numeri li deve scegliere chi programma, e deve dichiararli come una scelta sua.'],
     ['La conversione del campo attivo in punti',
      'Il campo attivo è quello che nella scena risponde al tentativo: un cane che tira, una serratura che resiste. Le fonti distinguono con cura una sua contestazione lieve, media e forte. Ma non è scritto da nessuna parte quanti punti valga «lieve». Il ponte fra la parola e il numero, insomma, non esiste ancora. Va costruito, e va dichiarato.'],
-    ['L’unità del cooldown',
-     'Il raffreddamento è il tempo di attesa dopo una fase rossa: cioè dopo un periodo in cui il carico è arrivato in zona di pericolo, il modello impone un’attesa prima che si possa tornare a spingere. È un numero intero, e cala di uno per volta. Di uno ogni quanto, però? A ogni gesto, a ogni scena, a ogni ora, a ogni giorno? Non è dichiarato da nessuna parte. E la stessa cifra, letta come gesti o come giorni, dà due modelli del recupero del tutto diversi.'],
+    ['L’unità del raffreddamento',
+     'Il raffreddamento è un tempo di attesa. Dopo una fase rossa, cioè un periodo in cui il carico è arrivato in zona di pericolo, il modello impone un’attesa prima che si possa tornare a spingere. È un numero intero, e cala di uno per volta. Di uno ogni quanto, però? A ogni gesto, a ogni scena, a ogni ora, a ogni giorno? Non è dichiarato da nessuna parte. E la stessa cifra, letta come gesti o come giorni, dà due modelli del recupero del tutto diversi.'],
     ['I tetti su assetto, debito e costo nascosto',
-     'La tabella del debito si ferma a «4 o oltre», e da lì in su la scala resta aperta: un tetto, cioè un valore massimo, non c’è. L’assetto una scala dichiarata non ce l’ha proprio. Il costo nascosto, cioè il prezzo di un gesto che da fuori sembra riuscito e che si vede solo dopo, non ha né una soglia né un modo di calare col tempo. Eppure nel programma una soglia c’è, a metà scala, e cambia il modo in cui il simulatore si comporta. Funziona, si vede negli esiti, e non è canone.']
+     'La tabella del debito si ferma a «4 o oltre», e da lì in su la scala resta aperta: un tetto, cioè un valore massimo, non c’è. L’assetto una scala dichiarata non ce l’ha proprio. Il costo nascosto, cioè il prezzo di un gesto che da fuori sembra riuscito e che si vede solo dopo, non ha né una soglia né un modo di calare col tempo. Eppure nel programma una soglia c’è, a metà scala, e cambia il modo in cui il simulatore si comporta. Funziona, si vede negli esiti, e il formulario del libro non la contiene: è una scelta del programma.']
   ];
 
   /* ------------------------------------------------------------------ *
@@ -164,7 +164,7 @@
       ['E', 'Il corpo adesso', val.E, 'energia, sonno, dolore'],
       ['I', 'Quanto è chiaro', val.I, 'le istruzioni, e quanto si capisce che cosa va fatto'],
       ['T', 'La pressione del tempo', val.T, 'la fretta di questo momento'],
-      ['M', 'L’ambiente intorno', val.M, 'lo spazio, gli oggetti, il rumore'],
+      ['M', 'L’ambiente', val.M, 'lo spazio, gli oggetti, il rumore'],
       ['BP', 'Ciò che ti protegge', val.BP, 'un aiuto concreto, e per ora temporaneo'],
       ['5·C', 'La complessità', -cfg.pesoComplessita * val.C, quantiC],
       ['PenSTR', 'Il carico accumulato', -pen,

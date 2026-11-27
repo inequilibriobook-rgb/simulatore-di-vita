@@ -308,7 +308,7 @@
          periodo solo, e il perché dentro la frase. Le parole che i test
          cercano («Almeno una», «assetto basso», «carico», «costo nascosto»)
          sono le stesse. */
-      motivo = 'Almeno una soglia del modello è stata superata: può essere il carico, ' +
+      motivo = 'Almeno una soglia del modello è stata raggiunta: può essere il carico, ' +
                'troppo alto, oppure l’assetto basso, oppure il costo nascosto (quello ' +
                'che si paga più avanti, non subito), troppo alto. Ora serve un rientro ' +
                'vero, perché si esce solo se le cose migliorano davvero, e una pausa ' +

@@ -226,8 +226,8 @@
     E: 'il corpo',
     I: 'la chiarezza di quello che c’è da fare',
     T: 'la pressione del tempo',
-    M: 'l’ambiente intorno',
-    BP: 'la protezione (un aiuto concreto)',
+    M: 'l’ambiente',
+    BP: 'ciò che protegge (un aiuto concreto)',
     C: 'i pezzi da coordinare',
     DEB: 'il debito da insistenza',
     STR: 'il carico che ti porti dietro',
@@ -442,7 +442,7 @@
         (date < tot
           ? '. Quelle senza risposta restano ferme al valore che non sposta niente, e nel ' +
             'risultato si vede.'
-          : '. Ci siamo: hai risposto a tutte.');
+          : '. Fatto: hai risposto a tutte.');
     q('barraAvanzamento').style.width = (tot ? (date / tot) * 100 : 0) + '%';
   }
 
@@ -690,7 +690,7 @@
       }).join('') + '</table>' +
       (r.secondari_dichiarati.length
         ? '<p class="nota"><strong>Ogni fatto conta una volta sola.</strong> ' +
-          'Il capitolo 18 lo chiama <em>domicilio unico</em>. Ogni fatto ha una ' +
+          'Il capitolo 18 lo chiama <em>domicilio unico</em>. Ogni fatto ha un ' +
           'posto solo nel calcolo. Se tocca anche altro, lo si scrive, ma non lo si conta una ' +
           'seconda volta. ' +
           (r.secondari_dichiarati.length === 1
@@ -769,7 +769,7 @@
       'Vuol dire questo: qualunque cosa dia la somma, il risultato non scende sotto 5 e ' +
       'non sale sopra 95.</p>' +
       '<table class="dati">' +
-      '<tr><th>Campo del nodo</th><th style="text-align:right">Valore</th></tr>' +
+      '<tr><th>Campo del gesto</th><th style="text-align:right">Valore</th></tr>' +
       /* I NOMI DEI CAMPI RESTANO QUELLI DEL CODICE, I VALORI NO.
          Questo e' il pannello che si apre per vedere il nodo com'e' fatto
          dentro, e chi lo apre vuole proprio i nomi veri: `energia_e` e' la
@@ -793,9 +793,9 @@
       ].map(function (p) {
         return '<tr><td><code>' + esc(p[0]) + '</code></td><td class="num">' + esc(String(p[1])) + '</td></tr>';
       }).join('') + '</table>' +
-      '<p class="nota">A sinistra ci sono i nomi che il campo ha dentro il programma, ' +
+      '<p class="nota">A sinistra ci sono i nomi dei campi come sono scritti dentro il programma, ' +
       'quelli veri e non una parafrasi, così chi va a leggere il motore li ritrova uguali. A ' +
-      'destra c’è quello che vogliono dire.</p>';
+      'destra c’è il loro valore, detto in italiano quando è una parola.</p>';
     /* Il riquadro della formula nasce adesso, e chi lo riempie ha gia' fatto
        il suo giro al caricamento della pagina: senza questa chiamata resta
        vuoto, e la formula composta non si vede. */

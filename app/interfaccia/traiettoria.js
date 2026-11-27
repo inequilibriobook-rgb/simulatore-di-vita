@@ -202,9 +202,9 @@
          va detto in una riga che cos'e', perche' chi arriva da questa pagina
          puo' non aver letto quella. */
       h += '<div class="avviso" style="border-left-color:var(--critico)">' +
-        '<strong>Il punto di non ritorno è stato superato' +
+        '<strong>Il punto di non ritorno è stato raggiunto' +
         (dn.quale === 'costo' ? ', e a farlo scattare è stato il costo nascosto.' : '.') +
-        '</strong> È la soglia oltre la quale non si esce più, qualunque cosa si faccia ' +
+        '</strong> È la soglia da cui non si esce più, qualunque cosa si faccia ' +
         'dopo: la misura sta nella pagina della settimana. ' +
         (dn.quale === 'costo'
           ? 'Il costo nascosto è a ' + dn.costo + ', ' + oltre(dn.costo, dn.soglia_costo) +
@@ -240,7 +240,7 @@
                f.floor1_attivo
                  ? 'il «pavimento» (una protezione che il modello accende da solo quando ' +
                    'i numeri peggiorano troppo) è acceso: finché resta acceso, il ' +
-                   'recupero vale solo la metà'
+                   'recupero vale circa la metà'
                  : 'il «pavimento» (una protezione che il modello accende da solo quando ' +
                    'i numeri peggiorano troppo) è spento: il recupero funziona per intero') +
       '</div>';

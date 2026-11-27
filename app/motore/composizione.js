@@ -398,7 +398,7 @@
            Adesso dicono che cosa è successo e che cosa vuol dire. */
         if (!DESTINAZIONE.hasOwnProperty(k)) {
           avvisi.push('La domanda ' + d.id + ' vorrebbe spostare «' + k + '», ma nel ' +
-                                                                          'nodo non c’è ' +
+                                                                          'gesto non c’è ' +
                                                                           'niente che si ' +
                                                                           'chiami così. ' +
                                                                           'La sua ' +

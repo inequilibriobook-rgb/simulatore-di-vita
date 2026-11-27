@@ -129,12 +129,12 @@
       /* Anche k e' un decimale, e stampato cosi' com'e' arriva a schermo
          come «2.75»: un numero inglese in mezzo a una frase italiana, a due
          centimetri dal fattore che invece la virgola ce l'ha. */
-      'Il fattore di trasferimento vale <code>' + Lg.numero(f, 4) + ' = k / n = ' +
+      'Il fattore di trasferimento vale <code>' + Lg.numero(f, 4) + ' = k / g = ' +
       Lg.numero(T.K_TARATO, 2) + ' / ' + tot + '</code>, e dice quanta parte dell’effetto ' +
-      'di ogni gesto passa allo stato della persona. Qui <b>n</b> è quanti gesti ha ' +
+      'di ogni gesto passa allo stato della persona. Qui <b>g</b> è quanti gesti ha ' +
       'la giornata, cioè i ' + tot + ' qui sopra. <b>k</b>, invece, è lo stesso numero per ' +
       'tutte le giornate, fissato una volta per sempre. Non è stato scelto a occhio: è ' +
-      'tarato su settecento settimane simulate, contro sette criteri scritti prima di ' +
+      'tarato su quattrocento settimane simulate per ogni condizione, contro sette criteri scritti prima di ' +
       'cercarlo.' +
       /* QUI C'ERA UNA PROMESSA CHE I NUMERI SMENTISCONO.
          Diceva «il risultato non deve cambiare». Misurato il 10/09/2026 su
@@ -151,8 +151,8 @@
       'giornata veniva punito per averlo fatto, e punito fino in fondo. Con k questo non ' +
       'succede più. Su una giornata sola l’effetto è netto: la stessa giornata, raccontata ' +
       'con sei gesti o con novantasei, finisce sullo stesso carico, con tre punti di ' +
-      'distanza al massimo. È il criterio D2 del libro, uno dei sette con cui k è stato ' +
-      'tarato.' +
+      'distanza al massimo. È uno dei sette criteri con cui k è stato tarato, quello che ' +
+      'il capitolo 58 chiama «regge la granularità».' +
       '<br><br>Su una settimana intera, invece, i sette giorni si sommano, e comincia a ' +
       'vedersi l’effetto dei tiri di dado. Il fattore k tiene fermo quanto pesa una ' +
       'giornata, ma non come quella giornata va a finire. Per questo due settimane si ' +
@@ -246,7 +246,7 @@
 
     if (dn.superato) {
       h += '<div class="avviso" style="border-left-color:var(--critico)">' +
-        '<strong>Il punto di non ritorno è stato superato' +
+        '<strong>Il punto di non ritorno è stato raggiunto' +
         (dn.quale === 'costo' ? ', e a farlo scattare è stato il costo nascosto.' : '.') +
         '</strong> ' +
         (dn.quale === 'costo'
@@ -310,7 +310,7 @@
                f.floor1_attivo
                  ? 'il «pavimento» (una protezione che il modello accende da solo quando ' +
                    'i numeri peggiorano troppo) è acceso: finché resta acceso, il ' +
-                   'recupero vale solo la metà'
+                   'recupero vale circa la metà'
                  : 'il «pavimento» (una protezione che il modello accende da solo quando ' +
                    'i numeri peggiorano troppo) è spento: il recupero funziona per intero') +
       '</div>';
@@ -534,10 +534,10 @@
       'La soglia del <b>carico</b> sta a 50 in condizioni ordinarie, e a 60 con le ' +
       'condizioni migliori: sono i dieci punti che il recupero riesce a guadagnare. Quella ' +
       'del <b>costo nascosto</b> invece sta a 50 <em>in ogni condizione misurata</em>. ' +
-      'Prova a immaginare quaranta giorni di giornate leggerissime, sonno ottimo e rientro ' +
-      'vero ogni giorno: non si esce lo stesso. È lo stesso 50 che era già uscito da ' +
-      'quattro misure diverse, e qui lo ritrova un metodo che con quelle non ha niente in ' +
-      'comune. Nel libro queste soglie si chiamano scogliere, una parola presa dalla ' +
+      'Nemmeno quaranta giorni di giornate leggerissime, sonno ottimo e rientro vero ogni ' +
+      'giorno bastano a uscirne. È lo stesso 50 che il capitolo 53 aveva trovato su un ' +
+      'gesto solo, e qui lo ritrova, su quaranta giorni, un banco che con quello non ha ' +
+      'niente in comune. Nel libro queste soglie si chiamano scogliere, una parola presa dalla ' +
       'geografia. Lì il terreno non scende piano, come una discesa dolce: finisce di ' +
       'colpo, come sul bordo di una rupe. E non si vedono negli esiti, perché le cose ' +
       'possono essere andate tutte a buon fine.' +

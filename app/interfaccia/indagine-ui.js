@@ -160,7 +160,7 @@
      -------------------------------------------------------------------------- */
   /* L'INDAGINE SI FA IN TRE TEMPI, E OGNI TEMPO SI VEDE ARRIVARE.
      Indagare una scena vuol dire tre calcoli lunghi, uno dietro l'altro: la
-     scena rigiocata migliaia di volte, poi sedici varianti per le leve, poi
+     scena rigiocata migliaia di volte, poi dieci varianti per le leve, poi
      ventuno varianti per la curva del carico. Prima succedevano tutti dentro
      la stessa chiamata: con diecimila giocate erano quattro secondi in cui la
      pagina non ridisegnava niente e non rispondeva al mouse. Chi guardava non
@@ -269,7 +269,7 @@
       'uno per uno stringerebbe tutti gli intervalli, senza una sola informazione in più.';
 
     if (ind.ridotto) {
-      q('lettura').innerHTML += '<br><br><strong>Ho dovuto ridurre le ripetizioni.</strong> ' +
+      q('lettura').innerHTML += '<br><br><strong>Il simulatore ha dovuto ridurre le ripetizioni.</strong> ' +
         esc(ind.ridotto.perche);
     }
     disegnaMappa();
@@ -285,7 +285,7 @@
     /* le due figure che ancora non ci sono si annunciano, invece di lasciare
        due buchi bianchi in mezzo alla pagina */
     q('tornado').innerHTML = '<p class="nota">Il simulatore prova le modifiche, una per volta. ' +
-      'Ogni modifica è una scena intera da rifare da capo, e sono sedici.</p>';
+      'Le modifiche possibili sono dieci, e ognuna è una scena intera da rifare da capo.</p>';
     q('letturaLeve').innerHTML = '';
     q('curvaCarico').innerHTML = '<p class="nota">Questa curva arriva per ultima: fa scorrere ' +
       'il carico di partenza da 0 a 100, e per ogni valore ripete la scena.</p>';
@@ -429,8 +429,8 @@
       'basta farla partire carica. Perché una si apra, il carico deve cambiare fra una ripetizione ' +
       'e l’altra proprio di quel tanto che serve a scavalcare un gradino, e sono coincidenze ' +
       'rare. A spalancarle sono i valori di prima, quelli usati prima che il 4,6 % venisse ' +
-      'misurato, e la si può provare in <a href="MONTECARLO.html">Mille volte la stessa ' +
-      'scena</a>.</p>';
+      'misurato. Si possono provare in <a href="MONTECARLO.html">Mille volte la stessa ' +
+      'scena</a>, scegliendo il trasferimento di stato «storico».</p>';
   }
 
   function disegnaScatole() {
@@ -479,7 +479,7 @@
           'del gesto: è quello che la persona si porta dietro. Vuol dire che questo gesto ' +
           'non è difficile in sé. È stato reso difficile ' +
           (k === 0
-            ? 'dal carico con cui la scena è cominciata, prima ancora che cominciasse. ' +
+            ? 'dal carico che la persona aveva già addosso quando la scena è cominciata. ' +
               'Su questo gesto la sequenza non può niente. Quello che si può cambiare sta ' +
               'a monte della scena. '
             : 'da quello che è successo nei gesti prima, oppure dal carico con cui la scena ' +
@@ -785,8 +785,9 @@
     { fino: Infinity, nome: 'rosso', tinta: 'var(--ostacola)',
       dice: 'troppo largo perché il risultato regga qualsiasi conclusione',
       poi: 'E il consiglio, qui, non è «aumenta le ripetizioni». È prima di tutto un altro: ' +
-           '<strong>semplifica la scena</strong>. Una fascia così larga non si chiude ' +
-           'ripetendola. Si chiude descrivendo meno cose, e meglio.' }
+           '<strong>semplifica la scena</strong>. Ripetendo, una fascia così larga si stringe ' +
+           'piano: per dimezzarla servono quattro volte le ripetizioni. Si chiude prima ' +
+           'descrivendo meno cose, e meglio.' }
   ];
 
   function semaforoPrecisione(semiampiezza) {

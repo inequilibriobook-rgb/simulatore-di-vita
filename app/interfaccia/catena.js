@@ -37,8 +37,8 @@
     { k: 'P0',  min: 1, max: 99, nome: 'Punto di partenza medio',  sotto: 'quanto sono fattibili questi gesti (P0)' },
     { k: 'E',   min: -30, max: 30, nome: 'Il corpo adesso',        sotto: 'energia, sonno, dolore (E)' },
     { k: 'T',   min: -30, max: 30, nome: 'La pressione del tempo', sotto: 'fretta (T)' },
-    { k: 'M',   min: -30, max: 30, nome: "L’ambiente intorno",     sotto: 'spazio, oggetti, rumore (M)' },
-    { k: 'C',   min: 0, max: 10, nome: 'Pezzi da coordinare',      sotto: 'complessità media (C)' },
+    { k: 'M',   min: -30, max: 30, nome: "L’ambiente",     sotto: 'spazio, oggetti, rumore (M)' },
+    { k: 'C',   min: 0, max: 10, nome: 'I pezzi da coordinare',      sotto: 'complessità media (C)' },
     { k: 'STR', min: 0, max: 100, nome: 'Carico di partenza',      sotto: 'con quanto stress inizi (STR)' },
     /* «POS» E' L'UNICA SIGLA CHE IL GLOSSARIO NON SA CERCARE.
        Le sigle dei nove termini della formula sono registrate anche come
@@ -273,7 +273,7 @@
      Non e' un secondo calcolo: e' lo stesso numero che il motore ha gia'
      prodotto, letto un anello alla volta invece che uno solo. */
   var NOMI_TERMINE = { P0: 'il punto di partenza', E: 'il corpo', I: 'quanto è chiaro',
-    T: 'la fretta', M: 'l’ambiente', BP: 'la protezione', C: 'la complessità',
+    T: 'la fretta', M: 'l’ambiente', BP: 'ciò che protegge', C: 'i pezzi da coordinare',
     piSTR: 'il carico accumulato', DEB: 'il debito' };
 
   function percheCambia(prima, dopo) {
@@ -469,7 +469,7 @@
     q('mcTasselli').innerHTML = '';
     q('mcEsiti').innerHTML = '';
     q('mcNota').innerHTML = 'Scegli qui sotto quante volte ripetere la scena. ' +
-      'Più ripetizioni fai, più stretto diventa il margine di incertezza intorno alla media: ' +
+      'Più ripetizioni fai, più stretta diventa la fascia di incertezza intorno alla media: ' +
       'con poche ripetizioni il caso pesa ancora molto, con molte non pesa quasi niente.';
   }
 

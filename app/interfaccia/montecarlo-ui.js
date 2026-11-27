@@ -748,7 +748,7 @@
          E' la stessa grandezza — la quota di gesti riusciti — misurata due
          volte su due gruppi di giocate diversi: la sezione 6 usa tutte le
          giocate scelte in cima alla pagina, qui se ne usano meno, perche' le
-         leve costano quindici scene rigiocate da capo. Due misure oneste dello
+         leve costano sedici scene rigiocate da capo. Due misure oneste dello
          stesso numero possono benissimo differire di mezzo punto: e' esattamente
          quello che l'intervallo di confidenza serve a dire. Ma se la pagina le
          scrive tutte e due senza avvisare, chi legge trova una contraddizione e
@@ -772,10 +772,11 @@
          sopra» e' una frase che si smentisce da sola: si dice l'altra. */
       (dati.giocate === stato.ripetizioni
         ? ' Ogni variante è stata ripetuta ' + num(dati.giocate, 0) + ' volte, come la scena ' +
-          'qui sopra. Sono quindici scene rifatte da capo, e costano tempo.'
+          'qui sopra. Sono sedici scene rifatte da capo: la scena com’è e le sue quindici ' +
+          'varianti. E costano tempo.'
         : ' Ogni variante è stata ripetuta ' + num(dati.giocate, 0) + ' volte invece di ' +
-          num(stato.ripetizioni, 0) + '. Sono quindici scene da rifare da capo, e con una ' +
-          'scena lunga costerebbero minuti.') +
+          num(stato.ripetizioni, 0) + '. Sono sedici scene da rifare da capo: la scena com’è e le sue quindici ' +
+          'varianti. Con una scena lunga costerebbero minuti.') +
       pareggi(dati) + '</p>';
   }
 
@@ -949,7 +950,7 @@
       (unGestoSolo() ? ', e con un gesto solo quella frazione sparisce nell’arrotondamento.'
                      : '. Anche ' + stato.quantiNodi + ' gesti in fila lo spostano di pochi punti in tutto.') +
       ' Non è un difetto del grafico: è il modello. Vuoi vedere che cosa succedeva prima che ' +
-      'quel numero venisse misurato? Scegli la calibrazione storica qui sopra.</p>';
+      'quel numero venisse misurato? Scegli «storico» nel trasferimento di stato, qui sopra.</p>';
   }
 
   /* IL LIVELLO DEL NODO — quello che la scena, sopra, non fa vedere */
@@ -988,7 +989,7 @@
         : '') +
       '<div class="tassello"><div class="k">n della scena</div><div class="v">' + m.ripetizioni +
         '</div><div class="s">' + esc(m.unita_statistica) + '</div></div>' +
-      '<div class="tassello"><div class="k">n del nodo</div><div class="v">' + num(m.nodo.n, 0) +
+      '<div class="tassello"><div class="k">n dei gesti</div><div class="v">' + num(m.nodo.n, 0) +
         '</div><div class="s">' + esc(m.nodo.unita_statistica) + '</div></div>' +
       '</div>' +
       (unGestoSolo()
@@ -1001,8 +1002,8 @@
            Prima usciva «5.5 volte», con il punto dell'inglese, a due
            centimetri da «4,6 %». */
         : '<p class="nota-nodo">Attenzione a non sommare le due n. La scena è stata ripetuta ' +
-          num(m.ripetizioni, 0) + ' volte, e ogni volta ha attraversato ' + m.granularita.nodi_distinti +
-          ' nodi. Le <b>valutazioni</b> sono ' + num(tot, 0) + ': è quante volte, in tutto, ' +
+          num(m.ripetizioni, 0) + ' volte, e ogni volta ha messo in fila ' + m.granularita.nodi_distinti +
+          ' gesti. Le <b>valutazioni</b> sono ' + num(tot, 0) + ': è quante volte, in tutto, ' +
           'è stato calcolato un gesto. Ma <b>n resta ' + num(m.ripetizioni, 0) +
           '</b>. Il <b>campione</b> è quello, non le valutazioni, perché campione vuol ' +
           'dire quante ripetizioni indipendenti della quantità finale si hanno a ' +
@@ -1028,15 +1029,15 @@
       '<div class="asse">' +
         '<p class="asse-eti">Asse 1 · granularità</p>' +
         '<p class="asse-num">' + g.nodi_distinti + '</p>' +
-        '<p class="asse-dice">nodi <b>distinti</b>. Scala: ' + esc(g.scala.etichetta.toLowerCase()) + '. ' +
-        'Lo decide la descrizione, non un cursore: per avere più nodi bisogna descrivere di più.</p>' +
+        '<p class="asse-dice">gesti <b>distinti</b>. Scala: ' + esc(g.scala.etichetta.toLowerCase()) + '. ' +
+        'Lo decide la descrizione, non un cursore: per avere più gesti bisogna descrivere di più.</p>' +
         (g.repliche ? '<p class="asse-avviso">' + esc(g.spiegazione) + '</p>' : '') +
       '</div>' +
       '<div class="asse">' +
         '<p class="asse-eti">Asse 2 · ripetizioni</p>' +
         '<p class="asse-num">' + m.ripetizioni + '</p>' +
         '<p class="asse-dice">volte che la <b>stessa</b> catena è stata rifatta con dadi diversi. ' +
-        'Non cambia il numero di nodi. Cambia quanto ci si può fidare del numero che esce.</p>' +
+        'Non cambia il numero di gesti. Cambia quanto ci si può fidare del numero che esce.</p>' +
       '</div>' +
       '<div class="asse asse-somma">' +
         '<p class="asse-eti">E che cosa NON si somma</p>' +
@@ -1098,7 +1099,7 @@
       var volte = st.deviazione / st.semiampiezza_95;
       frase += 'Qui è <b>' + num(volte) + ' volte più largo</b> del ±, e non è un caso. ' +
         'Ripetendo di più il ± si stringe, lo scarto invece no: lo scarto descrive la ' +
-        'scena, il ± dice quanto la conosciamo.';
+        'scena, il ± dice quanto bene la si conosce.';
     }
     return frase + '</p>';
   }
@@ -1423,7 +1424,7 @@
       '<div class="comandi">' +
         '<label class="comando"><span>La scena</span>' +
           '<select id="cScheda">' + opzioni + '</select></label>' +
-        '<label class="comando"><span>Quanti nodi</span>' +
+        '<label class="comando"><span>Quanti gesti</span>' +
           '<select id="cNodi">' +
             LUNGHEZZE.map(function (l) {
               return '<option value="' + l.n + '"' + (l.n === stato.quantiNodi ? ' selected' : '') +

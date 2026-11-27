@@ -123,7 +123,7 @@
       praw: 'Praw = 80 − 5 − 5 − 5 − 10 − 5 = 50',
       pn: 50,
       decide: 'la complessità, e poi il campo attivo',
-      conti: 'Portare fuori il cane è un gesto che si conosce, e il punto di partenza è ottanta. Poi il corpo un po’ stanco, il poco tempo e l’ambiente scomodo tolgono cinque punti ciascuno, e insieme ne portano via già quindici. La complessità ne toglie altri dieci, e il carico a 50 chiude il conto con altri cinque. Nessuna voce, da sola, pesa più delle altre. Sono cinque piccole sottrazioni che, messe insieme, dimezzano la scena.',
+      conti: 'Portare fuori il cane è un gesto che si conosce, e il punto di partenza è ottanta. Poi il corpo un po’ stanco, il poco tempo e l’ambiente scomodo tolgono cinque punti ciascuno, e insieme ne portano via già quindici. La complessità ne toglie altri dieci, e il carico a 50 chiude il conto con altri cinque. La voce più grossa è la complessità, con dieci punti, ma nessuna domina davvero. Sono cinque piccole sottrazioni, e messe insieme portano via trenta punti.',
       lettura: 'Cinquanta, e il cane non è ancora entrato nel conto: questo numero descrive la scena senza lo strattone. Il cane arriva dopo, come campo attivo, e toglie margine a un esito che il dado ha già deciso. Un ambiente difficile sta dentro la formula. Qualcosa che risponde al tentativo, invece, sta fuori e agisce dopo.',
       fonte: 'libro, capitolo 39, pagina 373'
     },
@@ -136,7 +136,7 @@
       senza_calcolo: 'Nessun calcolo: non è un gesto solo, è una sequenza lunga.',
       pn: null,
       decide: 'la scala sbagliata',
-      lettura: 'Se si calcolasse ogni singolo passaggio, verrebbero fuori probabilità decenti e una lunga fila di successi. Ma contare i gesti riusciti non basta. Bisogna guardare anche quanto quella persona regge al posto degli altri, e se esiste un minimo di riposo sotto cui non scende mai. Bisogna guardare se dopo gli sforzi il sistema ha il tempo di raffreddarsi, e se la delega è vera oppure soltanto dichiarata. Qui il modello non fallisce perché la formula sbaglia: fallisce se lo si legge alla scala sbagliata. La probabilità di ogni nodo è alta, eppure il carico cresce, l’assetto scende, e l’aiuto che tutti descrivono come presente non toglie peso a nessuno. Nessun numero di quella catena, preso da solo, contiene questa informazione. La contiene la traiettoria, cioè l’andamento nel tempo, che si vede giorno dopo giorno e non in un gesto solo.',
+      lettura: 'Se si calcolasse ogni singolo passaggio, verrebbero fuori probabilità decenti e una lunga fila di successi. Ma contare i gesti riusciti non basta. Bisogna guardare anche quanto quella persona regge al posto degli altri, e se esiste un minimo di riposo sotto cui non scende mai. Bisogna guardare se dopo gli sforzi il sistema ha il tempo di raffreddarsi, e se la delega è vera oppure soltanto dichiarata. Qui il modello non fallisce perché la formula sbaglia: fallisce se lo si legge alla scala sbagliata. La probabilità di ogni gesto è alta, eppure il carico cresce, l’assetto scende, e l’aiuto che tutti descrivono come presente non toglie peso a nessuno. Nessun numero di quella catena, preso da solo, contiene questa informazione. La contiene la traiettoria, cioè l’andamento nel tempo, che si vede giorno dopo giorno e non in un gesto solo.',
       fonte: 'libro, capitolo 39, pagina 374'
     },
     {
@@ -178,7 +178,7 @@
       pn: 25,
       decide: 'l’ambiente e la chiarezza',
       conti: 'Fare la spesa non è difficile, e la base infatti è settantacinque: è la scena a renderla difficile. Il corpo toglie cinque punti e il tempo altri cinque, ma il grosso sta altrove. Se ne vanno dieci punti di chiarezza, perché il supermercato è nuovo e non si sa dov’è niente. Altri dieci li toglie l’ambiente, per la folla, e dieci la complessità. Gli ultimi dieci se ne vanno per il carico a 60. Quattro voci identiche, e da sole valgono quaranta punti.',
-      lettura: 'Venticinque, e il commento è forse il più importante dei dodici. Quello che pesa non è l’incompetenza: sono il campo e l’informazione. C’è una persona che esce da questo supermercato senza metà delle cose, con la sensazione di non saper fare una cosa che fanno tutti. In realtà ha appena fatto un gesto che riesce una volta su quattro. E il modello serve a questo: a restituire alla scena il peso che la persona si era data.',
+      lettura: 'Venticinque, e il commento è forse il più importante dei dodici. Quello che pesa non è l’incompetenza: sono l’ambiente e la chiarezza. C’è una persona che esce da questo supermercato senza metà delle cose, con la sensazione di non saper fare una cosa che fanno tutti. In realtà ha appena fatto un gesto che riesce una volta su quattro. E il modello serve a questo: a restituire alla scena il peso che la persona si era data.',
       fonte: 'libro, capitolo 39, pagina 377'
     },
     {

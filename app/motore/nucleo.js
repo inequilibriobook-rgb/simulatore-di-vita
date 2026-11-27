@@ -396,7 +396,7 @@
        uscito da un errore e' peggio di un errore. Le forme false (0, '',
        false, null, undefined) restano il nodo vuoto, come nel Python. */
     if (n && (typeof n !== 'object' || Array.isArray(n))) {
-      throw new Error('Il motore vuole un nodo, cioè un oggetto con p0, modificatori e ' +
+      throw new Error('Il motore vuole un gesto, cioè un oggetto con p0, modificatori e ' +
         'stato_prima. Ha ricevuto invece ' + descriviTipo(n) + '.');
     }
     n = n || {};
@@ -521,7 +521,7 @@
       avvisi.push({ campo: campo, valore: valore, messaggio: messaggio });
     }
     if (nodo && (typeof nodo !== 'object' || Array.isArray(nodo))) {
-      avvisa('nodo', nodo, 'Il nodo deve essere un oggetto con p0, modificatori e stato_prima; ' +
+      avvisa('nodo', nodo, 'Il gesto deve essere un oggetto con p0, modificatori e stato_prima; ' +
         'qui c’è ' + descriviTipo(nodo) + '. Il motore si rifiuta di calcolarlo.');
       return avvisi;
     }
@@ -785,7 +785,7 @@
          i punti di chiamata attuali (app.js, questionario-ui.js, stato.js,
          golden.js) passano già tiro o rng: questo ramo non si attiva mai
          nell'uso presente, è una rete di sicurezza per il futuro. */
-      throw new Error('Non posso eseguire il nodo «' + n.id + '»: nessuno mi ha dato ' +
+      throw new Error('Il motore non può eseguire il gesto «' + n.id + '»: nessuno gli ha dato ' +
         'il tiro del dado. Chi chiama eseguiNodo deve passare opzioni.tiro, se il ' +
         'numero lo sceglie lui, oppure opzioni.rng, cioè il generatore di casuale-mt.js. ' +
         'Un dado tirato di nascosto qui dentro romperebbe la riproducibilità: con lo ' +

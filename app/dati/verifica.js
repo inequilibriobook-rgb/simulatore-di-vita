@@ -5,14 +5,14 @@
    com'e'. Serve a non far comparire una modifica a ogni esecuzione. */
 (function (globale) {
   var V = {
-    data: "2026-11-26",
+    data: "2026-11-27",
     confronti: 204042,
     differenze: 0,
     nodi: 10000,
     semi_generatore_verificati: 7,
     livelli: [
       { nome: "il dado, seme per seme", quanti: 7, confronti: 7 },
-      { nome: "nodi singoli, con lo stato dopo", quanti: 10000, confronti: 200000 },
+      { nome: "gesti singoli, con lo stato dopo", quanti: 10000, confronti: 200000 },
       { nome: "catene di gesti", quanti: 300, confronti: 1800 },
       { nome: "recuperi fra una scena e l’altra", quanti: 200, confronti: 200 },
       { nome: "giornate intere", quanti: 120, confronti: 600 },

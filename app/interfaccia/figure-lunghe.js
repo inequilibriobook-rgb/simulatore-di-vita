@@ -388,7 +388,7 @@
     titolo: 'Mille volte la stessa mattina',
     didascalia: 'La stessa catena, ripetuta mille volte con dadi diversi. Non un caso ' +
                 'solo, quindi, ma la forma di tutti i casi possibili. Si vedono la ' +
-                'media, e la fascia in cui finisce il novanta per cento delle ripetizioni.',
+                'media, e la fascia in cui finisce l’ottanta per cento delle ripetizioni.',
     disegna: function () {
       var m = A.montecarlo(catena(30, 45), { ripetizioni: 1000, seme: 424242,
                                              calibrazione: MS.CALIBRAZIONE });

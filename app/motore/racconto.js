@@ -1330,8 +1330,8 @@
       applica: function (n) { var m = clonaNodo(n);
         m.modificatori.informazione_i = Math.min(30, m.modificatori.informazione_i + 10); return m; },
       perche: function (n, t) {
-        return 'non sapere come si fa toglie ' + inPunti(t.I) + ', ed è la leva che costa ' +
-               'meno di tutte, perché spesso basta una telefonata.'; },
+        return 'non sapere come si fa toglie ' + inPunti(t.I) + ', e spesso basta una ' +
+               'domanda o una telefonata per togliere quel peso.'; },
       breve: function (n, t) {
         return 'non sapere come si fa toglie ' + inPunti(t.I) + ', e spesso basta una telefonata.'; } },
 
@@ -1714,7 +1714,7 @@
     }
     if (s.floor1_attivo) {
       /* «sta impedendo» era il progressivo inglese: il modello impedisce */
-      pezzi.push('⚠️ Il «pavimento» di protezione è attivo, cioè la difesa che il modello accende da solo quando il carico è salito troppo. Da lì in poi il riposo rende circa la metà' + perchePavimento(s) +
+      pezzi.push('⚠️ Il «pavimento» di protezione è attivo, cioè la difesa che il modello accende da solo quando il carico, l’assetto o il costo nascosto passano il limite. Da lì in poi il riposo rende circa la metà' + perchePavimento(s) +
         '. Il modello impedisce che le cose peggiorino oltre un certo punto, e non è ' +
         'una buona notizia: è un freno d’emergenza. Quello che si legge adesso è uno stato ' +
         'tenuto su dal modello, non lo stato che ci sarebbe senza.');
@@ -1810,8 +1810,8 @@
       /* «Queste quattro soglie» stava sotto una riga sola, e chi legge
          cercava le altre tre: le soglie del modello sono quattro, e qui se
          ne mostrano quelle passate o vicine. */
-      nota: 'Le soglie del modello sono quattro, e sono state misurate, non scelte: ogni ' +
-            'variabile è stata provata da un capo all’altro del suo intervallo. Sono i punti ' +
+      nota: 'Le soglie del modello sono quattro, e non sono state lette nel codice ma trovate provando: ogni ' +
+            'variabile è stata fatta scorrere da un capo all’altro del suo intervallo. Sono i punti ' +
             'in cui cambia la qualità degli esiti, non la probabilità, e per questo non si ' +
             'vedono nel numero.'
     };
@@ -2314,14 +2314,14 @@
       /* il salto di carico piu' grosso della catena lo troviamo dopo */
       if (dopo.costo_nascosto >= 50 && prima.costo_nascosto < 50) {
         trovati.push({ i: i, peso: 100, tipo: 'soglia_costo', nodo: n,
-          testo: aGesto(i) + ' («' + n.descrizione + '») il costo nascosto ha superato 50, ' +
+          testo: aGesto(i) + ' («' + n.descrizione + '») il costo nascosto ha raggiunto la soglia di 50, ' +
                  'e da lì in poi anche i successi vengono letti come danneggiati: è il punto ' +
                  'in cui la giornata ha cambiato natura, non intensità.' });
       }
       if (dopo.floor1_attivo && !prima.floor1_attivo) {
         trovati.push({ i: i, peso: 95, tipo: 'pavimento', nodo: n,
           testo: aGesto(i) + ' («' + n.descrizione + '») si è acceso il «pavimento» di ' +
-                 'protezione, cioè la difesa che il modello accende da solo quando il carico è salito troppo. Da lì in poi il riposo rende circa la metà. Il modello smette di lasciar peggiorare le cose: è un freno ' +
+                 'protezione, cioè la difesa che il modello accende da solo quando il carico, l’assetto o il costo nascosto passano il limite. Da lì in poi il riposo rende circa la metà. Il modello smette di lasciar peggiorare le cose: è un freno ' +
                  'd’emergenza, non un miglioramento.' });
       }
       if (dopo.debito_deb > prima.debito_deb) {
@@ -2342,7 +2342,7 @@
       }
       if (prima.stress_str < 40 && dopo.stress_str >= 40) {
         trovati.push({ i: i, peso: 60, tipo: 'soglia_str', nodo: n,
-          testo: aGesto(i) + ' il carico ha superato 40, e da qui in poi comincia a togliere ' +
+          testo: aGesto(i) + ' il carico ha raggiunto la soglia di 40, e da qui in poi comincia a togliere ' +
                  'punti a tutto il resto, mentre prima si accumulava senza farsi sentire.' });
       }
     }
@@ -2947,7 +2947,7 @@
           'In condizioni ordinarie la soglia è ancora più bassa: ' + dn.soglia_carico + '.';
       }
       sezioni.unshift({
-        titolo: 'Il punto di non ritorno è stato superato',
+        titolo: 'Il punto di non ritorno è stato raggiunto',
         chiave: 'non_ritorno',
         testo: testoSuperato + ' E non è un pendio, è un salto: misurato su trenta giorni, ' +
           'il carico finisce o attorno a 50 o a 99, in mezzo non c’è quasi niente. Non si ' +
@@ -3016,7 +3016,7 @@
         : 'Le ' + notte.notti + ' notti hanno restituito, in media, ');
       if (notte.pavimento_attivo) {
         t = quanteNotti + inPunti(notte.restituito_per_notte) + ' di carico' +
-          (notte.notti === 1 ? '' : ' a notte') + '. Ma il «pavimento» di protezione è attivo: è la difesa che il modello accende da solo quando il carico è salito troppo, e da lì in poi il riposo rende circa la metà. ' +
+          (notte.notti === 1 ? '' : ' a notte') + '. Ma il «pavimento» di protezione è attivo: è la difesa che il modello accende da solo quando il carico, l’assetto o il costo nascosto passano il limite, e da lì in poi il riposo rende circa la metà. ' +
           'Il recupero è già dimezzato: quello che si vede non è quanto la notte ' +
           'può dare, è quanto le resta da dare.';
       } else if (notte.restituito_per_notte <= 0) {
@@ -3250,7 +3250,7 @@
         /* «la cosa da dire è una sola» ripeteva il titolo della vista («Qui il
            racconto dice una cosa sola»); e «sta peggiorando» era il progressivo
            inglese dove l'italiano usa il presente. */
-        motivo: 'Il punto di non ritorno è stato superato, oppure il regime peggiora di ' +
+        motivo: 'Il punto di non ritorno è stato raggiunto, oppure il regime peggiora di ' +
                 'settimana in settimana. In tutti e due i casi si dice per intero quale ' +
                 'delle due è successa, e da quante settimane.' };
     }
@@ -3344,7 +3344,7 @@
           'condizioni provate.';
       }
       sezioni.push({
-        titolo: 'Il punto di non ritorno è stato superato',
+        titolo: 'Il punto di non ritorno è stato raggiunto',
         chiave: 'non_ritorno',
         testo: testoSuperato
       });

@@ -59,16 +59,16 @@
     { k: 'E',   min: -30, max: 30,  nome: 'Il corpo adesso',      sotto: 'energia, sonno, dolore' },
     { k: 'I',   min: -30, max: 30,  nome: 'Quanto è chiaro',      sotto: 'informazione e istruzioni' },
     { k: 'T',   min: -30, max: 30,  nome: 'La pressione del tempo', sotto: 'la fretta di adesso' },
-    { k: 'M',   min: -30, max: 30,  nome: 'L’ambiente intorno',   sotto: 'spazio, oggetti, rumore' },
+    { k: 'M',   min: -30, max: 30,  nome: 'L’ambiente',   sotto: 'spazio, oggetti, rumore' },
     { k: 'BP',  min: 0,   max: 20,  nome: 'Ciò che ti protegge',  sotto: 'aiuto concreto temporaneo' },
-    { k: 'C',   min: 0,   max: 10,  nome: 'Quanti pezzi ha',      sotto: 'complessità, −5 ciascuno' },
+    { k: 'C',   min: 0,   max: 10,  nome: 'I pezzi da coordinare',      sotto: 'complessità, −5 ciascuno' },
     { k: 'STR', min: 0,   max: 100, nome: 'Il carico accumulato', sotto: 'lo stress che ti porti dietro' },
     { k: 'DEB', min: 0,   max: 5,   nome: 'Il debito da insistenza', sotto: '−5 ciascuno' }
   ];
 
   function nodoScena(descrizione) {
     return {
-      id: 'lettura', descrizione: descrizione || 'il gesto che stiamo seguendo',
+      id: 'lettura', descrizione: descrizione || 'il gesto seguito in queste figure',
       p0: scena.P0,
       modificatori: { energia_e: scena.E, informazione_i: scena.I, tempo_t: scena.T,
                       materiale_m: scena.M, bonus_bp: scena.BP, complessita_c: scena.C },
@@ -89,7 +89,7 @@
      1 · LA TARATURA — i nove numeri, e la probabilità che ne esce
      ==================================================================== */
   figura('taratura', {
-    titolo: 'La scena che ci portiamo dietro',
+    titolo: 'La scena che resta per tutte le figure',
     didascalia: 'I nove valori della taratura. Muovili pure. Da qui in avanti tutte le ' +
                 'figure del capitolo lavorano su questa scena, e quello che cambi qui lo ' +
                 'ritrovi più sotto.',

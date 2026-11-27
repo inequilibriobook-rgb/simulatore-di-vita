@@ -124,7 +124,7 @@
       { file: 'INDAGINE.html', nome: 'Dove si rompe, e perché', icona: '⌖',
         domanda: 'Qual è il punto debole di questa sequenza?',
         breve: 'i punti delicati, con gli intervalli',
-        invito: 'Qui la scena non si racconta: si esamina. Il simulatore la ripete migliaia di volte, e poi dice quale gesto è il punto debole, e quanto siamo sicuri che lo sia. Dice anche da dove vengono i punti che gli mancano, e quale condizione cambierebbe davvero le cose.' }
+        invito: 'Qui la scena non si racconta: si esamina. Il simulatore la ripete migliaia di volte, e poi dice quale gesto è il punto debole, e con quanta sicurezza lo si può dire. Dice anche da dove vengono i punti che gli mancano, e quale condizione cambierebbe davvero le cose.' }
     ]
   };
 

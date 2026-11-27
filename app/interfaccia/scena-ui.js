@@ -186,8 +186,8 @@
      e non e' stato sommato — oppure e' rimasto fuori. In quel caso la riga
      non si limita a dirlo: chiede a che cosa appartiene, con un menu. Una
      frase puo' restare fuori dal calcolo, ma perche' la persona l'ha deciso. */
-  var NOME_CASA = { E: 'il corpo', I: 'la chiarezza', T: 'il tempo', M: 'il posto e gli strumenti',
-                    BP: 'un aiuto', C: 'i pezzi da tenere insieme', STR: 'il carico',
+  var NOME_CASA = { E: 'il corpo', I: 'la chiarezza', T: 'il tempo', M: 'l’ambiente',
+                    BP: 'ciò che protegge', C: 'i pezzi da coordinare', STR: 'il carico',
                     DEB: 'il debito da insistenza' };
 
   function menuDellaCasa(r) {
@@ -222,7 +222,7 @@
     if (r.assegnata) {
       righe.push('l’hai deciso tu: ' + menuDellaCasa(r));
     } else if (r.fuori) {
-      righe.push('<b>non l’ho saputa usare</b>, e finora non è entrata in nessun numero. ' + menuDellaCasa(r));
+      righe.push('<b>il simulatore non l’ha saputa usare</b>, e finora non è entrata in nessun numero. ' + menuDellaCasa(r));
     }
     if (!righe.length) { return ''; }
     return '<div class="fr-esito' + (r.fuori ? ' fr-fuori' : '') + '">' +
@@ -272,9 +272,9 @@
     q('lettura').innerHTML =
       contoDellaRicevuta() +
       '<div class="frammenti">' + f + '</div>' +
-      '<p class="nota">◆ è un gesto, cioè un nodo che verrà calcolato. · è contesto: ' +
+      '<p class="nota">◆ è un gesto, e verrà calcolato. · è contesto: ' +
       'descrive la scena e vale per tutti i gesti. <strong>Se il simulatore ha tagliato male, correggi qui</strong>: ' +
-      'segmentare è già interpretare, e la scelta è tua.</p>' +
+      'già dividere il racconto in pezzi vuol dire interpretarlo, e la scelta è tua.</p>' +
       '<h3 class="sotto-titolo">Quello che vale per tutti i gesti della scena</h3>' +
       '<ul class="tracce">' + tracce + '</ul>';
 
@@ -368,7 +368,7 @@
     }());
   }
 
-  var CASA_DI = { E: 'il corpo, adesso', T: 'il tempo', M: 'il posto intorno',
+  var CASA_DI = { E: 'il corpo, adesso', T: 'il tempo', M: 'l’ambiente',
                   STR: 'il carico che ci si porta dietro da prima',
                   DEB: 'il debito di chi insiste' };
 
@@ -640,8 +640,8 @@
      sarebbero ottanta, e nessuno le farebbe. Se il racconto ha gia' detto
      qualcosa di quel gesto, la riga chiusa lo annuncia — «il racconto
      suggerisce due risposte» — cosi' chi legge sa dove conviene aprire. */
-  var CASA_DEL_GESTO = { I: 'quanto è chiaro', M: 'gli strumenti e il posto',
-                         C: 'i pezzi da tenere insieme', BP: 'quello che protegge' };
+  var CASA_DEL_GESTO = { I: 'quanto è chiaro', M: 'l’ambiente',
+                         C: 'i pezzi da coordinare', BP: 'ciò che protegge' };
 
   function domandeDelGesto(n) {
     var ds = n.domande || [];
@@ -942,7 +942,7 @@
         ? perche('niente da ripetere')
         : '<p class="nota">Premi <b>Ripeti la scena</b> qui sopra, e invece di un caso solo ' +
           'vedrai la forma di tutti i casi possibili. Quante volte ripeterla lo scegli tu, ' +
-          'nel menù accanto al pulsante.</p>';
+          'nel menu accanto al pulsante.</p>';
       return;
     }
     var h = A.istogramma(mc.campioni.stress, { fasce: 12 });
@@ -976,7 +976,7 @@
         '<div class="tassello"><div class="k">n della scena</div><div class="v">' +
           mc.ripetizioni + '</div><div class="s">' + esc(mc.unita_statistica) +
           '</div></div>' +
-        '<div class="tassello"><div class="k">n del nodo</div><div class="v">' +
+        '<div class="tassello"><div class="k">n dei gesti</div><div class="v">' +
           num(mc.nodo.n, 0) + '</div><div class="s">' + esc(mc.nodo.unita_statistica) +
           '</div></div>' +
         '<div class="tassello"><div class="k">Carico finale, media</div><div class="v">' +

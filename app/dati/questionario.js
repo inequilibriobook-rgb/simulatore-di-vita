@@ -263,9 +263,9 @@
     scelta('T13', 'standard', 'Supporto', 'relazione',
       'Se chiedi aiuto, che tipo di aiuto arriva?',
       'Il libro insiste su questa distinzione: un aiuto che consola non è un aiuto che ' +
-      'toglie lavoro. È lo stesso tema della domanda sulla protezione, con più sfumature, e qui il tipo di ' +
-      'supporto entra anche nel racconto, cioè nel testo in prosa che il simulatore scrive ' +
-      'alla fine sotto i numeri, e non solo nel numero.',
+      'toglie lavoro. È lo stesso tema della domanda sulla protezione, con più sfumature. ' +
+      'Qui, però, il tipo di aiuto entra anche nel racconto, cioè nel testo che il ' +
+      'simulatore scrive alla fine sotto i numeri, e non solo nel numero.',
       [{ testo: 'Qualcuno prende in carico una parte davvero', effetti: { supporto: 'pratico', riduzione_carico: 0.4, BP: 6, initial_POS: 3 } },
        { testo: 'Qualcuno dà informazioni utili', effetti: { supporto: 'informativo', I: 4 } },
        { testo: 'Qualcuno mi sta vicino ma il lavoro resta mio', effetti: { supporto: 'emotivo' } },
@@ -543,8 +543,8 @@
 
     scelta('X2', 'professionale', 'Qualità input', 'trasversale',
       'Quanto sono certi i dati che hai inserito?',
-      'Il libro chiede di distinguere fra certo, stimato e ipotizzato. Un numero stimato ' +
-      'non diventa vero solo perché è scritto.',
+      'Il libro chiede di dire da dove viene ogni dato: certo, stimato, indiretto o ' +
+      'incompleto. Un numero stimato non diventa vero solo perché è scritto.',
       [{ testo: 'Quasi tutti certi', effetti: { qualita: 'alta' } },
        { testo: 'Un misto: alcuni certi, altri stimati', effetti: { qualita: 'media' } },
        { testo: 'Per lo più stimati', effetti: { qualita: 'bassa' } }], 'libro/Q027', 'cornice'),
@@ -589,22 +589,22 @@
   var LIVELLI = [
     { id: 'rapida', nome: 'Rapida', prefissi: ['R'],
       quando: 'Per le scene molto semplici: bere un bicchiere d’acqua, mandare un ' +
-              'messaggio senza pensieri. Rimettere a posto un oggetto. Alzarsi dal ' +
-              'divano, in una giornata come tante.' },
+              'messaggio senza pensieri, rimettere a posto un oggetto, alzarsi dal ' +
+              'divano in una giornata come tante.' },
     { id: 'standard', nome: 'Standard', prefissi: ['R', 'T'],
       quando: 'Per le scene di tutti i giorni che hanno già qualche pezzo da tenere ' +
-              'insieme: uscire di casa in ritardo, fare una pratica online. Rispondere a ' +
-              'un messaggio teso. Prepararsi per un colloquio. Portare avanti una ' +
-              'mattina in famiglia.' },
+              'insieme. Per esempio uscire di casa in ritardo, fare una pratica online, ' +
+              'rispondere a un messaggio teso, prepararsi per un colloquio, portare avanti ' +
+              'una mattina in famiglia.' },
     { id: 'profonda', nome: 'Profonda', prefissi: ['R', 'T', 'P'],
-      quando: 'Per le situazioni che pesano da tempo e non passano: una questione di ' +
-              'salute, una relazione difficile. Un lavoro sotto pressione. Prendersi cura ' +
-              'di un’altra persona, o dei bambini. I litigi che tornano sempre uguali, ' +
+      quando: 'Per le situazioni che pesano da tempo e non passano. Per esempio una ' +
+              'questione di salute, una relazione difficile, un lavoro sotto pressione, la ' +
+              'cura di un’altra persona o dei bambini, i litigi che tornano sempre uguali, ' +
               'lo stress che non molla.' },
     { id: 'professionale', nome: 'Professionale', prefissi: ['R', 'T', 'P', 'X'],
-      quando: 'Per un uso clinico o di ricerca, e solo per orientarsi: ripetere le ' +
-              'stesse domande, identiche. Registrare le risposte con criteri fissi. Dire ' +
-              'per iscritto fin dove il modello arriva.' }
+      quando: 'Per un uso clinico o di ricerca, e solo per orientarsi. Qui le domande si ' +
+              'ripetono identiche, le risposte si registrano con criteri fissi, e si dice ' +
+              'per iscritto fin dove arriva il modello.' }
   ];
 
   function perLivello(idLivello) {

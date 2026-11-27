@@ -30,9 +30,9 @@
     { k: 'E',   min: -30, max: 30, nome: 'Il corpo adesso',        sotto: 'energia, sonno, dolore (E)' },
     { k: 'I',   min: -30, max: 30, nome: 'Quanto è chiaro',      sotto: 'informazione e istruzioni (I)' },
     { k: 'T',   min: -30, max: 30, nome: 'La pressione del tempo', sotto: 'fretta di questo momento (T)' },
-    { k: 'M',   min: -30, max: 30, nome: 'L’ambiente intorno',    sotto: 'spazio, oggetti, rumore (M)' },
+    { k: 'M',   min: -30, max: 30, nome: 'L’ambiente',    sotto: 'spazio, oggetti, rumore (M)' },
     { k: 'BP',  min: 0,  max: 20, nome: 'Ciò che ti protegge',   sotto: 'aiuto concreto temporaneo (BP)' },
-    { k: 'C',   min: 0,  max: 10, nome: 'Quanti pezzi ha',         sotto: 'complessità, −5 punti ciascuno (C)' },
+    { k: 'C',   min: 0,  max: 10, nome: 'I pezzi da coordinare',         sotto: 'complessità, −5 punti ciascuno (C)' },
     { k: 'STR', min: 0,  max: 100, nome: 'Il carico accumulato',   sotto: 'stress che ti porti dietro (STR)' },
     { k: 'DEB', min: 0,  max: 5,  nome: 'Il debito da insistenza', sotto: 'le volte che hai insistito su una strada che non funzionava, −5 ciascuna (DEB)' }
   ];
@@ -226,10 +226,10 @@
       '<p>Totale: <strong>' + num(r.pn_grezzo_prima_del_clamp) + '</strong>' +
       (fuoriClamp ? ', riportato a <strong>' + r.pn + '</strong> dal limite di sicurezza (mai sotto 5, mai sopra 95)' : '') +
       '. Il dado da 1 a 100 ha dato <strong>' + r.tiro + '</strong>.</p>' +
-      (v.STR > 0 ? '<p class="nota">Va detta una cosa sul carico, cioè sulla stanchezza che ti portavi ' +
+      (v.STR > 0 ? '<p class="nota">Va detta una cosa sul carico, cioè sullo stress che ti portavi ' +
         'dietro prima di cominciare: non toglie a poco a poco, un punto per volta. Fino a 39 non toglie nulla. ' +
         'Da 40 toglie 5, da 60 toglie 10, da 70 toglie 15, da 80 toglie 20, da 90 toglie 25. ' +
-        'Sono <em>gradini</em>, e per questo fra 41 e 59 il conto non cambia di un punto, mentre al passaggio da ' +
+        'Sono <em>gradini</em>, e per questo fra 40 e 59 il conto non cambia di un punto, mentre al passaggio da ' +
         '59 a 60 cambia di cinque in una volta sola.</p>' : '');
 
     /* Livello 3 — formula */

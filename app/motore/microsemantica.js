@@ -316,7 +316,7 @@
         suQuanti(risultati.length) + ': o la scena è costruita male, o va rivista la taratura (cioè i numeri di partenza scelti per ogni gesto).');
     }
     if (costoOltre > 0) {
-      avvisi.push('Il costo nascosto ha superato la metà della sua scala, 50 su 100, in ' +
+      avvisi.push('Il costo nascosto ha raggiunto la metà della sua scala, 50 su 100, in ' +
         gesti(costoOltre) + '. Da quel punto in poi anche i gesti che riescono si ' +
                             'leggono così: «riusciti, ma qualcosa si è rotto».');
     }

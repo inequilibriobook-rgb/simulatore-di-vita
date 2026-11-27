@@ -247,7 +247,7 @@
       return '<section class="passo-dopo no-stampa">' +
         '<p class="passo-etichetta">Il passo dopo · livello ' + g2.n + ' di ' + P.GRADINI.length + '</p>' +
         '<h2>' + esc(g2.nome) + ' — ' + esc(g2.durata) + '</h2>' +
-        '<p class="passo-perche">Qui hai costruito un nodo rispondendo a qualche domanda, e adesso puoi metterlo in fila con altri. ' +
+        '<p class="passo-perche">Qui hai costruito un gesto rispondendo a qualche domanda, e adesso puoi metterlo in fila con altri. ' +
         esc(g2.invito) + '</p>' +
         '<div class="passo-scelte">' +
         '<a class="bottone primario" href="' + g2.file + '">' + esc(g2.domanda) + '</a>' +

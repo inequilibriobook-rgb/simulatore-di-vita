@@ -98,7 +98,7 @@
 
     { chiave: 'freno_pavimento_sonno', valore: 0.55, fonte: 'python',
       titolo: 'Quanto frena il pavimento sul recupero del sonno',
-      spiega: 'Vale lo stesso per la notte: chi è sotto il pavimento di protezione dorme, ma ' +
+      spiega: 'Vale lo stesso per la notte: chi ha il pavimento di protezione acceso dorme, ma ' +
               'non recupera quanto recupererebbe altrimenti.',
       banco: 'py:3683' },
 
@@ -126,7 +126,7 @@
     { chiave: 'sonno_quota_carico', valore: 0.28, fonte: 'python',
       titolo: 'Quanta parte del carico può togliere una notte',
       spiega: 'La quota non si toglie da tutto il carico, ma solo dalla parte che sta sopra ' +
-              'il pavimento: sotto quel punto la notte non fa più scendere niente.',
+              'una soglia: sotto quel punto la notte non fa più scendere niente.',
       banco: 'py:3683' },
     { chiave: 'sonno_quota_assetto', valore: 0.24, fonte: 'python',
       titolo: 'Quanta parte dell’assetto può restituire una notte',
@@ -190,13 +190,13 @@
     { chiave: 'porta_pavimento_carico', valore: 85, fonte: 'python',
       titolo: 'A quale carico si accende il pavimento di protezione',
       spiega: 'Attenzione: non è il punto di non ritorno. È il valore a cui il sistema ' +
-              'entra in protezione, e da lì il recupero vale la metà.',
+              'entra in protezione, e da lì il recupero vale circa la metà.',
       banco: 'py:1263 pavimentoECooldown',
-      libro: 'cap. 54, «Il punto di non ritorno»: «Si accende se il carico supera ' +
-             'ottantacinque, oppure se l’assetto scende sotto venticinque, oppure se il ' +
-             'costo nascosto supera settanta.» Voce di glossario «pavimento di protezione» → 17, 53, 54, 55.' },
+      libro: 'cap. 54, «Il punto di non ritorno»: «Si accende se il carico arriva a ' +
+             'ottantacinque, oppure se l’assetto scende a venticinque, oppure se il ' +
+             'costo nascosto arriva a settanta.» Voce di glossario «pavimento di protezione» → 17, 53, 54, 55.' },
     { chiave: 'porta_pavimento_assetto', valore: 25, fonte: 'python',
-      titolo: 'Sotto quale assetto si accende il pavimento di protezione',
+      titolo: 'A quale assetto si accende il pavimento di protezione',
       spiega: 'La porta meno frequente delle tre: si apre in circa un caso su cento.',
       banco: 'py:1263',
       libro: 'cap. 54: stessa citazione della voce precedente. Il libro non dà la percentuale ' +

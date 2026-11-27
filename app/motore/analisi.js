@@ -646,7 +646,8 @@
             : 'Dopo ' + (tot === 1 ? 'una ripetizione' : conLeMigliaia(tot) + ' ripetizioni') +
               ' l’intervallo è ancora ±' + conLaVirgola(ultima.semiampiezza) +
               '. È più largo della soglia ±' + conLaVirgola(soglia) +
-              ' che ci si era dati. Quindi le ripetizioni non bastano, e non importa quante siano.')
+              ' che ci si era dati. Quindi le ripetizioni non bastano ancora, anche se sono tante: ' +
+              'conta quanto è stretta la fascia, non quante ripetizioni ci sono.')
     };
   }
 
